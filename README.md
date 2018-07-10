@@ -7,4 +7,4 @@ WIP - The product of RiceApps's endeavors to recreate the magic of YikYak withou
 + [Expo](https://expo.io)
 
 ## Gallery
-![login](/doc/login.PNG?raw=true "Login Page") ![empty](/doc/posts1.PNG?raw=true "Main Page - Empty") ![posts](/doc/posts2.PNG?raw=true "Main Page - Posts") ![new](/doc/newpost.PNG?raw=true "Create New Post")
+![login](/gallery/login.PNG?raw=true "Login Page") ![empty](/gallery/posts1.PNG?raw=true "Main Page - Empty") ![posts](/gallery/posts2.PNG?raw=true "Main Page - Posts") ![new](/gallery/newpost.PNG?raw=true "Create New Post")
