@@ -3,7 +3,7 @@ import { environment } from './Environments/environment';
 export let CONFIG;
 
 rice_ip = "10.120.78.114"
-curr_ip = "YOUR IP ADDRESS"
+curr_ip = "10.0.0.193"
 ip = curr_ip
 if (environment.production) {
     CONFIG = {
