@@ -16,7 +16,7 @@ npm install
 
 4. Then, run in terminal:
 ```
-npm run
+npm start
 ```
 5. You will be given a QR Code to scan and preview the app on your phone via the Expo client, or enter s and your phone number to get a link to the app preview
 
