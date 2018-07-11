@@ -21,6 +21,7 @@ const PostOptions = {
             placeholder: "Your thoughts here...\n\n\n\n",
             multiline: true,
             numberOfLines: 5,
+            blurOnSubmit: true,
             stylesheet: {
                 ...Form.stylesheet,
                 textbox: {
