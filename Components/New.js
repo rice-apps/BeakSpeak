@@ -29,14 +29,24 @@ const PostOptions = {
                     normal: {
                         ...Form.stylesheet.textbox.normal,
                         height: 150,
-                        width: 250,
-                    
+                        width: 250
                     }
                 }
             }
         },
         title:{
             placeholder: "Your clever title here...",
+            stylesheet: {
+                ...Form.stylesheet,
+                textbox: {
+                    ...Form.stylesheet.textbox,
+                    normal: {
+                        ...Form.stylesheet.textbox.normal,
+                        height: null,
+                        width: 250
+                    }
+                }
+            }
         }
     }
 }

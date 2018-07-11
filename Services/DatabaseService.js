@@ -1,5 +1,4 @@
 import {CONFIG} from "../config";
-import FormData from 'FormData'
 
 const apiUrl = CONFIG.api_url
 const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXIiOiJubnExIiwiYXR0cmlidXRlcyI6eyJlZHVQZXJzb25QcmltYXJ5QWZmaWxpYXRpb24iOiJzdHVkZW50In19LCJ1c2VySUQiOiI1YWMwNzExZTRlODllOTI1MDg3N2UzM2IiLCJpYXQiOjE1MjMxMjg1MzZ9._WGFs5k95-Q9akQ8SfvJId63RX5TSi6CfHXtps23mgw"
