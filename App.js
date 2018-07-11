@@ -31,7 +31,8 @@ export default class App extends Component{
     async componentDidMount(){
        await Font.loadAsync({
             'pacifico': require('./Assets/Fonts/Pacifico.ttf'),
-            'caviar-dreams': require('./Assets/Fonts/CaviarDreams.ttf')
+            'caviar-dreams': require('./Assets/Fonts/CaviarDreams.ttf'),
+            'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf')
         })
         this.setState({assetsLoaded:true})
     }
