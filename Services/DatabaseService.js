@@ -36,7 +36,7 @@ export async function sendNewPost(newPost) {
                 return (value == null) ? '' : value
             })
         })
-        console.log(res)
+        //console.log(res)
     }catch(err){
         console.log(err)
     }
