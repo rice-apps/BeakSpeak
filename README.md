@@ -5,7 +5,7 @@ WIP - The product of RiceApps's endeavors to recreate the magic of YikYak withou
 + [NodeJS](https://nodejs.org/)
 + [ReactNative](https://facebook.github.io/react-native/)
 + [Expo](https://expo.io)
-+ react-native-cli (https://www.npmjs.com/package/react-native-cli)
++ [react-native-cli](https://www.npmjs.com/package/react-native-cli)
 
 ## Running
 1. Download the Expo App 
