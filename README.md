@@ -39,7 +39,5 @@ react-native link
     - if you are on the Rice network, change the value for `ip` to `rice_ip`
     - If you are on a different network, change the value for `curr_ip` to your IP address and change the value for `ip` to `curr_ip`
 
-## Loading
-
 ## Gallery
 ![login](/Gallery/login.PNG?raw=true "Login Page") ![empty](/Gallery/posts1.PNG?raw=true "Main Page - Empty") ![posts](/Gallery/posts2.PNG?raw=true "Main Page - Posts") ![new](/Gallery/newpost.PNG?raw=true "Create New Post")
