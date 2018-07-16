@@ -8,7 +8,7 @@ WIP - The product of RiceApps's endeavors to recreate the magic of YikYak withou
 + [react-native-cli](https://www.npmjs.com/package/react-native-cli)
 
 ## Running
-1. Download the Expo App 
+1. Download the Expo App on your phone
 2. Change to BeakSpeak's project directory 
 3. Open up a terminal and install dependencies with:
 ```
