@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
 import {FlatList, StyleSheet, TouchableOpacity} from 'react-native'
 import Modal from 'react-native-modal'
-import {Card, Container, Content, Header, Title, Body, Footer, Button, Text, View} from 'native-base'
+import {Card, Container, Content, Header, Left, Title, Right, Body, Footer, Icon, Button, Text, View} from 'native-base'
 
-import Icon  from '@expo/vector-icons/Entypo'
 import {AppLoading} from 'expo'
 
-import Post from './Post.js'
-import Comment from './Comment.js'
-import {NewPost} from './New.js'
+import Post from '../Components/Post.js'
+import Comment from '../Components/Comment.js'
+import {NewPost} from '../Components/New.js'
 import DatabaseService from '../Services/DatabaseService'
 
 // header with posts title
@@ -18,11 +17,21 @@ class MainHeader extends Component{
         return(
             <View style={{borderBottomWidth: 2, borderColor:"white"}}>
                 <Header style={{backgroundColor: "powderblue"}}>
+                    <Left>
+                        <TouchableOpacity>
+                            <Icon 
+                                name="menu"
+                                type="Entypo"
+                                style = {{color: "white", fontSize: 25}}
+                            />
+                        </TouchableOpacity>
+                    </Left>
                     <Body>
                         <Title style={{color:"white", fontSize: 25}}>
                             Posts
                         </Title>
                     </Body>
+                    <Right/>
                 </Header>
             </View>
 
@@ -53,7 +62,7 @@ class Comments extends Component{
                 return(
                     <Comment body = {comment.body}/>
                 )
-                }}
+            }}
             />
         )
     }
@@ -172,9 +181,10 @@ class MainFooter extends Component{
                             {/* cancel button */}
                             <TouchableOpacity onPress={() => {this.hideModal()}}>
                                 <Icon 
-                                    name="cross"
-                                    color="powderblue" 
-                                    size={30}
+                                    name="cross" 
+                                    fontSize={30}
+                                    type="Entypo"
+                                    style = {{color: "skyblue"}}
                                 />
                             </TouchableOpacity>
                         </View>
@@ -187,16 +197,17 @@ class MainFooter extends Component{
                 {/* actual footer */}
                 <Footer>
 
-                        {/* new post button */}
-                        <TouchableOpacity 
-                            onPress={() => {this.renderModal()}} 
-                            style={styles.newPostButton}>
-                            <Icon 
-                                name="plus"
-                                color="white" 
-                                size={30}
-                            />
-                        </TouchableOpacity>
+                    {/* new post button */}
+                    <TouchableOpacity 
+                        onPress={() => {this.renderModal()}} 
+                        style={styles.newPostButton}>
+                        <Icon 
+                            name="plus" 
+                            fontSize={30}
+                            type="Entypo"
+                            style = {{color: "white"}}
+                        />
+                    </TouchableOpacity>
                 </Footer>
             </View>
         )

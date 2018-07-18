@@ -6,8 +6,8 @@ import NavigationService from './Services/NavigationService'
 
 import {Font, AppLoading} from 'expo'
 
-import Login from './Components/Login.js'
-import Posts from './Components/Main.js'
+import Login from './Screens/Login.js'
+import Posts from './Screens/Main.js'
 
 // create our top level navigator
 const Router = createStackNavigator({
@@ -32,7 +32,8 @@ export default class App extends Component{
        await Font.loadAsync({
             'pacifico': require('./Assets/Fonts/Pacifico.ttf'),
             'caviar-dreams': require('./Assets/Fonts/CaviarDreams.ttf'),
-            'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf')
+            'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
+            'Entypo': require('@expo/vector-icons/fonts/Entypo.ttf')
         })
         this.setState({assetsLoaded:true})
     }
