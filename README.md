@@ -30,7 +30,7 @@ npm install -g react-native-cli
 react-native link
 ```
 
-7. You will be given a QR Code to scan and preview the app on your phone via the Expo client, or enter s and your phone number to get a link to the app preview
+7. You will be given a QR Code to scan and preview the app on your phone via the Expo client (Android), or enter s and your phone number to get a link to the app preview (iOS)
 
 
 ## Connecting to Backend
