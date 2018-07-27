@@ -1,25 +1,12 @@
 import React, {Component} from 'react'
-import {Text,View} from 'react-native'
+import {
+    View,
+    ActivityIndicator,
+    StatusBar
+} from 'react-native'
+import {Font} from 'expo'
 
-import {createStackNavigator} from 'react-navigation'
-import NavigationService from './Services/NavigationService'
-
-import {Font, AppLoading} from 'expo'
-
-import Login from './Screens/Login.js'
-import Posts from './Screens/Main.js'
-
-// create our top level navigator
-const Router = createStackNavigator({
-    LoginPage: {screen: Login},
-    MainPage: {screen: Posts}
-}, {
-    initialRouteName: 'LoginPage',
-    headerMode: 'none',
-    navigationOptions: {
-        gesturesEnabled: false
-    }
-});
+import AuthNav from './Navigators/AuthNav.js' 
 
 export default class App extends Component{
     constructor(props){
@@ -33,7 +20,7 @@ export default class App extends Component{
             'pacifico': require('./Assets/Fonts/Pacifico.ttf'),
             'caviar-dreams': require('./Assets/Fonts/CaviarDreams.ttf'),
             'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
-            'Entypo': require('@expo/vector-icons/fonts/Entypo.ttf')
+            'Material Design Icons': require('native-base/Fonts/MaterialCommunityIcons.ttf')
         })
         this.setState({assetsLoaded:true})
     }
@@ -42,18 +29,18 @@ export default class App extends Component{
         // wait for assets to load
         if(!this.state.assetsLoaded){
             return(
-                <AppLoading/>
+                <View style={{flex: 1}}>
+                    <ActivityIndicator />
+                    <StatusBar barStyle="default" />
+                </View>
             )
         }
 
-        // set top level navigator and navigate to login page
+        // render our top level navigator - AuthNav
         else {
             return (
-                <Router
-                 ref={navigatorRef => {
-                     NavigationService.setTopLevelNavigator(navigatorRef);
-                 }}
-            />)
+                <AuthNav/>
+            )
         }
     }
 }

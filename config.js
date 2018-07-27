@@ -4,7 +4,7 @@ export let CONFIG;
 
 rice_ip = "10.112.77.181"
 curr_ip = "10.0.0.193"
-ip = rice_ip
+ip = curr_ip
 if (environment.production) {
     CONFIG = {
         api_url: 'https://speak.riceapps.org/api',
