@@ -1,28 +1,34 @@
 import React, {Component} from 'react';
 import {FlatList, StyleSheet, TouchableOpacity} from 'react-native'
 import Modal from 'react-native-modal'
-import {Card, Container, Content, Header, Left, Title, Right, Body, Footer, Icon, Button, Text, View} from 'native-base'
+import {DrawerNavigator} from 'react-navigation'
+import {Card, Container, Content, Header, Left, Title, Right, Body, Footer, Icon, Button, Text, View, Drawer} from 'native-base'
 
 import {AppLoading} from 'expo'
 
 import Post from '../Components/Post.js'
 import Comment from '../Components/Comment.js'
 import {NewPost} from '../Components/New.js'
+import SideBar from '../Components/Sidebar.js'
 import DatabaseService from '../Services/DatabaseService'
 
 // header with posts title
 class MainHeader extends Component{
+
+    toggleMenu = () => {
+        this.props.toggleMenu()
+    }
 
     render(){
         return(
             <View style={{borderBottomWidth: 2, borderColor:"white"}}>
                 <Header style={{backgroundColor: "powderblue"}}>
                     <Left>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress = {() => this.toggleMenu()}>
                             <Icon 
-                                name="menu"
-                                type="Entypo"
-                                style = {{color: "white", fontSize: 25}}
+                            name="menu"
+                            type="MaterialCommunityIcons"
+                            style = {{color: "white", fontSize: 25}}
                             />
                         </TouchableOpacity>
                     </Left>
@@ -142,6 +148,7 @@ class Posts extends Component{
     }
 }
 
+
 // footer with new post button and new post creation modal
 class MainFooter extends Component{
 
@@ -181,9 +188,9 @@ class MainFooter extends Component{
                             {/* cancel button */}
                             <TouchableOpacity onPress={() => {this.hideModal()}}>
                                 <Icon 
-                                    name="cross" 
+                                    name="close" 
                                     fontSize={30}
-                                    type="Entypo"
+                                    type="MaterialCommunityIcons"
                                     style = {{color: "skyblue"}}
                                 />
                             </TouchableOpacity>
@@ -204,7 +211,7 @@ class MainFooter extends Component{
                         <Icon 
                             name="plus" 
                             fontSize={30}
-                            type="Entypo"
+                            type="MaterialCommunityIcons"
                             style = {{color: "white"}}
                         />
                     </TouchableOpacity>
@@ -216,10 +223,15 @@ class MainFooter extends Component{
 
 // main component
 export default class Main extends Component{
+    
+    toggleMenu = () => {
+        this.props.navigation.toggleDrawer()
+    }
+
     render(){
         return(
             <Container style={{backgroundColor:'powderblue'}}>
-                <MainHeader/>
+                <MainHeader toggleMenu = {this.toggleMenu}/>
                 <View style={{flex: 1}}>
                     <Posts/>
                 </View>
