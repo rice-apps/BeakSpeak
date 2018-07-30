@@ -2,6 +2,10 @@
   "name": "BeakSpeak",
   "displayName": "BeakSpeak",
   "expo": {
-    "sdkVersion": "27.0.0"
+    "sdkVersion": "27.0.0",
+    "splash": {
+      "image": "./Assets/Images/splash_screen.png",
+      "backgroundColor": "#b0e0e6"
+    }
   }
 }

@@ -4,11 +4,10 @@ import {
     ActivityIndicator,
     StatusBar
 } from 'react-native'
-import {Icon} from 'native-base'
 
-export default class Blank extends Component{
+export default class Loading extends Component{
 
-    render(){
+    render = () => {
         return(
             <View style={[{flex: 1, justifyContent: 'center', alignItems: 'center'}]}>
                 <ActivityIndicator color='skyblue'/>

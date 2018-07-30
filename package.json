@@ -28,5 +28,10 @@
     "react-native-vector-icons": "^4.6.0",
     "react-navigation": "^2.6.2",
     "tcomb-form-native": "^0.6.14"
+  },
+  "rnpm": {
+    "assets": [
+      "./Assets/Fonts/"
+    ]
   }
 }

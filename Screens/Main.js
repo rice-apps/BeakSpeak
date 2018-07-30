@@ -1,15 +1,29 @@
 import React, {Component} from 'react';
-import {FlatList, StyleSheet, TouchableOpacity} from 'react-native'
+import {
+    FlatList,
+    StyleSheet,
+    TouchableOpacity,
+    RefreshControl
+} from 'react-native'
+import {
+    Card,
+    Container,
+    Header,
+    Left,
+    Title,
+    Right,
+    Body,
+    Footer,
+    Icon,
+    View
+} from 'native-base'
 import Modal from 'react-native-modal'
-import {DrawerNavigator} from 'react-navigation'
-import {Card, Container, Content, Header, Left, Title, Right, Body, Footer, Icon, Button, Text, View, Drawer} from 'native-base'
-
 import {AppLoading} from 'expo'
 
-import Post from '../Components/Post.js'
-import Comment from '../Components/Comment.js'
-import {NewPost} from '../Components/New.js'
-import SideBar from '../Components/Sidebar.js'
+import Post from '../Components/Post'
+import Comment from '../Components/Comment'
+import {NewPost} from '../Components/New'
+import Blank from '../Components/Blank'
 import DatabaseService from '../Services/DatabaseService'
 
 // header with posts title
@@ -19,7 +33,7 @@ class MainHeader extends Component{
         this.props.toggleMenu()
     }
 
-    render(){
+    render = () => {
         return(
             <View style={{borderBottomWidth: 2, borderColor:"white"}}>
                 <Header style={{backgroundColor: "powderblue"}}>
@@ -51,12 +65,12 @@ class Comments extends Component{
     constructor(props){
         super(props)
 
-        this.state ={
+        this.state = {
             comments: this.props.comments
         }
     }
 
-    render(){
+    render = () => {
         let comments = this.state.comments
 
         return(
@@ -74,6 +88,7 @@ class Comments extends Component{
     }
 }
 
+// List of posts
 class Posts extends Component{
 
     constructor(props){
@@ -86,41 +101,49 @@ class Posts extends Component{
         }
     }
 
-    async componentDidMount(){
+    componentDidMount = async() => {
         this.mounted = true
         let posts = await DatabaseService.getPosts() // retrieve posts from database
 
         if (this.mounted){ // to avoid memory leak, check if component is mounted before setting state
             this.setState({
                 posts: posts,
-                loaded: true
+                loaded: true,
+                refresh: false
             })
         }
     }
 
-    componentWillUnmount(){
+    componentWillUnmount = () => {
         this.mounted = false
     }
 
-    render(){
-        // wait for posts to load
-        if(!this.state.loaded){
+    onRefresh = async() => { 
+        this.setState((state) => ({refresh: true}))
+        let posts = await DatabaseService.getPosts()
+        this.setState((state) => ({
+            posts: posts,
+            refresh: false
+        }))
+        console.log(this.state.posts)
+    }
+
+    render = () => {
+        let loaded = this.state.loaded
+
+        if(!loaded){ // wait for posts to load
             return(
                 <AppLoading/>
             )
         }
 
-        // display posts in a list component
-        else{
+        else{ // display posts in a list component
             let posts = this.state.posts
-
-            if (posts.length == 0){
+            let refresh = this.state.refresh
+            console.log(posts.length==0)
+            if (false){
                 return(
-                    <View style={[{flex: 1, justifyContent: "center"}]}>
-                        <Title style={{color:"skyblue", fontSize: 25}}>
-                            Nothing here yet.
-                        </Title>
-                    </View>
+                    <Blank/>
                 )
             }
             else{
@@ -139,6 +162,15 @@ class Posts extends Component{
                                 </Card>
                             )
                         }}
+                        refreshControl={
+                            <RefreshControl
+                              refreshing={refresh}
+                              onRefresh={this.onRefresh}
+                              tintColor="skyblue"
+                            />
+                          }
+                        ListEmptyComponent={<Blank/>}
+                        contentContainerStyle={!posts.length?{ flex: 1, alignItems: 'center' }:{}}
                     />
                 )
             }                
@@ -168,7 +200,7 @@ class MainFooter extends Component{
         this.setState({modalVisible: false})
     }
 
-    render(){
+    render = () => {
         let isVisible = this.state.modalVisible
 
         return(
@@ -228,7 +260,7 @@ export default class Main extends Component{
         this.props.navigation.toggleDrawer()
     }
 
-    render(){
+    render = () => {
         return(
             <Container style={{backgroundColor:'powderblue'}}>
                 <MainHeader toggleMenu = {this.toggleMenu}/>

@@ -15,7 +15,7 @@ const logo = require('../Assets/Images/logo.png')
 // one idea for a front header -- button to navigate to posts with front validation
 export class FrontHeader extends Component {
     
-    render(){
+    render = () => {
         return (
             <View style = {{ flexDirection: "row"}}>
                 <View style = {{flex:1, justifyContent: "center", alignItems: "center"}}>
@@ -37,7 +37,7 @@ export class FrontHeader extends Component {
 // main component for front page with logo and front button
 export class FrontBody extends Component {
 
-    render(){
+    render = () => {
         return (
             <View style={{flex:1}}>
                 <View style={[{height:50}]}/>
@@ -89,7 +89,7 @@ export class FrontBody extends Component {
 // template for potential footer
 export class FrontFooter extends Component {
 
-    render(){
+    render = () => {
         return (
             <Text/>
         )
@@ -99,7 +99,7 @@ export class FrontFooter extends Component {
 // template for potential sidebar
 export class FrontSidebar extends Component {
 
-    render(){
+    render = () => {
         return (
             <Text/>
         )
@@ -125,7 +125,7 @@ export default class Front extends Component {
         this.navigate('MainScreen')
     }
     
-    render() {
+    render = () => {
         const {height: screenHeight} = Dimensions.get('window');
 
         return (

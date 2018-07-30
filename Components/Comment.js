@@ -4,7 +4,7 @@ import {Card, CardItem,Text} from 'native-base'
 
 // body with comment content
 export class CommentBody extends Component{
-    render(){
+    render = () => {
         return(
              <CardItem>
                  <Text>
@@ -26,7 +26,7 @@ export default class Comment extends Component{
         }
     }
 
-    render(){
+    render = () => {
         let body = this.state.body
 
         return(
