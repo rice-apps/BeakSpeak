@@ -1,11 +1,11 @@
 import {createStackNavigator, createDrawerNavigator} from 'react-navigation'
 
 import Main from '../Screens/Main'
-import Blank from '../Screens/Loading'
 
+import Blank from '../Components/Blank'
 import Sidebar from '../Components/Sidebar'
 
-export default MainNav = createDrawerNavigator(
+export default AppNav = createDrawerNavigator(
     {
         MainScreen: Main,
         SettingsScreen: Blank,

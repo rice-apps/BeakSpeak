@@ -10,7 +10,7 @@ class PostBody extends Component{
         this.props.onChange(newBody)
     }
 
-    render(){
+    render = () => {
         return(
             <CardItem>
                     <Text>
@@ -29,10 +29,10 @@ class PostHeader extends Component{
         this.props.onChange(newTitle)
     }
 
-    render(){
+    render = () => {
         return(
             <CardItem>
-                    <Title >
+                    <Title style={{color:"black"}}>
                         {this.props.title}
                     </Title>
             </CardItem>
@@ -61,7 +61,7 @@ export default class Post extends Component{
         this.setState({title: newTitle})
     }
 
-    render(){
+    render = () => {
         let title = this.state.title
         let body = this.state.body
     
