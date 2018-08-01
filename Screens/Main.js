@@ -76,6 +76,8 @@ class Comments extends Component{
         return(
             <FlatList
              data={comments}
+             listKey={(item, index) => item._id}
+             keyExtractor={(item, index) => item._id}
              renderItem={(item) => {
                 let comment = item.item
 
@@ -118,16 +120,28 @@ class Posts extends Component{
         this.mounted = false
     }
 
-    onRefresh = async() => { 
-        this.setState((state) => ({refresh: true}))
-        let posts = await DatabaseService.getPosts()
-        this.setState((state) => ({
+    _onRefresh = async() => { 
+        this.setState((state) => ({refresh: true})) // indicate we are refreshing
+        let posts = await DatabaseService.getPosts() // refresh data
+        this.setState((state) => ({ // refresh state -- use function
             posts: posts,
             refresh: false
         }))
-        console.log(this.state.posts)
     }
 
+    _renderItem = (item) => {
+        let post = item.item
+
+        return(
+            <Card>
+                <Post 
+                    title={post.title} 
+                    body={post.body}
+                />
+                <Comments comments={post.comments}/>
+            </Card>
+        )
+    }
     render = () => {
         let loaded = this.state.loaded
 
@@ -140,43 +154,24 @@ class Posts extends Component{
         else{ // display posts in a list component
             let posts = this.state.posts
             let refresh = this.state.refresh
-            console.log(posts.length==0)
-            if (false){
-                return(
-                    <Blank/>
-                )
-            }
-            else{
-                return (
-                    <FlatList
-                        data={posts}
-                        renderItem={(item) => {
-                            let post = item.item
-                            return(
-                                <Card>
-                                    <Post 
-                                        title={post.title} 
-                                        body={post.body}
-                                    />
-                                    <Comments comments={post.comments}/>
-                                </Card>
-                            )
-                        }}
-                        refreshControl={
-                            <RefreshControl
-                              refreshing={refresh}
-                              onRefresh={this.onRefresh}
-                              tintColor="skyblue"
-                            />
-                          }
-                        ListEmptyComponent={<Blank/>}
-                        contentContainerStyle={!posts.length?{ flex: 1, alignItems: 'center' }:{}}
-                    />
-                )
-            }                
-            
-        }
 
+            return (
+                <FlatList
+                    data={posts}
+                    renderItem={(item) => {return this._renderItem(item)}}
+                    keyExtractor={(item, index) => item._id}
+                    refreshControl={ // controls refreshing
+                        <RefreshControl
+                            refreshing={refresh}
+                            onRefresh={this._onRefresh}
+                            tintColor="skyblue"
+                        />
+                    }
+                    ListEmptyComponent={<Blank/>}
+                    contentContainerStyle={!posts.length ? { flex: 1, alignItems: 'center' }:{}}
+                />
+            )               
+        }
     }
 }
 
