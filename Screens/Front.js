@@ -8,31 +8,9 @@ import {
 } from 'react-native';
 import {Button, Text} from 'native-base'
 
-import NavigationService from '../Services/NavigationService'
+import AuthService from '../Services/AuthService'
 
 const logo = require('../Assets/Images/logo.png')
-
-// one idea for a front header -- button to navigate to posts with front validation
-export class FrontHeader extends Component {
-    
-    render = () => {
-        return (
-            <View style = {{ flexDirection: "row"}}>
-                <View style = {{flex:1, justifyContent: "center", alignItems: "center"}}>
-                    <Text >
-                        {this.props.text}
-                    </Text>
-                </View>
-                <View style = {{flex:1, justifyContent: "center", alignItems: "center"}}>
-                    <Button
-                        title = "Posts"
-                        onPress ={()=> NavigationService.navigate("MainPage")}
-                    />
-                </View>
-            </View>
-        )
-    }
-}
 
 // main component for front page with logo and front button
 export class FrontBody extends Component {
@@ -115,6 +93,10 @@ export default class Front extends Component {
         this.getLoginInfo()
     }
 
+    async componentDidMount(){
+        console.log('login request')
+        AuthService.login()
+    }
     navigate = (screen) => {
         this.props.navigation.navigate(screen)
     }

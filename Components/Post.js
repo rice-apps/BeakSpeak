@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, PureComponent} from 'react'
 import {Card, CardItem, Text, Title} from 'native-base'
 import {StyleSheet} from 'react-native'
 
@@ -40,8 +40,8 @@ class PostHeader extends Component{
     }
 }
 
-// main component
-export default class Post extends Component{
+// main component -- pure component for rendering optimization (view only)
+export default class Post extends PureComponent{
 
     constructor(props){
         super(props)
@@ -62,6 +62,7 @@ export default class Post extends Component{
     }
 
     render = () => {
+
         let title = this.state.title
         let body = this.state.body
     
