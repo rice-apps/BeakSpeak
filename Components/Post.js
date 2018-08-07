@@ -46,11 +46,6 @@ export default class Post extends PureComponent{
     constructor(props){
         super(props)
 
-        this.state = {
-            title: this.props.title,
-            body: this.props.body,
-            avatarUrl: "",
-         }
     }
 
     onBodyChange = (newBody) => {
@@ -62,9 +57,9 @@ export default class Post extends PureComponent{
     }
 
     render = () => {
-
-        let title = this.state.title
-        let body = this.state.body
+        console.log('render')
+        let title = this.props.title
+        let body = this.props.body
     
         return(
             <Card style={styles.card}>
