@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {
     FlatList,
     StyleSheet,
-    TouchableOpacity,
+    TouchableWithoutFeedback,
     RefreshControl
 } from 'react-native'
 import {
@@ -38,13 +38,13 @@ class MainHeader extends Component{
             <View style={{borderBottomWidth: 2, borderColor:"white"}}>
                 <Header style={{backgroundColor: "powderblue"}}>
                     <Left>
-                        <TouchableOpacity onPress = {() => this.toggleMenu()}>
+                        <TouchableWithoutFeedback onPress = {() => this.toggleMenu()}>
                             <Icon 
                             name="menu"
                             type="MaterialCommunityIcons"
                             style = {{color: "white", fontSize: 25}}
                             />
-                        </TouchableOpacity>
+                        </TouchableWithoutFeedback>
                     </Left>
                     <Body>
                         <Title style={{color:"white", fontSize: 25}}>
@@ -168,7 +168,7 @@ class Posts extends Component{
                         />
                     }
                     ListEmptyComponent={<Blank/>}
-                    contentContainerStyle={!posts.length ? { flex: 1, alignItems: 'center' }:{}}
+                    contentContainerStyle={(posts == undefined || !posts.length) ? { flex: 1, alignItems: 'center' }:{}}
                 />
             )               
         }
@@ -213,14 +213,13 @@ class MainFooter extends Component{
                         <View style={[{flexDirection: "row", justifyContent: "flex-end"}]}>
 
                             {/* cancel button */}
-                            <TouchableOpacity onPress={() => {this.hideModal()}}>
-                                <Icon 
-                                    name="close" 
-                                    fontSize={30}
-                                    type="MaterialCommunityIcons"
-                                    style = {{color: "skyblue"}}
-                                />
-                            </TouchableOpacity>
+                            <Icon 
+                                name = "close" 
+                                fontSize = {30}
+                                type = "MaterialCommunityIcons"
+                                style = {{color: "skyblue"}}
+                                onPress = {() => {this.hideModal()}}
+                            />
                         </View>
 
                         {/* new post creation form*/}
@@ -232,16 +231,16 @@ class MainFooter extends Component{
                 <Footer>
 
                     {/* new post button */}
-                    <TouchableOpacity 
-                        onPress={() => {this.renderModal()}} 
-                        style={styles.newPostButton}>
-                        <Icon 
-                            name="plus" 
-                            fontSize={30}
-                            type="MaterialCommunityIcons"
-                            style = {{color: "white"}}
-                        />
-                    </TouchableOpacity>
+                    <TouchableWithoutFeedback onPress={() => {this.renderModal()}}>
+                        <View style={styles.newPostButton}>
+                                <Icon 
+                                    name="plus" 
+                                    fontSize={30}
+                                    type="MaterialCommunityIcons"
+                                    style = {{color: "white"}}
+                                />
+                        </View>
+                    </TouchableWithoutFeedback>
                 </Footer>
             </View>
         )
