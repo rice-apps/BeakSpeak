@@ -5,11 +5,6 @@ import {StyleSheet} from 'react-native'
 // body with post content and potentially votes
 class PostBody extends Component{
 
-    // instance of lifting up state -- incoming changes are handled at the ancestral state
-    onBodyChange = (newBody) =>{
-        this.props.onChange(newBody)
-    }
-
     render = () => {
         return(
             <CardItem>
@@ -23,11 +18,6 @@ class PostBody extends Component{
 
 // header with title and potentially avatar and time info
 class PostHeader extends Component{
-
-    // instance of lifting up state -- incoming changes are handled at the ancestral state
-    onTitleChange = (newTitle) =>{
-        this.props.onChange(newTitle)
-    }
 
     render = () => {
         return(
@@ -45,19 +35,9 @@ export default class Post extends PureComponent{
 
     constructor(props){
         super(props)
-
-    }
-
-    onBodyChange = (newBody) => {
-        this.setState({body: newBody})
-    }
-
-    onTitleChange = (newTitle) => {
-        this.setState({title: newTitle})
     }
 
     render = () => {
-        console.log('render')
         let title = this.props.title
         let body = this.props.body
     
@@ -65,14 +45,8 @@ export default class Post extends PureComponent{
             <Card style={styles.card}>
             
                 {/* post component decomposed into children components*/}
-                <PostHeader 
-                 title = {title} 
-                 onChange = {this.onTitleChange}
-                />
-                <PostBody 
-                 body = {body} 
-                 onChange = {this.onBodyChange}
-                />
+                <PostHeader title = {title}/>
+                <PostBody body = {body}/>
             </Card>
         )
     }

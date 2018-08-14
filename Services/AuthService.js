@@ -12,7 +12,7 @@ login = async() => {
         }
     });
 
-    console.log(a);
+    //console.log(a);
     
     let data = {
         'j_username':'nnq1',
@@ -28,19 +28,16 @@ login = async() => {
             'Referer': 'https://idp.rice.edu/idp/profile/cas/login?execution=e3s1',
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: Object.entries(data).map((e) => e.join('=')).join('&')
+        body: JSON.stringify(data)
     });
 
-    console.log(c);
+    //console.log(c);
     }catch(err){
         console.log(err)
     }
 }
 
-cookie_parser = (cookie_string) => {
-    return cookie_string.split(";")
-}
-
+//Object.entries(data).map((e) => e.join('=')).join('&')
 export default{
     login
 }

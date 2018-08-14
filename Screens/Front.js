@@ -64,26 +64,6 @@ export class FrontBody extends Component {
 </View>
 */}
 
-// template for potential footer
-export class FrontFooter extends Component {
-
-    render = () => {
-        return (
-            <Text/>
-        )
-    }
-}
-
-// template for potential sidebar
-export class FrontSidebar extends Component {
-
-    render = () => {
-        return (
-            <Text/>
-        )
-    }
-}
-
 // main component 
 export default class Front extends Component {
 
@@ -94,8 +74,7 @@ export default class Front extends Component {
     }
 
     async componentDidMount(){
-        console.log('login request')
-        AuthService.login()
+        AuthService.login() // testing login requests
     }
     navigate = (screen) => {
         this.props.navigation.navigate(screen)

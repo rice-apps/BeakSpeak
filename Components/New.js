@@ -1,5 +1,10 @@
 import React, {Component} from 'react';
-import {View, StyleSheet} from 'react-native'
+import {
+    View, 
+    StyleSheet, 
+    Platform,
+    Dimensions
+} from 'react-native'
 import {Button, Text} from 'native-base'
 import t from 'tcomb-form-native'
 
@@ -14,11 +19,14 @@ const PostSchema = t.struct({
     body: t.maybe(t.String)
 })
 
+// get screen width
+let {width: screenWidth} = Dimensions.get('window')
+
 // customizing new post form
 const PostOptions = {
     fields:{
         body:{
-            placeholder: "Your thoughts here...\n\n\n\n",
+            placeholder: "Your thoughts here...",
             multiline: true,
             numberOfLines: 5,
             blurOnSubmit: true,
@@ -29,7 +37,8 @@ const PostOptions = {
                     normal: {
                         ...Form.stylesheet.textbox.normal,
                         height: 150,
-                        width: 250
+                        width: screenWidth * 0.8,
+                        textAlignVertical: 'top'
                     }
                 }
             }
@@ -43,7 +52,7 @@ const PostOptions = {
                     normal: {
                         ...Form.stylesheet.textbox.normal,
                         height: null,
-                        width: 250
+                        width: screenWidth * 0.8
                     }
                 }
             }

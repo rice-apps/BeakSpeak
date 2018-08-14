@@ -26,7 +26,7 @@ export default class Sidebar extends Component{
                         onPress = {() => this.navigate("SettingsScreen")}
                     />
                     <Icon 
-                        name="information-variant" 
+                        name="information" 
                         fontSize={30}
                         type="MaterialCommunityIcons"
                         style = {{color: "white"}}
@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
         justifyContent:"space-evenly",
         alignItems: "center",
         backgroundColor: "powderblue",
-
     },
     seeBorders:{
         borderWidth:1,

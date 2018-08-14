@@ -209,8 +209,15 @@ class MainFooter extends Component{
                     animationInTiming={500}
                     animationOutTiming={500}
                 >
-                    <View style={{borderRadius: 10, padding: 20, backgroundColor: "white"}}>
-                        <View style={[{flexDirection: "row", justifyContent: "flex-end"}]}>
+                    <View style={{
+                                    borderRadius: 10, 
+                                    padding: 10, 
+                                    backgroundColor: "white"
+                                }}>
+                        <View style={{
+                                        flexDirection: "row", 
+                                        justifyContent: "flex-end"
+                                    }}>
 
                             {/* cancel button */}
                             <Icon 

@@ -18,6 +18,7 @@ const LoginSchema = t.struct({
     password: t.maybe(t.String)
 })
 
+// TODO: implement modal that takes login credentials and uses authservice
 export default class Login extends Component{
 
     render = () => {
