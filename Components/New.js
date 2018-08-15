@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {
     View, 
     StyleSheet, 
-    Platform,
     Dimensions
 } from 'react-native'
 import {Button, Text} from 'native-base'
@@ -84,7 +83,6 @@ export class NewPost extends Component{
     render = () => {
         return(
             <View style={styles.content}>
-
                 {/* new post creation form */}
                 <Form 
                  type = {PostSchema}

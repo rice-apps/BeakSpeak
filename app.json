@@ -6,6 +6,7 @@
     "splash": {
       "image": "./Assets/Images/splash_screen.png",
       "backgroundColor": "#b0e0e6"
-    }
+    },
+    "orientation": "portrait"
   }
 }

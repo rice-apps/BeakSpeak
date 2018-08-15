@@ -37,8 +37,13 @@ react-native link
 ## Connecting to Backend
 1. Clone the [backend repo](https://github.com/rice-apps/riceyak-expressjs) and follow its instruction set
 2. Determine which network you're on and edit `config.js`:
-    - if you are on the Rice network, change the value for `ip` to `rice_ip`
+    - if you are on the Rice network, change the value for `rice_ip` to the IP address of your rice network and change the value for `ip` to `rice_ip`
     - If you are on a different network, change the value for `curr_ip` to your IP address and change the value for `ip` to `curr_ip`
 
 ## Gallery
-![login](/Gallery/login.PNG?raw=true "Login Page") ![empty](/Gallery/posts1.PNG?raw=true "Main Page - Empty") ![posts](/Gallery/posts2.PNG?raw=true "Main Page - Posts") ![new](/Gallery/newpost.PNG?raw=true "Create New Post")
+### Splash Screen
+![splashscreen](/Gallery/splash_screen.png?raw=true)
+### iOS App
+![ios gif](/Gallery/ios.gif)
+### Android App
+![android gif](/Gallery/android.gif)

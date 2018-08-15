@@ -28,7 +28,7 @@ export default class App extends Component{
         // wait for assets to load
         if(this.state.assetsLoaded){
             return(
-                <AuthNav/>
+                <AuthNav/>                
             )
         }
         else {
