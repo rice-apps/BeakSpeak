@@ -123,6 +123,7 @@ class Posts extends Component{
     postNavigate = (route) => {
         this.props.navigate(route)
     }
+    
     _onRefresh = async() => { 
         this.setState((state) => ({refresh: true})) // indicate we are refreshing
         let posts = await DatabaseService.getPosts() // refresh data
