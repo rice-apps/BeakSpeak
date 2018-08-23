@@ -120,6 +120,9 @@ class Posts extends Component{
         this.mounted = false
     }
 
+    postNavigate = (route) => {
+        this.props.navigate(route)
+    }
     _onRefresh = async() => { 
         this.setState((state) => ({refresh: true})) // indicate we are refreshing
         let posts = await DatabaseService.getPosts() // refresh data
@@ -133,13 +136,15 @@ class Posts extends Component{
         let post = item.item
 
         return(
-            <Card>
-                <Post 
-                    title={post.title} 
-                    body={post.body}
-                />
-                <Comments comments={post.comments}/>
-            </Card>
+            <TouchableWithoutFeedback onPress={()=> this.postNavigate('PostDetailScreen')}>
+                <Card>
+                    <Post 
+                        title={post.title} 
+                        body={post.body}
+                    />
+                    <Comments comments={post.comments}/>
+                </Card>
+            </TouchableWithoutFeedback>
         )
     }
     render = () => {
@@ -266,7 +271,7 @@ export default class Main extends Component{
             <Container style={{backgroundColor:'powderblue'}}>
                 <MainHeader toggleMenu = {this.toggleMenu}/>
                 <View style={{flex: 1}}>
-                    <Posts/>
+                    <Posts navigate = {this.props.navigation.navigate}/>
                 </View>
                 <MainFooter/>
             </Container>
