@@ -57,6 +57,3 @@ buck-out/
 
 # VScode
 .vscode
-
-# CONFIG
-config.js
