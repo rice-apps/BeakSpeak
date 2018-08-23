@@ -38,7 +38,7 @@ react-native link
 1. Clone the [backend repo](https://github.com/rice-apps/riceyak-expressjs) and follow its instruction set
 2. Determine which network you're on and edit `config.js`:
     - Set the value of `ip` to your network's IP address
-    
+
 ## Gallery
 ### Splash Screen
 ![splashscreen](/Gallery/splash_screen.png?raw=true)
