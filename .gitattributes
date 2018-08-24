@@ -1,2 +1,2 @@
 *.pbxproj -text
-config.js export-ignore
+config.js merge=ours
