@@ -1,1 +1,2 @@
 *.pbxproj -text
+config.js export-ignore
