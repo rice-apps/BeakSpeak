@@ -10,14 +10,15 @@ import Sidebar from '../Components/Sidebar'
 var {width: screenWidth} = Dimensions.get('window')
 export default AppNav = createDrawerNavigator(
     {
-        Main: MainScreen,
+        Main: MainNav,
         SettingsScreen: Blank,
         InfoScreen: Blank,
     },
     {
         initialRouteName: 'Main',
         contentComponent: Sidebar,
-        drawerWidth: screenWidth * 0.2
+        drawerWidth: screenWidth * 0.2,
+        header: 
     }
 )
 
