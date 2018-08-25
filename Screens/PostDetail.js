@@ -8,7 +8,7 @@ import {
 
 import Blank from '../Components/Blank'
 
-export default class PostDetail extends Component{
+export default class PostDetailScreen extends Component{
     // hide from menu!
     static navigationOptions = {
         drawerLabel: () => null

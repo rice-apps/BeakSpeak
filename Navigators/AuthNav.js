@@ -1,16 +1,16 @@
 import {createSwitchNavigator} from 'react-navigation';
 
-import Front from '../Screens/Front'
+import FrontScreen from '../Screens/Front'
 import AppNav from './AppNav'
-import Login from '../Screens/Login'
+import LoginScreen from '../Screens/Login'
 
 export default AuthNav = createSwitchNavigator(
     {
-        LoginScreen: Login,
-        MainScreen: AppNav, 
-        FrontScreen: Front
+        Login: LoginScreen,
+        Main: AppNav, 
+        Front: FrontScreen
     },
     {
-        initialRouteName: 'FrontScreen'
+        initialRouteName: 'Front'
     }
 )

@@ -1,8 +1,8 @@
 import {Dimensions} from 'react-native'
 import {createStackNavigator, createDrawerNavigator} from 'react-navigation'
 
-import Main, {MainHeader} from '../Screens/Main'
-import PostDetail from '../Screens/PostDetail'
+import MainScreen, {MainHeader} from '../Screens/Main'
+import PostDetailScreen from '../Screens/PostDetail'
 
 import Blank from '../Components/Blank'
 import Sidebar from '../Components/Sidebar'
@@ -10,14 +10,23 @@ import Sidebar from '../Components/Sidebar'
 var {width: screenWidth} = Dimensions.get('window')
 export default AppNav = createDrawerNavigator(
     {
-        MainScreen: Main,
+        Main: MainScreen,
         SettingsScreen: Blank,
         InfoScreen: Blank,
-        PostDetailScreen: PostDetail
     },
     {
-        initialRouteName: 'MainScreen',
+        initialRouteName: 'Main',
         contentComponent: Sidebar,
         drawerWidth: screenWidth * 0.2
+    }
+)
+
+MainNav = createStackNavigator(
+    {
+        Posts: MainScreen,
+        PostDetail: PostDetailScreen
+    },
+    {
+        initialRouteName: 'Posts'
     }
 )

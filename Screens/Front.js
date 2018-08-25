@@ -44,28 +44,8 @@ export class FrontBody extends Component {
     }
 }
 
-{/*            
-<View style={[{flex:1}]}>
-<View style={[{height:25}]}/>
-
-// front button
-<View style={[{alignItems:"center", justifyContent: "center"}]}>
-    <Button 
-        bordered 
-        info 
-        rounded 
-        onPress = {()=> NavigationService.navigate("MainPage")}
-     >
-        <Text>
-            Front
-        </Text>
-    </Button>
-</View>
-</View>
-*/}
-
 // main component 
-export default class Front extends Component {
+export default class FrontScreen extends Component {
 
     constructor(props){
         super(props)

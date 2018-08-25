@@ -137,7 +137,7 @@ class Posts extends Component{
         let post = item.item
 
         return(
-            <TouchableWithoutFeedback onPress={()=> this.postNavigate('PostDetailScreen')}>
+            <TouchableWithoutFeedback onPress={()=> this.postNavigate('PostDetail')}>
                 <Card>
                     <Post 
                         title={post.title} 
@@ -261,7 +261,7 @@ class MainFooter extends Component{
 }
 
 // main component
-export default class Main extends Component{
+export default class MainScreen extends Component{
     
     toggleMenu = () => {
         this.props.navigation.toggleDrawer()
