@@ -63,7 +63,7 @@ export default class FrontScreen extends Component {
     getLoginInfo = async () => {
         const userToken = await AsyncStorage.getItem('userToken')
         //this.navigate(userToken ? 'MainScreen' : 'LoginScreen' )
-        this.navigate('MainScreen')
+        this.navigate('Main')
     }
     
     render = () => {
