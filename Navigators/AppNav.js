@@ -1,7 +1,7 @@
 import {Dimensions} from 'react-native'
 import {createStackNavigator, createDrawerNavigator} from 'react-navigation'
 
-import MainScreen, {MainHeader} from '../Screens/Main'
+import MainScreen from '../Screens/Main'
 import PostDetailScreen from '../Screens/PostDetail'
 
 import Blank from '../Components/Blank'
