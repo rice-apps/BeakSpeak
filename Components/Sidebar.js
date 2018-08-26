@@ -16,21 +16,21 @@ export default class Sidebar extends Component{
                         fontSize={30}
                         type="MaterialCommunityIcons"
                         style = {{color: "white"}}
-                        onPress = {() => this.navigate("MainScreen")}
+                        onPress = {() => this.navigate("Main")}
                     />
                     <Icon 
                         name="settings" 
                         fontSize={30}
                         type="MaterialCommunityIcons"
                         style = {{color: "white"}}
-                        onPress = {() => this.navigate("SettingsScreen")}
+                        onPress = {() => this.navigate("Settings")}
                     />
                     <Icon 
                         name="information" 
                         fontSize={30}
                         type="MaterialCommunityIcons"
                         style = {{color: "white"}}
-                        onPress = {() => this.navigate("InfoScreen")}
+                        onPress = {() => this.navigate("Info")}
                     />
                 </View>
         )

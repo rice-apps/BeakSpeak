@@ -44,28 +44,8 @@ export class FrontBody extends Component {
     }
 }
 
-{/*            
-<View style={[{flex:1}]}>
-<View style={[{height:25}]}/>
-
-// front button
-<View style={[{alignItems:"center", justifyContent: "center"}]}>
-    <Button 
-        bordered 
-        info 
-        rounded 
-        onPress = {()=> NavigationService.navigate("MainPage")}
-     >
-        <Text>
-            Front
-        </Text>
-    </Button>
-</View>
-</View>
-*/}
-
 // main component 
-export default class Front extends Component {
+export default class FrontScreen extends Component {
 
     constructor(props){
         super(props)
@@ -83,7 +63,7 @@ export default class Front extends Component {
     getLoginInfo = async () => {
         const userToken = await AsyncStorage.getItem('userToken')
         //this.navigate(userToken ? 'MainScreen' : 'LoginScreen' )
-        this.navigate('MainScreen')
+        this.navigate('Main')
     }
     
     render = () => {

@@ -26,39 +26,6 @@ import {NewPost} from '../Components/New'
 import Blank from '../Components/Blank'
 import DatabaseService from '../Services/DatabaseService'
 
-// header with posts title
-class MainHeader extends Component{
-
-    toggleMenu = () => {
-        this.props.toggleMenu()
-    }
-
-    render = () => {
-        return(
-            <View style={{borderBottomWidth: 2, borderColor:"white"}}>
-                <Header style={{backgroundColor: "powderblue"}}>
-                    <Left>
-                        <TouchableWithoutFeedback onPress = {() => this.toggleMenu()}>
-                            <Icon 
-                            name="menu"
-                            type="MaterialCommunityIcons"
-                            style = {{color: "white", fontSize: 25}}
-                            />
-                        </TouchableWithoutFeedback>
-                    </Left>
-                    <Body>
-                        <Title style={{color:"white", fontSize: 25}}>
-                            Posts
-                        </Title>
-                    </Body>
-                    <Right/>
-                </Header>
-            </View>
-
-        )
-    }
-}
-
 // Comments container of custom comment components
 class Comments extends Component{
 
@@ -137,7 +104,7 @@ class Posts extends Component{
         let post = item.item
 
         return(
-            <TouchableWithoutFeedback onPress={()=> this.postNavigate('PostDetailScreen')}>
+            <TouchableWithoutFeedback onPress={()=> this.postNavigate('PostDetail')}>
                 <Card>
                     <Post 
                         title={post.title} 
@@ -261,16 +228,12 @@ class MainFooter extends Component{
 }
 
 // main component
-export default class Main extends Component{
+export default class MainScreen extends Component{
     
-    toggleMenu = () => {
-        this.props.navigation.toggleDrawer()
-    }
-
     render = () => {
+        console.log('ok')
         return(
             <Container style={{backgroundColor:'powderblue'}}>
-                <MainHeader toggleMenu = {this.toggleMenu}/>
                 <View style={{flex: 1}}>
                     <Posts navigate = {this.props.navigation.navigate}/>
                 </View>
