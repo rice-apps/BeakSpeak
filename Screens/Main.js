@@ -87,8 +87,8 @@ class Posts extends Component{
         this.mounted = false
     }
 
-    postNavigate = (route) => {
-        this.props.navigate(route)
+    postNavigate = (route, post_id) => {
+        this.props.navigate(route,{id: post_id})
     }
     
     _onRefresh = async() => { 
@@ -102,9 +102,9 @@ class Posts extends Component{
 
     _renderItem = (item) => {
         let post = item.item
-
+        
         return(
-            <TouchableWithoutFeedback onPress={()=> this.postNavigate('PostDetail')}>
+            <TouchableWithoutFeedback onPress={()=> this.postNavigate('PostDetail', post._id)}>
                 <Card>
                     <Post 
                         title={post.title} 
@@ -231,7 +231,6 @@ class MainFooter extends Component{
 export default class MainScreen extends Component{
     
     render = () => {
-        console.log('ok')
         return(
             <Container style={{backgroundColor:'powderblue'}}>
                 <View style={{flex: 1}}>

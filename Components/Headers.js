@@ -17,7 +17,6 @@ export class DrawerHeader extends Component{
 
     toggleMenu = () => {
         this.props.navigation.toggleDrawer()
-        console.log('why does this work')
     }
 
     render = () => {
@@ -52,7 +51,6 @@ export class StackHeader extends Component{
 
     back = () => {
         this.props.navigation.goBack()
-        console.log("going back")
     }
 
     render = () => {
