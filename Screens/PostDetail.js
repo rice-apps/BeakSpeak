@@ -23,7 +23,7 @@ export default class PostDetailScreen extends Component{
         post_id = this.props.navigation.getParam('id') // use this post id to query the individual post from the backend
 
         if(this.mounted) { // put logic here to avoid memory leak
-            pass;
+            console.log('mounted');
         }
     }
 
