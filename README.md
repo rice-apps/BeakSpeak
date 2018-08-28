@@ -10,28 +10,29 @@ WIP - The product of RiceApps's endeavors to recreate the magic of YikYak withou
 
 ## Running
 1. Download the Expo App on your phone
-2. Change to BeakSpeak's project directory 
-3. Open up a terminal and install dependencies with:
+2. Make sure Watchman is set up correctly
+3. Change to BeakSpeak's project directory 
+4. Open up a terminal and install dependencies with:
 ```
 npm install
 ```
 
-4. Then, run in terminal:
+5. Then, run in terminal:
 ```
 npm start
 ```
 
-5. Next, globally install `react-native-cli`:
+6. Next, globally install `react-native-cli`:
 ```
 npm install -g react-native-cli
 ```
 
-6. Link assets:
+7. Link assets:
 ```
 react-native link
 ```
 
-7. You will be given a QR Code to scan and preview the app on your phone via the Expo client (Android), or enter s and your phone number to get a link to the app preview (iOS)
+8. You will be given a QR Code to scan and preview the app on your phone via the Expo client (Android), or enter s and your phone number to get a link to the app preview (iOS)
 
 
 ## Connecting to Backend
