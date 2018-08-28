@@ -42,10 +42,10 @@ class Comments extends Component{
 
         return(
             <FlatList
-             data={comments}
-             listKey={(item, index) => item._id}
-             keyExtractor={(item, index) => item._id}
-             renderItem={(item) => {
+             data = {comments}
+             listKey = {(item, index) => item._id}
+             keyExtractor = {(item, index) => item._id}
+             renderItem = {(item) => {
                 let comment = item.item
 
                 return(
@@ -64,8 +64,8 @@ class Posts extends Component{
         super(props)
 
         this.mounted = false
-        this.state={
-            posts:[],
+        this.state = {
+            posts: [],
             loaded: false
         }
     }
@@ -74,7 +74,7 @@ class Posts extends Component{
         this.mounted = true
         let posts = await DatabaseService.getPosts() // retrieve posts from database
 
-        if (this.mounted){ // to avoid memory leak, check if component is mounted before setting state
+        if (this.mounted) { // to avoid memory leak, check if component is mounted before setting state
             this.setState({
                 posts: posts,
                 loaded: true,
@@ -87,8 +87,8 @@ class Posts extends Component{
         this.mounted = false
     }
 
-    postNavigate = (route) => {
-        this.props.navigate(route)
+    postNavigate = (route, post_id) => {
+        this.props.navigate(route, {id: post_id})
     }
     
     _onRefresh = async() => { 
@@ -102,15 +102,15 @@ class Posts extends Component{
 
     _renderItem = (item) => {
         let post = item.item
-
+        
         return(
-            <TouchableWithoutFeedback onPress={()=> this.postNavigate('PostDetail')}>
+            <TouchableWithoutFeedback onPress = {()=> this.postNavigate('PostDetail', post._id)}>
                 <Card>
                     <Post 
-                        title={post.title} 
-                        body={post.body}
+                        title = {post.title} 
+                        body = {post.body}
                     />
-                    <Comments comments={post.comments}/>
+                    <Comments comments = {post.comments}/>
                 </Card>
             </TouchableWithoutFeedback>
         )
@@ -118,7 +118,7 @@ class Posts extends Component{
     render = () => {
         let loaded = this.state.loaded
 
-        if(!loaded){ // wait for posts to load
+        if(!loaded) { // wait for posts to load
             return(
                 <AppLoading/>
             )
@@ -130,18 +130,18 @@ class Posts extends Component{
 
             return (
                 <FlatList
-                    data={posts}
-                    renderItem={(item) => {return this._renderItem(item)}}
-                    keyExtractor={(item, index) => item._id}
-                    refreshControl={ // controls refreshing
+                    data = {posts}
+                    renderItem = {(item) => {return this._renderItem(item)}}
+                    keyExtractor = {(item, index) => item._id}
+                    refreshControl = { // controls refreshing
                         <RefreshControl
-                            refreshing={refresh}
-                            onRefresh={this._onRefresh}
-                            tintColor="skyblue"
+                            refreshing = {refresh}
+                            onRefresh = {this._onRefresh}
+                            tintColor = 'skyblue'
                         />
                     }
-                    ListEmptyComponent={<Blank/>}
-                    contentContainerStyle={(posts == undefined || !posts.length) ? { flex: 1, alignItems: 'center' }:{}}
+                    ListEmptyComponent = {<Blank/>}
+                    contentContainerStyle = {(posts == undefined || !posts.length) ? { flex: 1, alignItems: 'center' } : {}}
                 />
             )               
         }
@@ -177,27 +177,27 @@ class MainFooter extends Component{
                 {/* new post creation modal */}
                 <Modal
                     isVisible = {isVisible}
-                    animationIn={'slideInUp'}
-                    animationOut={'zoomOut'}
-                    animationInTiming={500}
-                    animationOutTiming={500}
+                    animationIn = {'slideInUp'}
+                    animationOut = {'zoomOut'}
+                    animationInTiming = {500}
+                    animationOutTiming = {500}
                 >
                     <View style={{
                                     borderRadius: 10, 
                                     padding: 10, 
-                                    backgroundColor: "white"
+                                    backgroundColor: 'white'
                                 }}>
                         <View style={{
-                                        flexDirection: "row", 
-                                        justifyContent: "flex-end"
+                                        flexDirection: 'row', 
+                                        justifyContent: 'flex-end'
                                     }}>
 
                             {/* cancel button */}
                             <Icon 
-                                name = "close" 
+                                name = 'close' 
                                 fontSize = {30}
-                                type = "MaterialCommunityIcons"
-                                style = {{color: "skyblue"}}
+                                type = 'MaterialCommunityIcons'
+                                style = {{color: 'skyblue'}}
                                 onPress = {() => {this.hideModal()}}
                             />
                         </View>
@@ -211,13 +211,13 @@ class MainFooter extends Component{
                 <Footer>
 
                     {/* new post button */}
-                    <TouchableWithoutFeedback onPress={() => {this.renderModal()}}>
-                        <View style={styles.newPostButton}>
+                    <TouchableWithoutFeedback onPress = {() => {this.renderModal()}}>
+                        <View style = {styles.newPostButton}>
                                 <Icon 
-                                    name="plus" 
-                                    fontSize={30}
-                                    type="MaterialCommunityIcons"
-                                    style = {{color: "white"}}
+                                    name = 'plus' 
+                                    fontSize = {30}
+                                    type = 'MaterialCommunityIcons'
+                                    style = {{color: 'white'}}
                                 />
                         </View>
                     </TouchableWithoutFeedback>
@@ -231,10 +231,9 @@ class MainFooter extends Component{
 export default class MainScreen extends Component{
     
     render = () => {
-        console.log('ok')
         return(
-            <Container style={{backgroundColor:'powderblue'}}>
-                <View style={{flex: 1}}>
+            <Container style = {{backgroundColor: 'powderblue'}}>
+                <View style = {{flex: 1}}>
                     <Posts navigate = {this.props.navigation.navigate}/>
                 </View>
                 <MainFooter/>
@@ -244,16 +243,16 @@ export default class MainScreen extends Component{
 }
 
 const styles = StyleSheet.create({
-    newPostButton:{
-        flex:1,
-        backgroundColor: "powderblue",
-        justifyContent:"center",
-        alignItems:"center",
+    newPostButton: {
+        flex: 1,
+        backgroundColor: 'powderblue',
+        justifyContent: 'center',
+        alignItems: 'center',
         borderTopWidth: 1,
-        borderColor: "white"
+        borderColor: 'white'
     },
-    seeBorders:{
-        borderWidth:1,
-        borderColor:"red"
+    seeBorders: {
+        borderWidth: 1,
+        borderColor:'red'
     }
 })

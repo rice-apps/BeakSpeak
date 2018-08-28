@@ -21,12 +21,12 @@ export default class App extends Component{
             'MaterialCommunityIcons': require('native-base/Fonts/MaterialCommunityIcons.ttf'),            
         })
         
-        this.setState({assetsLoaded:true})
+        this.setState({assetsLoaded: true})
     }
 
     render = () => {
         // wait for assets to load
-        if(this.state.assetsLoaded){
+        if(this.state.assetsLoaded) {
             return(
                 <AuthNav/>                
             )

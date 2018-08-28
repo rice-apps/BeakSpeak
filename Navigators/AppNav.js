@@ -19,13 +19,13 @@ MainNav = createStackNavigator(
         Posts: {
             screen: MainScreen,
             navigationOptions: ({ navigation }) => ({
-                header: <DrawerHeader navigation={navigation} title="Posts"/>
+                header: <DrawerHeader navigation = {navigation} title = 'Posts'/>
             }),
         },
         PostDetail: {
             screen: PostDetailScreen,
             navigationOptions: ({ navigation }) => ({
-                header: <StackHeader navigation={navigation} title="Post"/>
+                header: <StackHeader navigation = {navigation} title = 'Post'/>
             }),         
         }
     },
