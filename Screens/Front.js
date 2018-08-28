@@ -17,11 +17,11 @@ export class FrontBody extends Component {
 
     render = () => {
         return (
-            <View style={{flex:1}}>
-                <View style={[{height:50}]}/>
-                <View style = {{flex:1, flexDirection:"row"}}>
-                    <View style={{flex:1}}/>
-                    <View style={{flex:3}}>
+            <View style={{flex: 1}}>
+                <View style={[{height: 50}]}/>
+                <View style = {{flex: 1, flexDirection: 'row'}}>
+                    <View style={{flex: 1}}/>
+                    <View style={{flex: 3}}>
 
                         {/* our logo */}
                         <Image
@@ -31,10 +31,10 @@ export class FrontBody extends Component {
                     </View>
                     <View style={{flex:1}}/>
                 </View>
-                <View style={[{flex:1, alignItems:"center"}]}>
+                <View style={[{flex:1, alignItems:'center'}]}>
 
                     {/* fancy app title */}
-                    <Text style={[{fontFamily:"caviar-dreams", fontSize:30, color:"white"}]}>
+                    <Text style={[{fontFamily: 'caviar-dreams', fontSize: 30, color: 'white'}]}>
                         BeakSpeak
                     </Text>                    
                 </View>
@@ -56,13 +56,14 @@ export default class FrontScreen extends Component {
     async componentDidMount(){
         AuthService.login() // testing login requests
     }
+
     navigate = (screen) => {
         this.props.navigation.navigate(screen)
     }
 
     getLoginInfo = async () => {
         const userToken = await AsyncStorage.getItem('userToken')
-        //this.navigate(userToken ? 'MainScreen' : 'LoginScreen' )
+        //this.navigate(userToken ? 'MainScreen' : 'LoginScreen') // use later when logging in works
         this.navigate('Main')
     }
     
@@ -70,7 +71,7 @@ export default class FrontScreen extends Component {
         const {height: screenHeight} = Dimensions.get('window');
 
         return (
-                <View style={[styles.screenTheme,{height: screenHeight}]}>
+                <View style={[styles.screenTheme, {height: screenHeight}]}>
                     <FrontBody/>
                 </View>
         );
@@ -78,26 +79,26 @@ export default class FrontScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-    image:{
-        flex:1,
-        height:undefined,
-        width:undefined,
-        resizeMode:"contain"
+    image: {
+        flex: 1,
+        height: undefined,
+        width: undefined,
+        resizeMode: 'contain'
     },
-    clearbutton:{
-        backgroundColor:"transparent",
-        borderColor: "lightblue",
+    clearbutton: {
+        backgroundColor: 'transparent',
+        borderColor: 'lightblue',
         borderWidth: 3
     },
-    seeBorders:{
-        borderWidth:1,
-        borderColor:"red"
+    seeBorders: {
+        borderWidth: 1,
+        borderColor: 'red'
     },
     screenTheme:{
         flex: 1,
-        backgroundColor:"powderblue",
-        justifyContent:"center",
-        alignItems:"center",
-        flexDirection:"row"
+        backgroundColor:'powderblue',
+        justifyContent:'center',
+        alignItems:'center',
+        flexDirection:'row'
     }
 })

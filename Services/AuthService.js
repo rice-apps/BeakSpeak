@@ -9,35 +9,31 @@ login = async() => {
         method: 'GET',
         headers: {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.84 Safari/537.36'
-        }
-    });
-
-    //console.log(a);
+            }
+        });
     
-    let data = {
-        'j_username':'nnq1',
-        'j_password':'Prettyflower1!',
-        '_eventId_proceed': ''
-    };
+        let data = {
+            'j_username': 'nnq1',
+            'j_password': 'Prettyflower1!',
+            '_eventId_proceed': ''
+        };
     
-    let c = await fetch(a.url, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.84 Safari/537.36',
-            'Referer': 'https://idp.rice.edu/idp/profile/cas/login?execution=e3s1',
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: JSON.stringify(data)
-    });
+        let c = await fetch(a.url, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.84 Safari/537.36',
+                'Referer': 'https://idp.rice.edu/idp/profile/cas/login?execution=e3s1',
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: JSON.stringify(data)
+        });
 
-    //console.log(c);
     }catch(err){
         console.log(err)
     }
 }
 
-//Object.entries(data).map((e) => e.join('=')).join('&')
 export default{
     login
 }

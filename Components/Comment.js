@@ -21,8 +21,8 @@ export default class Comment extends Component{
     constructor(props){
         super(props)
 
-        this.state={
-            body:this.props.body
+        this.state = {
+            body: this.props.body
         }
     }
 
@@ -30,15 +30,15 @@ export default class Comment extends Component{
         let body = this.state.body
 
         return(
-            <Card style={styles.card}>
-                <CommentBody body={body}/>
+            <Card style = {styles.card}>
+                <CommentBody body = {body}/>
             </Card>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    card:{
+    card: {
         borderColor: "powderblue",
         borderWidth: 5,
         borderRadius: 15

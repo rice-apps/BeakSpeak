@@ -9,28 +9,28 @@ export default class Sidebar extends Component{
     }
 
     render = () => {
-        return(
+        return( // each icon represents a page accessible from the menu
                 <View style={styles.container}>
                     <Icon 
-                        name="note-text" 
-                        fontSize={30}
-                        type="MaterialCommunityIcons"
-                        style = {{color: "white"}}
-                        onPress = {() => this.navigate("Main")}
+                        name = 'note-text' 
+                        fontSize = {30}
+                        type = 'MaterialCommunityIcons'
+                        style = {{color: 'white'}}
+                        onPress = {() => this.navigate('Main')}
                     />
                     <Icon 
-                        name="settings" 
-                        fontSize={30}
-                        type="MaterialCommunityIcons"
-                        style = {{color: "white"}}
-                        onPress = {() => this.navigate("Settings")}
+                        name = 'settings' 
+                        fontSize = {30}
+                        type = 'MaterialCommunityIcons'
+                        style = {{color: 'white'}}
+                        onPress = {() => this.navigate('Settings')}
                     />
                     <Icon 
-                        name="information" 
-                        fontSize={30}
-                        type="MaterialCommunityIcons"
-                        style = {{color: "white"}}
-                        onPress = {() => this.navigate("Info")}
+                        name = 'information' 
+                        fontSize = {30}
+                        type = 'MaterialCommunityIcons'
+                        style = {{color: 'white'}}
+                        onPress = {() => this.navigate('Info')}
                     />
                 </View>
         )
@@ -38,14 +38,14 @@ export default class Sidebar extends Component{
 }
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
         flex: 1,
-        justifyContent:"space-evenly",
-        alignItems: "center",
-        backgroundColor: "powderblue",
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        backgroundColor: 'powderblue',
     },
-    seeBorders:{
-        borderWidth:1,
-        borderColor:"red"
+    seeBorders: {
+        borderWidth: 1,
+        borderColor: 'red'
     }
 })

@@ -23,9 +23,9 @@ let {width: screenWidth} = Dimensions.get('window')
 
 // customizing new post form
 const PostOptions = {
-    fields:{
-        body:{
-            placeholder: "Your thoughts here...",
+    fields: {
+        body: {
+            placeholder: 'Your thoughts here...',
             multiline: true,
             numberOfLines: 5,
             blurOnSubmit: true,
@@ -43,7 +43,7 @@ const PostOptions = {
             }
         },
         title:{
-            placeholder: "Your clever title here...",
+            placeholder: 'Your clever title here...',
             stylesheet: {
                 ...Form.stylesheet,
                 textbox: {
@@ -82,7 +82,7 @@ export class NewPost extends Component{
     
     render = () => {
         return(
-            <View style={styles.content}>
+            <View style = {styles.content}>
                 {/* new post creation form */}
                 <Form 
                  type = {PostSchema}
@@ -107,7 +107,7 @@ export class NewPost extends Component{
 }
 const styles = StyleSheet.create(
     {
-        content:{
+        content: {
             alignItems: "center", 
             justifyContent: "center",
             backgroundColor: "white",

@@ -22,7 +22,7 @@ class PostHeader extends Component{
     render = () => {
         return(
             <CardItem>
-                    <Title style={{color:"black"}}>
+                    <Title style ={{color: 'black'}}>
                         {this.props.title}
                     </Title>
             </CardItem>
@@ -55,10 +55,10 @@ export default class Post extends PureComponent{
 const styles = StyleSheet.create(
     {
         titlefont:{
-            fontWeight:"bold",
+            fontWeight: 'bold',
         },
         card:{
-            borderColor: "powderblue",
+            borderColor: 'powderblue',
             borderWidth: 5,
             borderRadius: 15
         }
