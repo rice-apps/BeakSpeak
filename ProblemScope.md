@@ -13,8 +13,8 @@ We have a lot of residential college pride, which is great because the residenti
 Current technologies students use to stay connected are Facebook, Groupme, and Snapchat. The problems with these are:
 1. All carry the burden of identity
 2. Restricted social interactions because of group structure
-3. Some (Groupme) are used more for productivity than socializing anyway 
-4. Others (Snapchat) are used to interact with a small group of people anyway
+3. Some (Groupme) are used more for productivity than socializing
+4. Others (Snapchat) are used to interact with a small group of people
 5. Distracting clutter of information
 
 Furthermore, residential colleges host a lot of inner-college events, which are great at strengthening bonds already in place but not so much at forming new connections. This stands in stark contrast to (lack of) inter-college/campus-wide events that ought to balance the residential system. While RPC does a phenomenal job of hosting major social events ie dances like Rondelet and Esperanza, these events are few and far in-between. Plus they do not offer much potential for forming new connections as, once again, the culture for such events is to go in groups.  
@@ -23,7 +23,22 @@ Furthermore, residential colleges host a lot of inner-college events, which are 
 
 **Is interconnectivity important?**
 
-For a healthy, happy campus life, a connected community is super important. Interconnectivity fosters Rice pride that acts as a unifiying force, which strengthens the student body. A strong student body is one where everyone feels like they belong and can relate with one another. This matters because the image we try to build at Rice is an inclusive image, so if even one person feels isolated, alone, or that they don't belong, that is a problem worth solving. Just take Rice athletics for example-- wouldn't you, an athlete who commits so much time to make your institution proud, feel sad if you knew very little people cared?    
+For a healthy, happy campus life, a connected community is super important. Interconnectivity fosters Rice pride that acts as a unifiying force, which strengthens the student body. A strong student body is one where everyone feels like they belong and can relate with one another. This matters because the image we try to build at Rice is an inclusive image, so if even one person feels isolated, alone, or that they don't belong, that is a problem worth solving. Just take Rice athletics for example-- wouldn't you, an athlete who commits so much time to make your institution proud, feel sad if you felt like very little people cared?  
+
+**Components of Interconnectivity**
+
+Interconnectivity can be broken down into the following components:
+1. Widely accessible and realtime communication
+2. Engaging feedback mechanisms (i.e. votes or reacts)
+3. Safety and Security
+
+A discussion of each component:
++ Widely accessible and realtime communication
+    + In order for our app to be effective, we rely on our app being widely accessible because connecting a whole network requires a resource that is available anytime and anywhere
++ Engaging feedback mechanisms 
+    + Expressing yourself by posting on the app is only one half of the picture; getting acknowlegdement from others is the other. Feedback mechanisms allow users to get input about how everyone else is feeling about their thoughts. There is a certain magic knowing that others agree with you strongly, or, on the other hand, controversially disagree
++ Safety and Security
+    + If we don't get this part right, no one will use our app; like YikYak, if the app is allowed unregulated anonymity, then the harsh consequences are cyber-bullying, threats, etc. Furthermore, creating a safe environment contributes towards people opening up and feeling comfortable to the point they can share their rawest thoughts without excessive adversity. There's a difference between an unpopular opinion and bullying, and we intend to keep that line very clear.
 
 #### *Problem Scope*
 
