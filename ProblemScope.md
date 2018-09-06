@@ -29,14 +29,14 @@ For a healthy, happy campus life, a connected community is super important. Inte
 
 Interconnectivity can be broken down into the following components:
 1. Widely accessible and realtime communication
-2. Engaging feedback mechanisms (i.e. votes or reacts)
+2. Freedom of expression
 3. Safety and Security
 
 A discussion of each component:
 + Widely accessible and realtime communication
-    + In order for our app to be effective, we rely on our app being widely accessible because connecting a whole network requires a resource that is available anytime and anywhere
-+ Engaging feedback mechanisms 
-    + Expressing yourself by posting on the app is only one half of the picture; getting acknowlegdement from others is the other. Feedback mechanisms allow users to get input about how everyone else is feeling about their thoughts. There is a certain magic knowing that others agree with you strongly, or, on the other hand, controversially disagree
+    + Interconnectivity cannot be achieved without this aspect. Part of connecting a whole network of people necessitates a framework that can be accessed by any Rice student, anywhere and anytime. This combats the issue of interactions being localized to a residential college.
++ Freedom of expression
+    + What keeps people connected and feeling like they belong to something bigger than themselves is a shared resource of experiences -- whether that's memes, unpopular opinions, or what everyone is thinking but too afraid to say.   
 + Safety and Security
     + If we don't get this part right, no one will use our app; like YikYak, if the app is allowed unregulated anonymity, then the harsh consequences are cyber-bullying, threats, etc. Furthermore, creating a safe environment contributes towards people opening up and feeling comfortable to the point they can share their rawest thoughts without excessive adversity. There's a difference between an unpopular opinion and bullying, and we intend to keep that line very clear.
 
