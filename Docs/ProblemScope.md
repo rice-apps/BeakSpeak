@@ -1,6 +1,6 @@
 ## BeakSpeak - Problem and Context
 
-Purpose of this document is to provide further context regarding BeakSpeak. This is meant mostly for the team to better understand the nature of the problem in order to derive key product insights for the anonymous social platform. 
+The purpose of this document is to provide further context regarding BeakSpeak. This is meant mostly for the team to better understand the nature of the problem in order to derive key product insights for the anonymous social platform. 
 
 ## Context
 
