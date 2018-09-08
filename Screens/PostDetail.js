@@ -1,10 +1,4 @@
-import React, {Component} from 'react';
-import {
-    View, 
-    Header,
-    Title,
-    Body
-} from 'native-base'
+import React, {Component} from 'react'
 
 import Blank from '../Components/Blank'
 
@@ -22,12 +16,12 @@ export default class PostDetailScreen extends Component{
 
         post_id = this.props.navigation.getParam('id') // use this post id to query the individual post from the backend
 
-        if(this.mounted) { // put logic here to avoid memory leak
-            console.log('mounted');
+        if(this.mounted) { // put database logic here to avoid memory leak
+            console.log('mounted') // delete me
         }
     }
 
-    // nothing to code here, a security measure to prevent memory leak -- look up component lifecycle
+    // nothing to code here, a security measure to prevent memory leak -- look up react component lifecycle
     componentWillUnmount = () => {
         this.mounted = false
     }
@@ -35,7 +29,10 @@ export default class PostDetailScreen extends Component{
     // render a post with comments -- use posts component from main as an example for structure
     render = () => {
         return(
-            <Blank/>
+            <Blank/> //placeholder, delete with actual code 
+            /*Use Post from Components folder*/
+            /*Use Comment from Componenst folder and construct comments*/
+            /*BONUS: create an input field for new comments*/
         )
     }
 }
