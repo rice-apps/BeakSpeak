@@ -40,7 +40,24 @@ export async function sendNewPost(newPost) {
     }
 }
 
+// USE ME
+export async function getPost(id) {
+    try{
+        let res = await fetch(apiUrl+'/posts/'+id,{
+            method: 'GET',
+            headers: {
+                'x-access-token': token
+            }
+        })
+        let posts = await res.json()
+        return posts
+    }catch(err) {
+        console.log(err)
+    }
+}
+
 export default{
     getPosts,
-    sendNewPost
+    sendNewPost,
+    getPost
 }

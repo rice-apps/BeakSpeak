@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 
+import DatabaseService from '../Services/DatabaseService'
 import Blank from '../Components/Blank'
 
 //TODO: implement this class
@@ -8,16 +9,22 @@ export default class PostDetailScreen extends Component{
     // initialize with default values -- DO NOT fetch data here
     constructor(props){
         super(props)
+
+        // default state -- we have no post and nothing is loaded
+        this.state = {
+            post : null,
+            loaded : false
+        }
     }
 
-    // fetch data from database 
+    // TODO: fetch data from database 
     componentDidMount = async() => {
         this.mounted = true
 
         post_id = this.props.navigation.getParam('id') // use this post id to query the individual post from the backend
-
-        if(this.mounted) { // put database logic here to avoid memory leak
-            console.log('mounted') // delete me
+        let post = null // put database logic here -- look in Servcies/DatabaseService for the appropriate method
+        if(this.mounted) { // set state here to avoid memory leak
+            console.log('make sure to set refresh to false and load to true -- like in Main screen!')
         }
     }
 
