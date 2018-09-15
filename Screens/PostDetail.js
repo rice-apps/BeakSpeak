@@ -1,7 +1,29 @@
 import React, {Component} from 'react'
+import {
+    FlatList,
+    StyleSheet,
+    TouchableWithoutFeedback,
+    RefreshControl
+} from 'react-native'
+import {
+    Card,
+    Container,
+    Header,
+    Left,
+    Title,
+    Right,
+    Body,
+    Footer,
+    Icon,
+    View
+} from 'native-base'
+import {AppLoading} from 'expo'
 
-import DatabaseService from '../Services/DatabaseService'
+import Post from '../Components/Post'
+import Comment from '../Components/Comment'
 import Blank from '../Components/Blank'
+import DatabaseService from '../Services/DatabaseService'
+
 
 //TODO: implement this class
 export default class PostDetailScreen extends Component{
@@ -22,9 +44,13 @@ export default class PostDetailScreen extends Component{
         this.mounted = true
 
         post_id = this.props.navigation.getParam('id') // use this post id to query the individual post from the backend
-        let post = null // put database logic here -- look in Servcies/DatabaseService for the appropriate method
+        let post = await DatabaseService.getPost(post_id) // put database logic here -- look in Servcies/DatabaseService for the appropriate method
+        console.log(post)
         if(this.mounted) { // set state here to avoid memory leak
-            console.log('make sure to set refresh to false and load to true -- like in Main screen!')
+            this.setState({
+                post : post, 
+                loaded : true,
+                 refresh : false})
         }
     }
 
@@ -33,13 +59,50 @@ export default class PostDetailScreen extends Component{
         this.mounted = false
     }
 
+    _onRefresh = async() => {
+        this.setState((state) => ({refresh:true})) // indicate we are refreshing
+        post_id = this.props.navigation.getParam('id') // query this post's id from backend 
+        let post = await DatabaseService.getPost() // refresh data
+        this.setState((state) => ({post:post, refresh:false})) // refresh state -- use function
+    }
+
     // render a post with comments -- use posts component from main as an example for structure
     render = () => {
+        let loaded = this.state.loaded 
+
+        if(!loaded) {
+            return(
+                <AppLoading/>
+            )
+        }
+        else {
+            let post = this.state.post
+            let refresh = this.state.refresh
+        }
+        
         return(
-            <Blank/> //placeholder, delete with actual code 
+            <Card style = {styles.card}>
+                <Post
+                    title = {post.title}
+                    body = {post.body}
+                /> 
+            </Card>
             /*Use Post from Components folder*/
             /*Use Comment from Componenst folder and construct comments*/
             /*BONUS: create an input field for new comments*/
         )
     }
 }
+
+const styles = StyleSheet.create(
+    {
+        titlefont:{
+            fontWeight: 'bold',
+        },
+        card:{
+            borderColor: 'powderblue',
+            borderWidth: 5,
+            borderRadius: 15
+        }
+    }
+)
