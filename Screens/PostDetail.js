@@ -39,7 +39,6 @@ export default class PostDetailScreen extends Component{
         }
     }
 
-    // TODO: fetch data from database 
     componentDidMount = async() => {
         this.mounted = true
 
@@ -105,6 +104,7 @@ export default class PostDetailScreen extends Component{
                         data= {comments}
                         renderItem={(item) => { return this._renderItem(item) }}
                         keyExtractor={(item, index) => item._id}
+                        //TODO: fix refresh error
                         refreshControl={ // controls refreshing
                             <RefreshControl
                                 refreshing={refresh}
