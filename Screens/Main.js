@@ -39,7 +39,6 @@ class Comments extends Component{
 
     render = () => {
         let comments = this.state.comments
-
         return(
             <FlatList
              data = {comments}
@@ -47,7 +46,7 @@ class Comments extends Component{
              keyExtractor = {(item, index) => item._id}
              renderItem = {(item) => {
                 let comment = item.item
-
+                
                 return(
                     <Comment body = {comment.body}/>
                 )
