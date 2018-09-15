@@ -66,6 +66,19 @@ export default class PostDetailScreen extends Component{
         this.setState((state) => ({post:post, refresh:false})) // refresh state -- use function
     }
 
+    _renderItem = (item) => {
+        let post = item.item
+        
+        return(
+            <Card>
+                <Post 
+                    title = {post.title} 
+                    body = {post.body}
+                />
+             </Card>
+        )
+    }
+
     // render a post with comments -- use posts component from main as an example for structure
     render = () => {
         let loaded = this.state.loaded 
@@ -75,22 +88,40 @@ export default class PostDetailScreen extends Component{
                 <AppLoading/>
             )
         }
+        
         else {
             let post = this.state.post
             let refresh = this.state.refresh
+            let comments = post.comments
+
+            return(
+                <Card style = {styles.card}>
+                    <View>
+                    <Post
+                        title={post.title}
+                        body={post.body}
+                    /> 
+                    <FlatList
+                        data= {comments}
+                        renderItem={(item) => { return this._renderItem(item) }}
+                        keyExtractor={(item, index) => item._id}
+                        refreshControl={ // controls refreshing
+                            <RefreshControl
+                                refreshing={refresh}
+                                onRefresh={this._onRefresh}
+                                tintColor='skyblue'
+                            />
+                        }
+                        ListEmptyComponent={<Blank />}
+                        contentContainerStyle={(comments == undefined || !comments.length) ? { flex: 1, alignItems: 'center' } : {}}
+                    />
+                    </View>
+                </Card>
+                /*Use Post from Components folder*/
+                /*Use Comment from Componenst folder and construct comments*/
+                /*BONUS: create an input field for new comments*/
+            )
         }
-        
-        return(
-            <Card style = {styles.card}>
-                <Post
-                    title = {post.title}
-                    body = {post.body}
-                /> 
-            </Card>
-            /*Use Post from Components folder*/
-            /*Use Comment from Componenst folder and construct comments*/
-            /*BONUS: create an input field for new comments*/
-        )
     }
 }
 
