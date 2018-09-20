@@ -8,11 +8,6 @@ import {
 import {
     Card,
     Container,
-    Header,
-    Left,
-    Title,
-    Right,
-    Body,
     Footer,
     Icon,
     View

@@ -77,11 +77,13 @@ export default class FrontScreen extends Component {
 
     getLoginInfo = async () => {
         const userToken = await AsyncStorage.getItem('userToken')
+        /*
         this.setState({
             modalVisible: true
         })
-        //this.navigate(userToken ? 'MainScreen' : 'LoginScreen') // use later when logging in works
-        //this.navigate('Main')
+        */
+        
+        this.navigate('Main')
     }
     
     render = () => {
@@ -109,15 +111,6 @@ export default class FrontScreen extends Component {
                                             flexDirection: 'row', 
                                             justifyContent: 'flex-end'
                                         }}>
-
-                                {/* cancel button */}
-                                <Icon 
-                                    name = 'close' 
-                                    fontSize = {30}
-                                    type = 'MaterialCommunityIcons'
-                                    style = {{color: 'skyblue'}}
-                                    onPress = {() => {this.hideModal()}}
-                                />
                             </View>
 
                             {/* new post creation form*/}
