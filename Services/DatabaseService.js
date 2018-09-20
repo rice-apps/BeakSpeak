@@ -40,7 +40,6 @@ export async function sendNewPost(newPost) {
     }
 }
 
-// USE ME
 export async function getPost(id) {
     try{
         let res = await fetch(apiUrl+'/posts/'+id,{
