@@ -27,18 +27,20 @@ class PostDetailFooter extends Component{
         this.state = {inputrn: ''};
         this.state = {input: ''};
         //this.myTextInput = React.createRef();
+
     }
 
     onSubmit() {
         this.setState({input: this.state.inputrn});
+        DatabaseService.postComment(this.props.post_id, this.state.inputrn)
     }
 
     render = () => {
         return(
-
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-                <Text>input: {this.state.inputrn}</Text>
+                <Text>inputrn: {this.state.inputrn}</Text>
                 <Text>input: {this.state.input}</Text>
+                <Text>props: {this.props}</Text>
                 <Item regular>
                         <Input
                         //ref={this.myTextInput}
@@ -98,15 +100,18 @@ export default class PostDetailScreen extends Component{
         // default state -- we have no post and nothing is loaded
         this.state = {
             post : null,
-            loaded : false
+            loaded : false,
         }
+
+        this.post_id = this.props.navigation.getParam('id') // use this post id to query the individual post from the backend
+
     }
 
     componentDidMount = async() => {
         this.mounted = true
 
-        post_id = this.props.navigation.getParam('id') // use this post id to query the individual post from the backend
-        let post = await DatabaseService.getPost(post_id) // put database logic here -- look in Servcies/DatabaseService for the appropriate method
+        // post_id = this.props.navigation.getParam('id') // use this post id to query the individual post from the backend
+        let post = await DatabaseService.getPost(this.post_id) // put database logic here -- look in Servcies/DatabaseService for the appropriate method
        
         if(this.mounted) { // set state here to avoid memory leak
             this.setState({
@@ -180,7 +185,7 @@ export default class PostDetailScreen extends Component{
                     contentContainerStyle = {(post == undefined) ? { flex: 1, alignItems: 'center' } : {}}
                     />
                     </View>
-                    <PostDetailFooter/>
+                    <PostDetailFooter post_id = {this.post_id}/>
                 </Container>
             )               
         }

@@ -19,7 +19,6 @@ export async function getPosts() {
 }
 
 export async function sendNewPost(newPost) {
-    
     try{
         let res = await fetch(apiUrl+'/posts',{
             method: 'POST',
@@ -40,8 +39,20 @@ export async function sendNewPost(newPost) {
     }
 }
 
-export async function updatePost(id) {
-
+export async function postComment(id, text) {
+    try{
+        let res = await fetch(apiUrl+'/posts/'+id+'comments', text, {
+            method: 'POST',
+            headers: {
+                'x-access-token': token
+            }
+        })
+        let posts = await res.json();
+        console.log(posts);
+        return posts
+    }catch(err) {
+        console.log(err)
+    }
 }
 
 export async function getPost(id) {
@@ -62,5 +73,6 @@ export async function getPost(id) {
 export default{
     getPosts,
     sendNewPost,
-    getPost
+    getPost,
+    postComment
 }
