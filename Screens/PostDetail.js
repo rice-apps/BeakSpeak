@@ -68,6 +68,7 @@ export default class PostDetailScreen extends Component{
                 loaded: true,
                 refresh: false
             })
+            console.log(post)
         }
     }
 
