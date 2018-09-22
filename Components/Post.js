@@ -37,13 +37,20 @@ export default class Post extends PureComponent{
         super(props)
     }
 
+    upvoteScore = () => {
+        this.props.upvoteScore()
+    }
+
+    downvoteScore = () => {
+        this.props.downvoteScore()
+    }
+
     render = () => {
         let title = this.props.title
         let body = this.props.body
-    
+        this.upvoteScore()
         return(
             <Card style={styles.card}>
-            
                 {/* post component decomposed into children components*/}
                 <PostHeader title = {title}/>
                 <PostBody body = {body}/>
@@ -51,6 +58,9 @@ export default class Post extends PureComponent{
         )
     }
 }
+
+
+
 
 const styles = StyleSheet.create(
     {

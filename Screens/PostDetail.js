@@ -61,7 +61,7 @@ export default class PostDetailScreen extends Component{
 
         post_id = this.props.navigation.getParam('id') // use this post id to query the individual post from the backend
         let post = await DatabaseService.getPost(post_id) // put database logic here -- look in Servcies/DatabaseService for the appropriate method
-       
+        console.log(post)
         if(this.mounted) { // set state here to avoid memory leak
             this.setState({
                 post: post,
