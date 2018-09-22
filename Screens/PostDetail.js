@@ -32,7 +32,9 @@ class PostDetailFooter extends Component{
 
     onSubmit() {
         this.setState({input: this.state.inputrn});
-        DatabaseService.postComment(this.props.post_id, this.state.inputrn)
+        console.log(this.props.post_id);
+        DatabaseService.postComment(this.props.post_id, this.state.inputrn);
+
     }
 
     render = () => {
@@ -40,21 +42,20 @@ class PostDetailFooter extends Component{
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
                 <Text>inputrn: {this.state.inputrn}</Text>
                 <Text>input: {this.state.input}</Text>
-                <Text>props: {this.props}</Text>
+                {/*<Text>props: {this.props}</Text>*/}
                 <Item regular>
-                        <Input
-                        //ref={this.myTextInput}
-                        placeholder='Put your comment here.'
-                        onChangeText={
-                            (text) => {this.setState({inputrn: text})}}
-                        onSubmitEditing= {() => {this.onSubmit()}}/>
-                        <Button
-                            rounded
-                            warning
-                            onPress = {() => this.onSubmit()}>
-                            <Text> Post! </Text>
-                        </Button>
-                    </Item>
+                    <Input
+                    //ref={this.myTextInput}
+                    placeholder='Put your comment here.'
+                    onChangeText={(text) => {this.setState({inputrn: text})}}
+                    onSubmitEditing= {() => {this.onSubmit()}}/>
+                    <Button
+                        rounded
+                        warning
+                        onPress = {() => this.onSubmit()}>
+                        <Text>  Post!  </Text>
+                    </Button>
+                </Item>
             </KeyboardAvoidingView>
 
         )
@@ -118,8 +119,8 @@ export default class PostDetailScreen extends Component{
                 post: post,
                 loaded: true,
                 refresh: false
-            })
-        }
+            })//.then(console.log(this.state.post))
+       }
     }
 
     // nothing to code here, a security measure to prevent memory leak -- look up react component lifecycle
