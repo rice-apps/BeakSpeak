@@ -106,6 +106,7 @@ export class NewPost extends Component{
     }
 }
 
+
 const styles = StyleSheet.create(
     {
         content: {

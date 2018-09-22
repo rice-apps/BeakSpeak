@@ -4,9 +4,13 @@ import {
     FlatList,
     StyleSheet,
     TouchableWithoutFeedback,
-    RefreshControl}
+    KeyboardAvoidingView,
+    RefreshControl,
+    TextInput,
+    Text
+}
 from 'react-native'
-import {Card, Container, Footer, Icon, View} from 'native-base'
+import {Card, Container, Footer, Icon, Item, View, Input} from 'native-base'
 
 import DatabaseService from '../Services/DatabaseService'
 import Blank from '../Components/Blank'
@@ -15,80 +19,45 @@ import Comment from '../Components/Comment'
 import Modal from "react-native-modal";
 import {NewPost} from "../Components/New";
 
+import { Header, Content, Button, Text } from 'native-base';
+
 
 class PostDetailFooter extends Component{
 
     constructor(props){
-        super(props)
-
-        this.state = {
-            modalVisible: false
-        }
+        super(props);
+        this.state = {input: ''};
+        //this.myTextInput = React.createRef();
     }
 
-    renderModal = () => {
-        this.setState({modalVisible: true})
-    }
-
-    hideModal = () => {
-        this.setState({modalVisible: false})
+    onSubmit(event) {
+        this.setState({input: event.nativeEvent.text});
     }
 
     render = () => {
-        let isVisible = this.state.modalVisible
-
         return(
-            <View>
 
-                {/* new post creation modal */}
-                <Modal
-                    isVisible = {isVisible}
-                    animationIn = {'slideInUp'}
-                    animationOut = {'zoomOut'}
-                    animationInTiming = {500}
-                    animationOutTiming = {500}
-                >
-                    <View style={{
-                        borderRadius: 10,
-                        padding: 10,
-                        backgroundColor: 'white'
-                    }}>
-                        <View style={{
-                            flexDirection: 'row',
-                            justifyContent: 'flex-end'
-                        }}>
+            <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+                <Text>input: {this.state.input}</Text>
 
-                            {/* cancel button */}
-                            <Icon
-                                name = 'close'
-                                fontSize = {30}
-                                type = 'MaterialCommunityIcons'
-                                style = {{color: 'skyblue'}}
-                                onPress = {() => {this.hideModal()}}
-                            />
-                        </View>
+                <Item regular>
+                        <Input
+                        //ref={this.myTextInput}
+                        placeholder='Put your comment here.'
+                        onChangeText={
+                            (text) => {this.setState({textrn: text})}}
+                        onSubmitEditing= {event => {this.onSubmit(event)}}
+                    />
+                        <Button
+                            rounded
+                            warning
+                            onPress = {() => this.submitComment()}
+                        >
+                            <Text>Post!</Text>
+                        </Button>
+                    </Item>
+            </KeyboardAvoidingView>
 
-                        {/* new post creation form*/}
-                        <NewPost closeView = {this.hideModal}/>
-                    </View>
-                </Modal>
-
-                {/* actual footer */}
-                <Footer>
-
-                    {/* new post button */}
-                    <TouchableWithoutFeedback onPress = {() => {this.renderModal()}}>
-                        <View style = {styles.newPostButton}>
-                            <Icon
-                                name = 'plus'
-                                fontSize = {30}
-                                type = 'MaterialCommunityIcons'
-                                style = {{color: 'white'}}
-                            />
-                        </View>
-                    </TouchableWithoutFeedback>
-                </Footer>
-            </View>
         )
     }
 }
@@ -198,6 +167,7 @@ export default class PostDetailScreen extends Component{
 
             return (
                 <Container style = {{backgroundColor: 'powderblue'}}>
+                    <View>
                     <FlatList
                     data = {[post]}
                     renderItem = {(item) => {return this._renderItem(item)}}
@@ -212,6 +182,7 @@ export default class PostDetailScreen extends Component{
                     ListEmptyComponent = {<Blank/>}
                     contentContainerStyle = {(post == undefined) ? { flex: 1, alignItems: 'center' } : {}}
                     />
+                    </View>
                     <PostDetailFooter/>
                 </Container>
             )               
