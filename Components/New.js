@@ -62,7 +62,7 @@ const PostOptions = {
 // container component for new post form
 export class NewPost extends Component{
 
-    // validat submission, send submission, close parent modal
+    // validate submission, send submission, close parent modal
     submitPost = async() => {
 
         results = this.form.validate()

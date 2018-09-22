@@ -40,6 +40,10 @@ export async function sendNewPost(newPost) {
     }
 }
 
+export async function updatePost(id) {
+
+}
+
 export async function getPost(id) {
     try{
         let res = await fetch(apiUrl+'/posts/'+id,{

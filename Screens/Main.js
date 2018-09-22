@@ -221,6 +221,7 @@ class MainFooter extends Component{
     }
 }
 
+
 // main component
 export default class MainScreen extends Component{
     

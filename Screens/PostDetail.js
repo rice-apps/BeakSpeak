@@ -6,12 +6,92 @@ import {
     TouchableWithoutFeedback,
     RefreshControl}
 from 'react-native'
-import {Card, Container, View} from 'native-base'
+import {Card, Container, Footer, Icon, View} from 'native-base'
 
 import DatabaseService from '../Services/DatabaseService'
 import Blank from '../Components/Blank'
 import Post from '../Components/Post'
 import Comment from '../Components/Comment'
+import Modal from "react-native-modal";
+import {NewPost} from "../Components/New";
+
+
+class PostDetailFooter extends Component{
+
+    constructor(props){
+        super(props)
+
+        this.state = {
+            modalVisible: false
+        }
+    }
+
+    renderModal = () => {
+        this.setState({modalVisible: true})
+    }
+
+    hideModal = () => {
+        this.setState({modalVisible: false})
+    }
+
+    render = () => {
+        let isVisible = this.state.modalVisible
+
+        return(
+            <View>
+
+                {/* new post creation modal */}
+                <Modal
+                    isVisible = {isVisible}
+                    animationIn = {'slideInUp'}
+                    animationOut = {'zoomOut'}
+                    animationInTiming = {500}
+                    animationOutTiming = {500}
+                >
+                    <View style={{
+                        borderRadius: 10,
+                        padding: 10,
+                        backgroundColor: 'white'
+                    }}>
+                        <View style={{
+                            flexDirection: 'row',
+                            justifyContent: 'flex-end'
+                        }}>
+
+                            {/* cancel button */}
+                            <Icon
+                                name = 'close'
+                                fontSize = {30}
+                                type = 'MaterialCommunityIcons'
+                                style = {{color: 'skyblue'}}
+                                onPress = {() => {this.hideModal()}}
+                            />
+                        </View>
+
+                        {/* new post creation form*/}
+                        <NewPost closeView = {this.hideModal}/>
+                    </View>
+                </Modal>
+
+                {/* actual footer */}
+                <Footer>
+
+                    {/* new post button */}
+                    <TouchableWithoutFeedback onPress = {() => {this.renderModal()}}>
+                        <View style = {styles.newPostButton}>
+                            <Icon
+                                name = 'plus'
+                                fontSize = {30}
+                                type = 'MaterialCommunityIcons'
+                                style = {{color: 'white'}}
+                            />
+                        </View>
+                    </TouchableWithoutFeedback>
+                </Footer>
+            </View>
+        )
+    }
+}
 
 // Comments container of custom comment components
 class Comments extends Component{
@@ -132,8 +212,24 @@ export default class PostDetailScreen extends Component{
                     ListEmptyComponent = {<Blank/>}
                     contentContainerStyle = {(post == undefined) ? { flex: 1, alignItems: 'center' } : {}}
                     />
+                    <PostDetailFooter/>
                 </Container>
             )               
         }
     }
 }
+
+const styles = StyleSheet.create({
+    newPostButton: {
+        flex: 1,
+        backgroundColor: 'powderblue',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderTopWidth: 1,
+        borderColor: 'white'
+    },
+    seeBorders: {
+        borderWidth: 1,
+        borderColor:'red'
+    }
+})
