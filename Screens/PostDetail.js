@@ -10,7 +10,7 @@ import {
     Text
 }
 from 'react-native'
-import {Card, Container, Footer, Icon, Item, View, Input} from 'native-base'
+import {Card, Container, Footer, Icon, Item, View, Input, Button} from 'native-base'
 
 import DatabaseService from '../Services/DatabaseService'
 import Blank from '../Components/Blank'
@@ -18,8 +18,6 @@ import Post from '../Components/Post'
 import Comment from '../Components/Comment'
 import Modal from "react-native-modal";
 import {NewPost} from "../Components/New";
-
-import { Header, Content, Button, Text } from 'native-base';
 
 
 class PostDetailFooter extends Component{
@@ -51,7 +49,7 @@ class PostDetailFooter extends Component{
                         <Button
                             rounded
                             warning
-                            onPress = {() => this.submitComment()}
+                            onPress = {(event) => this.onSubmit(event)}
                         >
                             <Text>Post!</Text>
                         </Button>
