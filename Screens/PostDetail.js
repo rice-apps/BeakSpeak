@@ -24,34 +24,33 @@ class PostDetailFooter extends Component{
 
     constructor(props){
         super(props);
+        this.state = {inputrn: ''};
         this.state = {input: ''};
         //this.myTextInput = React.createRef();
     }
 
-    onSubmit(event) {
-        this.setState({input: event.nativeEvent.text});
+    onSubmit() {
+        this.setState({input: this.state.inputrn});
     }
 
     render = () => {
         return(
 
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+                <Text>input: {this.state.inputrn}</Text>
                 <Text>input: {this.state.input}</Text>
-
                 <Item regular>
                         <Input
                         //ref={this.myTextInput}
                         placeholder='Put your comment here.'
                         onChangeText={
-                            (text) => {this.setState({textrn: text})}}
-                        onSubmitEditing= {event => {this.onSubmit(event)}}
-                    />
+                            (text) => {this.setState({inputrn: text})}}
+                        onSubmitEditing= {() => {this.onSubmit()}}/>
                         <Button
                             rounded
                             warning
-                            onPress = {(event) => this.onSubmit(event)}
-                        >
-                            <Text>Post!</Text>
+                            onPress = {() => this.onSubmit()}>
+                            <Text> Post! </Text>
                         </Button>
                     </Item>
             </KeyboardAvoidingView>
