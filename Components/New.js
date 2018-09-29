@@ -65,12 +65,12 @@ export class NewPost extends Component{
     // validate submission, send submission, close parent modal
     submitPost = async() => {
 
-        results = this.form.validate()
-        errors = results.errors
+        let results = this.form.validate()
+        let errors = results.errors
 
         // check if submission is valid -- there must be a title!
         if(errors.length == 0){
-            newPost = results.value
+            let newPost = results.value
             DatabaseService.sendNewPost(newPost) // send post to database -- no need to await
             
             this.form.setState({value: null}) // clear form

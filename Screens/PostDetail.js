@@ -3,11 +3,10 @@ import {AppLoading} from 'expo'
 import {
     FlatList,
     StyleSheet,
-    TouchableWithoutFeedback,
     KeyboardAvoidingView,
     RefreshControl,
-    TextInput,
-    Text
+    Text,
+    TextInput
 }
 from 'react-native'
 import {Card, Container, Footer, Icon, Item, View, Input, Button} from 'native-base'
@@ -16,37 +15,30 @@ import DatabaseService from '../Services/DatabaseService'
 import Blank from '../Components/Blank'
 import Post from '../Components/Post'
 import Comment from '../Components/Comment'
-import Modal from "react-native-modal";
-import {NewPost} from "../Components/New";
 
 
 class PostDetailFooter extends Component{
 
     constructor(props){
         super(props);
-        this.state = {inputrn: ''};
         this.state = {input: ''};
-        //this.myTextInput = React.createRef();
-
     }
 
     onSubmit() {
-        this.setState({input: this.state.inputrn});
-        DatabaseService.postComment(this.props.post_id, this.state.inputrn)
+        DatabaseService.postComment(this.props.post_id, this.state.inputrn);
+        this.setState({input: ''})
     }
 
     render = () => {
         return(
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-                <Text>inputrn: {this.state.inputrn}</Text>
-                <Text>input: {this.state.input}</Text>
                 <Item regular>
-                        <Input
-                        //ref={this.myTextInput}
-                        placeholder='Put your comment here.'
-                        onChangeText={
-                            (text) => {this.setState({inputrn: text})}}
-                        onSubmitEditing= {() => {this.onSubmit()}}/>
+                        <TextInput
+                            placeholder = 'Put your comment here.'
+                            onChangeText = {(text) => {if (text){this.setState({input: text})}}}
+                            onSubmitEditing = {() => {this.onSubmit()}}
+                            value = {this.state.input}
+                        />
                         <Button
                             rounded
                             warning
@@ -168,6 +160,7 @@ export default class PostDetailScreen extends Component{
 
             return (
                 <Container style = {{backgroundColor: 'powderblue'}}>
+                    <PostDetailFooter post_id={this.state.post._id}/>
                     <View>
                     <FlatList
                     data = {[post]}
@@ -184,8 +177,6 @@ export default class PostDetailScreen extends Component{
                     contentContainerStyle = {(post == undefined) ? { flex: 1, alignItems: 'center' } : {}}
                     />
                     </View>
-                    <PostDetailFooter post_id={this.state.post._id}
-                    />
                 </Container>
             )               
         }
