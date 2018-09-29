@@ -25,8 +25,10 @@ class PostDetailFooter extends Component{
     }
 
     onSubmit() {
-        DatabaseService.postComment(this.props.post_id, this.state.inputrn);
-        this.setState({input: ''})
+        if(this.state.input){
+            DatabaseService.postComment(this.props.post_id, this.state.input);
+            this.setState({input: ''})
+        }
     }
 
     render = () => {
@@ -35,7 +37,7 @@ class PostDetailFooter extends Component{
                 <Item regular>
                         <TextInput
                             placeholder = 'Put your comment here.'
-                            onChangeText = {(text) => {if (text){this.setState({input: text})}}}
+                            onChangeText = {(text) => {this.setState({input: text})}}
                             onSubmitEditing = {() => {this.onSubmit()}}
                             value = {this.state.input}
                         />
