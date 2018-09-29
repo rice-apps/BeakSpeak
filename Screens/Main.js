@@ -19,7 +19,9 @@ import Post from '../Components/Post'
 import Comment from '../Components/Comment'
 import {NewPost} from '../Components/New'
 import Blank from '../Components/Blank'
+import CommentData from '../Components/CommentData'
 import DatabaseService from '../Services/DatabaseService'
+import PostData from '../Components/PostData'
 
 // Comments container of custom comment components
 class Comments extends Component{
@@ -100,9 +102,8 @@ class Posts extends Component{
         return(
             <TouchableWithoutFeedback onPress = {()=> this.postNavigate('PostDetail', post._id)}>
                 <Card>
-                    <Post 
-                        title = {post.title} 
-                        body = {post.body}
+                    <PostData
+                        post = {post}
                     />
                     <Comments comments = {post.comments}/>
                 </Card>

@@ -12,6 +12,7 @@ import DatabaseService from '../Services/DatabaseService'
 import Blank from '../Components/Blank'
 import Post from '../Components/Post'
 import Comment from '../Components/Comment'
+import CommentData from '../Components/CommentData'
 
 // Comments container of custom comment components
 class Comments extends Component{
@@ -67,7 +68,9 @@ export default class PostDetailScreen extends Component{
                 post: post,
                 loaded: true,
                 refresh: false
+
             })
+            console.log(post)
         }
     }
 

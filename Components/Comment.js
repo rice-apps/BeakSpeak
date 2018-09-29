@@ -5,20 +5,20 @@ import {Card, CardItem,Text} from 'native-base'
 // body with comment content
 export class CommentBody extends Component{
     render = () => {
-        return(
-             <CardItem>
-                 <Text>
-                     {this.props.body}
-                 </Text>
-             </CardItem>
+        return (
+            <CardItem>
+                <Text>
+                    {this.props.body}
+                </Text>
+            </CardItem>
         )
     }
 }
 
 // main component
-export default class Comment extends Component{
-    
-    constructor(props){
+export default class Comment extends Component {
+
+    constructor(props) {
         super(props)
 
         this.state = {
@@ -29,11 +29,10 @@ export default class Comment extends Component{
     render = () => {
         let body = this.state.body
 
-        return(
-            <Card style = {styles.card}>
-                <CommentBody body = {body}/>
-            </Card>
-        )
+        return (
+            <Card style={styles.card}>
+                <CommentBody body={body}/>
+            </Card>)
     }
 }
 
