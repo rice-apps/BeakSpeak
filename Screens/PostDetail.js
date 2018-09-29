@@ -11,6 +11,7 @@ import {Card, Container, View} from 'native-base'
 import DatabaseService from '../Services/DatabaseService'
 import Blank from '../Components/Blank'
 import Post from '../Components/Post'
+import PostData from '../Components/PostData'
 import Comment from '../Components/Comment'
 
 // Comments container of custom comment components
@@ -61,7 +62,6 @@ export default class PostDetailScreen extends Component{
 
         post_id = this.props.navigation.getParam('id') // use this post id to query the individual post from the backend
         let post = await DatabaseService.getPost(post_id) // put database logic here -- look in Servcies/DatabaseService for the appropriate method
-        console.log(post)
         if(this.mounted) { // set state here to avoid memory leak
             this.setState({
                 post: post,
@@ -91,9 +91,8 @@ export default class PostDetailScreen extends Component{
         return(
             <View style = {{flex: 1}}>
                 <Card>
-                    <Post 
-                        title = {post.title} 
-                        body = {post.body}
+                    <PostData
+                        post = {post}
                     />                
                  </Card>
                 <Comments comments = {post.comments}/>

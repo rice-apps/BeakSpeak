@@ -17,7 +17,23 @@ export async function getPosts() {
         console.log(err)
     }
 }
-
+export async function updateVote(id,vote) {
+    try{
+        console.log(vote)
+        let res = await fetch(apiUrl+'/posts/'+id+'/vote',{
+            method: 'PUT',
+            headers: {
+                'x-access-token': token
+            },
+            body: JSON.stringify({vote: vote})
+        })
+        let posts = await res.json()
+        // console.log(res)
+        return posts
+    }catch(err) {
+        console.log(err)
+    }
+}
 export async function sendNewPost(newPost) {
     
     try{
@@ -58,5 +74,6 @@ export async function getPost(id) {
 export default{
     getPosts,
     sendNewPost,
-    getPost
+    getPost,
+    updateVote
 }

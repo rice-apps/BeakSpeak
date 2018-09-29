@@ -20,6 +20,7 @@ import Comment from '../Components/Comment'
 import {NewPost} from '../Components/New'
 import Blank from '../Components/Blank'
 import DatabaseService from '../Services/DatabaseService'
+import PostData from '../Components/PostData'
 
 // Comments container of custom comment components
 class Comments extends Component{
@@ -96,13 +97,11 @@ class Posts extends Component{
 
     _renderItem = (item) => {
         let post = item.item
-        
         return(
             <TouchableWithoutFeedback onPress = {()=> this.postNavigate('PostDetail', post._id)}>
                 <Card>
-                    <Post 
-                        title = {post.title} 
-                        body = {post.body}
+                    <PostData
+                        post = {post}
                     />
                     <Comments comments = {post.comments}/>
                 </Card>
