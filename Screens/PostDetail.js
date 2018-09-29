@@ -102,7 +102,7 @@ export default class PostDetailScreen extends Component{
             loaded : false,
         }
 
-        //this.post_id = this.props.navigation.getParam('id') // use this post id to query the individual post from the backend
+        this.post_id = this.props.navigation.getParam('id') // use this post id to query the individual post from the backend
 
     }
 
