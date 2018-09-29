@@ -21,7 +21,6 @@ class PostBody extends Component{
 class PostVotes extends Component {
     upvoteScore = () => {
         this.props.upvoteScore() 
-        console.log(this.props.score)
     }
 
     downvoteScore = () => {
@@ -31,7 +30,7 @@ class PostVotes extends Component {
     render = () => {
         return(
             <View style={styles.container}>
-                    <View style={{flex: 1, flexDirection: 'column'}}>
+                    <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
                         <Icon
                             name = 'ios-arrow-up'
                             fontSize = {30}
@@ -82,24 +81,26 @@ export default class Post extends PureComponent{
         let score = this.props.score
         let upvoteScore = this.props.upvoteScore
         let downvoteScore = this.props.downvoteScore
-    
         return(
 
-                <Card style={styles.card}>
-                    <View style={{flex: 1, flexDirection: 'row'}}>
+            <Card style={styles.card}>
+                <View style={{ flex: 1, flexDirection: 'row' }}>
 
-                        {/* post component decomposed into children components*/}
-                        <View style={{flex: 1, flexDirection: 'column'}}>
-                            <PostHeader title = {title}/>
-                            <PostBody body = {body}/>
-                        </View>
-                        <PostVotes 
-                            score = {score}
-                            upvoteScore = {upvoteScore}
-                            downvoteScore = {downvoteScore}
+                    {/* post component decomposed into children components*/}
+                    <View style={{ flex: 9, flexDirection: 'column' }}>
+                        <PostHeader title={title} />
+                        <PostBody body={body} />
+                    </View>
+                    <View style = {{ flex: 1}}>
+                        <PostVotes
+                            score={score}
+                            upvoteScore={upvoteScore}
+                            downvoteScore={downvoteScore}
                         />
                     </View>
-                </Card>
+
+                </View>
+            </Card>
 
         )
     }
