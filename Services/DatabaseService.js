@@ -41,15 +41,18 @@ export async function sendNewPost(newPost) {
 
 export async function postComment(id, text) {
     try{
-        let res = await fetch(apiUrl+'/posts/'+id+'comments', text, {
+        let res = await fetch(apiUrl+'/posts/'+id+'/comments', {
             method: 'POST',
             headers: {
-                'x-access-token': token
-            }
-        })
-        let posts = await res.json();
-        console.log(posts);
-        return posts
+                'x-access-token': token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                comment: text
+        })});
+        let post = await res.json();
+        return post
     }catch(err) {
         console.log(err)
     }

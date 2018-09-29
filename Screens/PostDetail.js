@@ -40,7 +40,6 @@ class PostDetailFooter extends Component{
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
                 <Text>inputrn: {this.state.inputrn}</Text>
                 <Text>input: {this.state.input}</Text>
-                <Text>props: {this.props}</Text>
                 <Item regular>
                         <Input
                         //ref={this.myTextInput}
@@ -103,15 +102,15 @@ export default class PostDetailScreen extends Component{
             loaded : false,
         }
 
-        this.post_id = this.props.navigation.getParam('id') // use this post id to query the individual post from the backend
+        //this.post_id = this.props.navigation.getParam('id') // use this post id to query the individual post from the backend
 
     }
 
     componentDidMount = async() => {
         this.mounted = true
 
-        // post_id = this.props.navigation.getParam('id') // use this post id to query the individual post from the backend
-        let post = await DatabaseService.getPost(this.post_id) // put database logic here -- look in Servcies/DatabaseService for the appropriate method
+        let post_id = this.props.navigation.getParam('id') // use this post id to query the individual post from the backend
+        let post = await DatabaseService.getPost(post_id); // put database logic here -- look in Servcies/DatabaseService for the appropriate method
        
         if(this.mounted) { // set state here to avoid memory leak
             this.setState({
@@ -185,7 +184,8 @@ export default class PostDetailScreen extends Component{
                     contentContainerStyle = {(post == undefined) ? { flex: 1, alignItems: 'center' } : {}}
                     />
                     </View>
-                    <PostDetailFooter post_id = {this.post_id}/>
+                    <PostDetailFooter post_id={this.state.post._id}
+                    />
                 </Container>
             )               
         }
