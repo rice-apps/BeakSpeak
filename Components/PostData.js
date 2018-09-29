@@ -10,7 +10,7 @@ export default class PostData extends Component{
 
         // default state - post before vote changes 
         this.state = {
-            post = this.props.post 
+            post : this.props.post 
         }
     }
 
@@ -31,11 +31,20 @@ export default class PostData extends Component{
 
     // pass helper methods to Post component 
     render = () => {
+        let title = this.props.post.title
+        let body = this.props.post.body 
+        let score = this.props.post.score 
+        let upvoteScore = this.upvoteScore
+        let downvoteScore = this.downvoteScore
+
         return(
-            <Post> 
-                upvoteScore = {this.upvoteScore}
-                downvoteSCore = {this.downvoteScore}
-            </Post> 
+            <Post
+                upvoteScore = {upvoteScore}
+                downvoteScore = {downvoteScore}
+                title = {title}
+                body = {body}
+                score = {score}
+            /> 
         )
     }
 }

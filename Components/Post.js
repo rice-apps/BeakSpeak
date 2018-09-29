@@ -19,6 +19,15 @@ class PostBody extends Component{
 }
 
 class PostVotes extends Component {
+    upvoteScore = () => {
+        this.props.upvoteScore() 
+        console.log(this.props.score)
+    }
+
+    downvoteScore = () => {
+        this.props.downvoteScore() 
+    }
+
     render = () => {
         return(
             <View style={styles.container}>
@@ -28,17 +37,17 @@ class PostVotes extends Component {
                             fontSize = {30}
                             type = 'Ionicons'
                             style = {{color: 'black'}}
-                            onPress = {() => this.navigate('Main')}
+                            onPress = {() => this.upvoteScore()}
                         />
                         <Text>
-                            {"1"}
+                            {this.props.score}
                         </Text>
                         <Icon
                             name = 'ios-arrow-down'
                             fontSize = {30}
                             type = 'Ionicons'
                             style = {{color: 'black'}}
-                            onPress = {() => this.navigate('Main')}
+                            onPress = {() => this.downvoteScore()}
                         />
                     </View>
             </View>
@@ -70,6 +79,10 @@ export default class Post extends PureComponent{
     render = () => {
         let title = this.props.title
         let body = this.props.body
+        let score = this.props.score
+        let upvoteScore = this.props.upvoteScore
+        let downvoteScore = this.props.downvoteScore
+    
         return(
 
                 <Card style={styles.card}>
@@ -80,16 +93,17 @@ export default class Post extends PureComponent{
                             <PostHeader title = {title}/>
                             <PostBody body = {body}/>
                         </View>
-                        <PostVotes votes = {1}/>
+                        <PostVotes 
+                            score = {score}
+                            upvoteScore = {upvoteScore}
+                            downvoteScore = {downvoteScore}
+                        />
                     </View>
                 </Card>
 
         )
     }
 }
-
-
-
 
 const styles = StyleSheet.create(
     {

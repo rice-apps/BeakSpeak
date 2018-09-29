@@ -12,6 +12,7 @@ import DatabaseService from '../Services/DatabaseService'
 import Blank from '../Components/Blank'
 import Post from '../Components/Post'
 import Comment from '../Components/Comment'
+import PostData from '../Components/PostData';
 
 // Comments container of custom comment components
 class Comments extends Component{
@@ -91,10 +92,7 @@ export default class PostDetailScreen extends Component{
         return(
             <View style = {{flex: 1}}>
                 <Card>
-                    <Post 
-                        title = {post.title} 
-                        body = {post.body}
-                    />                
+                    <PostData post = {post}/>                
                  </Card>
                 <Comments comments = {post.comments}/>
             </View>
