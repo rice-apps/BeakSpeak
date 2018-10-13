@@ -6,15 +6,17 @@ import {
     KeyboardAvoidingView,
     RefreshControl,
     Text,
-    TextInput
+    TextInput, TouchableWithoutFeedback
 }
-from 'react-native'
+    from 'react-native'
 import {Card, Container, Footer, Icon, Item, View, Input, Button} from 'native-base'
 
 import DatabaseService from '../Services/DatabaseService'
 import Blank from '../Components/Blank'
 import Post from '../Components/Post'
 import Comment from '../Components/Comment'
+import Modal from "react-native-modal";
+import {NewPost} from "../Components/New";
 
 
 class PostDetailFooter extends Component{
@@ -49,7 +51,83 @@ class PostDetailFooter extends Component{
                         </Button>
                     </Item>
             </KeyboardAvoidingView>
+        )
+    }
+}
 
+class MainFooter extends Component{
+
+    constructor(props){
+        super(props)
+
+        this.state = {
+            modalVisible: false
+        }
+    }
+
+    renderModal = () => {
+        this.setState({modalVisible: true})
+    }
+
+    hideModal = () => {
+        this.setState({modalVisible: false})
+    }
+
+    render = () => {
+        let isVisible = this.state.modalVisible
+
+        return(
+            <View>
+
+                {/* new post creation modal */}
+                <Modal
+                    isVisible = {isVisible}
+                    animationIn = {'slideInUp'}
+                    animationOut = {'zoomOut'}
+                    animationInTiming = {500}
+                    animationOutTiming = {500}
+                >
+                    <View style={{
+                        borderRadius: 10,
+                        padding: 10,
+                        backgroundColor: 'white'
+                    }}>
+                        <View style={{
+                            flexDirection: 'row',
+                            justifyContent: 'flex-end'
+                        }}>
+
+                            {/* cancel button */}
+                            <Icon
+                                name = 'close'
+                                fontSize = {30}
+                                type = 'MaterialCommunityIcons'
+                                style = {{color: 'skyblue'}}
+                                onPress = {() => {this.hideModal()}}
+                            />
+                        </View>
+
+                        {/* new post creation form*/}
+                        <NewPost closeView = {this.hideModal}/>
+                    </View>
+                </Modal>
+
+                {/* actual footer */}
+                <Footer>
+
+                    {/* new post button */}
+                    <TouchableWithoutFeedback onPress = {() => {this.renderModal()}}>
+                        <View style = {styles.newPostButton}>
+                            <Icon
+                                name = 'plus'
+                                fontSize = {30}
+                                type = 'MaterialCommunityIcons'
+                                style = {{color: 'white'}}
+                            />
+                        </View>
+                    </TouchableWithoutFeedback>
+                </Footer>
+            </View>
         )
     }
 }
@@ -57,23 +135,15 @@ class PostDetailFooter extends Component{
 // Comments container of custom comment components
 class Comments extends Component{
 
-    constructor(props){
-        super(props)
-
-        this.state = {
-            comments: this.props.comments
-        }
-    }
-
     render = () => {
-        let comments = this.state.comments
+        let comments = this.props.comments;
         return(
             <FlatList
              data = {comments}
              listKey = {(item, index) => item._id}
              keyExtractor = {(item, index) => item._id}
              renderItem = {(item) => {
-                let comment = item.item
+                let comment = item.item;
                 
                 return(
                     <Comment body = {comment.body}/>
@@ -88,22 +158,22 @@ export default class PostDetailScreen extends Component{
     
     // initialize with default values -- DO NOT fetch data here
     constructor(props){
-        super(props)
+        super(props);
 
         // default state -- we have no post and nothing is loaded
         this.state = {
             post : null,
             loaded : false,
-        }
+        };
 
         this.post_id = this.props.navigation.getParam('id') // use this post id to query the individual post from the backend
 
     }
 
     componentDidMount = async() => {
-        this.mounted = true
+        this.mounted = true;
 
-        let post_id = this.props.navigation.getParam('id') // use this post id to query the individual post from the backend
+        let post_id = this.props.navigation.getParam('id'); // use this post id to query the individual post from the backend
         let post = await DatabaseService.getPost(post_id); // put database logic here -- look in Servcies/DatabaseService for the appropriate method
        
         if(this.mounted) { // set state here to avoid memory leak
@@ -113,24 +183,24 @@ export default class PostDetailScreen extends Component{
                 refresh: false
             })
         }
-    }
+    };
 
     // nothing to code here, a security measure to prevent memory leak -- look up react component lifecycle
     componentWillUnmount = () => {
         this.mounted = false
-    }
+    };
 
     _onRefresh = async() => { 
         this.setState((state) => ({refresh: true})) // indicate we are refreshing
-        let posts = await DatabaseService.getPosts() // refresh data
+        let post = await DatabaseService.getPost(this.post_id) // refresh data
         this.setState((state) => ({ // refresh state -- use function
-            posts: posts,
+            post: post,
             refresh: false
         }))
-    }
+    };
     
     _renderItem = (item) => {
-        let post = item.item
+        let post = item.item;
         
         return(
             <View style = {{flex: 1}}>
@@ -142,9 +212,8 @@ export default class PostDetailScreen extends Component{
                  </Card>
                 <Comments comments = {post.comments}/>
             </View>
-            
         )
-    }
+    };
 
     // render a post with comments -- use posts component from main as an example for structure
     render = () => {
@@ -162,8 +231,7 @@ export default class PostDetailScreen extends Component{
 
             return (
                 <Container style = {{backgroundColor: 'powderblue'}}>
-                    <PostDetailFooter post_id={this.state.post._id}/>
-                    <View>
+                    <View style = {{flex: 1}}>
                     <FlatList
                     data = {[post]}
                     renderItem = {(item) => {return this._renderItem(item)}}
@@ -179,6 +247,7 @@ export default class PostDetailScreen extends Component{
                     contentContainerStyle = {(post == undefined) ? { flex: 1, alignItems: 'center' } : {}}
                     />
                     </View>
+                    <PostDetailFooter post_id={this.state.post._id}/>
                 </Container>
             )               
         }
