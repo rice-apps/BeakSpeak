@@ -57,7 +57,6 @@ class Posts extends Component{
 
     constructor(props){
         super(props)
-
         this.mounted = false
         this.state = {
             posts: [],
@@ -68,7 +67,7 @@ class Posts extends Component{
     componentDidMount = async() => {
         this.mounted = true
         let posts = await DatabaseService.getPosts() // retrieve posts from database
-
+        console.log('ihisfodha')
         if (this.mounted) { // to avoid memory leak, check if component is mounted before setting state
             this.setState({
                 posts: posts,
@@ -86,7 +85,8 @@ class Posts extends Component{
         this.props.navigate(route, {id: post_id})
     }
     
-    _onRefresh = async() => { 
+    _onRefresh = async() => {
+        console.log('sfa')
         this.setState((state) => ({refresh: true})) // indicate we are refreshing
         let posts = await DatabaseService.getPosts() // refresh data
         this.setState((state) => ({ // refresh state -- use function
@@ -96,6 +96,7 @@ class Posts extends Component{
     }
 
     _renderItem = (item) => {
+        console.log('lol')
         let post = item.item
         return(
             <TouchableWithoutFeedback onPress = {()=> this.postNavigate('PostDetail', post._id)}>

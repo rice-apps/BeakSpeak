@@ -8,6 +8,7 @@ export default class PostData extends Component{
     // initialize with default values 
     constructor(props){
         super(props)
+        console.log('no')
         // default state - post before vote changes 
         // noinspection JSAnnotator
         this.state = {
@@ -17,19 +18,43 @@ export default class PostData extends Component{
 
     // increment vote count up by 1
     upvoteScore = async() => {
-        this.props.post.score += 1
-        let post_new = await DatabaseService.updateVote(this.props.post._id, 1)
-        // console.log(post_new)
-        // newPost = this.props.post
-        this.setState({post : post_new})
-
+        var userVote = 0
+        let votes = this.state.post.votes
+        for (var i = 0; i < votes.length; i++) {
+            if (votes[i].user == '5b5f9a9ade57b741ffc3e61e') {
+                userVote = votes[i].vote
+            }
+        }
+        console.log(userVote)
+        if(!(userVote == 1)) {
+            this.state.post.score += 1
+            let post_new = await DatabaseService.updateVote(this.props.post._id, 1)
+            // console.log(post_new)
+            // newPost = this.props.post
+            // console.log(post_new)
+            this.setState({post: post_new})
+        }
+        console.log(this.state.post.votes)
     }
 
     //increment vote count down by 1 
-    downvoteScore = () => {
-        this.props.post.score += -1
-        newPost = this.props.post 
-        this.setState({post : newPost})
+    downvoteScore = async() => {
+        var userVote = 0
+        let votes = this.state.post.votes
+        for (var i = 0; i < votes.length; i++) {
+            if (votes[i].user == '5b5f9a9ade57b741ffc3e61e') {
+                userVote = votes[i].vote
+            }
+        }
+        console.log(userVote)
+        if(!(userVote == -1)) {
+            this.state.post.score -= 1
+            let post_new = await DatabaseService.updateVote(this.props.post._id, -1)
+            // console.log(post_new)
+            // newPost = this.props.post
+            this.setState({post: post_new})
+        }
+        console.log(this.state.post.votes)
     }
 
     // pass helper methods to Post component
@@ -41,9 +66,9 @@ export default class PostData extends Component{
             <Post
                 upvoteScore = {this.upvoteScore}
                 downvoteScore = {this.downvoteScore}
-                title = {this.props.post.title}
-                body = {this.props.post.body}
-                score = {this.props.post.score}
+                title = {this.state.post.title}
+                body = {this.state.post.body}
+                score = {this.state.post.score}
             />
         )
     }

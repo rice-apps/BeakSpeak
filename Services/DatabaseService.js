@@ -19,11 +19,14 @@ export async function getPosts() {
 }
 export async function updateVote(id,vote) {
     try{
-        console.log(vote)
+        // console.log(vote)
+        // console.log(JSON.stringify({vote: vote}))
         let res = await fetch(apiUrl+'/posts/'+id+'/vote',{
             method: 'PUT',
             headers: {
-                'x-access-token': token
+                'x-access-token': token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({vote: vote})
         })
