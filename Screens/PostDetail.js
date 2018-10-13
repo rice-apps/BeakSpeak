@@ -26,36 +26,33 @@ class PostDetailFooter extends Component{
 
     constructor(props){
         super(props);
-        this.state = {inputrn: ''};
         this.state = {input: ''};
-        //this.myTextInput = React.createRef();
-
     }
 
     onSubmit() {
-        this.setState({input: this.state.inputrn});
-        DatabaseService.postComment(this.props.post_id, this.state.inputrn)
-        //console.log(this.currentInput.current)
+        if(this.state.input){
+            DatabaseService.postComment(this.props.post_id, this.state.input);
+            this.setState({input: ''})
+        }
     }
 
     render = () => {
         return(
-            <View style = {styles.seeBorders}>
-            <Text>inputrn: {this.state.inputrn}</Text>
-            <Text>input: {this.state.input}</Text>
-            <Item regular>
-                <Input
-                //ref={ref => this.currentInput = ref}
-                placeholder='Put your comment here.'
-                onChangeText={(text) => {this.setState({inputrn: text})}}
-                onSubmitEditing= {() => {this.onSubmit()}}/>
-                <Button
-                    rounded
-                    warning
-                    onPress = {() => this.onSubmit()}>
-                    <Text>  Post!  </Text>
-                </Button>
-            </Item>
+            <View style={styles.container}>
+                <Item regular>
+                        <TextInput
+                            placeholder = 'Put your comment here.'
+                            onChangeText = {(text) => {this.setState({input: text})}}
+                            onSubmitEditing = {() => {this.onSubmit()}}
+                            value = {this.state.input}
+                        />
+                        <Button
+                            rounded
+                            warning
+                            onPress = {() => this.onSubmit()}>
+                            <Text>  Post!  </Text>
+                        </Button>
+                    </Item>
             </View>
         )
     }
@@ -64,23 +61,16 @@ class PostDetailFooter extends Component{
 // Comments container of custom comment components
 class Comments extends Component{
 
-    constructor(props){
-        super(props)
-
-        this.state = {
-            comments: this.props.comments
-        }
-    }
 
     render = () => {
-        let comments = this.state.comments
+        let comments = this.props.comments;
         return(
             <FlatList
              data = {comments}
              listKey = {(item, index) => item._id}
              keyExtractor = {(item, index) => item._id}
              renderItem = {(item) => {
-                let comment = item.item
+                let comment = item.item;
                 
                 return(
                     <Comment body = {comment.body}/>
@@ -129,8 +119,7 @@ export default class PostDetailScreen extends Component{
 
     _onRefresh = async() => { 
         this.setState((state) => ({refresh: true})) // indicate we are refreshing
-        let id = this.state.post._id
-        let post = await DatabaseService.getPost(id) // refresh data
+        let post = await DatabaseService.getPost(this.post_id) // refresh data
         this.setState((state) => ({ // refresh state -- use function
             post: post,
             refresh: false
@@ -170,7 +159,7 @@ export default class PostDetailScreen extends Component{
 
             return (
                 <Container style = {{backgroundColor: 'powderblue'}}>
-                    {/*<View>*/}
+                    {/*<View style = {{flex: 1}}>*/}
                     {/*<FlatList*/}
                     {/*data = {[post]}*/}
                     {/*renderItem = {(item) => {return this._renderItem(item)}}*/}
@@ -196,7 +185,6 @@ export default class PostDetailScreen extends Component{
                     <ScrollView
                     keyboardShouldPersistTaps = 'never'>
                     {/*<View>*/}
-
                     <FlatList
                     data = {[post]}
                     renderItem = {(item) => {return this._renderItem(item)}}

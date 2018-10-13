@@ -24,16 +24,8 @@ import DatabaseService from '../Services/DatabaseService'
 // Comments container of custom comment components
 class Comments extends Component{
 
-    constructor(props){
-        super(props)
-
-        this.state = {
-            comments: this.props.comments
-        }
-    }
-
     render = () => {
-        let comments = this.state.comments
+        let comments = this.props.comments
         return(
             <FlatList
              data = {comments}
