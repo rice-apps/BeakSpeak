@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Post from '../Components/Post'
+import DatabaseService from '../Services/DatabaseService'
 import {StyleSheet} from "react-native"
 import {Card, View, Button, Text, Badge} from 'native-base'
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -21,7 +22,7 @@ export default class PostData extends Component{
     // increment react count up by 1
     pressReact = (reaction) => {
 
-        user_id = 'nnq1'
+        user_id = '5b5f9a9ade57b741ffc3e61e'
         if (!(this.state.post.reacts.hasOwnProperty(user_id))) {
             this.state.post.reacts[user_id] = "none"
         }
@@ -33,7 +34,6 @@ export default class PostData extends Component{
         this.state.post.reactCounts[reaction] += 1
         postid = this.state.post._id
         DatabaseService.updateReact(postid, reaction)
-        console.log('pressed and added')
         newPost = this.state.post
         this.setState({post : newPost})
     }
