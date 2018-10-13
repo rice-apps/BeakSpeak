@@ -3,6 +3,7 @@ import Post from '../Components/Post'
 import {StyleSheet} from "react-native"
 import {Card, View, Button, Text, Badge} from 'native-base'
 import Icon from 'react-native-vector-icons/FontAwesome';
+import DatabaseService from "../Services/DatabaseService";
 
 // main component - increments post vote counts up and down, returns total vote count
 export default class PostData extends Component{
@@ -19,19 +20,16 @@ export default class PostData extends Component{
     }
 
     // increment vote count up by 1
-    upvoteScore = () => {
-        this.props.post.score += 1
-        console.log(this.props.post.score)
-        newPost = this.props.post
+    pressReact = (reaction) => {
+        this.state.post.reactCounts[reaction] += 1
+        console.log('pressed and added')
+        console.log(this.state.post._id)
+        postid = this.state.post._id
+        DatabaseService.updateReact(postid, reaction)
+        newPost = this.state.post
         this.setState({post : newPost})
     }
 
-    //increment vote count down by 1
-    downvoteScore = () => {
-        this.props.post.score += -1
-        newPost = this.props.post
-        this.setState({post : newPost})
-    }
 
     // pass helper methods to Post component
     render = () => {
@@ -45,27 +43,27 @@ export default class PostData extends Component{
 
         return(
             <View>
-            <Post title={title} body={body}>
-                upvoteScore = {this.upvoteScore}
-                downvoteSCore = {this.downvoteScore}
-            </Post>
-            <View style={styles.container}>
-                <Button onPress={() => console.log('pressed')} style={styles.button}>
-                    <Text>:{angry.toString()}</Text>
-                </Button>
-                <Button onPress={() => console.log('pressed')} style={styles.button}>
-                    <Text>:{funny.toString()}</Text>
-                </Button>
-                <Button onPress={() => console.log('pressed')} style={styles.button}>
-                    <Text>:{love.toString()}</Text>
-                </Button>
-                <Button onPress={() => console.log('pressed')} style={styles.button}>
-                    <Text>:{sad.toString()}</Text>
-                </Button>
-                <Button onPress={() => console.log('pressed')} style={styles.button}>
-                    <Text>:{wow.toString()}</Text>
-                </Button>
-            </View>
+                <Post title={title} body={body}>
+                    upvoteScore = {this.upvoteScore}
+                    downvoteSCore = {this.downvoteScore}
+                </Post>
+                <View style={styles.container}>
+                    <Button onPress={() => this.pressReact("angry")} style={styles.button}>
+                        <Text>😡:{angry.toString()}</Text>
+                    </Button>
+                    <Button onPress={() => this.pressReact("funny")} style={styles.button}>
+                        <Text>😂:{funny.toString()}</Text>
+                    </Button>
+                    <Button onPress={() => this.pressReact("love")} style={styles.button}>
+                        <Text>😍:{love.toString()}</Text>
+                    </Button>
+                    <Button onPress={() => this.pressReact("sad")} style={styles.button}>
+                        <Text>😭:{sad.toString()}</Text>
+                    </Button>
+                    <Button onPress={() => this.pressReact("wow")} style={styles.button}>
+                        <Text>😮:{wow.toString()}</Text>
+                    </Button>
+                </View>
             </View>
         )
     }
