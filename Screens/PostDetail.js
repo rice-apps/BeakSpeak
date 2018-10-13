@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {AppLoading} from 'expo'
+import {Header} from 'react-navigation'
 import {
     FlatList,
     StyleSheet,
@@ -7,7 +8,8 @@ import {
     KeyboardAvoidingView,
     RefreshControl,
     TextInput,
-    Text
+    Text,
+    ScrollView
 }
 from 'react-native'
 import {Card, Container, Footer, Icon, Item, View, Input, Button} from 'native-base'
@@ -33,29 +35,28 @@ class PostDetailFooter extends Component{
     onSubmit() {
         this.setState({input: this.state.inputrn});
         DatabaseService.postComment(this.props.post_id, this.state.inputrn)
+        //console.log(this.currentInput.current)
     }
 
     render = () => {
         return(
-            <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-                <Text>inputrn: {this.state.inputrn}</Text>
-                <Text>input: {this.state.input}</Text>
-                <Item regular>
-                        <Input
-                        //ref={this.myTextInput}
-                        placeholder='Put your comment here.'
-                        onChangeText={
-                            (text) => {this.setState({inputrn: text})}}
-                        onSubmitEditing= {() => {this.onSubmit()}}/>
-                        <Button
-                            rounded
-                            warning
-                            onPress = {() => this.onSubmit()}>
-                            <Text> Post! </Text>
-                        </Button>
-                    </Item>
-            </KeyboardAvoidingView>
-
+            <View style = {styles.seeBorders}>
+            <Text>inputrn: {this.state.inputrn}</Text>
+            <Text>input: {this.state.input}</Text>
+            <Item regular>
+                <Input
+                //ref={ref => this.currentInput = ref}
+                placeholder='Put your comment here.'
+                onChangeText={(text) => {this.setState({inputrn: text})}}
+                onSubmitEditing= {() => {this.onSubmit()}}/>
+                <Button
+                    rounded
+                    warning
+                    onPress = {() => this.onSubmit()}>
+                    <Text>  Post!  </Text>
+                </Button>
+            </Item>
+            </View>
         )
     }
 }
@@ -128,9 +129,10 @@ export default class PostDetailScreen extends Component{
 
     _onRefresh = async() => { 
         this.setState((state) => ({refresh: true})) // indicate we are refreshing
-        let posts = await DatabaseService.getPosts() // refresh data
+        let id = this.state.post._id
+        let post = await DatabaseService.getPost(id) // refresh data
         this.setState((state) => ({ // refresh state -- use function
-            posts: posts,
+            post: post,
             refresh: false
         }))
     }
@@ -168,7 +170,33 @@ export default class PostDetailScreen extends Component{
 
             return (
                 <Container style = {{backgroundColor: 'powderblue'}}>
-                    <View>
+                    {/*<View>*/}
+                    {/*<FlatList*/}
+                    {/*data = {[post]}*/}
+                    {/*renderItem = {(item) => {return this._renderItem(item)}}*/}
+                    {/*keyExtractor = {(item, index) => item._id}*/}
+                    {/*refreshControl = { // controls refreshing*/}
+                        {/*<RefreshControl*/}
+                            {/*refreshing = {refresh}*/}
+                            {/*onRefresh = {this._onRefresh}*/}
+                            {/*tintColor = 'skyblue'*/}
+                        {/*/>*/}
+                    {/*}*/}
+                    {/*ListEmptyComponent = {<Blank/>}*/}
+                    {/*contentContainerStyle = {(post == undefined) ? { flex: 1, alignItems: 'center' } : {}}*/}
+                    {/*/>*/}
+                    {/*</View>*/}
+
+                    <KeyboardAvoidingView
+                    keyboardVerticalOffset = {Header.HEIGHT + 20}
+                    //style = {{ flex: 1 }}
+                    style={styles.container}
+                    //style = {{position: 'absolute', left: 0, right: 0, bottom: 0}}
+                    behavior="position" enabled>
+                    <ScrollView
+                    keyboardShouldPersistTaps = 'never'>
+                    {/*<View>*/}
+
                     <FlatList
                     data = {[post]}
                     renderItem = {(item) => {return this._renderItem(item)}}
@@ -183,9 +211,30 @@ export default class PostDetailScreen extends Component{
                     ListEmptyComponent = {<Blank/>}
                     contentContainerStyle = {(post == undefined) ? { flex: 1, alignItems: 'center' } : {}}
                     />
-                    </View>
+
+                    {/*</View>*/}
+
+                    {/*<View style = {{flex: 1,*/}
+                                    {/*flexDirection: 'row',*/}
+                                    {/*justifyContent: 'center',*/}
+                                    {/*alignItems: 'stretch'*/}
+                                    {/*}}>*/}
+                        {/*<View style={{width: 50, height: 500, backgroundColor: 'skyblue'}} />*/}
+                        {/*<View style={{width: 50, backgroundColor: 'steelblue'}} />*/}
+                    {/*</View>*/}
+
+                    {/*</ScrollView>*/}
+
+                    <View style = {{backgroundColor: 'white'}}>
                     <PostDetailFooter post_id={this.state.post._id}
                     />
+                    </View>
+
+                    {/* uncomment to get comment input to scroll with the rest*/}
+                    </ScrollView>
+
+                    {/*<View style={{ height: 50 }}/>*/}
+                    </KeyboardAvoidingView>
                 </Container>
             )               
         }
