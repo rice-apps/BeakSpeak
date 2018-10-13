@@ -19,8 +19,9 @@ import Post from '../Components/Post'
 import Comment from '../Components/Comment'
 import {NewPost} from '../Components/New'
 import Blank from '../Components/Blank'
-import DatabaseService from '../Services/DatabaseService'
 import CommentData from '../Components/CommentData'
+import DatabaseService from '../Services/DatabaseService'
+import PostData from '../Components/PostData'
 
 // Comments container of custom comment components
 class Comments extends Component{
@@ -35,14 +36,6 @@ class Comments extends Component{
 
     render = () => {
         let comments = this.state.comments
-        let commentReacts = {
-            "angry": 0,
-            "funny": 0,
-            "love": 0,
-            "sad": 0,
-            "wow": 0,
-        }
-
         return(
             <FlatList
              data = {comments}
@@ -50,11 +43,9 @@ class Comments extends Component{
              keyExtractor = {(item, index) => item._id}
              renderItem = {(item) => {
                 let comment = item.item
+                
                 return(
-                    <CommentData
-                        body = {comment.body}
-                        reactCounts = {commentReacts}
-                    />
+                    <Comment body = {comment.body}/>
                 )
             }}
             />
@@ -111,9 +102,8 @@ class Posts extends Component{
         return(
             <TouchableWithoutFeedback onPress = {()=> this.postNavigate('PostDetail', post._id)}>
                 <Card>
-                    <Post 
-                        title = {post.title} 
-                        body = {post.body}
+                    <PostData
+                        post = {post}
                     />
                     <Comments comments = {post.comments}/>
                 </Card>
