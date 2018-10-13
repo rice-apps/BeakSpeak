@@ -20,7 +20,19 @@ export default class PostData extends Component{
 
     // increment react count up by 1
     pressReact = (reaction) => {
+
+        user_id = 'nnq1'
+        if (!(this.state.post.reacts.hasOwnProperty(user_id))) {
+            this.state.post.reacts[user_id] = "none"
+        }
+
+        if (!(this.state.post.reacts[user_id].hasOwnProperty('none'))) {
+            this.state.post.reactCounts[this.state.post.reacts[user_id]] -= 1
+        }
+        this.state.post.reacts[user_id] = reaction
         this.state.post.reactCounts[reaction] += 1
+        postid = this.state.post._id
+        DatabaseService.updateReact(postid, reaction)
         console.log('pressed and added')
         newPost = this.state.post
         this.setState({post : newPost})
@@ -69,9 +81,9 @@ const styles = StyleSheet.create({
   },
     button: {
     backgroundColor: "powderblue",
-    width: 60,
     height: 35,
-    borderWidth: 0,
+    width: 70,
+    borderWidth: 0.5,
     borderRadius: 15
   },
     card: {
