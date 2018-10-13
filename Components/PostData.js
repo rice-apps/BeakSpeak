@@ -18,7 +18,7 @@ export default class PostData extends Component{
         }
     }
 
-    // increment vote count up by 1
+    // increment react count up by 1
     pressReact = (reaction) => {
         this.state.post.reactCounts[reaction] += 1
         console.log('pressed and added')
@@ -41,19 +41,19 @@ export default class PostData extends Component{
             <Post title={title} body={body}/>
             <View style={styles.container}>
                 <Button onPress={() => this.pressReact("angry")} style={styles.button}>
-                    <Text>:{angry.toString()}</Text>
+                    <Text>😡:{angry.toString()}</Text>
                 </Button>
                 <Button onPress={() => this.pressReact("funny")} style={styles.button}>
-                    <Text>:{funny.toString()}</Text>
+                    <Text>😂:{funny.toString()}</Text>
                 </Button>
                 <Button onPress={() => this.pressReact("love")} style={styles.button}>
-                    <Text>:{love.toString()}</Text>
+                    <Text>😍:{love.toString()}</Text>
                 </Button>
                 <Button onPress={() => this.pressReact("sad")} style={styles.button}>
-                    <Text>:{sad.toString()}</Text>
+                    <Text>😭:{sad.toString()}</Text>
                 </Button>
                 <Button onPress={() => this.pressReact("wow")} style={styles.button}>
-                    <Text>:{wow.toString()}</Text>
+                    <Text>😮:{wow.toString()}</Text>
                 </Button>
             </View>
             </View>
@@ -63,9 +63,9 @@ export default class PostData extends Component{
 
 const styles = StyleSheet.create({
     container: {
-    flex: 0,
+    flex: 0.5,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-evenly'
   },
     button: {
     backgroundColor: "powderblue",
