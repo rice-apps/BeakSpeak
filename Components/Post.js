@@ -28,6 +28,9 @@ class PostVotes extends Component {
     }
 
     render = () => {
+        let upvoteIconColor = this.props.upvoteIconColor 
+        let downvoteIconColor = this.props.downvoteIconColor
+
         return(
             <View style={styles.container}>
                     <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
@@ -35,7 +38,7 @@ class PostVotes extends Component {
                             name = 'ios-arrow-up'
                             fontSize = {30}
                             type = 'Ionicons'
-                            style = {{color: 'black'}}
+                            style = {{color: upvoteIconColor}}
                             onPress = {() => this.upvoteScore()}
                         />
                         <Text>
@@ -45,7 +48,7 @@ class PostVotes extends Component {
                             name = 'ios-arrow-down'
                             fontSize = {30}
                             type = 'Ionicons'
-                            style = {{color: 'black'}}
+                            style = {{color: downvoteIconColor}}
                             onPress = {() => this.downvoteScore()}
                         />
                     </View>
@@ -81,6 +84,9 @@ export default class Post extends PureComponent{
         let score = this.props.score
         let upvoteScore = this.props.upvoteScore
         let downvoteScore = this.props.downvoteScore
+        let upvoteIconColor = this.props.upvoteIconColor
+        let downvoteIconColor = this.props.downvoteIconColor
+
         return(
 
             <Card style={styles.card}>
@@ -96,6 +102,8 @@ export default class Post extends PureComponent{
                             score={score}
                             upvoteScore={upvoteScore}
                             downvoteScore={downvoteScore}
+                            upvoteIconColor={upvoteIconColor}
+                            downvoteIconColor={downvoteIconColor}
                         />
                     </View>
 
