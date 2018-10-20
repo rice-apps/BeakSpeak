@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Post from '../Components/Post'
+import {Posts} from '../Screens/Main'
 import DatabaseService from '../Services/DatabaseService'
 import {StyleSheet} from "react-native"
 import {Card, View, Button, Text, Badge} from 'native-base'
@@ -19,6 +20,37 @@ export default class PostData extends Component{
         }
     }
 
+    // increment vote count up by 1
+    upvoteScore = async() => {
+        //let local_VotedPost = await DatabaseService.getPost(this.props.post._id)
+        local_VotedPost = this.props.post  // assign local post
+
+        post_id = local_VotedPost._id
+        let updatedPost = await DatabaseService.updateVotes(post_id, 1) // send local post info to backend
+        this.setState({post : updatedPost})
+    }
+
+    //increment vote count down by 1
+    downvoteScore = async() => {
+        //let local_VotedPost = await DatabaseService.getPost(this.props.post._id)
+        local_VotedPost = this.props.post  // assign local post
+
+
+        post_id = local_VotedPost._id
+        let updatedPost = await DatabaseService.updateVotes(post_id, -1) // send local post info to backend
+        this.setState({post : updatedPost})
+    }
+
+    // check if a button is pressed
+    pressed = (reaction) => {
+        user_id = '5b5f9a9ade57b741ffc3e61e'
+        if (!(this.state.post.reacts.hasOwnProperty(user_id))) {
+            return false
+        }
+        return this.state.post.reacts[user_id] == reaction
+
+    }
+
     // increment react count up by 1
     pressReact = (reaction) => {
 
@@ -35,6 +67,7 @@ export default class PostData extends Component{
         postid = this.state.post._id
         DatabaseService.updateReact(postid, reaction)
         newPost = this.state.post
+
         this.setState({post : newPost})
     }
 
@@ -42,6 +75,11 @@ export default class PostData extends Component{
     render = () => {
         let title = this.state.post.title
         let body = this.state.post.body
+
+        let score = this.state.post.score
+        let upvoteScore = this.upvoteScore
+        let downvoteScore = this.downvoteScore
+
         let angry = this.state.post.reactCounts["angry"]
         let funny = this.state.post.reactCounts["funny"]
         let love = this.state.post.reactCounts["love"]
@@ -50,22 +88,31 @@ export default class PostData extends Component{
 
         return(
             <View>
-            <Post title={title} body={body}/>
+            <Post upvoteScore = {upvoteScore}
+                downvoteScore = {downvoteScore}
+                title = {title}
+                body = {body}
+                score = {score}/>
             <View style={styles.container}>
-                <Button onPress={() => this.pressReact("angry")} style={styles.button}>
-                    <Text>😡:{angry.toString()}</Text>
+                <Button onPress={() => this.pressReact("angry")} style={this.pressed("angry") ? styles.buttonPress : styles.button}>
+                    <Text adjustsFontSizeToFit={true} numberOfLines={1} style={{marginLeft: -12, marginRight:-10}}>
+                        😡:{angry.toString()}</Text>
                 </Button>
-                <Button onPress={() => this.pressReact("funny")} style={styles.button}>
-                    <Text>😂:{funny.toString()}</Text>
+                <Button onPress={() => this.pressReact("funny")} style={this.pressed("funny") ? styles.buttonPress : styles.button}>
+                    <Text adjustsFontSizeToFit={true} numberOfLines={1} style={{marginLeft: -12, marginRight:-10}}>
+                        😂:{funny.toString()}</Text>
                 </Button>
-                <Button onPress={() => this.pressReact("love")} style={styles.button}>
-                    <Text>😍:{love.toString()}</Text>
+                <Button onPress={() => this.pressReact("love")} style={this.pressed("love") ? styles.buttonPress : styles.button}>
+                    <Text adjustsFontSizeToFit={true} numberOfLines={1} style={{marginLeft: -12, marginRight:-10}}>
+                        😍:{love.toString()}</Text>
                 </Button>
-                <Button onPress={() => this.pressReact("sad")} style={styles.button}>
-                    <Text>😭:{sad.toString()}</Text>
+                <Button onPress={() => this.pressReact("sad")} style={this.pressed("sad") ? styles.buttonPress : styles.button}>
+                    <Text adjustsFontSizeToFit={true} numberOfLines={1} style={{marginLeft: -12, marginRight:-10}}>
+                        😭:{sad.toString()}</Text>
                 </Button>
-                <Button onPress={() => this.pressReact("wow")} style={styles.button}>
-                    <Text>😮:{wow.toString()}</Text>
+                <Button onPress={() => this.pressReact("wow")} style={this.pressed("wow") ? styles.buttonPress : styles.button}>
+                    <Text adjustsFontSizeToFit={true} numberOfLines={1} style={{marginLeft: -12, marginRight:-10}}>
+                        😮:{wow.toString()}</Text>
                 </Button>
             </View>
             </View>
@@ -84,7 +131,17 @@ const styles = StyleSheet.create({
     height: 35,
     width: 70,
     borderWidth: 0.5,
-    borderRadius: 15
+    borderRadius: 15,
+    justifyContent: 'center'
+  },
+
+    buttonPress: {
+    backgroundColor: "#6f99bc",
+    height: 35,
+    width: 70,
+    borderWidth: 0.5,
+    borderRadius: 15,
+    justifyContent: 'center'
   },
     card: {
         borderColor: "powderblue",
