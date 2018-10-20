@@ -42,7 +42,7 @@ class PostDetailFooter extends Component{
                 <Item regular>
                     <Input
                         placeholder = 'Put your comment here.'
-                        multiline = {true}
+                        //multiline = {true}
                         onChangeText = {(text) => {this.setState({input: text})}}
                         onSubmitEditing = {() => {this.onSubmit()}}
                         value = {this.state.input}
