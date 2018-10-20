@@ -13,7 +13,6 @@ import {
 }
 from 'react-native'
 import {Card, Container, Footer, Icon, Item, View, Input, Button} from 'native-base'
-
 import DatabaseService from '../Services/DatabaseService'
 import Blank from '../Components/Blank'
 import Post from '../Components/Post'
@@ -31,10 +30,9 @@ class PostDetailFooter extends Component{
 
     onSubmit() {
         if(this.state.input){
-            let post = DatabaseService.postComment(this.props.post_id, this.state.input);
-            this.setState({input: ''});
-            console.log("2");
-            console.log(post)
+            DatabaseService.postComment(this.props.post_id, this.state.input)
+                .then(res => {this.props.update(res)});
+            this.setState({input: ''})
         }
     }
 
@@ -96,17 +94,15 @@ export default class PostDetailScreen extends Component{
             post : null,
             loaded : false,
         }
-
-        this.post_id = this.props.navigation.getParam('id') // use this post id to query the individual post from the backend
+        this.post_id = this.props.navigation.getParam('id'); // use this post id to query the individual post from the backend
+        this.main_refresh = this.props.navigation.getParam('refresh');
 
     }
 
     componentDidMount = async() => {
         this.mounted = true
+        let post = await DatabaseService.getPost(this.post_id); // put database logic here -- look in Servcies/DatabaseService for the appropriate method
 
-        let post_id = this.props.navigation.getParam('id') // use this post id to query the individual post from the backend
-        let post = await DatabaseService.getPost(post_id); // put database logic here -- look in Servcies/DatabaseService for the appropriate method
-       
         if(this.mounted) { // set state here to avoid memory leak
             this.setState({
                 post: post,
@@ -128,6 +124,11 @@ export default class PostDetailScreen extends Component{
             post: post,
             refresh: false
         }))
+    };
+
+    update = (post) => {
+        this.setState((state) => ({post: post}));
+        this.main_refresh();
     }
     
     _renderItem = (item) => {
@@ -195,7 +196,7 @@ export default class PostDetailScreen extends Component{
                     <View style={{ height: 10, backgroundColor: 'powderblue' }}/>
 
                     <View style = {{backgroundColor: 'white'}}>
-                    <PostDetailFooter post_id={this.state.post._id}/>
+                    <PostDetailFooter post_id={this.state.post._id} update={this.update}/>
                     </View>
 
                     </ScrollView>
