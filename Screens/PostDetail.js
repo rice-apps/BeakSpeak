@@ -13,7 +13,6 @@ import {
 }
 from 'react-native'
 import {Card, Container, Footer, Icon, Item, View, Input, Button} from 'native-base'
-
 import DatabaseService from '../Services/DatabaseService'
 import Blank from '../Components/Blank'
 import Post from '../Components/Post'
@@ -31,7 +30,8 @@ class PostDetailFooter extends Component{
 
     onSubmit() {
         if(this.state.input){
-            DatabaseService.postComment(this.props.post_id, this.state.input);
+            DatabaseService.postComment(this.props.post_id, this.state.input)
+                .then(res => {this.props.update(res)});
             this.setState({input: ''})
         }
     }
@@ -40,7 +40,7 @@ class PostDetailFooter extends Component{
         return(
             <View style={styles.container}>
                 <Item regular>
-                        <TextInput
+                        <Input
                             placeholder = 'Put your comment here.'
                             onChangeText = {(text) => {this.setState({input: text})}}
                             onSubmitEditing = {() => {this.onSubmit()}}
@@ -81,6 +81,7 @@ class Comments extends Component{
     }
 }
 
+
 export default class PostDetailScreen extends Component{
     
     // initialize with default values -- DO NOT fetch data here
@@ -92,17 +93,15 @@ export default class PostDetailScreen extends Component{
             post : null,
             loaded : false,
         }
-
-        this.post_id = this.props.navigation.getParam('id') // use this post id to query the individual post from the backend
+        this.post_id = this.props.navigation.getParam('id'); // use this post id to query the individual post from the backend
+        this.main_refresh = this.props.navigation.getParam('refresh');
 
     }
 
     componentDidMount = async() => {
         this.mounted = true
+        let post = await DatabaseService.getPost(this.post_id); // put database logic here -- look in Servcies/DatabaseService for the appropriate method
 
-        let post_id = this.props.navigation.getParam('id') // use this post id to query the individual post from the backend
-        let post = await DatabaseService.getPost(post_id); // put database logic here -- look in Servcies/DatabaseService for the appropriate method
-       
         if(this.mounted) { // set state here to avoid memory leak
             this.setState({
                 post: post,
@@ -124,6 +123,11 @@ export default class PostDetailScreen extends Component{
             post: post,
             refresh: false
         }))
+    };
+
+    update = (post) => {
+        this.setState((state) => ({post: post}));
+        this.main_refresh();
     }
     
     _renderItem = (item) => {
@@ -159,32 +163,18 @@ export default class PostDetailScreen extends Component{
 
             return (
                 <Container style = {{backgroundColor: 'powderblue'}}>
-                    {/*<View style = {{flex: 1}}>*/}
-                    {/*<FlatList*/}
-                    {/*data = {[post]}*/}
-                    {/*renderItem = {(item) => {return this._renderItem(item)}}*/}
-                    {/*keyExtractor = {(item, index) => item._id}*/}
-                    {/*refreshControl = { // controls refreshing*/}
-                        {/*<RefreshControl*/}
-                            {/*refreshing = {refresh}*/}
-                            {/*onRefresh = {this._onRefresh}*/}
-                            {/*tintColor = 'skyblue'*/}
-                        {/*/>*/}
-                    {/*}*/}
-                    {/*ListEmptyComponent = {<Blank/>}*/}
-                    {/*contentContainerStyle = {(post == undefined) ? { flex: 1, alignItems: 'center' } : {}}*/}
-                    {/*/>*/}
-                    {/*</View>*/}
-
-                    <KeyboardAvoidingView
+                    <View
+                        keyboardVerticalOffset = {Header.HEIGHT + 20}
+                        style = {{backgroundColor: 'white'}}>
+                        <PostDetailFooter post_id={this.state.post._id} update={this.update}/>
+                    </View>
+                    <View
                     keyboardVerticalOffset = {Header.HEIGHT + 20}
-                    //style = {{ flex: 1 }}
                     style={styles.container}
-                    //style = {{position: 'absolute', left: 0, right: 0, bottom: 0}}
-                    behavior="position" enabled>
-                    <ScrollView
+                    behavior="position" enabled
+                    style = {{ flex: 1 }}
+                    >
                     keyboardShouldPersistTaps = 'never'>
-                    {/*<View>*/}
                     <FlatList
                     data = {[post]}
                     renderItem = {(item) => {return this._renderItem(item)}}
@@ -199,30 +189,7 @@ export default class PostDetailScreen extends Component{
                     ListEmptyComponent = {<Blank/>}
                     contentContainerStyle = {(post == undefined) ? { flex: 1, alignItems: 'center' } : {}}
                     />
-
-                    {/*</View>*/}
-
-                    {/*<View style = {{flex: 1,*/}
-                                    {/*flexDirection: 'row',*/}
-                                    {/*justifyContent: 'center',*/}
-                                    {/*alignItems: 'stretch'*/}
-                                    {/*}}>*/}
-                        {/*<View style={{width: 50, height: 500, backgroundColor: 'skyblue'}} />*/}
-                        {/*<View style={{width: 50, backgroundColor: 'steelblue'}} />*/}
-                    {/*</View>*/}
-
-                    {/*</ScrollView>*/}
-
-                    <View style = {{backgroundColor: 'white'}}>
-                    <PostDetailFooter post_id={this.state.post._id}
-                    />
                     </View>
-
-                    {/* uncomment to get comment input to scroll with the rest*/}
-                    </ScrollView>
-
-                    {/*<View style={{ height: 50 }}/>*/}
-                    </KeyboardAvoidingView>
                 </Container>
             )               
         }

@@ -2,7 +2,7 @@ import { environment } from './Environments/environment';
 
 export let CONFIG;
 
-ip = "10.123.178.152"
+let ip = "10.115.177.250"
 if (environment.production) {
     CONFIG = {
         api_url: 'https://speak.riceapps.org/api',

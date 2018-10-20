@@ -74,7 +74,7 @@ class Posts extends Component{
     }
 
     postNavigate = (route, post_id) => {
-        this.props.navigate(route, {id: post_id})
+        this.props.navigate(route, {id: post_id, refresh: this._onRefresh})
     }
     
     _onRefresh = async() => { 
