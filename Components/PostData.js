@@ -12,22 +12,32 @@ export default class PostData extends Component{
     constructor(props){
         super(props)
 
-        console.log(props)
+        // console.log(props)
         // default state - post before vote changes
         this.state = {
-            post: this.props.post
+            post: this.props.post,
+            selectedButton: null
         }
     }
 
     // increment vote count up by 1
     pressReact = (reaction) => {
+        user_id = '5b5f9a9ade57b741ffc3e61e'
+        console.log(this.state.post)
+        if (!(this.state.post.reacts.hasOwnProperty(user_id))) {
+            this.state.post.reacts[user_id] = "none"
+        }
+
+        if (!(this.state.post.reacts[user_id].hasOwnProperty('none'))) {
+            this.state.post.reactCounts[this.state.post.reacts[user_id]] -= 1
+        }
+        this.state.post.reacts[user_id] = reaction
         this.state.post.reactCounts[reaction] += 1
-        console.log('pressed and added')
-        console.log(this.state.post._id)
+
         postid = this.state.post._id
         DatabaseService.updateReact(postid, reaction)
         newPost = this.state.post
-        this.setState({post : newPost})
+        this.setState({post : newPost, selectedButton: reaction})
     }
 
 
@@ -48,20 +58,41 @@ export default class PostData extends Component{
                     downvoteSCore = {this.downvoteScore}
                 </Post>
                 <View style={styles.container}>
-                    <Button onPress={() => this.pressReact("angry")} style={styles.button}>
+                    <Button onPress={
+                        () => this.pressReact("angry")} style={
+                        this.state.selectedButton === "angry"
+                            ? styles.buttonSelected
+                            : styles.buttonDefault
+                    }>
                         <Text>😡:{angry.toString()}</Text>
                     </Button>
-                    <Button onPress={() => this.pressReact("funny")} style={styles.button}>
+                    <Button onPress={() => this.pressReact("funny")} style={
+                        this.state.selectedButton === "funny"
+                            ? styles.buttonSelected
+                            : styles.buttonDefault
+                    }>
                         <Text>😂:{funny.toString()}</Text>
                     </Button>
-                    <Button onPress={() => this.pressReact("love")} style={styles.button}>
+                    <Button onPress={() => this.pressReact("love")} style={
+                        this.state.selectedButton === "love"
+                            ? styles.buttonSelected
+                            : styles.buttonDefault
+                    }>
                         <Text>😍:{love.toString()}</Text>
                     </Button>
-                    <Button onPress={() => this.pressReact("sad")} style={styles.button}>
+                    <Button onPress={() => this.pressReact("sad")} style={
+                        this.state.selectedButton === "sad"
+                            ? styles.buttonSelected
+                            : styles.buttonDefault
+                    }>
                         <Text>😭:{sad.toString()}</Text>
                     </Button>
-                    <Button onPress={() => this.pressReact("wow")} style={styles.button}>
-                        <Text>😮:{wow.toString()}</Text>
+                    <Button onPress={() => this.pressReact("wow")} style={
+                        this.state.selectedButton === "wow"
+                            ? styles.buttonSelected
+                            : styles.buttonDefault
+                    }>
+                        <Text style={{marginLeft: -10}}>😮:{100} </Text>
                     </Button>
                 </View>
             </View>
@@ -71,17 +102,24 @@ export default class PostData extends Component{
 
 const styles = StyleSheet.create({
     container: {
-    flex: 0,
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
-    button: {
-    backgroundColor: "powderblue",
-    width: 60,
-    height: 35,
-    borderWidth: 0,
-    borderRadius: 15
-  },
+        flex: 0,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    buttonDefault: {
+        backgroundColor: "powderblue",
+        width: 60,
+        height: 35,
+        borderWidth: 0,
+        borderRadius: 15
+    },
+    buttonSelected: {
+        backgroundColor: "#6f99bc",
+        width: 60,
+        height: 35,
+        borderWidth: 0,
+        borderRadius: 15
+    },
     card: {
         borderColor: "powderblue",
         borderWidth: 5,

@@ -56,7 +56,7 @@ export async function getPost(id) {
 
 export async function updateReact(postid, reaction) {
     try {
-        let res = await fetch(apiUrl+"/posts/"+postid+"/reacts", {
+        let res = await fetch(apiUrl + "/posts/" + postid + "/reacts", {
             method: 'PUT',
             headers: {
                 'x-access-token': token,
@@ -66,11 +66,10 @@ export async function updateReact(postid, reaction) {
             body: JSON.stringify({
                 react: reaction
             })
-
         })
         console.log(res)
-        let print = await res.json()
-        console.log(print)
+        // let print = await res.json()
+        // console.log(print)
 
     } catch(err) {
         console.log(err)
