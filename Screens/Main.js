@@ -21,6 +21,7 @@ import {NewPost} from '../Components/New'
 import Blank from '../Components/Blank'
 import DatabaseService from '../Services/DatabaseService'
 
+
 // Comments container of custom comment components
 class Comments extends Component{
 
@@ -42,6 +43,7 @@ class Comments extends Component{
         )
     }
 }
+
 
 // List of posts
 class Posts extends Component{
@@ -133,7 +135,6 @@ class Posts extends Component{
         }
     }
 }
-
 
 // footer with new post button and new post creation modal
 class MainFooter extends Component{

@@ -69,7 +69,7 @@ export class NewPost extends Component{
         let errors = results.errors
 
         // check if submission is valid -- there must be a title!
-        if(errors.length == 0){
+        if(errors.length === 0){
             let newPost = results.value
             DatabaseService.sendNewPost(newPost) // send post to database -- no need to await
             
