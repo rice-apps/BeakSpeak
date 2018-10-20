@@ -50,7 +50,8 @@ export async function postComment(id, text) {
             },
             body: JSON.stringify({
                 comment: text
-        })});
+            })
+        });
         let post = await res.json();
         return post
     }catch(err) {
