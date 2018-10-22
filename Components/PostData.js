@@ -33,7 +33,8 @@ export default class PostData extends Component{
                 score : newScore,
                 isUpvoted : !this.state.isUpvoted, 
                 isDownvoted : false,
-                upvoteIconColor : 'orange'
+                upvoteIconColor : 'orange',
+                downvoteIconColor : 'black'
             })
         }
         else {
@@ -61,6 +62,7 @@ export default class PostData extends Component{
                 score : newScore,
                 isUpvoted : false, 
                 isDownvoted : !this.state.isDownvoted,
+                upvoteIconColor : 'black',
                 downvoteIconColor : 'blue'
             })
         }
