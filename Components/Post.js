@@ -30,7 +30,7 @@ class PostVotes extends Component {
     render = () => {
         let vote = this.props.vote
         let upvoteIconColor =  vote == 1 ? "orange" : "black"
-        let downvoteIconColor = vote == -1 ?  "orange" : "black"
+        let downvoteIconColor = vote == -1 ?  "blue" : "black"
 
         return(
             <View style={styles.container}>
@@ -119,7 +119,7 @@ const styles = StyleSheet.create(
         card:{
             borderColor: 'powderblue',
             borderWidth: 5,
-            borderRadius: 10
+            borderRadius: 15
         }
     }
 )
