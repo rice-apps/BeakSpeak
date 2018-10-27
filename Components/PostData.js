@@ -20,6 +20,15 @@ export default class PostData extends Component{
         }
     }
 
+    // check if a button is pressed
+    pressed = (reaction) => {
+        user_id = '5b5f9a9ade57b741ffc3e61e'
+        if (!(this.state.post.reacts.hasOwnProperty(user_id))) {
+            return false
+        }
+        return this.state.post.reacts[user_id] == reaction
+    }
+
     // increment vote count up by 1
     pressReact = (reaction) => {
         user_id = '5b5f9a9ade57b741ffc3e61e'
@@ -58,41 +67,31 @@ export default class PostData extends Component{
                     downvoteSCore = {this.downvoteScore}
                 </Post>
                 <View style={styles.container}>
-                    <Button onPress={
-                        () => this.pressReact("angry")} style={
-                        this.state.selectedButton === "angry"
-                            ? styles.buttonSelected
-                            : styles.buttonDefault
-                    }>
-                        <Text>😡:{angry.toString()}</Text>
+                    <Button onPress={() => this.pressReact("angry")}
+                            style={this.pressed("angry") ? styles.buttonSelected : styles.buttonDefault}>
+                        <Text adjustsFontSizeToFit={true} numberOfLines={1} style={{marginLeft: -12, marginRight:-10}}>
+                            😡:{angry.toString()}</Text>
                     </Button>
-                    <Button onPress={() => this.pressReact("funny")} style={
-                        this.state.selectedButton === "funny"
-                            ? styles.buttonSelected
-                            : styles.buttonDefault
-                    }>
-                        <Text>😂:{funny.toString()}</Text>
+                    <Button onPress={() => this.pressReact("funny")}
+                            style={this.pressed("funny") ? styles.buttonSelected : styles.buttonDefault}>
+                        <Text adjustsFontSizeToFit={true} numberOfLines={1}
+                              style={{marginLeft: -12, marginRight:-10}}>
+                            😂:{funny.toString()}</Text>
                     </Button>
-                    <Button onPress={() => this.pressReact("love")} style={
-                        this.state.selectedButton === "love"
-                            ? styles.buttonSelected
-                            : styles.buttonDefault
-                    }>
-                        <Text>😍:{love.toString()}</Text>
+                    <Button onPress={() => this.pressReact("love")} style={this.pressed("love") ? styles.buttonSelected : styles.buttonDefault}>
+                        <Text adjustsFontSizeToFit={true} numberOfLines={1}
+                              style={{marginLeft: -12, marginRight:-10}}>
+                            😍:{love.toString()}</Text>
                     </Button>
-                    <Button onPress={() => this.pressReact("sad")} style={
-                        this.state.selectedButton === "sad"
-                            ? styles.buttonSelected
-                            : styles.buttonDefault
-                    }>
-                        <Text>😭:{sad.toString()}</Text>
+                    <Button onPress={() => this.pressReact("sad")} style={this.pressed("sad") ? styles.buttonSelected : styles.buttonDefault}>
+                        <Text adjustsFontSizeToFit={true} numberOfLines={1}
+                              style={{marginLeft: -12, marginRight:-10}}>
+                            😭:{sad.toString()}</Text>
                     </Button>
-                    <Button onPress={() => this.pressReact("wow")} style={
-                        this.state.selectedButton === "wow"
-                            ? styles.buttonSelected
-                            : styles.buttonDefault
-                    }>
-                        <Text style={{marginLeft: -10}}>😮:{100} </Text>
+                    <Button onPress={() => this.pressReact("wow")} style={this.pressed("wow") ? styles.buttonSelected : styles.buttonDefault}>
+                        <Text adjustsFontSizeToFit={true} numberOfLines={1}
+                              style={{marginLeft: -12, marginRight:-10}}>
+                            😮:{wow.toString()}</Text>
                     </Button>
                 </View>
             </View>
