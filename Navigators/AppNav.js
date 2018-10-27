@@ -5,6 +5,7 @@ import {createStackNavigator, createDrawerNavigator} from 'react-navigation'
 
 import MainScreen from '../Screens/Main'
 import PostDetailScreen from '../Screens/PostDetail'
+import InfoScreen from '../Screens/Info'
 
 import Blank from '../Components/Blank'
 import Sidebar from '../Components/Sidebar'
@@ -30,6 +31,22 @@ MainNav = createStackNavigator(
     }
 )
 
+InfoNav = createStackNavigator(
+    {
+        Posts: {
+            screen: InfoScreen,
+            navigationOptions: ({ navigation }) => (
+                {
+                    header: <DrawerHeader navigation = {navigation} title = 'Information'/>
+                }
+            )
+        }
+    },
+    {
+        initialRouteName: 'Posts',
+    }
+)
+
 HomeNav = createDrawerNavigator(
     {
         Main: {
@@ -39,7 +56,7 @@ HomeNav = createDrawerNavigator(
             screen: Blank
         },    
         Info: {
-            screen: Blank,
+            screen: InfoNav,
         }
     },
     {
