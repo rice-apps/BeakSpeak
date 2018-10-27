@@ -62,7 +62,7 @@ export default class PostDetailScreen extends Component{
 
         post_id = this.props.navigation.getParam('id') // use this post id to query the individual post from the backend
         let post = await DatabaseService.getPost(post_id) // put database logic here -- look in Servcies/DatabaseService for the appropriate method
-        console.log(post)
+        //console.log(post)
         if(this.mounted) { // set state here to avoid memory leak
             this.setState({
                 post: post,
@@ -80,6 +80,7 @@ export default class PostDetailScreen extends Component{
     _onRefresh = async() => { 
         this.setState((state) => ({refresh: true})) // indicate we are refreshing
         let posts = await DatabaseService.getPosts() // refresh data
+        console.log(posts[0])
         this.setState((state) => ({ // refresh state -- use function
             posts: posts,
             refresh: false
@@ -88,11 +89,13 @@ export default class PostDetailScreen extends Component{
     
     _renderItem = (item) => {
         let post = item.item
-        
+
         return(
             <View style = {{flex: 1}}>
                 <Card>
-                    <PostData post = {post}/>                
+                    <PostData
+                        post = {post}
+                    />                
                  </Card>
                 <Comments comments = {post.comments}/>
             </View>

@@ -89,6 +89,7 @@ class Posts extends Component{
     _onRefresh = async() => { 
         this.setState((state) => ({refresh: true})) // indicate we are refreshing
         let posts = await DatabaseService.getPosts() // refresh data
+        //console.log(posts[0])
         this.setState((state) => ({ // refresh state -- use function
             posts: posts,
             refresh: false
@@ -97,11 +98,12 @@ class Posts extends Component{
 
     _renderItem = (item) => {
         let post = item.item
-        
         return(
             <TouchableWithoutFeedback onPress = {()=> this.postNavigate('PostDetail', post._id)}>
                 <Card>
-                    <PostData post = {post}/>
+                    <PostData 
+                        post = {post}
+                    />
                     <Comments comments = {post.comments}/>
                 </Card>
             </TouchableWithoutFeedback>
