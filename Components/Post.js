@@ -33,14 +33,10 @@ class PostHeader extends Component{
 // main component -- pure component for rendering optimization (view only)
 export default class Post extends PureComponent{
 
-    constructor(props){
-        super(props)
-    }
-
     render = () => {
         let title = this.props.title
         let body = this.props.body
-    
+
         return(
             <Card style={styles.card}>
             

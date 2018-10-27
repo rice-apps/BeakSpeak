@@ -4,7 +4,7 @@ import {
     View,
     Image,
     Dimensions,
-    AsyncStorage
+    AsyncStorage,
 } from 'react-native';
 import {Button, Text, Icon} from 'native-base'
 import Modal from 'react-native-modal'
@@ -67,58 +67,54 @@ export default class FrontScreen extends Component {
         this.getLoginInfo()
     }
 
-    async componentDidMount(){
-        AuthService.login() // testing login requests
-    }
-
     navigate = (screen) => {
         this.props.navigation.navigate(screen)
     }
 
     getLoginInfo = async () => {
         const userToken = await AsyncStorage.getItem('userToken')
-        /*
-        this.setState({
-            modalVisible: true
-        })
-        */
         
+        this.setState({
+            modalVisible: false
+        })
+                
         this.navigate('Main')
     }
     
     render = () => {
-        const {height: screenHeight} = Dimensions.get('window');
+        const {height: screenHeight} = Dimensions.get('window')
+        let topPos = screenHeight - 0.95 * screenHeight
         let isVisible = this.state.modalVisible
         
         return (
-                <View style={[styles.screenTheme, {height: screenHeight}]}>
+            <View style={[styles.screenTheme, {height: screenHeight}]}>
                     
-                    {/* login modal */}
-                    <Modal
-                        isVisible = {isVisible}
-                        animationIn = {'slideInUp'}
-                        animationOut = {'zoomOut'}
-                        animationInTiming = {500}
-                        animationOutTiming = {500}
-                        avoidKeyboard
-                    >
-                        <View style={{
-                                        borderRadius: 10, 
-                                        padding: 10, 
-                                        backgroundColor: 'white'
-                                    }}>
+                        {/* login modal */}
+                        <Modal
+                            isVisible = {isVisible}
+                            animationIn = {'slideInUp'}
+                            animationOut = {'zoomOut'}
+                            animationInTiming = {500}
+                            animationOutTiming = {500}
+                            style={{position: 'absolute', top: topPos, left: 0}}
+                        >
                             <View style={{
-                                            flexDirection: 'row', 
-                                            justifyContent: 'flex-end'
+                                            borderRadius: 10, 
+                                            padding: 10, 
+                                            backgroundColor: 'white'
                                         }}>
-                            </View>
+                                <View style={{
+                                                flexDirection: 'row', 
+                                                justifyContent: 'flex-end'
+                                            }}>
+                                </View>
 
-                            {/* new post creation form*/}
-                            <Login closeView = {this.hideModal}/>
-                        </View>
-                    </Modal>
-                    <FrontBody/>
-                </View>
+                                {/* new post creation form*/}
+                                <Login closeView = {this.hideModal}/>
+                            </View>
+                        </Modal>
+                <FrontBody/>
+            </View>
         );
     }
 }

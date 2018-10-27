@@ -6,7 +6,7 @@ import {
     TouchableWithoutFeedback,
     RefreshControl}
 from 'react-native'
-import {Card, Container, View} from 'native-base'
+import {Card, Container, View, Input} from 'native-base'
 
 import DatabaseService from '../Services/DatabaseService'
 import Blank from '../Components/Blank'
@@ -16,16 +16,9 @@ import Comment from '../Components/Comment'
 // Comments container of custom comment components
 class Comments extends Component{
 
-    constructor(props){
-        super(props)
-
-        this.state = {
-            comments: this.props.comments
-        }
-    }
-
     render = () => {
-        let comments = this.state.comments
+        let comments = this.props.comments
+
         return(
             <FlatList
              data = {comments}
@@ -39,6 +32,7 @@ class Comments extends Component{
                 )
             }}
             />
+            
         )
     }
 }
@@ -78,9 +72,10 @@ export default class PostDetailScreen extends Component{
 
     _onRefresh = async() => { 
         this.setState((state) => ({refresh: true})) // indicate we are refreshing
-        let posts = await DatabaseService.getPosts() // refresh data
+        let id = this.state.post._id
+        let post = await DatabaseService.getPost(id) // refresh data
         this.setState((state) => ({ // refresh state -- use function
-            posts: posts,
+            post: post,
             refresh: false
         }))
     }
