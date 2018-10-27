@@ -28,8 +28,9 @@ class PostVotes extends Component {
     }
 
     render = () => {
-        let upvoteIconColor = this.props.upvoteIconColor 
-        let downvoteIconColor = this.props.downvoteIconColor
+        let vote = this.props.vote
+        let upvoteIconColor =  vote == 1 ? "orange" : "black"
+        let downvoteIconColor = vote == -1 ?  "orange" : "black"
 
         return(
             <View style={styles.container}>
@@ -84,11 +85,9 @@ export default class Post extends PureComponent{
         let score = this.props.score
         let upvoteScore = this.props.upvoteScore
         let downvoteScore = this.props.downvoteScore
-        let upvoteIconColor = this.props.upvoteIconColor
-        let downvoteIconColor = this.props.downvoteIconColor
+        let vote = this.props.vote
 
         return(
-
             <Card style={styles.card}>
                 <View style={{ flex: 1, flexDirection: 'row' }}>
 
@@ -99,17 +98,15 @@ export default class Post extends PureComponent{
                     </View>
                     <View style = {{ flex: 1}}>
                         <PostVotes
+                            vote = {vote}
                             score={score}
                             upvoteScore={upvoteScore}
                             downvoteScore={downvoteScore}
-                            upvoteIconColor={upvoteIconColor}
-                            downvoteIconColor={downvoteIconColor}
                         />
                     </View>
 
                 </View>
             </Card>
-
         )
     }
 }
@@ -122,7 +119,7 @@ const styles = StyleSheet.create(
         card:{
             borderColor: 'powderblue',
             borderWidth: 5,
-            borderRadius: 15
+            borderRadius: 10
         }
     }
 )
