@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {StyleSheet, ScrollView, Image} from 'react-native'
+import {StyleSheet, ScrollView, Image, Animated} from 'react-native'
 import {
     Card,
     Container,
@@ -7,8 +7,10 @@ import {
     View,
     Text
 } from 'native-base'
+// import styles, { IMAGE_HEIGHT, IMAGE_HEIGHT_SMALL} from 'styles';
 
 const logo = require('../Assets/Images/logo.png')
+
 
 // main component
 export default class Info extends Component{
@@ -16,27 +18,37 @@ export default class Info extends Component{
     render = () => {
         return(
             <Container style = {{backgroundColor: 'powderblue'}}>
-                <ScrollView>
-                    {/*<View style={{flex: 3}}>*/}
-                        {/*/!* our logo *!/*/}
-                        {/*<Image*/}
-                            {/*source = {logo}*/}
-                            {/*style = {styles.image}*/}
-                        {/*/>*/}
-                    {/*</View>*/}
+                {/*<Animated.View style={[{ alignItems: 'center', paddingBottom: ScrollView.height() }]}>*/}
+                {/*<Animated.Image source={logo} style={[styles.logo, { height: this.imageHeight }]} />*/}
+                <View style={{flex: 0.25, alignItems: 'center'}}>
+                        {/* our logo */}
+                        <Image
+                            source = {logo}
+                            style = {styles.image}
+                        />
+                </View>
+                {/*</Animated.View>*/}
 
-                    <View style={{flex:1}}/>
+                <ScrollView>
+
+                    {/*<View style={{flex:1}}/>*/}
 
                 {/*<View style = {{flex: 1}}>*/}
                     <Text style = {styles.titleFont}>User Policy</Text>
+                    <View
+                      style={{
+                        borderBottomColor: 'white',
+                        borderBottomWidth: 0.5, margin: 10
+                      }}
+                    />
 
                         <View style={ styles.row }>
                             <View style={ styles.bullet }>
-                                <Text style = {{color: 'white'}}>{'\u2022' + " "}</Text>
+                                <Text style = { styles.textColor }>{'\u2022' + " "}</Text>
                             </View>
 
                             <View style={ styles.bulletText }>
-                            <Text style = {{color: 'white'}}>
+                            <Text style = { styles.textColor }>
                                 Racism, sexism, homophobia, transphobia, ableism, or any other -ism is strictly
                                 not allowed. No exceptions.
                             </Text>
@@ -46,11 +58,11 @@ export default class Info extends Component{
 
                     <View style={ styles.row }>
                             <View style={ styles.bullet }>
-                                <Text style = {{color: 'white'}}>{'\u2022' + " "}</Text>
+                                <Text style = { styles.textColor }>{'\u2022' + " "}</Text>
                             </View>
 
                             <View style={ styles.bulletText }>
-                            <Text style = {{color: 'white'}}>
+                            <Text style = { styles.textColor }>
                                 Do NOT use names in any sort of negative light. You can't use our service to bully others.
                             </Text>
                             </View>
@@ -58,11 +70,11 @@ export default class Info extends Component{
 
                     <View style={ styles.row }>
                             <View style={ styles.bullet }>
-                                <Text style = {{color: 'white'}}>{'\u2022' + " "}</Text>
+                                <Text style = { styles.textColor }>{'\u2022' + " "}</Text>
                             </View>
 
                             <View style={ styles.bulletText }>
-                            <Text style = {{color: 'white'}}>
+                            <Text style = { styles.textColor }>
                                Names used positively are entirely allowed. Shout-outs, compliments, etc.
                             </Text>
                             </View>
@@ -70,11 +82,11 @@ export default class Info extends Component{
 
                     <View style={ styles.row }>
                             <View style={ styles.bullet }>
-                                <Text style = {{color: 'white'}}>{'\u2022' + " "}</Text>
+                                <Text style = { styles. textColor }>{'\u2022' + " "}</Text>
                             </View>
 
                             <View style={ styles.bulletText }>
-                            <Text style = {{color: 'white'}}>
+                            <Text style = { styles.textColor }>
                                You're welcome to complain about people on here, but keep their identity entirely private.
                             </Text>
                             </View>
@@ -82,14 +94,14 @@ export default class Info extends Component{
 
                     <View style={ styles.row }>
                             <View style={ styles.bullet }>
-                                <Text style = {{color: 'white'}}>{'\u2022' + " "}</Text>
+                                <Text style = { styles.textColor }>{'\u2022' + " "}</Text>
                             </View>
 
                             <View style={ styles.bulletText }>
-                            <Text style = {{color: 'white', padding: 3}}>
+                            <Text style = { styles.textColor }>
                                You're welcome to complain about people on here, but keep their identity entirely private.
                             </Text>
-                            <Text style = {{color: 'white', fontWeight: 'bold', textAlign: 'center'}}>
+                            <Text style = { styles.boldText }>
                                      If it's obvious to ANYONE who you're talking about, your post will be removed.
                             </Text>
                             </View>
@@ -97,11 +109,11 @@ export default class Info extends Component{
 
                     <View style={ styles.row }>
                             <View style={ styles.bullet }>
-                                <Text style = {{color: 'white'}}>{'\u2022' + " "}</Text>
+                                <Text style = { styles.textColor }>{'\u2022' + " "}</Text>
                             </View>
 
                             <View style={ styles.bulletText }>
-                            <Text style = {{color: 'white'}}>
+                            <Text style = { styles.textColor }>
                                Respect other users in all interactions.
                             </Text>
                             </View>
@@ -110,33 +122,36 @@ export default class Info extends Component{
                     <View style = {{height: 20}}/>
 
                     <View>
-                        <Text style = {{color: 'white', fontWeight : 'bold', textAlign: 'center'}}>
+                        <Text style = { styles.boldText }>
                            ** Failure to follow the above will result in a ban. **
                         </Text>
-                        <Text style = {{color: 'white', fontWeight : 'bold', textAlign: 'center'}}>
+                        <Text style = { styles.boldText} >
                            We reserve the right to remove any post at any time.
                         </Text>
                     </View>
 
                     <View style = {{height: 20}}/>
 
-                    {/*<Text style = {{color: 'white'}}>*/}
-                        {/*Racism, sexism, homophobia, transphobia, ableism, or any other -ism is strictly not allowed. No exceptions.*/}
-                        {/*Do NOT use names in any sort of negative light. You can't use our service to bully others.*/}
-                        {/*Names used positively are entirely allowed. Shout-outs, compliments, etc.*/}
-                        {/*You're welcome to complain about people on here, but keep their identity entirely private.*/}
-                        {/*** If it's obvious to ANYONE who you're talking about, your post will be removed. ***/}
-                        {/*Respect other users in all interactions.*/}
-
-                        {/*** Failure to follow the above will result in a ban.*/}
-                        {/*We reserve the right to remove any post at any time.*/}
-                    {/*</Text>*/}
-
-                {/*</View>*/}
                 {/*<View style = {{flex: 1}}>*/}
                     <Text style = {styles.titleFont}>Acknowledgements</Text>
-                    <Text style = {{color: 'white'}}>Credit to the devs</Text>
+                    <View
+                      style={{
+                        borderBottomColor: 'white',
+                        borderBottomWidth: 0.5, margin: 10
+                      }}
+                    />
+                    {/*<Text style = {{color: 'white'}}>Credit to the devs</Text>*/}
+                    <View style={ styles.row }>
+                            <View style={ styles.bullet }>
+                                <Text style = { styles.textColor }>{'\u2022' + " "}</Text>
+                            </View>
+
+                            <View style={ styles.bulletText }>
+                            <Text style = { styles.textColor }>Credit to devs</Text>
+                            </View>
+                    </View>
                 {/*</View>*/}
+                <View style = {{height: 30}}/>
                 </ScrollView>
             </Container>
         )
@@ -146,8 +161,8 @@ export default class Info extends Component{
 const styles = StyleSheet.create({
     image: {
         flex: 1,
-        height: undefined,
-        width: undefined,
+        height: 600,
+        width: 600,
         resizeMode: 'contain'
     },
     titleFont: {
@@ -158,12 +173,21 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         padding: 10
     },
+    textColor: {
+        color: 'white'
+    },
+    boldText: {
+        color: 'white',
+        fontWeight : 'bold',
+        textAlign: 'center'
+    },
     row: {
         flexDirection: 'row',
         alignItems: 'flex-start',
         flexWrap: 'wrap',
         flex: 1,
-        padding: 5
+        //padding: 5,
+        margin: 10
     },
     bullet: {
         width: 10
