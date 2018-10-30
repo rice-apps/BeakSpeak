@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, PureComponent} from 'react'
 import {StyleSheet} from 'react-native'
 import {Card, CardItem,Text} from 'native-base'
 
@@ -16,18 +16,10 @@ export class CommentBody extends Component{
 }
 
 // main component
-export default class Comment extends Component{
+export default class Comment extends PureComponent{
     
-    constructor(props){
-        super(props)
-
-        this.state = {
-            body: this.props.body
-        }
-    }
-
     render = () => {
-        let body = this.state.body
+        let body = this.props.body
 
         return(
             <Card style = {styles.card}>
@@ -42,5 +34,9 @@ const styles = StyleSheet.create({
         borderColor: "powderblue",
         borderWidth: 5,
         borderRadius: 15
+    },
+    seeBorders: {
+        borderWidth: 1,
+        borderColor:'red'
     }
 })

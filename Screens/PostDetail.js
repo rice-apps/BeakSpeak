@@ -4,28 +4,24 @@ import {Header} from 'react-navigation'
 import {
     FlatList,
     StyleSheet,
-    TouchableWithoutFeedback,
     KeyboardAvoidingView,
     RefreshControl,
-    TextInput,
-    Text,
-    ScrollView
+    Keyboard
 }
 from 'react-native'
-import {Card, Container, Footer, Icon, Item, View, Input, Button} from 'native-base'
+import {Card, Container, Footer, Icon, Item, View, Input, Button, Body} from 'native-base'
 import DatabaseService from '../Services/DatabaseService'
 import Blank from '../Components/Blank'
 import Post from '../Components/Post'
 import Comment from '../Components/Comment'
-import Modal from "react-native-modal";
-import {NewPost} from "../Components/New";
-
 
 class PostDetailFooter extends Component{
 
     constructor(props){
         super(props);
-        this.state = {input: ''};
+        this.state = {
+            input: ''
+        };
     }
 
     onSubmit() {
@@ -37,12 +33,12 @@ class PostDetailFooter extends Component{
     }
 
     render = () => {
+
         return(
-            <View style={styles.container}>
+            <View style={{backgroundColor: 'white', flex: 1}}>
                 <Item regular>
                     <Input
-                        placeholder = 'Put your comment here.'
-                        //multiline = {true}
+                        placeholder = 'Your comment here...'
                         onChangeText = {(text) => {this.setState({input: text})}}
                         onSubmitEditing = {() => {this.onSubmit()}}
                         value = {this.state.input}
@@ -53,7 +49,6 @@ class PostDetailFooter extends Component{
                             style = {{color: 'powderblue'}}
                             onPress = {() => {this.onSubmit()}} />
                     </Button>
-
                 </Item>
             </View>
         )
@@ -94,6 +89,7 @@ export default class PostDetailScreen extends Component{
             post : null,
             loaded : false,
         }
+
         this.post_id = this.props.navigation.getParam('id'); // use this post id to query the individual post from the backend
         this.main_refresh = this.props.navigation.getParam('refresh');
 
@@ -124,7 +120,7 @@ export default class PostDetailScreen extends Component{
             post: post,
             refresh: false
         }))
-    };
+    }
 
     update = (post) => {
         this.setState((state) => ({post: post}));
@@ -163,47 +159,36 @@ export default class PostDetailScreen extends Component{
             let refresh = this.state.refresh
 
             return (
-                <Container style = {{backgroundColor: 'powderblue'}}>
-
-                    <View style = {{flex: 1}}>
-                    <FlatList
-                    data = {[post]}
-                    renderItem = {(item) => {return this._renderItem(item)}}
-                    keyExtractor = {(item, index) => item._id}
-                    refreshControl = { // controls refreshing
-                        <RefreshControl
-                            refreshing = {refresh}
-                            onRefresh = {this._onRefresh}
-                            tintColor = 'skyblue'
-                        />
-                    }
-                    ListEmptyComponent = {<Blank/>}
-                    contentContainerStyle = {(post == undefined) ? { flex: 1, alignItems: 'center' } : {}}
-                    />
-                    </View>
-
-                    <KeyboardAvoidingView
+                <KeyboardAvoidingView
                     keyboardVerticalOffset = {Header.HEIGHT}
-                    //style = {{ flex: 1 }}
-                    style={styles.container}
-                    behavior="position" enabled>
+                    style = {[{backgroundColor: 'powderblue', flex: 1}]}
+                    contentContainerStyle = {{flex: 1}}
+                    behavior="position" enableds>
 
-                    <ScrollView
-                    keyboardDismissMode = 'on-drag'
-                    keyboardShouldPersistTaps = 'always'>
-
-                    {/*adds space*/}
-                    <View style={{ height: 10, backgroundColor: 'powderblue' }}/>
-
-                    <View style = {{backgroundColor: 'white'}}>
-                    <PostDetailFooter post_id={this.state.post._id} update={this.update}/>
+                    {/*Scrolling list of comments + post*/}
+                    <View style ={{flex: 1}}>
+                        <FlatList
+                        data = {[post]}
+                        renderItem = {(item) => {return this._renderItem(item)}}
+                        keyExtractor = {(item, index) => item._id}
+                        onScroll={Keyboard.dismiss}
+                        refreshControl = { // controls refreshing
+                            <RefreshControl
+                                refreshing = {refresh}
+                                onRefresh = {this._onRefresh}
+                                tintColor = 'skyblue'
+                            />
+                        }
+                        ListEmptyComponent = {<Blank/>}
+                        contentContainerStyle = {(post == undefined) ? { flex: 1, alignItems: 'center', flexWrap: 'wrap'} : {}}
+                        />                   
                     </View>
 
-                    </ScrollView>
-
-                    </KeyboardAvoidingView>
-
-                </Container>
+                    {/*Comments field*/}        
+                    <Footer>
+                        <PostDetailFooter post_id={this.state.post._id} update={this.update}/>
+                    </Footer>
+                </KeyboardAvoidingView>
             )               
         }
     }
@@ -219,7 +204,7 @@ const styles = StyleSheet.create({
         borderColor: 'white'
     },
     seeBorders: {
-        borderWidth: 1,
+        borderWidth: 5,
         borderColor:'red'
     }
 })
