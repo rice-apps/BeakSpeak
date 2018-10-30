@@ -147,7 +147,6 @@ export default class PostDetailScreen extends Component{
 
     _handleScroll = newY => {
         isUp = newY - this.offset <= 0
-        this.offset = newY
         return isUp
     }
 
@@ -178,6 +177,7 @@ export default class PostDetailScreen extends Component{
                         data = {[post]}
                         renderItem = {(item) => {return this._renderItem(item)}}
                         keyExtractor = {(item, index) => item._id}
+                        onScrollBeginDrag = {(e) => this.offset = e.nativeEvent.contentOffset.y}
                         onScrollEndDrag = {(e) => this._handleScroll(e.nativeEvent.contentOffset.y) ? Keyboard.dismiss() : {}}
                         refreshControl = { // controls refreshing
                             <RefreshControl
