@@ -36,7 +36,6 @@ export default class Post extends PureComponent{
     render = () => {
         let title = this.props.title
         let body = this.props.body
-        console.log("post is rendering!")
     
         return(
             <Card style={styles.card}>

@@ -90,6 +90,7 @@ export default class PostDetailScreen extends Component{
             loaded : false,
         }
 
+        this.offset = 0
         this.post_id = this.props.navigation.getParam('id'); // use this post id to query the individual post from the backend
         this.main_refresh = this.props.navigation.getParam('refresh');
 
@@ -144,6 +145,12 @@ export default class PostDetailScreen extends Component{
         )
     }
 
+    _handleScroll = newY => {
+        isUp = newY - this.offset <= 0
+        this.offset = newY
+        return isUp
+    }
+
     // render a post with comments -- use posts component from main as an example for structure
     render = () => {
         let loaded = this.state.loaded
@@ -171,7 +178,7 @@ export default class PostDetailScreen extends Component{
                         data = {[post]}
                         renderItem = {(item) => {return this._renderItem(item)}}
                         keyExtractor = {(item, index) => item._id}
-                        onScroll={Keyboard.dismiss}
+                        onScrollEndDrag = {(e) => this._handleScroll(e.nativeEvent.contentOffset.y) ? Keyboard.dismiss() : {}}
                         refreshControl = { // controls refreshing
                             <RefreshControl
                                 refreshing = {refresh}
