@@ -21,19 +21,12 @@ import {NewPost} from '../Components/New'
 import Blank from '../Components/Blank'
 import DatabaseService from '../Services/DatabaseService'
 
+
 // Comments container of custom comment components
 class Comments extends Component{
 
-    constructor(props){
-        super(props)
-
-        this.state = {
-            comments: this.props.comments
-        }
-    }
-
     render = () => {
-        let comments = this.state.comments
+        let comments = this.props.comments
         return(
             <FlatList
              data = {comments}
@@ -50,6 +43,7 @@ class Comments extends Component{
         )
     }
 }
+
 
 // List of posts
 class Posts extends Component{
@@ -82,7 +76,7 @@ class Posts extends Component{
     }
 
     postNavigate = (route, post_id) => {
-        this.props.navigate(route, {id: post_id})
+        this.props.navigate(route, {id: post_id, refresh: this._onRefresh})
     }
     
     _onRefresh = async() => { 
@@ -141,7 +135,6 @@ class Posts extends Component{
         }
     }
 }
-
 
 // footer with new post button and new post creation modal
 class MainFooter extends Component{
@@ -220,6 +213,7 @@ class MainFooter extends Component{
         )
     }
 }
+
 
 // main component
 export default class MainScreen extends Component{

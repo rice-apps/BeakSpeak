@@ -62,15 +62,15 @@ const PostOptions = {
 // container component for new post form
 export class NewPost extends Component{
 
-    // validat submission, send submission, close parent modal
+    // validate submission, send submission, close parent modal
     submitPost = async() => {
 
-        results = this.form.validate()
-        errors = results.errors
+        let results = this.form.validate()
+        let errors = results.errors
 
         // check if submission is valid -- there must be a title!
-        if(errors.length == 0){
-            newPost = results.value
+        if(errors.length === 0){
+            let newPost = results.value
             DatabaseService.sendNewPost(newPost) // send post to database -- no need to await
             
             this.form.setState({value: null}) // clear form
@@ -105,6 +105,7 @@ export class NewPost extends Component{
         )
     }
 }
+
 
 const styles = StyleSheet.create(
     {
