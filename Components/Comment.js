@@ -1,6 +1,6 @@
 import React, {Component, PureComponent} from 'react'
-import {StyleSheet} from 'react-native'
-import {Card, CardItem,Text} from 'native-base'
+import {StyleSheet, Text} from 'react-native'
+import {Card, CardItem} from 'native-base'
 
 // body with comment content
 export class CommentBody extends Component{

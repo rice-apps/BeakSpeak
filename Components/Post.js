@@ -1,6 +1,6 @@
 import React, {Component, PureComponent} from 'react'
-import {View} from 'react-native';
-import {Card, CardItem, Text, Title, Icon} from 'native-base'
+import {View, Text} from 'react-native';
+import {Card, CardItem, Icon} from 'native-base'
 import {StyleSheet} from 'react-native'
 
 
@@ -33,41 +33,45 @@ class PostVotes extends Component {
         let downvoteIconColor = vote == -1 ?  "blue" : "black"
 
         return(
-            <View style={styles.container}>
-                    <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
-                        <Icon
-                            name = 'ios-arrow-up'
-                            fontSize = {30}
-                            type = 'Ionicons'
-                            style = {{color: upvoteIconColor}}
-                            onPress = {() => this.upvoteScore()}
-                        />
-                        <Text>
-                            {this.props.score}
-                        </Text>
-                        <Icon
-                            name = 'ios-arrow-down'
-                            fontSize = {30}
-                            type = 'Ionicons'
-                            style = {{color: downvoteIconColor}}
-                            onPress = {() => this.downvoteScore()}
-                        />
-                    </View>
-            </View>
+            <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
+                
+                {/* upvote button */}
+                <Icon
+                    name = 'ios-arrow-up'
+                    fontSize = {30}
+                    type = 'Ionicons'
+                    style = {{color: upvoteIconColor}}
+                    onPress = {() => this.upvoteScore()}
+                />
 
+                {/* score */}                                
+                <Text>
+                    {this.props.score}
+                </Text>
+                
+                {/* downvote button */}                
+                <Icon
+                    name = 'ios-arrow-down'
+                    fontSize = {30}
+                    type = 'Ionicons'
+                    style = {{color: downvoteIconColor}}
+                    onPress = {() => this.downvoteScore()}
+                />
+            </View>
         )
     }
 }
+
 // header with title and potentially avatar and time info
 class PostHeader extends Component{
 
     render = () => {
         return(
             <CardItem>
-                    <Title style ={{color: 'black'}}>
-                        {this.props.title}
-                    </Title>
-            </CardItem>
+                <Text style ={styles.titlefont}>
+                    {this.props.title}
+                </Text>
+            </CardItem>                
         )
     }
 }
@@ -84,14 +88,15 @@ export default class Post extends PureComponent{
         let vote = this.props.vote
 
         return(
-            <Card style={styles.card}>
+            <View>
                 <View style={{ flex: 1, flexDirection: 'row' }}>
 
-                    {/* post component decomposed into children components*/}
-                    <View style={{ flex: 9, flexDirection: 'column' }}>
+                    {/* post component decomposed into children components */}
+                    <View style={[{ flex: 7, justifyContent: 'center' }]}>
                         <PostHeader title={title} />
-                        <PostBody body={body} />
                     </View>
+
+                    {/* voting component */}
                     <View style = {{ flex: 1}}>
                         <PostVotes
                             vote = {vote}
@@ -100,9 +105,11 @@ export default class Post extends PureComponent{
                             downvoteScore={downvoteScore}
                         />
                     </View>
-
                 </View>
-            </Card>
+
+                {/* body of post */}
+                <PostBody body={body} />
+            </View>
         )
     }
 }
@@ -111,11 +118,11 @@ const styles = StyleSheet.create(
     {
         titlefont:{
             fontWeight: 'bold',
+            fontSize: 20
         },
-        card:{
-            borderColor: 'powderblue',
+        seeBorders: {
             borderWidth: 5,
-            borderRadius: 15
+            borderColor:'red'
         }
     }
 )

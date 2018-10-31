@@ -91,6 +91,7 @@ class Posts extends Component{
 
     _renderItem = (item) => {
         let post = item.item
+
         return(
             <TouchableWithoutFeedback onPress = {()=> this.postNavigate('PostDetail', post._id)}>
                 <Card>
@@ -114,6 +115,7 @@ class Posts extends Component{
         else{ // display posts in a list component
             let posts = this.state.posts
             let refresh = this.state.refresh
+            
             return (
                 <FlatList
                     data = {posts}

@@ -101,5 +101,6 @@ export default{
     getPosts,
     sendNewPost,
     updateVotes,
-    postComment
+    postComment,
+    getPost
 }

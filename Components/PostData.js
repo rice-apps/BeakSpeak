@@ -10,18 +10,19 @@ export default class PostData extends Component{
         super(props)
         votes = this.props.post.votes
         votedFor = 0
-        //TODO: replace default user_id with an actual one once authentication works
+        
         for (var i = 0; i < votes.length; i++) {
             if (votes[i].user == '5b5f9a9ade57b741ffc3e61e') {
                 votedFor = votes[i].vote
+            }
         }
+        
         // default state - post before vote changes 
         this.state = {
             score : this.props.post.score,
             votedFor : votedFor,
         }
     }
-}
 
     _undoVote = async() => {
         this.setState((state) => ({
@@ -31,7 +32,7 @@ export default class PostData extends Component{
 
     // increment vote count up by 1
     upvoteScore = async() => {
-        // store this post's id 
+
         post = this.props.post
 
         vote = 0
@@ -51,7 +52,7 @@ export default class PostData extends Component{
 
     // increment vote count down by 1 
     downvoteScore = async() => {
-        // store this post's id 
+
         post = this.props.post
 
         vote = 0
@@ -69,14 +70,15 @@ export default class PostData extends Component{
         }), () => DatabaseService.updateVotes(post._id, this.state.votedFor))
     }
 
-    // pass helper methods to Post component 
     render = () => {
         let title = this.props.post.title
         let body = this.props.post.body 
         let score = this.state.score 
-        let upvoteScore = this.upvoteScore
-        let downvoteScore = this.downvoteScore
         let vote = this.state.votedFor
+
+        // pass helper methods to Post component 
+        let upvoteScore = this.upvoteScore 
+        let downvoteScore = this.downvoteScore
 
         return(
             <Post
