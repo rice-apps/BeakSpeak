@@ -74,7 +74,9 @@ class Comments extends Component{
                 let comment = item.item;
                 
                 return(
-                    <Comment body = {comment.body}/>
+                    <Card>
+                        <Comment body = {comment.body}/>
+                    </Card>
                 )
             }}
             />

@@ -37,7 +37,9 @@ class Comments extends Component{
                 let comment = item.item
                 
                 return(
-                    <Comment body = {comment.body}/>
+                    <View style = {{borderTopWidth: 1, borderRadius: 25, borderColor: 'powderblue'}}>
+                        <Comment body = {comment.body}/>
+                    </View>
                 )
             }}
             />
