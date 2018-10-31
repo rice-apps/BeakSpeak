@@ -6,11 +6,11 @@ import {Card, CardItem,Text} from 'native-base'
 export class CommentBody extends Component{
     render = () => {
         return(
-             <CardItem>
-                 <Text>
-                     {this.props.body}
-                 </Text>
-             </CardItem>
+            <CardItem>
+                <Text>
+                    {this.props.body}
+                </Text>
+            </CardItem>
         )
     }
 }

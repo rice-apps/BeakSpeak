@@ -37,7 +37,7 @@ class PostDetailFooter extends Component{
         return(
             <View style={{backgroundColor: 'white', flex: 1, flexDirection: 'row'}}>
                 
-                {/*Takes user comment input*/}
+                {/* takes user comment input */}
                 <Input
                     placeholder = 'Your comment here...'
                     onChangeText = {(text) => {this.setState({input: text})}}
@@ -45,7 +45,7 @@ class PostDetailFooter extends Component{
                     value = {this.state.input}
                 />
 
-                {/*Submits comment*/}
+                {/* submits comment*/}
                 <Button transparent>
                     <Icon name ='telegram'
                         type = 'MaterialCommunityIcons'
@@ -170,31 +170,31 @@ export default class PostDetailScreen extends Component{
             return (
                 <KeyboardAvoidingView
                     keyboardVerticalOffset = {Header.HEIGHT}
-                    style = {[{backgroundColor: 'powderblue', flex: 1}]}
+                    style = {{backgroundColor: 'powderblue', flex: 1}}
                     contentContainerStyle = {{flex: 1}}
                     behavior="position" enableds>
 
                     {/*Scrolling list of comments + post*/}
                     <View style ={{flex: 1}}>
                         <FlatList
-                        data = {[post]}
-                        renderItem = {(item) => {return this._renderItem(item)}}
-                        keyExtractor = {(item, index) => item._id}
-                        onScrollBeginDrag = {(e) => this.offset = e.nativeEvent.contentOffset.y}
-                        onScrollEndDrag = {(e) => this._handleScroll(e.nativeEvent.contentOffset.y) ? Keyboard.dismiss() : {}}
-                        refreshControl = { // controls refreshing
-                            <RefreshControl
-                                refreshing = {refresh}
-                                onRefresh = {this._onRefresh}
-                                tintColor = 'skyblue'
-                            />
+                            data = {[post]}
+                            renderItem = {(item) => {return this._renderItem(item)}}
+                            keyExtractor = {(item, index) => item._id}
+                            onScrollBeginDrag = {(e) => this.offset = e.nativeEvent.contentOffset.y}
+                            onScrollEndDrag = {(e) => this._handleScroll(e.nativeEvent.contentOffset.y) ? Keyboard.dismiss() : {}}
+                            refreshControl = { // controls refreshing
+                                <RefreshControl
+                                    refreshing = {refresh}
+                                    onRefresh = {this._onRefresh}
+                                    tintColor = 'skyblue'
+                                />
                         }
                         ListEmptyComponent = {<Blank/>}
                         contentContainerStyle = {(post == undefined) ? { flex: 1, alignItems: 'center', flexWrap: 'wrap'} : {}}
                         />                   
                     </View>
 
-                    {/*Comments field*/}        
+                    {/* comments field */}        
                     <Footer>
                         <PostDetailFooter post_id={this.state.post._id} update={this.update}/>
                     </Footer>
