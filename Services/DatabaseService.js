@@ -55,6 +55,7 @@ export async function getPost(id) {
     }
 }
 
+// change the react count of a post and the reactions of the user
 export async function updateReact(postid, reaction) {
     try {
         let res = await fetch(apiUrl+"/posts/"+postid+"/reacts", {

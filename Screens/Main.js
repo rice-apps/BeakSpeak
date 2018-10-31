@@ -102,6 +102,7 @@ class Posts extends Component{
         return(
             <TouchableWithoutFeedback onPress = {()=> this.postNavigate('PostDetail', post._id)}>
                 <Card>
+                    {/*Use PostData instead of Post which takes in the entire post*/}
                     <PostData
                         post = {post}
                     />
