@@ -55,27 +55,6 @@ export async function getPost(id) {
     }
 }
 
-export async function updateVotes(id, vote) {
-    try {
-        let res = await fetch(apiUrl + '/posts/' + id + '/vote', {
-            method: 'PUT',
-            headers: {
-                'x-access-token': token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({vote: vote},
-                removeNull = (key, value) => {
-                return (value == null) ? '' : value
-            })
-        })
-        let posts = await res.json()
-        return posts
-    } catch (err) {
-        console.log(err)
-    }
-}
-
 export async function updateReact(postid, reaction) {
     try {
         let res = await fetch(apiUrl+"/posts/"+postid+"/reacts", {
@@ -103,6 +82,5 @@ export default{
     getPosts,
     sendNewPost,
     getPost,
-    updateReact,
-    updateVotes
+    updateReact
 }
