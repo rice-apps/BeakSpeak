@@ -14,6 +14,7 @@ import DatabaseService from '../Services/DatabaseService'
 import Blank from '../Components/Blank'
 import Post from '../Components/Post'
 import Comment from '../Components/Comment'
+import PostData from '../Components/PostData';
 
 class PostDetailFooter extends Component{
 
@@ -133,13 +134,12 @@ export default class PostDetailScreen extends Component{
     
     _renderItem = (item) => {
         let post = item.item
-        
+
         return(
             <View style = {{flex: 1}}>
                 <Card>
-                    <Post 
-                        title = {post.title} 
-                        body = {post.body}
+                    <PostData
+                        post = {post}
                     />                
                  </Card>
                 <Comments comments = {post.comments}/>
