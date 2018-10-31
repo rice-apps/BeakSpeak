@@ -35,21 +35,24 @@ class PostDetailFooter extends Component{
     render = () => {
 
         return(
-            <View style={{backgroundColor: 'white', flex: 1}}>
-                <Item regular>
-                    <Input
-                        placeholder = 'Your comment here...'
-                        onChangeText = {(text) => {this.setState({input: text})}}
-                        onSubmitEditing = {() => {this.onSubmit()}}
-                        value = {this.state.input}
+            <View style={{backgroundColor: 'white', flex: 1, flexDirection: 'row'}}>
+                
+                {/*Takes user comment input*/}
+                <Input
+                    placeholder = 'Your comment here...'
+                    onChangeText = {(text) => {this.setState({input: text})}}
+                    onSubmitEditing = {() => {this.onSubmit()}}
+                    value = {this.state.input}
+                />
+
+                {/*Submits comment*/}
+                <Button transparent>
+                    <Icon name ='telegram'
+                        type = 'MaterialCommunityIcons'
+                        style = {{color: 'powderblue'}}
+                        onPress = {() => {this.onSubmit()}}
                     />
-                    <Button transparent>
-                        <Icon name ='telegram'
-                            type = 'MaterialCommunityIcons'
-                            style = {{color: 'powderblue'}}
-                            onPress = {() => {this.onSubmit()}} />
-                    </Button>
-                </Item>
+                </Button>
             </View>
         )
     }
