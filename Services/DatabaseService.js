@@ -18,8 +18,30 @@ export async function getPosts() {
     }
 }
 
+
+export async function updateVotes(id, vote) {
+    try {
+        let res = await fetch(apiUrl + '/posts/' + id + '/vote', {
+            method: 'PUT',
+            headers: {
+                'x-access-token': token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({vote: vote}, 
+                removeNull = (key, value) => {
+                return (value == null) ? '' : value
+            })
+        })
+        let posts = await res.json()
+        return posts
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+
 export async function sendNewPost(newPost) {
-    
     try{
         let res = await fetch(apiUrl+'/posts',{
             method: 'POST',
@@ -36,6 +58,26 @@ export async function sendNewPost(newPost) {
             })
         })
     }catch(err){
+        console.log(err)
+    }
+}
+
+export async function postComment(id, text) {
+    try{
+        let res = await fetch(apiUrl+'/posts/'+id+'/comments', {
+            method: 'POST',
+            headers: {
+                'x-access-token': token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                comment: text
+            })
+        });
+        let post = await res.json();
+        return post
+    }catch(err) {
         console.log(err)
     }
 }
@@ -82,6 +124,8 @@ export async function updateReact(postid, reaction) {
 export default{
     getPosts,
     sendNewPost,
-    getPost,
-    updateReact
+    updateReact,
+    updateVotes,
+    postComment,
+    getPost
 }

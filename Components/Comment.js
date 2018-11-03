@@ -1,11 +1,11 @@
-import React, {Component} from 'react'
-import {StyleSheet} from 'react-native'
-import {Card, CardItem,Text} from 'native-base'
+import React, {Component, PureComponent} from 'react'
+import {StyleSheet, Text, View} from 'react-native'
+import {Card, CardItem} from 'native-base'
 
 // body with comment content
 export class CommentBody extends Component{
     render = () => {
-        return (
+        return(
             <CardItem>
                 <Text>
                     {this.props.body}
@@ -16,23 +16,14 @@ export class CommentBody extends Component{
 }
 
 // main component
-export default class Comment extends Component {
-
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            body: this.props.body
-        }
-    }
-
+export default class Comment extends PureComponent{
+    
     render = () => {
-        let body = this.state.body
+        let body = this.props.body
 
-        return (
-            <Card style={styles.card}>
-                <CommentBody body={body}/>
-            </Card>)
+        return(
+                <CommentBody body = {body}/>
+        )
     }
 }
 
@@ -41,5 +32,9 @@ const styles = StyleSheet.create({
         borderColor: "powderblue",
         borderWidth: 5,
         borderRadius: 15
+    },
+    seeBorders: {
+        borderWidth: 1,
+        borderColor:'red'
     }
 })

@@ -1,7 +1,6 @@
 import React, {Component, PureComponent} from 'react'
-import {Card, CardItem, View, Title, Button, Text} from 'native-base'
-import {StyleSheet} from 'react-native'
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {Card, CardItem, Title, Button, Text, Icon} from 'native-base'
+import {StyleSheet, View} from 'react-native'
 
 // body with post content and potentially votes
 class PostBody extends Component{
@@ -17,16 +16,60 @@ class PostBody extends Component{
     }
 }
 
+class PostVotes extends Component {
+    upvoteScore = () => {
+        this.props.upvoteScore() 
+    }
+
+    downvoteScore = () => {
+        this.props.downvoteScore() 
+    }
+
+    render = () => {
+        let vote = this.props.vote
+        let upvoteIconColor =  vote == 1 ? "orange" : "black"
+        let downvoteIconColor = vote == -1 ?  "blue" : "black"
+
+        return(
+            <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
+                
+                {/* upvote button */}
+                <Icon
+                    name = 'ios-arrow-up'
+                    fontSize = {30}
+                    type = 'Ionicons'
+                    style = {{color: upvoteIconColor}}
+                    onPress = {() => this.upvoteScore()}
+                />
+
+                {/* score */}                                
+                <Text>
+                    {this.props.score}
+                </Text>
+                
+                {/* downvote button */}                
+                <Icon
+                    name = 'ios-arrow-down'
+                    fontSize = {30}
+                    type = 'Ionicons'
+                    style = {{color: downvoteIconColor}}
+                    onPress = {() => this.downvoteScore()}
+                />
+            </View>
+        )
+    }
+}
+
 // header with title and potentially avatar and time info
 class PostHeader extends Component{
 
     render = () => {
         return(
             <CardItem>
-                    <Title style ={{color: 'black'}}>
-                        {this.props.title}
-                    </Title>
-            </CardItem>
+                <Text style ={styles.titlefont}>
+                    {this.props.title}
+                </Text>
+            </CardItem>                
         )
     }
 }
@@ -70,10 +113,6 @@ class PostFooter extends Component{
 // main component -- pure component for rendering optimization (view only)
 export default class Post extends PureComponent{
 
-    constructor(props){
-        super(props)
-    }
-
     render = () => {
         let title = this.props.title
         let body = this.props.body
@@ -81,18 +120,40 @@ export default class Post extends PureComponent{
         let reactCounts = this.props.reactCounts
         let updateReact = this.props.updateReact
     
+        let score = this.props.score
+        let upvoteScore = this.props.upvoteScore
+        let downvoteScore = this.props.downvoteScore
+        let vote = this.props.vote
+
         return(
-            <Card style={styles.card}>
-            
-                {/* post component decomposed into children components*/}
-                <PostHeader title = {title}/>
-                <PostBody body = {body}/>
+            <View>
+                <View style={{ flex: 1, flexDirection: 'row' }}>
+
+                    {/* post component decomposed into children components */}
+                    <View style={[{ flex: 7, justifyContent: 'center' }]}>
+                        <PostHeader title={title} />
+                    </View>
+
+                    {/* voting component */}
+                    <View style = {{ flex: 1}}>
+                        <PostVotes
+                            vote = {vote}
+                            score={score}
+                            upvoteScore={upvoteScore}
+                            downvoteScore={downvoteScore}
+                        />
+                    </View>
+                </View>
+
+                {/* body of post */}
+                <PostBody body={body} />
                 <PostFooter
                     userReact = {userReact}
                     reactCounts = {reactCounts}
                     updateReact = {updateReact}
                 />
-            </Card>
+    
+            </View>
         )
     }
 }
@@ -124,5 +185,6 @@ const styles = StyleSheet.create({
     },
     titlefont:{
         fontWeight: 'bold',
+        fontSize: 20
     }
 })

@@ -1,10 +1,6 @@
 import React, {Component} from 'react'
 import Post from '../Components/Post'
-import {Posts} from '../Screens/Main'
 import DatabaseService from '../Services/DatabaseService'
-import {StyleSheet} from "react-native"
-import {Card, View, Button, Text, Badge} from 'native-base'
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 // main component - increments post vote counts up and down, returns total vote count
 export default class PostData extends Component{
@@ -13,12 +9,23 @@ export default class PostData extends Component{
     constructor(props){
         super(props)
 
-        // default state - post before vote changes
         this.user_id = '5b5f9a9ade57b741ffc3e61e'
 
+        votes = this.props.post.votes
+        votedFor = 0
+        
+        for (var i = 0; i < votes.length; i++) {
+            if (votes[i].user == '5b5f9a9ade57b741ffc3e61e') {
+                votedFor = votes[i].vote
+            }
+        }
+      
+        // default state - post before any changes
         this.state = {
             react: this.props.post.reacts[this.user_id],
-            reactCounts : this.props.post.reactCounts
+            reactCounts : this.props.post.reactCounts,
+            score : this.props.post.score,
+            votedFor : votedFor
         }
     }
 
@@ -48,6 +55,52 @@ export default class PostData extends Component{
         DatabaseService.updateReact(post_id, reaction)
     }
 
+    _undoVote = async() => {
+        this.setState((state) => ({
+            score : state.score - state.votedFor,
+        }))
+    }
+
+    // increment vote count up by 1
+    upvoteScore = async() => {
+
+        post = this.props.post
+
+        vote = 0
+        if (this.state.votedFor != 0){
+            this._undoVote()
+        }
+        if (this.state.votedFor != 1){
+            this.setState((state) => ({
+                score : state.score + 1,
+            }))
+            vote = 1    
+        }
+        this.setState((state) => ({
+            votedFor : vote
+        }), () => DatabaseService.updateVotes(post._id, this.state.votedFor))
+    }
+
+    // increment vote count down by 1 
+    downvoteScore = async() => {
+
+        post = this.props.post
+
+        vote = 0
+        if (this.state.votedFor != 0){
+            this._undoVote()
+        }
+        if (this.state.votedFor != -1){
+            this.setState((state) => ({
+                score : state.score - 1,
+            }))
+            vote = -1    
+        }
+        this.setState((state) => ({
+            votedFor : vote
+        }), () => DatabaseService.updateVotes(post._id, this.state.votedFor))
+    }
+
     // pass helper methods to Post component
     render = () => {
         let title = this.props.post.title
@@ -55,6 +108,8 @@ export default class PostData extends Component{
 
         let reactCounts = this.state.reactCounts
         let userReact = this.state.react
+        let vote = this.state.votedFor
+        let score = this.state.score
 
         return(
             <Post
@@ -63,8 +118,11 @@ export default class PostData extends Component{
                 userReact = {userReact}
                 reactCounts = {reactCounts}
                 updateReact = {this.updateReact}
+                vote = {vote}
+                score = {score}
+                upvoteScore = {this.upvoteScore}
+                downvoteScore = {this.downvoteScore}
             />     
         )
     }
 }
-
