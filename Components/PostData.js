@@ -13,112 +13,58 @@ export default class PostData extends Component{
     constructor(props){
         super(props)
 
-        console.log(props)
         // default state - post before vote changes
+        this.user_id = '5b5f9a9ade57b741ffc3e61e'
+
         this.state = {
-            post: this.props.post
+            react: this.props.post.reacts[this.user_id],
+            reactCounts : this.props.post.reactCounts
         }
-    }
-
-    // check if a button is pressed
-    pressed = (reaction) => {
-        user_id = '5b5f9a9ade57b741ffc3e61e'
-        if (!(this.state.post.reacts.hasOwnProperty(user_id))) {
-            return false
-        }
-        return this.state.post.reacts[user_id] == reaction
-
     }
 
     // increment react count up by 1
-    pressReact = (reaction) => {
+    updateReact = (reaction) => {
+        user_id = this.user_id
+        post_id = this.props.post._id
 
-        user_id = '5b5f9a9ade57b741ffc3e61e'
-        if (!(this.state.post.reacts.hasOwnProperty(user_id))) {
-            this.state.post.reacts[user_id] = "none"
+        user_react = this.state.react
+        react_counts = this.state.reactCounts
+        new_react = reaction
+
+        react_counts[user_react] -= 1 // decrement previous user's react count
+
+        if (user_react == reaction) { // check if react was previously selected
+            new_react = "none"
+        }
+        else { // new react selected
+            react_counts[new_react] += 1
         }
 
-        if (!(this.state.post.reacts[user_id].hasOwnProperty('none'))) {
-            this.state.post.reactCounts[this.state.post.reacts[user_id]] -= 1
-        }
-        this.state.post.reacts[user_id] = reaction
-        this.state.post.reactCounts[reaction] += 1
-        postid = this.state.post._id
-        DatabaseService.updateReact(postid, reaction)
-        newPost = this.state.post
+        this.setState((state) => ({ // update state
+            react: new_react,
+            reactCounts : react_counts
+        }))
 
-        this.setState({post : newPost})
+        DatabaseService.updateReact(post_id, reaction)
     }
 
     // pass helper methods to Post component
     render = () => {
-        let title = this.state.post.title
-        let body = this.state.post.body
+        let title = this.props.post.title
+        let body = this.props.post.body
 
-        let angry = this.state.post.reactCounts["angry"]
-        let funny = this.state.post.reactCounts["funny"]
-        let love = this.state.post.reactCounts["love"]
-        let sad = this.state.post.reactCounts["sad"]
-        let wow = this.state.post.reactCounts["wow"]
+        let reactCounts = this.state.reactCounts
+        let userReact = this.state.react
 
         return(
-            <View>
             <Post
                 title = {title}
-                body = {body}/>
-            <View style={styles.container}>
-                <Button onPress={() => this.pressReact("angry")} style={this.pressed("angry") ? styles.buttonPress : styles.button}>
-                    <Text adjustsFontSizeToFit={true} numberOfLines={1} style={{marginLeft: -12, marginRight:-10}}>
-                        😡:{angry.toString()}</Text>
-                </Button>
-                <Button onPress={() => this.pressReact("funny")} style={this.pressed("funny") ? styles.buttonPress : styles.button}>
-                    <Text adjustsFontSizeToFit={true} numberOfLines={1} style={{marginLeft: -12, marginRight:-10}}>
-                        😂:{funny.toString()}</Text>
-                </Button>
-                <Button onPress={() => this.pressReact("love")} style={this.pressed("love") ? styles.buttonPress : styles.button}>
-                    <Text adjustsFontSizeToFit={true} numberOfLines={1} style={{marginLeft: -12, marginRight:-10}}>
-                        😍:{love.toString()}</Text>
-                </Button>
-                <Button onPress={() => this.pressReact("sad")} style={this.pressed("sad") ? styles.buttonPress : styles.button}>
-                    <Text adjustsFontSizeToFit={true} numberOfLines={1} style={{marginLeft: -12, marginRight:-10}}>
-                        😭:{sad.toString()}</Text>
-                </Button>
-                <Button onPress={() => this.pressReact("wow")} style={this.pressed("wow") ? styles.buttonPress : styles.button}>
-                    <Text adjustsFontSizeToFit={true} numberOfLines={1} style={{marginLeft: -12, marginRight:-10}}>
-                        😮:{wow.toString()}</Text>
-                </Button>
-            </View>
-            </View>
+                body = {body}
+                userReact = {userReact}
+                reactCounts = {reactCounts}
+                updateReact = {this.updateReact}
+            />     
         )
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-    flex: 0.5,
-    flexDirection: 'row',
-    justifyContent: 'space-evenly'
-  },
-    button: {
-    backgroundColor: "powderblue",
-    height: 35,
-    width: 70,
-    borderWidth: 0.5,
-    borderRadius: 15,
-    justifyContent: 'center'
-  },
-
-    buttonPress: {
-    backgroundColor: "#6f99bc",
-    height: 35,
-    width: 70,
-    borderWidth: 0.5,
-    borderRadius: 15,
-    justifyContent: 'center'
-  },
-    card: {
-        borderColor: "powderblue",
-        borderWidth: 5,
-        borderRadius: 15
-    }
-})
