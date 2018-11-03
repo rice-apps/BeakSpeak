@@ -19,9 +19,9 @@ import Post from '../Components/Post'
 import Comment from '../Components/Comment'
 import {NewPost} from '../Components/New'
 import Blank from '../Components/Blank'
+import CommentData from '../Components/CommentData'
 import DatabaseService from '../Services/DatabaseService'
-import PostData from '../Components/PostData';
-
+import PostData from '../Components/PostData'
 
 // Comments container of custom comment components
 class Comments extends Component{
@@ -37,7 +37,9 @@ class Comments extends Component{
                 let comment = item.item
                 
                 return(
-                    <Comment body = {comment.body}/>
+                    <View style = {{borderTopWidth: 1, borderRadius: 25, borderColor: 'powderblue'}}>
+                        <Comment body = {comment.body}/>
+                    </View>
                 )
             }}
             />
