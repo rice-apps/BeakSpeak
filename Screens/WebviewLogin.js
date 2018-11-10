@@ -5,7 +5,7 @@ class Webviewlogin extends Component {
     render() {
         return (
             <WebView
-                source={{uri: 'https://github.com/facebook/react-native'}}
+                source={{uri: 'https://idp.rice.edu/idp/profile/cas/login?service=https://speak.riceapps.org/auth'}}
                 style={{marginTop: 20}}
             />
         );

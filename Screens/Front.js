@@ -91,35 +91,36 @@ export default class FrontScreen extends Component {
         let isVisible = this.state.modalVisible;
         
         return (
-                <View style={[styles.screenTheme, {height: screenHeight}]}>
-                    
-                    {/* login modal */}
-                    <Modal
-                        isVisible = {isVisible}
-                        animationIn = {'slideInUp'}
-                        animationOut = {'zoomOut'}
-                        animationInTiming = {500}
-                        animationOutTiming = {500}
-                        avoidKeyboard
-                    >
-                        <View style={{
-                                        borderRadius: 10, 
-                                        padding: 10, 
-                                        backgroundColor: 'white'
-                                    }}>
-                            <View style={{
-                                            flexDirection: 'row', 
-                                            justifyContent: 'flex-end'
-                                        }}>
-                            </View>
+            <WebviewLogin/>
 
-                            {/* new post creation form*/}
-                            <WebviewLogin/>
-                            {/*<Login closeView = {this.hideModal}/>*/}
-                        </View>
-                    </Modal>
-                    <FrontBody/>
-                </View>
+            // <View style={[styles.screenTheme, {height: screenHeight}]}>
+                    
+                //     {/* login modal */}
+                //     <Modal
+                //         isVisible = {isVisible}
+                //         animationIn = {'slideInUp'}
+                //         animationOut = {'zoomOut'}
+                //         animationInTiming = {500}
+                //         animationOutTiming = {500}
+                //         avoidKeyboard
+                //     >
+                //         <View style={{
+                //                         borderRadius: 10,
+                //                         padding: 10,
+                //                         backgroundColor: 'white'
+                //                     }}>
+                //             <View style={{
+                //                             flexDirection: 'row',
+                //                             justifyContent: 'flex-end'
+                //                         }}>
+                //             </View>
+                //
+                //             {/* new post creation form*/}
+                //             {/*<Login closeView = {this.hideModal}/>*/}
+                //         </View>
+                //     </Modal>
+                //     <FrontBody/>
+                // </View>
         );
     }
 }
