@@ -76,13 +76,12 @@ export default class FrontScreen extends Component {
     }
 
     getLoginInfo = async () => {
-        const userToken = await AsyncStorage.getItem('userToken')
-        /*
-        this.setState({
-            modalVisible: true
-        })
-        */
-        
+        // const userToken = await AsyncStorage.getItem('userToken')
+        // this.setState({
+        //     modalVisible: true
+        // })
+
+
         this.navigate('Main')
     }
     

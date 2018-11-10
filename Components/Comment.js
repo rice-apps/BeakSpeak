@@ -22,9 +22,7 @@ export default class Comment extends PureComponent{
         let body = this.props.body
 
         return(
-            <Card style = {styles.card}>
                 <CommentBody body = {body}/>
-            </Card>
         )
     }
 }
