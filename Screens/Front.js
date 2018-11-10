@@ -18,6 +18,7 @@ const logo = require('../Assets/Images/logo.png')
 export class FrontBody extends Component {
 
     render = () => {
+        console.log("lala")
         return (
             <View style={{flex: 1}}>
                 <View style={[{height: 50}]}/>
@@ -77,13 +78,12 @@ export default class FrontScreen extends Component {
 
     getLoginInfo = async () => {
         const userToken = await AsyncStorage.getItem('userToken')
-        /*
+
         this.setState({
             modalVisible: true
         })
-        */
         
-        this.navigate('Main')
+        //this.navigate('Main')
     }
     
     render = () => {
