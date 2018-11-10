@@ -13,7 +13,7 @@ let data = {
 
 let login = async() => {
     console.log(lala);
-  
+
     try{
         fetch('https://idp.rice.edu/idp/profile/cas/login?service=https://speak.riceapps.org/auth', {
             method: 'GET',
@@ -48,7 +48,7 @@ export async function authenticate(ticket) {
         });
         let token = await res.json();
         if (token && token.success){
-            AsyncStorage.setItem('userToken', ticket);
+            AsyncStorage.setItem('userToken', token);
             return true
         }}
         catch (err) {
