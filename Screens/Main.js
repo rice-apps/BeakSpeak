@@ -19,7 +19,6 @@ import Post from '../Components/Post'
 import Comment from '../Components/Comment'
 import {NewPost} from '../Components/New'
 import Blank from '../Components/Blank'
-import CommentData from '../Components/CommentData'
 import DatabaseService from '../Services/DatabaseService'
 import PostData from '../Components/PostData'
 
@@ -75,13 +74,26 @@ class Posts extends Component{
     }
 
     fetchMorePosts = async() => {
-        console.log("more!")
-        this.state.numPostsLoaded += 10
-        let posts = await DatabaseService.getNPosts(this.state.numPostsLoaded) // refresh data
-        this.setState((state) => ({ // refresh state -- use function
-            posts: posts,
-            refresh: false
-        }))
+        // console.log(Date.now())
+        // if (Date.now() - this.state.lastFetchTime > 100) {
+        let curtime = Date.now()
+        let i = 0
+        while (Date.now() - curtime < 1000) {
+            i = i + 1
+        }
+            if (this.state.numPostsLoaded < this.state.posts.length + 15) {
+                this.state.lastFetchTime = Date.now()
+                console.log("more!")
+                this.state.numPostsLoaded += 10
+                let posts = await DatabaseService.getNPosts(this.state.numPostsLoaded) // refresh data
+                this.setState((state) => ({ // refresh state -- use function
+                    posts: posts,
+                    refresh: false
+                }))
+
+
+            // }
+        }
     }
     componentWillUnmount = () => {
         this.mounted = false
@@ -92,9 +104,8 @@ class Posts extends Component{
     }
     
     _onRefresh = async() => {
-        this.state.numPostsLoaded = 10
         this.setState((state) => ({refresh: true})) // indicate we are refreshing
-        let posts = await DatabaseService.getNPosts(this.state.numPostsLoaded) // refresh data
+        let posts = await DatabaseService.getPosts() // refresh data
         this.setState((state) => ({ // refresh state -- use function
             posts: posts,
             refresh: false
