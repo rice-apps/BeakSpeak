@@ -212,13 +212,17 @@ export default class PostDetailScreen extends Component{
                         ListEmptyComponent = {<Blank/>}
                         contentContainerStyle = {(post == undefined) ? { flex: 1, alignItems: 'center', flexWrap: 'wrap'} : {}}
                         />
-                        <Button
-                            transparent
-                            onPress = {() => {this.list.scrollToIndex({index: 0, viewOffset: 0, viewPosition: 0})}}>
-                            <Icon name ='arrow-collapse-up'
-                                type = 'MaterialCommunityIcons'
-                                style = {{color: 'white'}}/>
-                        </Button>
+
+                        {/*<View style = {styles.floatingMenuButtonStyle}>*/}
+                            <Button
+                                transparent
+                                rounded
+                                onPress = {() => {this.list.scrollToIndex({index: 0, viewOffset: 0, viewPosition: 0})}}>
+                                <Icon name ='arrow-collapse-up'
+                                    type = 'MaterialCommunityIcons'
+                                    style = {{color: 'white'}}/>
+                            </Button>
+                        {/*</View>*/}
                     </View>
 
                     {/*Comments field*/}        
@@ -236,6 +240,16 @@ export default class PostDetailScreen extends Component{
 }
 
 const styles = StyleSheet.create({
+    // mainContainerStyle: {
+    //     flexDirection: 'column',
+    //     flex: 1
+    // },
+    // floatingMenuButtonStyle: {
+    //     backgroundColor: 'white',
+    //     alignSelf: 'flex-end',
+    //     //position: 'absolute',
+    //     bottom: 35
+    // },
     newPostButton: {
         flex: 1,
         backgroundColor: 'powderblue',
