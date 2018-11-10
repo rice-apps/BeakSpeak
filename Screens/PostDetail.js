@@ -28,7 +28,12 @@ class PostDetailFooter extends Component{
         if(this.state.input){
             DatabaseService.postComment(this.props.post_id, this.state.input)
                 .then(res => {this.props.update(res)});
-            this.setState({input: ''})
+            this.setState((state) => ({input: ''}))
+            let wait = new Promise((resolve) => setTimeout(resolve, 1000))
+            wait.then( () => {
+                this.setState(() => this.props.scrollToEnd())
+            })
+
         }
     }
 
@@ -43,11 +48,12 @@ class PostDetailFooter extends Component{
                         onSubmitEditing = {() => {this.onSubmit()}}
                         value = {this.state.input}
                     />
-                    <Button transparent>
+                    <Button
+                        transparent
+                        onPress = {() => {this.onSubmit()}}>
                         <Icon name ='telegram'
                             type = 'MaterialCommunityIcons'
-                            style = {{color: 'powderblue'}}
-                            onPress = {() => {this.onSubmit()}} />
+                            style = {{color: 'powderblue'}}/>
                     </Button>
                 </Item>
             </View>
@@ -93,6 +99,7 @@ export default class PostDetailScreen extends Component{
         this.offset = 0
         this.post_id = this.props.navigation.getParam('id'); // use this post id to query the individual post from the backend
         this.main_refresh = this.props.navigation.getParam('refresh');
+        this.isShowToTop = false
 
     }
 
@@ -150,6 +157,20 @@ export default class PostDetailScreen extends Component{
         return isUp
     }
 
+    _scrollToEnd = () => {
+        Keyboard.dismiss()
+        this.list.scrollToEnd({animated: true})
+    }
+
+    _onScroll(e) {
+        var offsetY = e.nativeEvent.contentOffset.y;
+        if(offsetY > 100) {
+            this.setState({isShowToTop: true})
+        } else {
+            this.setState({isShowToTop: false})
+        }
+    }
+
     // render a post with comments -- use posts component from main as an example for structure
     render = () => {
         let loaded = this.state.loaded
@@ -174,9 +195,11 @@ export default class PostDetailScreen extends Component{
                     {/*Scrolling list of comments + post*/}
                     <View style ={{flex: 1}}>
                         <FlatList
+                        ref = {ref => this.list = ref}
                         data = {[post]}
                         renderItem = {(item) => {return this._renderItem(item)}}
                         keyExtractor = {(item, index) => item._id}
+                        //onScroll={(e)=>this._onScroll(e)}
                         onScrollBeginDrag = {(e) => this.offset = e.nativeEvent.contentOffset.y}
                         onScrollEndDrag = {(e) => this._handleScroll(e.nativeEvent.contentOffset.y) ? Keyboard.dismiss() : {}}
                         refreshControl = { // controls refreshing
@@ -188,12 +211,23 @@ export default class PostDetailScreen extends Component{
                         }
                         ListEmptyComponent = {<Blank/>}
                         contentContainerStyle = {(post == undefined) ? { flex: 1, alignItems: 'center', flexWrap: 'wrap'} : {}}
-                        />                   
+                        />
+                        <Button
+                            transparent
+                            onPress = {() => {this.list.scrollToIndex({index: 0, viewOffset: 0, viewPosition: 0})}}>
+                            <Icon name ='arrow-collapse-up'
+                                type = 'MaterialCommunityIcons'
+                                style = {{color: 'white'}}/>
+                        </Button>
                     </View>
 
                     {/*Comments field*/}        
                     <Footer>
-                        <PostDetailFooter post_id={this.state.post._id} update={this.update}/>
+                        <PostDetailFooter
+                            post_id={this.state.post._id}
+                            update={this.update}
+                            scrollToEnd = {this._scrollToEnd}
+                        />
                     </Footer>
                 </KeyboardAvoidingView>
             )               
