@@ -82,6 +82,7 @@ export default class FrontScreen extends Component {
     };
 
     getLoginInfo = async () => {
+        AsyncStorage.clear();
         const userToken = await AsyncStorage.getItem('userToken');
 
         if(userToken == null){

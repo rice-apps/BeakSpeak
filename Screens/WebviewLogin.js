@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { WebView, AsyncStorage} from 'react-native';
+import { authenticate } from "../Services/AuthService";
 
 class Webviewlogin extends Component {
 
@@ -8,13 +9,18 @@ class Webviewlogin extends Component {
         this.handleChange = this.handleChange.bind(this)
     }
 
-
     handleChange(props){
         if(!props.loading){
             if(props.url.includes('https://speak.riceapps.org/auth?ticket=')){
-                let ticket = props.url.substring(props.url.indexOf("ticket="), props.url.length);
-                AsyncStorage.setItem('userToken', ticket);
-                this.props.success();
+                let ticket = props.url.substring(props.url.indexOf("?ticket="), props.url.length);
+                let auth = authenticate(ticket);
+                if (auth){
+                    this.props.success();
+                }
+                else {
+                    console.log("auth failed")
+                }
+
             }
         }
     }
