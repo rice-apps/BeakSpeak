@@ -50,24 +50,28 @@ export class FrontBody extends Component {
 // main component 
 export default class FrontScreen extends Component {
 
-    renderModal = () => {
-        this.setState({modalVisible: true})
-    }
-
-    hideModal = () => {
-        this.setState({modalVisible: false})
-        this.navigate('Main')
-    }
-
     constructor(props){
         super(props)
 
         this.state = {
             modalVisible: false
-        }
+        };
 
         this.getLoginInfo()
     }
+
+    renderModal = () => {
+        this.setState({modalVisible: true})
+    };
+
+    hideModal = () => {
+        this.setState({modalVisible: false})
+    };
+
+    loginSuccess = () => {
+        this.hideModal();
+        this.navigate('Main')
+    };
 
     async componentDidMount(){
        // AuthService.login() // testing login requests
@@ -78,9 +82,8 @@ export default class FrontScreen extends Component {
     };
 
     getLoginInfo = async () => {
-        AsyncStorage.removeItem('userToken');
         const userToken = await AsyncStorage.getItem('userToken');
-        console.log("usertoken: ", userToken);
+
         if(userToken == null){
             this.setState({
                 modalVisible: true
@@ -107,7 +110,7 @@ export default class FrontScreen extends Component {
                         animationOutTiming = {500}
                         avoidKeyboard
                     >
-                        <WebviewLogin closeView = {this.hideModal}/>
+                        <WebviewLogin success = {this.loginSuccess}/>
                     </Modal>
                     <FrontBody/>
                 </View>

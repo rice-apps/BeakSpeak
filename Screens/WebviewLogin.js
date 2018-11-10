@@ -8,13 +8,13 @@ class Webviewlogin extends Component {
         this.handleChange = this.handleChange.bind(this)
     }
 
+
     handleChange(props){
         if(!props.loading){
             if(props.url.includes('https://speak.riceapps.org/auth?ticket=')){
-                console.log(props.url.substring(props.url.indexOf("ticket="), props.url.length));
                 let ticket = props.url.substring(props.url.indexOf("ticket="), props.url.length);
                 AsyncStorage.setItem('userToken', ticket);
-                this.props.closeView();
+                this.props.success();
             }
         }
     }
