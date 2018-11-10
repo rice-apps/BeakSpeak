@@ -61,7 +61,7 @@ class Posts extends Component{
 
     componentDidMount = async() => {
         this.mounted = true
-        this.state.numPostsLoaded = 1
+        this.state.numPostsLoaded = 10
         let posts = await DatabaseService.getNPosts(this.state.numPostsLoaded) // retrieve posts from database
         if (this.mounted) { // to avoid memory leak, check if component is mounted before setting state
             this.setState({
@@ -73,7 +73,8 @@ class Posts extends Component{
     }
 
     fetchMorePosts = async() => {
-        this.state.numPostsLoaded += 1
+        console.log("more!")
+        this.state.numPostsLoaded += 10
         let posts = await DatabaseService.getNPosts(this.state.numPostsLoaded) // refresh data
         this.setState((state) => ({ // refresh state -- use function
             posts: posts,
@@ -89,7 +90,7 @@ class Posts extends Component{
     }
     
     _onRefresh = async() => {
-        this.state.numPostsLoaded = 1
+        this.state.numPostsLoaded = 10
         this.setState((state) => ({refresh: true})) // indicate we are refreshing
         let posts = await DatabaseService.getNPosts(this.state.numPostsLoaded) // refresh data
         this.setState((state) => ({ // refresh state -- use function
@@ -138,7 +139,7 @@ class Posts extends Component{
                         />
                     }
                     onEndReached = {this.fetchMorePosts}
-                    onEndThreshold = {0.5}
+                    onEndReachedThreshold = {0.5}
                     ListEmptyComponent = {<Blank/>}
                     contentContainerStyle = {(posts == undefined || !posts.length) ? { flex: 1, alignItems: 'center' } : {}}
                 />
