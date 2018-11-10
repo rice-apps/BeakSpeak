@@ -62,6 +62,7 @@ class Posts extends Component{
     }
 
     componentDidMount = async() => {
+        this.interval = setInterval(() => this._onRefresh(), 120000)
         this.mounted = true
         let posts = await DatabaseService.getPosts() // retrieve posts from database
 
@@ -76,6 +77,7 @@ class Posts extends Component{
 
     componentWillUnmount = () => {
         this.mounted = false
+        clearInterval(this.interval)
     }
 
     postNavigate = (route, post_id) => {
