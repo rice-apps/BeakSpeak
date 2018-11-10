@@ -20,6 +20,7 @@ export default class App extends Component{
             'Material Design Icons': require('native-base/Fonts/MaterialCommunityIcons.ttf'),
             'MaterialCommunityIcons': require('native-base/Fonts/MaterialCommunityIcons.ttf'),
             'Ionicons': require('native-base/Fonts/Ionicons.ttf'),
+            'FontAwesome' : require('native-base/Fonts/FontAwesome.ttf')
         })
         
         this.setState({assetsLoaded: true})

@@ -1,5 +1,5 @@
 import React, {Component, PureComponent} from 'react'
-import {StyleSheet, Text} from 'react-native'
+import {StyleSheet, Text, View} from 'react-native'
 import {Card, CardItem} from 'native-base'
 
 // body with comment content
@@ -22,9 +22,7 @@ export default class Comment extends PureComponent{
         let body = this.props.body
 
         return(
-            <Card style = {styles.card}>
                 <CommentBody body = {body}/>
-            </Card>
         )
     }
 }
