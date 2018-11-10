@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import {Button, Text, Icon} from 'native-base'
 import Modal from 'react-native-modal'
+import WebviewLogin from './WebviewLogin'
 
 import AuthService from '../Services/AuthService'
 import Login from './Login'
@@ -18,7 +19,6 @@ const logo = require('../Assets/Images/logo.png')
 export class FrontBody extends Component {
 
     render = () => {
-        console.log("lala")
         return (
             <View style={{flex: 1}}>
                 <View style={[{height: 50}]}/>
@@ -69,12 +69,12 @@ export default class FrontScreen extends Component {
     }
 
     async componentDidMount(){
-        AuthService.login() // testing login requests
+       // AuthService.login() // testing login requests
     }
 
     navigate = (screen) => {
         this.props.navigation.navigate(screen)
-    }
+    };
 
     getLoginInfo = async () => {
         const userToken = await AsyncStorage.getItem('userToken')
@@ -83,12 +83,12 @@ export default class FrontScreen extends Component {
             modalVisible: true
         })
         
-        //this.navigate('Main')
-    }
+        // this.navigate('Main')
+    };
     
     render = () => {
         const {height: screenHeight} = Dimensions.get('window');
-        let isVisible = this.state.modalVisible
+        let isVisible = this.state.modalVisible;
         
         return (
                 <View style={[styles.screenTheme, {height: screenHeight}]}>
@@ -114,7 +114,8 @@ export default class FrontScreen extends Component {
                             </View>
 
                             {/* new post creation form*/}
-                            <Login closeView = {this.hideModal}/>
+                            <WebviewLogin/>
+                            {/*<Login closeView = {this.hideModal}/>*/}
                         </View>
                     </Modal>
                     <FrontBody/>
@@ -146,4 +147,4 @@ const styles = StyleSheet.create({
         alignItems:'center',
         flexDirection:'row'
     }
-})
+});

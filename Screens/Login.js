@@ -71,10 +71,10 @@ export default class Login extends Component{
         errors = results.errors
 
         // check if login is valid -- there must be a title!
-        if(errors.length == 0) {
+        if(errors.length === 0) {
             creds = results.value
             console.log(creds)
-            AuthService.login_webview()
+            AuthService.login()
             this.form.setState({value: null}) // clear form
 
             //this.props.closeView() // disable parent modal by changing its state
