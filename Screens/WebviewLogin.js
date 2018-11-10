@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { WebView } from 'react-native';
+import { WebView, AsyncStorage} from 'react-native';
 
 class Webviewlogin extends Component {
 
@@ -11,7 +11,9 @@ class Webviewlogin extends Component {
     handleChange(props){
         if(!props.loading){
             if(props.url.includes('https://speak.riceapps.org/auth?ticket=')){
-                console.log(props.url.substring(props.url.indexOf("ticket="), props.url.length))
+                console.log(props.url.substring(props.url.indexOf("ticket="), props.url.length));
+                let ticket = props.url.substring(props.url.indexOf("ticket="), props.url.length);
+                AsyncStorage.setItem('userToken', ticket);
                 this.props.closeView();
             }
         }

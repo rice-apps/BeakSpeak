@@ -66,20 +66,23 @@ const LoginOptions = {
 
 // TODO: implement modal that takes login credentials and uses authservice
 export default class Login extends Component{
-    submitLogin = () => {
-        results = this.form.validate()
-        errors = results.errors
+    // submitLogin = () => {
+    //     results = this.form.validate()
+    //     errors = results.errors
+    //
+    //     // check if login is valid -- there must be a title!
+    //     if(errors.length === 0) {
+    //         creds = results.value
+    //         console.log(creds)
+    //         AuthService.login()
+    //         this.form.setState({value: null}) // clear form
+    //
+    //         //this.props.closeView() // disable parent modal by changing its state
+    //     }
+    // }
 
-        // check if login is valid -- there must be a title!
-        if(errors.length === 0) {
-            creds = results.value
-            console.log(creds)
-            AuthService.login()
-            this.form.setState({value: null}) // clear form
 
-            //this.props.closeView() // disable parent modal by changing its state
-        }
-    }
+
 
     render = () => {
         return(
