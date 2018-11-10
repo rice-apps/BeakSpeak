@@ -102,6 +102,7 @@ export default class PostDetailScreen extends Component{
     }
 
     componentDidMount = async() => {
+        this.interval = setInterval(() => this._onRefresh(), 120000)
         this.mounted = true
         let post = await DatabaseService.getPost(this.post_id); // put database logic here -- look in Servcies/DatabaseService for the appropriate method
 
@@ -116,6 +117,7 @@ export default class PostDetailScreen extends Component{
 
     // nothing to code here, a security measure to prevent memory leak -- look up react component lifecycle
     componentWillUnmount = () => {
+        clearInterval(this.interval)
         this.mounted = false
     }
 
