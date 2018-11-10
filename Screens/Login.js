@@ -10,7 +10,7 @@ import t from 'tcomb-form-native'
 import AuthService from '../Services/AuthService';
 
 // form component
-const Form = t.form.Form
+const Form = t.form.Form;
 
 // template for new post form
 const LoginSchema = t.struct({
@@ -74,7 +74,7 @@ export default class Login extends Component{
         if(errors.length == 0) {
             creds = results.value
             console.log(creds)
-            AuthService.login()
+            AuthService.login_webview()
             this.form.setState({value: null}) // clear form
 
             //this.props.closeView() // disable parent modal by changing its state
