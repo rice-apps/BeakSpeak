@@ -33,8 +33,6 @@ export default class PostData extends Component {
 
     // increment react count up by 1
     updateReact = (reaction) => {
-        console.log("Updating reacts")
-
         user_id = this.user_id
         post_id = this.props.post._id
 
@@ -67,8 +65,6 @@ export default class PostData extends Component {
 
     // increment vote count up by 1
     upvoteScore = async () => {
-        console.log("Updating score")
-
         post = this.props.post
 
         vote = 0
@@ -88,8 +84,6 @@ export default class PostData extends Component {
 
     // increment vote count down by 1 
     downvoteScore = async () => {
-        console.log("Updating score")
-
         post = this.props.post
 
         vote = 0
@@ -109,8 +103,6 @@ export default class PostData extends Component {
 
     // pass helper methods to Post component
     render = () => {
-        console.log("Now rendering Post Data")
-
         let title = this.props.post.title
         let body = this.props.post.body
 
@@ -120,8 +112,7 @@ export default class PostData extends Component {
         let score = this.state.score
         let user_id = this.state.user_id
 
-        console.log("state" + this.props.post.reacts)
-
+        // Chnages are made if any of the primitives change.
         if (reactCounts !== this.props.post.reactCounts || userReact !== this.props.post.reacts[user_id]) {
             reactCounts = this.props.post.reactCounts
             userReact = this.props.post.reacts[user_id]

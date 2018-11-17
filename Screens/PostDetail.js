@@ -102,7 +102,7 @@ export default class PostDetailScreen extends Component{
     }
 
     componentDidMount = async() => {
-        this.interval = setInterval(() => this._onRefresh(), 20000)
+        this.interval = setInterval(() => this._onRefresh(), 120000)
         this.mounted = true
         let post = await DatabaseService.getPost(this.post_id); // put database logic here -- look in Servcies/DatabaseService for the appropriate method
 
@@ -160,8 +160,6 @@ export default class PostDetailScreen extends Component{
 
     // render a post with comments -- use posts component from main as an example for structure
     render = () => {
-        console.log("Now refreshing Post Detail")
-
         let loaded = this.state.loaded
 
         if(!loaded) { // wait for posts to load

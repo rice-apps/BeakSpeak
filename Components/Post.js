@@ -90,24 +90,24 @@ class PostFooter extends Component{
 
         return(
             <View style={styles.container}>
-                <Button onPress={() => this.pressReact("angry")} style={userReact === "angry" ? styles.buttonPress : {}} transparent rounded>
-                    <Text adjustsFontSizeToFit={true} style = {{color:(userReact === "angry") ? "white" : "black"}}>
+                <Button onPress={() => this.pressReact("angry")} style={userReact == "angry" ? styles.buttonPress : {}} transparent rounded>
+                    <Text adjustsFontSizeToFit={true} style = {{color:(userReact == "angry") ? "white" : "black"}}>
                         😡{reactCounts["angry"].toString()}</Text>
                 </Button>
-                <Button onPress={() => this.pressReact("funny")} style={userReact === "funny" ? styles.buttonPress : {}} transparent rounded>
-                    <Text adjustsFontSizeToFit={true} style = {{color:(userReact === "funny") ? "white" : "black"}}>
+                <Button onPress={() => this.pressReact("funny")} style={userReact == "funny" ? styles.buttonPress : {}} transparent rounded>
+                    <Text adjustsFontSizeToFit={true} style = {{color:(userReact == "funny") ? "white" : "black"}}>
                         😂{reactCounts["funny"].toString()}</Text>
                 </Button>
-                <Button onPress={() => this.pressReact("love")} style={userReact === "love" ? styles.buttonPress : {}} transparent rounded>
-                    <Text adjustsFontSizeToFit={true} style = {{color:(userReact === "love") ? "white" : "black"}}>
+                <Button onPress={() => this.pressReact("love")} style={userReact == "love" ? styles.buttonPress : {}} transparent rounded>
+                    <Text adjustsFontSizeToFit={true} style = {{color:(userReact == "love") ? "white" : "black"}}>
                         😍{reactCounts["love"].toString()}</Text>
                 </Button>
-                <Button onPress={() => this.pressReact("sad")} style={userReact === "sad" ? styles.buttonPress : {}} transparent rounded>
-                    <Text adjustsFontSizeToFit={true} style = {{color:(userReact === "sad") ? "white" : "black"}}>
+                <Button onPress={() => this.pressReact("sad")} style={userReact == "sad" ? styles.buttonPress : {}} transparent rounded>
+                    <Text adjustsFontSizeToFit={true} style = {{color:(userReact == "sad") ? "white" : "black"}}>
                         😭{reactCounts["sad"].toString()}</Text>
                 </Button>
-                <Button onPress={() => this.pressReact("wow")} style={userReact === "wow" ? styles.buttonPress : {}} transparent rounded>
-                    <Text adjustsFontSizeToFit={true} style = {{color:(userReact === "wow") ? "white" : "black"}}>
+                <Button onPress={() => this.pressReact("wow")} style={userReact == "wow" ? styles.buttonPress : {}} transparent rounded>
+                    <Text adjustsFontSizeToFit={true} style = {{color:(userReact == "wow") ? "white" : "black"}}>
                         😮{reactCounts["wow"].toString()}</Text>
                 </Button>
             </View>
