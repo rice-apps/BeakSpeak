@@ -19,6 +19,7 @@ export class CommentBody extends Component{
 export default class Comment extends PureComponent{
     
     render = () => {
+
         let body = this.props.body
 
         return(

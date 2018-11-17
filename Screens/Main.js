@@ -62,7 +62,7 @@ class Posts extends Component{
     }
 
     componentDidMount = async() => {
-        this.interval = setInterval(() => this._onRefresh(), 120000)
+        this.interval = setInterval(() => this._onRefresh(), 20000)
         this.mounted = true
         let posts = await DatabaseService.getPosts() // retrieve posts from database
 
@@ -94,6 +94,8 @@ class Posts extends Component{
     }
 
     _renderItem = (item) => {
+        console.log("Refreshing Main")
+
         let post = item.item
 
         return(
@@ -108,6 +110,8 @@ class Posts extends Component{
         )
     }
     render = () => {
+        console.log("Refreshing post on Main")
+
         let loaded = this.state.loaded
 
         if(!loaded) { // wait for posts to load
@@ -133,7 +137,7 @@ class Posts extends Component{
                         />
                     }
                     ListEmptyComponent = {<Blank/>}
-                    contentContainerStyle = {(posts == undefined || !posts.length) ? { flex: 1, alignItems: 'center' } : {}}
+                    contentContainerStyle = {(posts === undefined || !posts.length) ? { flex: 1, alignItems: 'center' } : {}}
                 />
             )               
         }
@@ -223,6 +227,7 @@ class MainFooter extends Component{
 export default class MainScreen extends Component{
     
     render = () => {
+
         return(
             <Container style = {{backgroundColor: 'powderblue'}}>
                 <View style = {{flex: 1}}>
