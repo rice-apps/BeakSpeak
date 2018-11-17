@@ -16,7 +16,7 @@ const Form = t.form.Form;
 const LoginSchema = t.struct({
     username: t.String,
     password: t.String
-})
+});
 
 // get screen width
 let {width: screenWidth} = Dimensions.get('window')

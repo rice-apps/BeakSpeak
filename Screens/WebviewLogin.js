@@ -16,7 +16,6 @@ class Webviewlogin extends Component {
                 let ticket = props.url.substring(props.url.indexOf("?ticket="), props.url.length);
                 authenticate(ticket).then((auth)=>{
                     if (auth){
-                        console.log(auth);
                         this.props.success();
                     }
                     else {
@@ -32,7 +31,6 @@ class Webviewlogin extends Component {
             <WebView
                 onNavigationStateChange={this.handleChange}
                 //https://speak.riceapps.org/auth
-
                 source={{uri: 'https://idp.rice.edu/idp/profile/cas/login?service=https://speak.riceapps.org/auth'}}
                 style={{marginTop: 20}}
             />

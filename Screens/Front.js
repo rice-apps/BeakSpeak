@@ -64,13 +64,8 @@ export default class FrontScreen extends Component {
         this.setState({modalVisible: true})
     };
 
-    hideModal = () => {
-        this.setState({modalVisible: false})
-    };
-
     loginSuccess = () => {
-        this.hideModal();
-        this.navigate('Main')
+        this.setState({modalVisible: false}, ()=>this.navigate('Main'))
     };
 
 
@@ -105,7 +100,8 @@ export default class FrontScreen extends Component {
                         animationOut = {'zoomOut'}
                         animationInTiming = {500}
                         animationOutTiming = {500}
-                        avoidKeyboard>
+                        avoidKeyboard
+                    >
                         <WebviewLogin success = {this.loginSuccess}/>
                     </Modal>
                     <FrontBody/>
