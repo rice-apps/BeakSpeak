@@ -11,7 +11,7 @@ class Webviewlogin extends Component {
 
     handleChange(props){
         if(!props.loading){
-            console.log(props.url);
+            // console.log(props.url);
             if(props.url.includes('https://speak.riceapps.org/auth?ticket=')){
                 let ticket = props.url.substring(props.url.indexOf("?ticket="), props.url.length);
                 authenticate(ticket).then((auth)=>{
