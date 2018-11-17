@@ -213,7 +213,7 @@ export default class PostDetailScreen extends Component{
                         contentContainerStyle = {(post == undefined) ? { flex: 1, alignItems: 'center', flexWrap: 'wrap'} : {}}
                         />
 
-                        {/*<View style = {styles.floatingMenuButtonStyle}>*/}
+                        <View style = {styles.floatingMenuButtonStyle}>
                             <Button
                                 transparent
                                 rounded
@@ -222,7 +222,7 @@ export default class PostDetailScreen extends Component{
                                     type = 'MaterialCommunityIcons'
                                     style = {{color: 'white'}}/>
                             </Button>
-                        {/*</View>*/}
+                        </View>
                     </View>
 
                     {/*Comments field*/}        
@@ -240,16 +240,22 @@ export default class PostDetailScreen extends Component{
 }
 
 const styles = StyleSheet.create({
-    // mainContainerStyle: {
-    //     flexDirection: 'column',
-    //     flex: 1
-    // },
-    // floatingMenuButtonStyle: {
-    //     backgroundColor: 'white',
-    //     alignSelf: 'flex-end',
-    //     //position: 'absolute',
-    //     bottom: 35
-    // },
+    mainContainerStyle: {
+        flexDirection: 'column',
+        flex: 1
+    },
+    floatingMenuButtonStyle: {
+        backgroundColor: 'powderblue',
+        alignSelf: 'flex-end',
+        position: 'absolute',
+        bottom: 35,
+        right: 7,
+        width: 50,
+        height: 50,
+        borderRadius: 50/2,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     newPostButton: {
         flex: 1,
         backgroundColor: 'powderblue',
