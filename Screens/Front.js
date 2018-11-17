@@ -73,9 +73,6 @@ export default class FrontScreen extends Component {
         this.navigate('Main')
     };
 
-    async componentDidMount(){
-       // AuthService.login() // testing login requests
-    }
 
     navigate = (screen) => {
         this.props.navigation.navigate(screen)
@@ -101,7 +98,6 @@ export default class FrontScreen extends Component {
         
         return (
             <View style={[styles.screenTheme, {height: screenHeight}]}>
-
                     {/* login modal */}
                     <Modal
                         isVisible = {isVisible}
@@ -109,8 +105,7 @@ export default class FrontScreen extends Component {
                         animationOut = {'zoomOut'}
                         animationInTiming = {500}
                         animationOutTiming = {500}
-                        avoidKeyboard
-                    >
+                        avoidKeyboard>
                         <WebviewLogin success = {this.loginSuccess}/>
                     </Modal>
                     <FrontBody/>

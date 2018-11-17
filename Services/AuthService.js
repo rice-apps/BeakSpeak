@@ -38,19 +38,22 @@ let login = async() => {
 
 
 export async function authenticate(ticket) {
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXIiOiJubnExIiwiYXR0cmlidXRlcyI6eyJlZHVQZXJzb25QcmltYXJ5QWZmaWxpYXRpb24iOiJzdHVkZW50In19LCJ1c2VySUQiOiI1YjVmOWE5YWRlNTdiNzQxZmZjM2U2MWUiLCJpYXQiOjE1MzI5OTIxNTR9.cr29eYKLTpaAuqcpk08XtrMt6FZj9S8Yvll3rzEMYus"
-    AsyncStorage.setItem('userToken', token);
-    return true;
+    // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXIiOiJubnExIiwiYXR0cmlidXRlcyI6eyJlZHVQZXJzb25QcmltYXJ5QWZmaWxpYXRpb24iOiJzdHVkZW50In19LCJ1c2VySUQiOiI1YjVmOWE5YWRlNTdiNzQxZmZjM2U2MWUiLCJpYXQiOjE1MzI5OTIxNTR9.cr29eYKLTpaAuqcpk08XtrMt6FZj9S8Yvll3rzEMYus"
+    // AsyncStorage.setItem('userToken', token);
+    // return true;
     // Backend auth doesn't work rn
     try {
         let res = await fetch(apiUrl+'/auth'+ticket,{
             method: 'GET',
         });
-        let token = await res.json();
-        if (token && token.success){
-            AsyncStorage.setItem('userToken', token);
+        let auth = await res.json();
+        if (auth && auth.success){
+            console.log("success!");
+            console.log(auth);
+            AsyncStorage.setItem('userToken', auth.user.token);
             return true
-        }}
+        }
+    }
         catch (err) {
             console.log(err)
         }

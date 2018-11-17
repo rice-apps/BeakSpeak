@@ -11,16 +11,18 @@ class Webviewlogin extends Component {
 
     handleChange(props){
         if(!props.loading){
+            console.log(props.url);
             if(props.url.includes('https://speak.riceapps.org/auth?ticket=')){
                 let ticket = props.url.substring(props.url.indexOf("?ticket="), props.url.length);
-                let auth = authenticate(ticket);
-                if (auth){
-                    this.props.success();
-                }
-                else {
-                    console.log("auth failed")
-                }
-
+                authenticate(ticket).then((auth)=>{
+                    if (auth){
+                        console.log(auth);
+                        this.props.success();
+                    }
+                    else {
+                        console.log("auth failed")
+                    }
+                });
             }
         }
     }
@@ -29,6 +31,8 @@ class Webviewlogin extends Component {
         return (
             <WebView
                 onNavigationStateChange={this.handleChange}
+                //https://speak.riceapps.org/auth
+
                 source={{uri: 'https://idp.rice.edu/idp/profile/cas/login?service=https://speak.riceapps.org/auth'}}
                 style={{marginTop: 20}}
             />
