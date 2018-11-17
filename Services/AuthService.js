@@ -48,8 +48,8 @@ export async function authenticate(ticket) {
         });
         let auth = await res.json();
         if (auth && auth.success){
-            console.log("success!");
-            console.log(auth);
+            // console.log("success!");
+            // console.log(auth);
             AsyncStorage.setItem('userToken', auth.user.token);
             return true
         }
