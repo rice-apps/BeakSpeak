@@ -19,6 +19,20 @@ export async function getPosts() {
         console.log(err)
     }
 }
+export async function getNPosts(numPosts) {
+    try{
+        let res = await fetch(apiUrl+'/posts/' + numPosts,{
+            method: 'GET',
+            headers: {
+                'x-access-token': token
+            }
+        })
+        let posts = await res.json()
+        return posts
+    }catch(err){
+        console.log(err)
+    }
+}
 
 
 export async function updateVotes(id, vote) {
@@ -106,9 +120,35 @@ export async function getPost(id) {
     }
 }
 
+// change the react count of a post and the reactions of the user
+export async function updateReact(postid, reaction) {
+    try {
+        let res = await fetch(apiUrl+"/posts/"+postid+"/reacts", {
+            method: 'PUT',
+            headers: {
+                'x-access-token': token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                react: reaction
+            })
+
+        })
+        console.log(res)
+        let print = await res.json()
+        console.log(print)
+
+    } catch(err) {
+        console.log(err)
+    }
+}
+
 export default{
     getPosts,
+    getNPosts,
     sendNewPost,
+    updateReact,
     updateVotes,
     postComment,
     getPost
