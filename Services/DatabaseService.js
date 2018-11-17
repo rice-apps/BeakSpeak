@@ -11,6 +11,7 @@ export async function getPosts() {
                 'x-access-token': token
             }
         })
+        console.log(res)
         let posts = await res.json()
         return posts
     }catch(err){

@@ -13,12 +13,11 @@ export default class PostData extends Component{
 
         votes = this.props.post.votes
         votedFor = 0
-        
-        for (var i = 0; i < votes.length; i++) {
-            if (votes[i].user == '5b5f9a9ade57b741ffc3e61e') {
-                votedFor = votes[i].vote
-            }
+        console.log(votes)
+        if (this.user_id in votes) {
+            votedFor = votes[this.user_id]
         }
+        console.log(votedFor)
       
         // default state - post before any changes
         this.state = {
