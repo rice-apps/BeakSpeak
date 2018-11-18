@@ -14,6 +14,8 @@ import {
 } from 'native-base'
 import Modal from 'react-native-modal'
 import {AppLoading} from 'expo'
+import {observer, inject} from 'mobx-react'
+import {isObservableArray} from 'mobx'
 
 import Post from '../Components/Post'
 import Comment from '../Components/Comment'
@@ -22,6 +24,7 @@ import Blank from '../Components/Blank'
 import CommentData from '../Components/CommentData'
 import DatabaseService from '../Services/DatabaseService'
 import PostData from '../Components/PostData'
+
 
 // Comments container of custom comment components
 class Comments extends Component{
@@ -49,7 +52,7 @@ class Comments extends Component{
 
 
 // List of posts
-class Posts extends Component{
+const Posts = inject('store')(observer(class Posts extends Component{
 
     constructor(props){
         super(props)
@@ -107,6 +110,9 @@ class Posts extends Component{
     }
     render = () => {
         let loaded = this.state.loaded
+        console.log('posts render')
+        console.log(isObservableArray(this.props.store.posts))
+
 
         if(!loaded) { // wait for posts to load
             return(
@@ -117,7 +123,9 @@ class Posts extends Component{
         else{ // display posts in a list component
             let posts = this.state.posts
             let refresh = this.state.refresh
-            
+            let number = this.props.store.posts.slice()
+
+            console.log(number)
             return (
                 <FlatList
                     data = {posts}
@@ -136,7 +144,7 @@ class Posts extends Component{
             )               
         }
     }
-}
+}))
 
 // footer with new post button and new post creation modal
 class MainFooter extends Component{
@@ -218,7 +226,7 @@ class MainFooter extends Component{
 
 
 // main component
-export default class MainScreen extends Component{
+export default inject('store')(observer(class MainScreen extends Component{
     
     render = () => {
         return(
@@ -230,7 +238,7 @@ export default class MainScreen extends Component{
             </Container>
         )
     }
-}
+}))
 
 const styles = StyleSheet.create({
     newPostButton: {

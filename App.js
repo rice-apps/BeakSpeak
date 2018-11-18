@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
 import {Font, AppLoading} from 'expo'
+import {Provider} from 'mobx-react'
 
-import AuthNav from './Navigators/AuthNav.js' 
+import AuthNav from './Navigators/AuthNav.js'
+import postStore from './Store/PostStore' 
 
 export default class App extends Component{
     constructor(props){
@@ -30,7 +32,9 @@ export default class App extends Component{
         // wait for assets to load
         if(this.state.assetsLoaded) {
             return(
-                <AuthNav/>                
+                <Provider store = {postStore}>
+                    <AuthNav/>                                    
+                </Provider>
             )
         }
         else {

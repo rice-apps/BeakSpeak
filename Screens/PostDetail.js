@@ -14,11 +14,14 @@ import DatabaseService from '../Services/DatabaseService'
 import Blank from '../Components/Blank'
 import PostData from '../Components/PostData'
 import Comment from '../Components/Comment'
+import postStore from '../Store/PostStore'
 
 class PostDetailFooter extends Component{
 
     constructor(props){
         super(props);
+        postStore.addPost(2)
+        console.log(postStore.posts)
         this.state = {
             input: ''
         };
