@@ -50,6 +50,7 @@ export async function authenticate(ticket) {
         if (auth && auth.success){
             // console.log("success!");
             // console.log(auth);
+            AsyncStorage.setItem("userID", auth.user.userID);
             AsyncStorage.setItem('userToken', auth.user.token);
             return true
         }
