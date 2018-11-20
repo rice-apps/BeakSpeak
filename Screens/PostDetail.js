@@ -12,9 +12,8 @@ from 'react-native'
 import {Card, Container, Footer, Icon, Item, View, Input, Button, Body} from 'native-base'
 import DatabaseService from '../Services/DatabaseService'
 import Blank from '../Components/Blank'
-import Post from '../Components/Post'
+import PostData from '../Components/PostData'
 import Comment from '../Components/Comment'
-import PostData from '../Components/PostData';
 
 class PostDetailFooter extends Component{
 
@@ -74,7 +73,9 @@ class Comments extends Component{
                 let comment = item.item;
                 
                 return(
-                    <Comment body = {comment.body}/>
+                    <Card>
+                        <Comment body = {comment.body}/>
+                    </Card>
                 )
             }}
             />
@@ -109,6 +110,7 @@ export default class PostDetailScreen extends Component{
                 post: post,
                 loaded: true,
                 refresh: false
+
             })
         }
     }

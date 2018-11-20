@@ -1,8 +1,6 @@
 import React, {Component, PureComponent} from 'react'
-import {View, Text} from 'react-native';
-import {Card, CardItem, Icon} from 'native-base'
-import {StyleSheet} from 'react-native'
-
+import {Card, CardItem, Title, Button, Text, Icon} from 'native-base'
+import {StyleSheet, View} from 'react-native'
 
 // body with post content and potentially votes
 class PostBody extends Component{
@@ -76,12 +74,52 @@ class PostHeader extends Component{
     }
 }
 
+class PostFooter extends Component{
+
+    pressReact = (react) => {
+        this.props.updateReact(react)
+    }
+
+    render = () => {
+        let userReact = this.props.userReact
+        let reactCounts = this.props.reactCounts
+
+        return(
+            <View style={styles.container}>
+                <Button onPress={() => this.pressReact("angry")} style={userReact == "angry" ? styles.buttonPress : {}} transparent rounded>
+                    <Text adjustsFontSizeToFit={true} style = {{color:(userReact == "angry") ? "white" : "black"}}>
+                        😡{reactCounts["angry"].toString()}</Text>
+                </Button>
+                <Button onPress={() => this.pressReact("funny")} style={userReact == "funny" ? styles.buttonPress : {}} transparent rounded>
+                    <Text adjustsFontSizeToFit={true} style = {{color:(userReact == "funny") ? "white" : "black"}}>
+                        😂{reactCounts["funny"].toString()}</Text>
+                </Button>
+                <Button onPress={() => this.pressReact("love")} style={userReact == "love" ? styles.buttonPress : {}} transparent rounded>
+                    <Text adjustsFontSizeToFit={true} style = {{color:(userReact == "love") ? "white" : "black"}}>
+                        😍{reactCounts["love"].toString()}</Text>
+                </Button>
+                <Button onPress={() => this.pressReact("sad")} style={userReact == "sad" ? styles.buttonPress : {}} transparent rounded>
+                    <Text adjustsFontSizeToFit={true} style = {{color:(userReact == "sad") ? "white" : "black"}}>
+                        😭{reactCounts["sad"].toString()}</Text>
+                </Button>
+                <Button onPress={() => this.pressReact("wow")} style={userReact == "wow" ? styles.buttonPress : {}} transparent rounded>
+                    <Text adjustsFontSizeToFit={true} style = {{color:(userReact == "wow") ? "white" : "black"}}>
+                        😮{reactCounts["wow"].toString()}</Text>
+                </Button>
+            </View>
+        )
+    }
+}
 // main component -- pure component for rendering optimization (view only)
 export default class Post extends PureComponent{
 
     render = () => {
         let title = this.props.title
         let body = this.props.body
+        let userReact = this.props.userReact
+        let reactCounts = this.props.reactCounts
+        let updateReact = this.props.updateReact
+    
         let score = this.props.score
         let upvoteScore = this.props.upvoteScore
         let downvoteScore = this.props.downvoteScore
@@ -109,20 +147,44 @@ export default class Post extends PureComponent{
 
                 {/* body of post */}
                 <PostBody body={body} />
+                <PostFooter
+                    userReact = {userReact}
+                    reactCounts = {reactCounts}
+                    updateReact = {updateReact}
+                />
+    
             </View>
         )
     }
 }
 
-const styles = StyleSheet.create(
-    {
-        titlefont:{
-            fontWeight: 'bold',
-            fontSize: 20
-        },
-        seeBorders: {
-            borderWidth: 5,
-            borderColor:'red'
-        }
+const styles = StyleSheet.create({
+    container: {
+        flex: 0.5,
+        flexDirection: 'row',
+        justifyContent: 'space-evenly'
+    },
+    button: {
+        backgroundColor: "powderblue",
+        height: 35,
+        width: 70,
+        borderWidth: 0.5,
+        borderRadius: 15,
+        justifyContent: 'center'
+    },
+
+    buttonPress: {
+        backgroundColor: "powderblue",
+        justifyContent: 'center',
+        flexWrap: 'wrap'
+    },
+    card: {
+        borderColor: "powderblue",
+        borderWidth: 5,
+        borderRadius: 15
+    },
+    titlefont:{
+        fontWeight: 'bold',
+        fontSize: 20
     }
-)
+})

@@ -86,7 +86,6 @@ export default class FrontScreen extends Component {
             this.navigate('Main')
         }
 };
-
     render = () => {
         const {height: screenHeight} = Dimensions.get('window');
         let isVisible = this.state.modalVisible;
