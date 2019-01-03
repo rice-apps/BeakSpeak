@@ -1,10 +1,12 @@
 import React, {Component} from 'react'
-import {Button, View} from 'react-native'
+import {YellowBox} from 'react-native'
 import {Font, AppLoading} from 'expo'
-import {Provider, observer} from 'mobx-react'
+import {Provider} from 'mobx-react'
 
 import AuthNav from './Navigators/AuthNav.js'
 import postStore from './Store/PostStore' 
+
+YellowBox.ignoreWarnings(["Require cycle:"])
 
 export default class App extends Component{
     constructor(props){

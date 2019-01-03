@@ -20,7 +20,7 @@ const MainNav = createStackNavigator(
             screen: MainScreen,
             navigationOptions: ({ navigation }) => (
                 {
-                    header: <DrawerHeader navigation = {navigation} title = 'Posts'/>
+                        header: <DrawerHeader navigation = {navigation} title = 'Posts'/>
                 }
             )
         }
@@ -33,7 +33,7 @@ const MainNav = createStackNavigator(
 const HomeNav = createDrawerNavigator(
     {
         Main: {
-            screen: MainScreen
+            screen: MainNav
         },    
         Settings: {
             screen: Blank
@@ -57,7 +57,7 @@ export default AppNav = createStackNavigator(
                 {
                     header: <StackHeader navigation = {navigation} title = ''/>,
                 }
-            )         
+            ) 
         },
         Home: {
             screen: HomeNav,

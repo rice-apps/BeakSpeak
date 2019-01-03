@@ -60,7 +60,6 @@ export async function sendNewPost(title, body, id) {
             })
         })
         let post = await res.json()
-        console.log(post)
         return post
     }catch(err){
         console.log(err)
@@ -117,9 +116,6 @@ export async function updateReact(postid, reaction) {
             })
 
         })
-        console.log(res)
-        let print = await res.json()
-        console.log(print)
 
     } catch(err) {
         console.log(err)

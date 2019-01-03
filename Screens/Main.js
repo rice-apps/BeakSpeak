@@ -95,7 +95,7 @@ class Posts extends Component{
         }))
     }
 
-    _renderItem = (item) => {
+    _renderItem (item) {
         let post = item.item
 
         return(
@@ -124,20 +124,20 @@ class Posts extends Component{
             return (
                 <View style={{flex: 1}}>
                     <FlatList
-                    data = {posts}
-                    renderItem = {(item) => {return this._renderItem(item)}}
-                    keyExtractor = {(item, index) => item.id}
-                    refreshControl = { // controls refreshing
-                        <RefreshControl
-                            refreshing = {refresh}
-                            onRefresh = {this._onRefresh}
-                            tintColor = 'skyblue'
-                        />
-                    }
-                    ListEmptyComponent = {<Blank/>}
-                    contentContainerStyle = {(posts == undefined || !posts.length) ? { flex: 1, alignItems: 'center' } : {}}
-                />
-            </View>
+                        data = {posts}
+                        renderItem = {(item) => {return this._renderItem(item)}}
+                        keyExtractor = {(item, index) => item.id}
+                        refreshControl = { // controls refreshing
+                            <RefreshControl
+                                refreshing = {refresh}
+                                onRefresh = {this._onRefresh}
+                                tintColor = 'skyblue'
+                            />
+                        }
+                        ListEmptyComponent = {<Blank/>}
+                        contentContainerStyle = {(posts == undefined || !posts.length) ? { flex: 1, alignItems: 'center' } : {}}
+                    />
+                </View>
             )               
         }
         

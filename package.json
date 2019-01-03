@@ -28,7 +28,7 @@
     "react-native": "github:expo/react-native#sdk-31.0.0",
     "react-native-cookies": "^3.3.0",
     "react-native-modal": "^6.4.0",
-    "react-navigation": "^2.18.3",
+    "react-navigation": "^3.0.9",
     "tcomb-form-native": "^0.6.14",
     "uuid": "^3.3.2"
   },
