@@ -3,7 +3,8 @@ import {
     FlatList,
     StyleSheet,
     TouchableWithoutFeedback,
-    RefreshControl
+    RefreshControl,
+    Text
 } from 'react-native'
 import {
     Card,
@@ -52,14 +53,15 @@ class Comments extends Component{
 
 
 // List of posts
-const Posts = inject('store')(observer(class Posts extends Component{
+@inject('store')
+@observer
+class Posts extends Component{
 
     constructor(props){
         super(props)
 
         this.mounted = false
         this.state = {
-            posts: [],
             loaded: false
         }
     }
@@ -70,7 +72,6 @@ const Posts = inject('store')(observer(class Posts extends Component{
 
         if (this.mounted) { // to avoid memory leak, check if component is mounted before setting state
             this.setState({
-                posts: posts,
                 loaded: true,
                 refresh: false
             })
@@ -108,12 +109,10 @@ const Posts = inject('store')(observer(class Posts extends Component{
             </TouchableWithoutFeedback>
         )
     }
-    render = () => {
+    render () {
         let loaded = this.state.loaded
-        console.log('posts render')
-        console.log(isObservableArray(this.props.store.posts))
-
-
+        let posts = this.props.store.posts
+        
         if(!loaded) { // wait for posts to load
             return(
                 <AppLoading/>
@@ -121,16 +120,13 @@ const Posts = inject('store')(observer(class Posts extends Component{
         }
 
         else{ // display posts in a list component
-            let posts = this.state.posts
             let refresh = this.state.refresh
-            let number = this.props.store.posts.slice()
-
-            console.log(number)
             return (
-                <FlatList
+                <View style={{flex: 1}}>
+                    <FlatList
                     data = {posts}
                     renderItem = {(item) => {return this._renderItem(item)}}
-                    keyExtractor = {(item, index) => item._id}
+                    keyExtractor = {(item, index) => item.id}
                     refreshControl = { // controls refreshing
                         <RefreshControl
                             refreshing = {refresh}
@@ -141,10 +137,12 @@ const Posts = inject('store')(observer(class Posts extends Component{
                     ListEmptyComponent = {<Blank/>}
                     contentContainerStyle = {(posts == undefined || !posts.length) ? { flex: 1, alignItems: 'center' } : {}}
                 />
+            </View>
             )               
         }
+        
     }
-}))
+}
 
 // footer with new post button and new post creation modal
 class MainFooter extends Component{
@@ -167,7 +165,6 @@ class MainFooter extends Component{
 
     render = () => {
         let isVisible = this.state.modalVisible
-
         return(
             <View>
 
@@ -208,7 +205,7 @@ class MainFooter extends Component{
                 <Footer>
 
                     {/* new post button */}
-                    <TouchableWithoutFeedback onPress = {() => {this.renderModal()}}>
+                    <TouchableWithoutFeedback onPress = {this.renderModal}>
                         <View style = {styles.newPostButton}>
                                 <Icon 
                                     name = 'plus' 
@@ -226,7 +223,7 @@ class MainFooter extends Component{
 
 
 // main component
-export default inject('store')(observer(class MainScreen extends Component{
+export default class MainScreen extends Component{
     
     render = () => {
         return(
@@ -238,7 +235,7 @@ export default inject('store')(observer(class MainScreen extends Component{
             </Container>
         )
     }
-}))
+}
 
 const styles = StyleSheet.create({
     newPostButton: {

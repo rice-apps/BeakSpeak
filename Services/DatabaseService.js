@@ -1,4 +1,5 @@
 import {CONFIG} from "../config";
+const uuidv4 = require('uuid/v4')
 
 const apiUrl = CONFIG.api_url
 const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXIiOiJubnExIiwiYXR0cmlidXRlcyI6eyJlZHVQZXJzb25QcmltYXJ5QWZmaWxpYXRpb24iOiJzdHVkZW50In19LCJ1c2VySUQiOiI1YjVmOWE5YWRlNTdiNzQxZmZjM2U2MWUiLCJpYXQiOjE1MzI5OTIxNTR9.cr29eYKLTpaAuqcpk08XtrMt6FZj9S8Yvll3rzEMYus"
@@ -41,7 +42,7 @@ export async function updateVotes(id, vote) {
 }
 
 
-export async function sendNewPost(newPost) {
+export async function sendNewPost(title, body, id) {
     try{
         let res = await fetch(apiUrl+'/posts',{
             method: 'POST',
@@ -51,12 +52,16 @@ export async function sendNewPost(newPost) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                title: newPost.title,
-                body: newPost.body
+                title: title,
+                body: body,
+                id: id
             }, removeNull = (key, value) => {
                 return (value == null) ? '' : value
             })
         })
+        let post = await res.json()
+        console.log(post)
+        return post
     }catch(err){
         console.log(err)
     }

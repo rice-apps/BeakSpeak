@@ -62,7 +62,8 @@ const PostOptions = {
 }
 
 // container component for new post form
-export const NewPost = inject('store')(observer(class NewPost extends Component{
+@inject('store')
+export class NewPost extends Component{
 
     // validate submission, send submission, close parent modal
     submitPost = async() => {
@@ -72,9 +73,9 @@ export const NewPost = inject('store')(observer(class NewPost extends Component{
 
         // check if submission is valid -- there must be a title!
         if(errors.length === 0){
-            let newPost = results.value
-            DatabaseService.sendNewPost(newPost) // send post to database -- no need to await
-            this.props.store.addPost(newPost) // store new post in state
+            let {title, body} = results.value
+            console.log(results.value)
+            this.props.store.addPost(title, body) // store new post in state
             console.log('add new post')
             
             this.form.setState({value: null}) // clear form
@@ -108,7 +109,7 @@ export const NewPost = inject('store')(observer(class NewPost extends Component{
             </View>
         )
     }
-}))
+}
 
 
 const styles = StyleSheet.create(

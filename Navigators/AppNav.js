@@ -4,6 +4,7 @@ import {Dimensions, Text} from 'react-native'
 import {createStackNavigator, createDrawerNavigator} from 'react-navigation'
 
 import MainScreen from '../Screens/Main'
+import Test from '../Screens/Test'
 import PostDetailScreen from '../Screens/PostDetail'
 
 import Blank from '../Components/Blank'
@@ -13,8 +14,7 @@ import { Drawer } from 'native-base';
 
 var {width: screenWidth} = Dimensions.get('window')
 
-
-MainNav = createStackNavigator(
+const MainNav = createStackNavigator(
     {
         Posts: {
             screen: MainScreen,
@@ -30,10 +30,10 @@ MainNav = createStackNavigator(
     }
 )
 
-HomeNav = createDrawerNavigator(
+const HomeNav = createDrawerNavigator(
     {
         Main: {
-            screen: MainNav
+            screen: MainScreen
         },    
         Settings: {
             screen: Blank
