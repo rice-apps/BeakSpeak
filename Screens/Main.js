@@ -60,46 +60,35 @@ class Posts extends Component{
     constructor(props){
         super(props)
 
-        this.mounted = false
         this.state = {
             loaded: false
         }
     }
 
     componentDidMount = async() => {
-        this.mounted = true
-        let posts = await DatabaseService.getPosts() // retrieve posts from database
-
-        if (this.mounted) { // to avoid memory leak, check if component is mounted before setting state
-            this.setState({
+        this.props.store.fetchPosts()
+            .then((posts) => this.setState({
                 loaded: true,
                 refresh: false
-            })
-        }
+            })) // retrieve posts from database
     }
 
-    componentWillUnmount = () => {
-        this.mounted = false
-    }
-
-    postNavigate = (route, post_id) => {
-        this.props.navigate(route, {id: post_id, refresh: this._onRefresh})
+    postNavigate = (route, post) => {
+        this.props.navigate(route, {post: post})
     }
     
     _onRefresh = async() => { 
         this.setState((state) => ({refresh: true})) // indicate we are refreshing
-        let posts = await DatabaseService.getPosts() // refresh data
-        this.setState((state) => ({ // refresh state -- use function
-            posts: posts,
-            refresh: false
-        }))
+        this.props.store.fetchPosts()
+            .then((posts) => this.setState((state) => ({refresh: false}))) // refresh data
     }
 
-    _renderItem (item) {
+
+    _renderItem = (item) => {
         let post = item.item
 
         return(
-            <TouchableWithoutFeedback onPress = {()=> this.postNavigate('PostDetail', post._id)}>
+            <TouchableWithoutFeedback onPress = {()=> this.postNavigate('PostDetail', post)}>
                 <Card>
                     <PostData 
                         post = {post}
@@ -126,7 +115,7 @@ class Posts extends Component{
                     <FlatList
                         data = {posts}
                         renderItem = {(item) => {return this._renderItem(item)}}
-                        keyExtractor = {(item, index) => item.id}
+                        keyExtractor = {(item, index) => item._id}
                         refreshControl = { // controls refreshing
                             <RefreshControl
                                 refreshing = {refresh}

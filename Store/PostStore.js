@@ -1,27 +1,40 @@
-import { observable, computed, action, extendObservable, set} from "mobx"
+import { observable, computed, action, extendObservable, set, transaction} from "mobx"
 const uuidv4 = require('uuid/v4')
 
 import DatabaseService from '../Services/DatabaseService'
 
 class PostStore {
     @observable posts = []
-    @observable number = true
 
     @action addPost = (title, body) => {
         let newPost = new PostModel(title, body)
         this.posts.unshift(newPost)
-        console.log(newPost)
-        DatabaseService.sendNewPost(title, body, newPost.id) // send post to database -- no need to await
+        DatabaseService.sendNewPost(title, body, newPost._id) // send post to database -- no need to await
+    }
+
+    @action async fetchPosts() {
+        let proto_posts = await DatabaseService.getPosts()
+        this.posts = proto_posts.map(p => PostModel.make(p))
+    }
+
+    @action async fetchPost(id) {
+        let proto_post = await DatabaseService.getPost(id)
+        let post = PostModel.make(proto_post)
+        this.posts.forEach((val, index) => {
+            if (val._id == id) {
+                this.posts[index] = post
+            }
+        })
     }
 }
 
 export class PostModel {
     title = ""
     body = ""
-    id = ""
-    @observable votes = []
+    _id = ""
+    @observable userVote = 0
     @observable score = 0
-    @observable reacts = {}
+    @observable userReact = "none"
     @observable reactCounts = {
         "angry": 0,
         "funny": 0,
@@ -29,29 +42,43 @@ export class PostModel {
         "sad": 0,
         "wow": 0
     }
-    
+    @observable comments = []
+
     constructor(title, body) {
         this.title = title
         this.body = body
-        this.id = uuidv4()
+        this._id = uuidv4()
     }
 
-    @computed get userVote() {
-        for (var i = 0; i < this.votes.length; i++) {
-            if (votes[i].user == '5b5f9a9ade57b741ffc3e61e') {
-                return votes[i].vote
-            }
-        }
+    static make(newPost) {
+        let proto_post = new PostModel(newPost.title, newPost.body)
+        proto_post._id = newPost._id
+        proto_post.score = newPost.score
+        proto_post.userVote = newPost.userVote
+        proto_post.userReact = newPost.userReact
+        proto_post.reactCounts = newPost.reactCounts
+
+        return proto_post
     }
 
-    @computed get userReact() {
-        console.log("user react retrieved")
-        return this.reacts['5b5f9a9ade57b741ffc3e61e']
+    @action updateReact(old_react, new_react) {
+        this.userReact = new_react
+        this.reactCounts[old_react] -= 1
+        this.reactCounts[new_react] += 1
+        DatabaseService.updateReact(this._id, new_react)
     }
 
-    set userReact(react) {
-        this.reacts['5b5f9a9ade57b741ffc3e61e'] = react
-        DatabaseService.updateReact(this.id, this.react)
+    @action async update() {
+        console.log("updating")
+        let proto_post = await DatabaseService.getPost(this._id)
+        let post = PostModel.make(proto_post)
+
+        transaction(() => {
+            this.votes = post.votes
+            this.score = post.score
+            this.reactCounts = post.reactCounts
+            this.reacts = post.reacts
+        })
     }
 
 }

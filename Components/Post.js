@@ -1,14 +1,12 @@
 import React, {Component, PureComponent} from 'react'
 import {Card, CardItem, Title, Button, Text, Icon} from 'native-base'
 import {StyleSheet, View} from 'react-native'
-import {observer} from 'mobx-react'
-import {action} from 'mobx'
 
 // body with post content and potentially votes
-@observer
-class PostBody extends Component{
+class PostBody extends PureComponent{
 
     render () {
+        console.log("body render")
         return(
             <CardItem>
                     <Text>
@@ -19,7 +17,7 @@ class PostBody extends Component{
     }
 }
 
-class PostVotes extends Component {
+class PostVotes extends PureComponent {
     upvoteScore = () => {
         //this.props.upvoteScore() 
     }
@@ -29,6 +27,7 @@ class PostVotes extends Component {
     }
 
     render () {
+        console.log("vote render")
         let vote = this.props.vote
         let upvoteIconColor =  vote == 1 ? "orange" : "black"
         let downvoteIconColor = vote == -1 ?  "blue" : "black"
@@ -64,7 +63,7 @@ class PostVotes extends Component {
 }
 
 // header with title and potentially avatar and time info
-class PostHeader extends Component{
+class PostHeader extends PureComponent{
 
     render () {
         return(
@@ -77,7 +76,7 @@ class PostHeader extends Component{
     }
 }
 
-class PostFooter extends Component{
+class PostFooter extends PureComponent{
 
     pressReact = (react) => {
         this.props.updateReact(react)
@@ -86,7 +85,7 @@ class PostFooter extends Component{
     render () {
         let userReact = this.props.userReact
         let reactCounts = this.props.reactCounts
-
+        console.log("footer render")
         return(
             <View style={styles.container}>
                 <Button onPress={() => this.pressReact("angry")} style={userReact == "angry" ? styles.buttonPress : {}} transparent rounded>
@@ -114,9 +113,8 @@ class PostFooter extends Component{
     }
 }
 // main component -- pure component for rendering optimization (view only)
-export default class Post extends PureComponent{
+export default class Post extends Component{
     render () {        
-        console.log("render")
         return(
             <View>
                 <View style={{ flex: 1, flexDirection: 'row' }}>

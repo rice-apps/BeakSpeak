@@ -13,15 +13,6 @@ export default class PostData extends Component{
         super(props)
 
         this.user_id = '5b5f9a9ade57b741ffc3e61e'
-
-        votes = this.props.post.votes
-        votedFor = 0
-        
-        for (var i = 0; i < votes.length; i++) {
-            if (votes[i].user == '5b5f9a9ade57b741ffc3e61e') {
-                votedFor = votes[i].vote
-            }
-        }
       
         // default state - post before any changes
         /*
@@ -36,14 +27,10 @@ export default class PostData extends Component{
 
     // increment react count up by 1
     updateReact = (react) => {
-        const {reacts, reactCounts} = this.props.post
-
-        old_react = reacts['5b5f9a9ade57b741ffc3e61e']
-        reactCounts[old_react] -= 1
+        old_react = this.props.post.userReact
         new_react = (old_react == react) ? "none" : react
-        reactCounts[new_react] += 1
-
-        this.props.post.userReact = new_react
+        
+        this.props.post.updateReact(old_react, new_react)
     }
 
     _undoVote = async() => {
