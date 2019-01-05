@@ -1,5 +1,11 @@
 {
+<<<<<<< HEAD
   "expoServerPort": 19002,
   "packagerPort": 19003,
   "packagerPid": 25695
+=======
+  "expoServerPort": 19004,
+  "packagerPort": 19005,
+  "packagerPid": 25271
+>>>>>>> parent of 704b80d... no change
 }
