@@ -32,7 +32,7 @@ export default class App extends Component{
     }
 
     render = () => {
-        console.log(postStore)
+
         // wait for assets to load
         if(this.state.assetsLoaded) {
             return(

@@ -1,6 +1,8 @@
 import { observable, action, transaction} from "mobx"
 const uuidv4 = require('uuid/v4')
 
+import DatabaseService from '../../Services/DatabaseService'
+
 export default class PostModel {
     title = ""
     body = ""
@@ -43,7 +45,6 @@ export default class PostModel {
     }
 
     @action async update() {
-        console.log("updating")
         let proto_post = await DatabaseService.getPost(this._id)
         let post = PostModel.make(proto_post)
 
@@ -52,6 +53,7 @@ export default class PostModel {
             this.score = post.score
             this.reactCounts = post.reactCounts
             this.reacts = post.reacts
+            this.comments = post.comments
         })
     }
 

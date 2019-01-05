@@ -36,25 +36,30 @@ class PostDetailFooter extends Component{
     render = () => {
 
         return(
-            <View style={{backgroundColor: 'white', flex: 1, flexDirection: 'row'}}>
+            <KeyboardAvoidingView
+                    keyboardVerticalOffset = {Header.HEIGHT}
+                    behavior="position">        
                 
-                {/* takes user comment input */}
-                <Input
-                    placeholder = 'Your comment here...'
-                    onChangeText = {(text) => {this.setState({input: text})}}
-                    onSubmitEditing = {() => {this.onSubmit()}}
-                    value = {this.state.input}
-                />
-
-                {/* submits comment*/}
-                <Button transparent>
-                    <Icon name ='telegram'
-                        type = 'MaterialCommunityIcons'
-                        style = {{color: 'powderblue'}}
-                        onPress = {() => {this.onSubmit()}}
+                <View style={styles.commentInputContainer}>
+                    
+                    {/* takes user comment input */}
+                    <Input
+                        placeholder = 'Your comment here...'
+                        onChangeText = {(text) => {this.setState({input: text})}}
+                        onSubmitEditing = {() => {this.onSubmit()}}
+                        value = {this.state.input}
                     />
-                </Button>
-            </View>
+
+                    {/* submits comment*/}
+                    <Button transparent>
+                        <Icon name ='telegram'
+                            type = 'MaterialCommunityIcons'
+                            style = {{color: 'powderblue'}}
+                            onPress = {() => {this.onSubmit()}}
+                        />
+                    </Button>
+                </View>
+            </KeyboardAvoidingView>
         )
     }
 }
@@ -64,7 +69,8 @@ class Comments extends Component{
 
 
     render = () => {
-        let comments = this.props.comments;
+        let comments = this.props.comments
+
         return(
             <FlatList
              data = {comments}
@@ -99,12 +105,7 @@ export default class PostDetailScreen extends Component{
     _onRefresh = async() => { 
         this.setState((state) => ({refresh: true})) // indicate we are refreshing
         this.props.navigation.getParam("post").update()
-            .then((post) => this.setState((state) => ({refresh: false}))) // refresh data
-    }
-
-    update = (post) => {
-        this.setState((state) => ({post: post}));
-        this.main_refresh();
+            .then(() => this.setState((state) => ({refresh: false}))) // refresh data
     }
     
     _renderItem = (item) => {
@@ -119,7 +120,6 @@ export default class PostDetailScreen extends Component{
                  </Card>
                 <Comments comments = {post.comments}/>
             </View>
-            
         )
     }
 
@@ -130,20 +130,16 @@ export default class PostDetailScreen extends Component{
 
     // render a post with comments -- use posts component from main as an example for structure
     render = () => {
-        post = this.props.navigation.getParam("post")
+        post = this.props.navigation.getParam('post')
 
          // display posts in a list component
         let refresh = this.state.refresh
 
         return (
-            <KeyboardAvoidingView
-                keyboardVerticalOffset = {Header.HEIGHT}
-                style = {{backgroundColor: 'powderblue', flex: 1}}
-                contentContainerStyle = {{flex: 1}}
-                behavior='position' enableds>
+            <View style ={{flex: 1, backgroundColor: 'powderblue'}}>
+                <View style= {{flex: 1}}> 
 
-                {/*Scrolling list of comments + post*/}
-                <View style ={{flex: 1}}>
+                    {/*Scrolling list of comments + post*/}
                     <FlatList
                         data = {[post]}
                         renderItem = {(item) => {return this._renderItem(item)}}
@@ -159,17 +155,16 @@ export default class PostDetailScreen extends Component{
                     }
                     ListEmptyComponent = {<Blank/>}
                     contentContainerStyle = {(post == undefined) ? { flex: 1, alignItems: 'center', flexWrap: 'wrap'} : {}}
-                    />                   
+                    />
                 </View>
-
-                {/* comments field */}        
-                <Footer>
-                    <PostDetailFooter post_id={post._id} update={this.update}/>
-                </Footer>
-            </KeyboardAvoidingView>
+                
+                {/* comments field */}
+                <PostDetailFooter post_id={post._id} update={this.update}/>                
+            </View>               
         )               
     }
 }
+
 
 
 const styles = StyleSheet.create({
@@ -180,6 +175,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderTopWidth: 1,
         borderColor: 'white'
+    },
+    commentInputContainer: {
+        backgroundColor: 'white', 
+        borderTopWidth: 1, 
+        borderColor: '#EEE', 
+        flexDirection: 'row'
     },
     seeBorders: {
         borderWidth: 5,

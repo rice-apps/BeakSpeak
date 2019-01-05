@@ -4,7 +4,6 @@ import {
     StyleSheet,
     TouchableWithoutFeedback,
     RefreshControl,
-    Text
 } from 'react-native'
 import {
     Card,
@@ -16,14 +15,11 @@ import {
 import Modal from 'react-native-modal'
 import {AppLoading} from 'expo'
 import {observer, inject} from 'mobx-react'
-import {isObservableArray} from 'mobx'
 
-import Post from '../Components/Post'
 import Comment from '../Components/Comment'
 import {NewPost} from '../Components/New'
 import Blank from '../Components/Blank'
 import CommentData from '../Components/CommentData'
-import DatabaseService from '../Services/DatabaseService'
 import PostData from '../Components/PostData'
 
 
@@ -70,7 +66,7 @@ class Posts extends Component{
             .then((posts) => this.setState({
                 loaded: true,
                 refresh: false
-            })) // retrieve posts from database
+            })) // retrieve posts from store
     }
 
     postNavigate = (route, post) => {
@@ -181,7 +177,7 @@ class MainFooter extends Component{
                                 fontSize = {30}
                                 type = 'MaterialCommunityIcons'
                                 style = {{color: 'skyblue'}}
-                                onPress = {() => {this.hideModal()}}
+                                onPress = {this.hideModal}
                             />
                         </View>
 

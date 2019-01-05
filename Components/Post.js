@@ -5,8 +5,7 @@ import {StyleSheet, View} from 'react-native'
 // body with post content and potentially votes
 class PostBody extends PureComponent{
 
-    render () {
-        console.log("body render")
+    render() {
         return(
             <CardItem>
                     <Text>
@@ -19,15 +18,14 @@ class PostBody extends PureComponent{
 
 class PostVotes extends PureComponent {
     upvoteScore = () => {
-        //this.props.upvoteScore() 
+        this.props.upvoteScore()
     }
 
     downvoteScore = () => {
-        //this.props.downvoteScore() 
+        this.props.downvoteScore() 
     }
 
-    render () {
-        console.log("vote render")
+    render() {
         let vote = this.props.vote
         let upvoteIconColor =  vote == 1 ? "orange" : "black"
         let downvoteIconColor = vote == -1 ?  "blue" : "black"
@@ -65,7 +63,7 @@ class PostVotes extends PureComponent {
 // header with title and potentially avatar and time info
 class PostHeader extends PureComponent{
 
-    render () {
+    render() {
         return(
             <CardItem>
                 <Text style ={styles.titlefont}>
@@ -82,10 +80,10 @@ class PostFooter extends PureComponent{
         this.props.updateReact(react)
     }
 
-    render () {
+    render() {
         let userReact = this.props.userReact
         let reactCounts = this.props.reactCounts
-        console.log("footer render")
+
         return(
             <View style={styles.container}>
                 <Button onPress={() => this.pressReact("angry")} style={userReact == "angry" ? styles.buttonPress : {}} transparent rounded>
@@ -114,7 +112,8 @@ class PostFooter extends PureComponent{
 }
 // main component -- pure component for rendering optimization (view only)
 export default class Post extends Component{
-    render () {        
+    render() {     
+
         return(
             <View>
                 <View style={{ flex: 1, flexDirection: 'row' }}>

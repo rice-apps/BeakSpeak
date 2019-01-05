@@ -30,7 +30,7 @@ export default class PostData extends Component{
     }
 
     // increment vote count up by 1
-    upvoteScore = async() => {
+    upvoteScore = async() => { // CHANGE THIS TO USE STORE METHOD
 
         post = this.props.post
 
@@ -50,7 +50,7 @@ export default class PostData extends Component{
     }
 
     // increment vote count down by 1 
-    downvoteScore = async() => {
+    downvoteScore = async() => { // CHANGE THIS TO USE STORE METHOD
 
         post = this.props.post
 
@@ -70,7 +70,7 @@ export default class PostData extends Component{
     }
 
     // pass helper methods to Post component
-    render () {
+    render() {
         return(
             <Post
                 title = {this.props.post.title}

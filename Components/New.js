@@ -83,7 +83,7 @@ export class NewPost extends Component{
 
     }
     
-    render = () => {
+    render() {
         return(
             <View style = {styles.content}>
                 {/* new post creation form */}

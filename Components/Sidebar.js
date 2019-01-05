@@ -8,7 +8,7 @@ export default class Sidebar extends Component{
         this.props.navigation.navigate(route)
     }
 
-    render = () => {
+    render() {
         return( // each icon represents a page accessible from the menu
                 <View style={styles.container}>
                     <Icon 
