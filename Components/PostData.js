@@ -13,16 +13,6 @@ export default class PostData extends Component{
         super(props)
 
         this.user_id = '5b5f9a9ade57b741ffc3e61e'
-      
-        // default state - post before any changes
-        /*
-        this.state = {
-            react: this.props.post.reacts[this.user_id],
-            reactCounts : this.props.post.reactCounts,
-            score : this.props.post.score,
-            votedFor : votedFor
-        }
-        */
     }
 
     // increment react count up by 1
