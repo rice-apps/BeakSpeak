@@ -63,8 +63,8 @@ class Posts extends Component{
 
     componentDidMount = async() => {
         this.mounted = true
-        this.state.numPostsLoaded = 10
-        let posts = await DatabaseService.getNPosts(this.state.numPostsLoaded) // retrieve posts from database
+        let posts = await DatabaseService.getPosts() // retrieve posts from database
+
         if (this.mounted) { // to avoid memory leak, check if component is mounted before setting state
             this.setState({
                 posts: posts,
@@ -74,15 +74,6 @@ class Posts extends Component{
         }
     }
 
-    fetchMorePosts = async() => {
-        console.log("more!")
-        this.state.numPostsLoaded += 10
-        let posts = await DatabaseService.getNPosts(this.state.numPostsLoaded) // refresh data
-        this.setState((state) => ({ // refresh state -- use function
-            posts: posts,
-            refresh: false
-        }))
-    }
     componentWillUnmount = () => {
         this.mounted = false
     }
@@ -91,10 +82,9 @@ class Posts extends Component{
         this.props.navigate(route, {id: post_id, refresh: this._onRefresh})
     }
     
-    _onRefresh = async() => {
-        this.state.numPostsLoaded = 10
+    _onRefresh = async() => { 
         this.setState((state) => ({refresh: true})) // indicate we are refreshing
-        let posts = await DatabaseService.getNPosts(this.state.numPostsLoaded) // refresh data
+        let posts = await DatabaseService.getPosts() // refresh data
         this.setState((state) => ({ // refresh state -- use function
             posts: posts,
             refresh: false
@@ -140,8 +130,6 @@ class Posts extends Component{
                             tintColor = 'skyblue'
                         />
                     }
-                    onEndReached = {this.fetchMorePosts}
-                    onEndReachedThreshold = {0.5}
                     ListEmptyComponent = {<Blank/>}
                     contentContainerStyle = {(posts == undefined || !posts.length) ? { flex: 1, alignItems: 'center' } : {}}
                 />
