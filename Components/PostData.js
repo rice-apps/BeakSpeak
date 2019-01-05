@@ -103,7 +103,6 @@ export default class PostData extends Component{
 
     // pass helper methods to Post component
     render = () => {
-        console.log('load')
         let title = this.props.post.title
         let body = this.props.post.body
 
