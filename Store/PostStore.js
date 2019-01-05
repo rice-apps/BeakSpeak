@@ -14,7 +14,12 @@ class PostStore {
 
     @action async fetchPosts() {
         let proto_posts = await DatabaseService.getPosts()
-        this.posts = proto_posts.map(p => PostModel.make(p))
+        try {
+            this.posts = proto_posts.map(p => PostModel.make(p))
+        }
+        catch(err) {
+            this.posts = []
+        }
     }
 
     @action async fetchPost(id) {
