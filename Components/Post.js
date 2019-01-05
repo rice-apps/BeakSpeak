@@ -3,9 +3,9 @@ import {Card, CardItem, Title, Button, Text, Icon} from 'native-base'
 import {StyleSheet, View} from 'react-native'
 
 // body with post content and potentially votes
-class PostBody extends Component{
+class PostBody extends PureComponent{
 
-    render = () => {
+    render() {
         return(
             <CardItem>
                     <Text>
@@ -16,16 +16,16 @@ class PostBody extends Component{
     }
 }
 
-class PostVotes extends Component {
+class PostVotes extends PureComponent {
     upvoteScore = () => {
-        this.props.upvoteScore() 
+        this.props.upvoteScore()
     }
 
     downvoteScore = () => {
         this.props.downvoteScore() 
     }
 
-    render = () => {
+    render() {
         let vote = this.props.vote
         let upvoteIconColor =  vote == 1 ? "orange" : "black"
         let downvoteIconColor = vote == -1 ?  "blue" : "black"
@@ -61,9 +61,9 @@ class PostVotes extends Component {
 }
 
 // header with title and potentially avatar and time info
-class PostHeader extends Component{
+class PostHeader extends PureComponent{
 
-    render = () => {
+    render() {
         return(
             <CardItem>
                 <Text style ={styles.titlefont}>
@@ -74,13 +74,13 @@ class PostHeader extends Component{
     }
 }
 
-class PostFooter extends Component{
+class PostFooter extends PureComponent{
 
     pressReact = (react) => {
         this.props.updateReact(react)
     }
 
-    render = () => {
+    render() {
         let userReact = this.props.userReact
         let reactCounts = this.props.reactCounts
 
@@ -111,19 +111,8 @@ class PostFooter extends Component{
     }
 }
 // main component -- pure component for rendering optimization (view only)
-export default class Post extends PureComponent{
-
-    render = () => {
-        let title = this.props.title
-        let body = this.props.body
-        let userReact = this.props.userReact
-        let reactCounts = this.props.reactCounts
-        let updateReact = this.props.updateReact
-    
-        let score = this.props.score
-        let upvoteScore = this.props.upvoteScore
-        let downvoteScore = this.props.downvoteScore
-        let vote = this.props.vote
+export default class Post extends Component{
+    render() {     
 
         return(
             <View>
@@ -131,26 +120,26 @@ export default class Post extends PureComponent{
 
                     {/* post component decomposed into children components */}
                     <View style={[{ flex: 7, justifyContent: 'center' }]}>
-                        <PostHeader title={title} />
+                        <PostHeader title={this.props.title} />
                     </View>
 
                     {/* voting component */}
                     <View style = {{ flex: 1}}>
                         <PostVotes
-                            vote = {vote}
-                            score={score}
-                            upvoteScore={upvoteScore}
-                            downvoteScore={downvoteScore}
+                            vote = {this.props.userVote}
+                            score={this.props.score}
+                           // upvoteScore={upvoteScore}
+                           // downvoteScore={downvoteScore}
                         />
                     </View>
                 </View>
 
                 {/* body of post */}
-                <PostBody body={body} />
+                <PostBody body={this.props.body} />
                 <PostFooter
-                    userReact = {userReact}
-                    reactCounts = {reactCounts}
-                    updateReact = {updateReact}
+                    userReact = {this.props.userReact}
+                    reactCounts = {this.props.reactCounts}
+                    updateReact = {this.props.updateReact}
                 />
     
             </View>

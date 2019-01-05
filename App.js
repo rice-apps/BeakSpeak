@@ -1,7 +1,12 @@
 import React, {Component} from 'react'
+import {YellowBox} from 'react-native'
 import {Font, AppLoading} from 'expo'
+import {Provider} from 'mobx-react'
 
-import AuthNav from './Navigators/AuthNav.js' 
+import AuthNav from './Navigators/AuthNav.js'
+import postStore from './Store/PostStore' 
+
+YellowBox.ignoreWarnings(["Require cycle:"])
 
 export default class App extends Component{
     constructor(props){
@@ -23,14 +28,17 @@ export default class App extends Component{
             'FontAwesome' : require('native-base/Fonts/FontAwesome.ttf')
         })
         
-        this.setState({assetsLoaded: true})
+       this.setState({assetsLoaded: true})
     }
 
     render = () => {
+
         // wait for assets to load
         if(this.state.assetsLoaded) {
             return(
-                <AuthNav/>                
+                <Provider store = {postStore}>
+                    <AuthNav/>                                    
+                </Provider>
             )
         }
         else {

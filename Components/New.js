@@ -6,8 +6,10 @@ import {
 } from 'react-native'
 import {Button, Text} from 'native-base'
 import t from 'tcomb-form-native'
+import {inject, observer} from 'mobx-react'
 
 import DatabaseService from '../Services/DatabaseService'
+import postStore from '../Store/PostStore';
 
 // form component
 const Form = t.form.Form
@@ -60,6 +62,7 @@ const PostOptions = {
 }
 
 // container component for new post form
+@inject('store')
 export class NewPost extends Component{
 
     // validate submission, send submission, close parent modal
@@ -70,8 +73,8 @@ export class NewPost extends Component{
 
         // check if submission is valid -- there must be a title!
         if(errors.length === 0){
-            let newPost = results.value
-            DatabaseService.sendNewPost(newPost) // send post to database -- no need to await
+            let {title, body} = results.value
+            this.props.store.addPost(title, body) // store new post in state
             
             this.form.setState({value: null}) // clear form
             
@@ -80,7 +83,7 @@ export class NewPost extends Component{
 
     }
     
-    render = () => {
+    render() {
         return(
             <View style = {styles.content}>
                 {/* new post creation form */}
