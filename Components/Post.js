@@ -151,7 +151,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 0.5,
         flexDirection: 'row',
-        justifyContent: 'space-evenly'
+        justifyContent: 'space-evenly',
+        paddingBottom: 5
     },
     button: {
         backgroundColor: "powderblue",

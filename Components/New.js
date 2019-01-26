@@ -31,6 +31,7 @@ const PostOptions = {
             multiline: true,
             numberOfLines: 5,
             blurOnSubmit: true,
+            maxLength: 100,
             stylesheet: {
                 ...Form.stylesheet,
                 textbox: {
@@ -39,7 +40,7 @@ const PostOptions = {
                         ...Form.stylesheet.textbox.normal,
                         height: 150,
                         width: screenWidth * 0.8,
-                        textAlignVertical: 'top'
+                        textAlignVertical: 'top',
                     }
                 }
             }
