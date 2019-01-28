@@ -5,8 +5,8 @@ import Post from '../Components/Post'
 import DatabaseService from '../Services/DatabaseService'
 
 // main component - increments post vote counts up and down, returns total vote count
-@observer
-export default class PostData extends Component{
+
+const PostData = observer(class PostData extends Component{
 
     // initialize with default values
     constructor(props){
@@ -85,4 +85,6 @@ export default class PostData extends Component{
             />     
         )
     }
-}
+})
+
+export default PostData

@@ -49,8 +49,8 @@ class Comments extends Component{
 
 
 // List of posts
-@inject('store')
-@observer
+const Posts = inject('store')(
+observer(
 class Posts extends Component{
 
     constructor(props){
@@ -82,7 +82,6 @@ class Posts extends Component{
 
     _renderItem = (item) => {
         let post = item.item
-
         return(
             <TouchableWithoutFeedback onPress = {()=> this.postNavigate('PostDetail', post)}>
                 <Card>
@@ -97,6 +96,8 @@ class Posts extends Component{
     render () {
         let loaded = this.state.loaded
         let posts = this.props.store.posts
+        console.log(this.props.store)
+
         
         if(!loaded) { // wait for posts to load
             return(
@@ -127,7 +128,7 @@ class Posts extends Component{
         }
         
     }
-}
+}))
 
 // footer with new post button and new post creation modal
 class MainFooter extends Component{

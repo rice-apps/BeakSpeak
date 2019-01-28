@@ -62,15 +62,14 @@ const PostOptions = {
 }
 
 // container component for new post form
-@inject('store')
-export class NewPost extends Component{
+const NewPost = inject('store')(
+class NewPost extends Component{
 
     // validate submission, send submission, close parent modal
     submitPost = async() => {
 
         let results = this.form.validate()
         let errors = results.errors
-
         // check if submission is valid -- there must be a title!
         if(errors.length === 0){
             let {title, body} = results.value
@@ -107,9 +106,8 @@ export class NewPost extends Component{
             </View>
         )
     }
-}
-
-
+})
+export {NewPost}
 const styles = StyleSheet.create(
     {
         content: {
