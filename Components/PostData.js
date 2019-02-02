@@ -78,7 +78,7 @@ export default class PostData extends Component{
                 score = {this.props.post.score}
                 userReact = {this.props.post.userReact}
                 reactCounts = {this.props.post.reactCounts}
-                
+                body={this.props.post.body}
                 updateReact = {this.updateReact}
                 upvoteScore = {this.upvoteScore}
                 downvoteScore = {this.downvoteScore}

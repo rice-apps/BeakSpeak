@@ -16,6 +16,7 @@ class PostStore {
         let proto_posts = await DatabaseService.getPosts()
         try {
             this.posts = proto_posts.map(p => PostModel.make(p))
+            console.log(this.posts)
         }
         catch(err) {
             this.posts = []
@@ -31,6 +32,20 @@ class PostStore {
             }
         })
     }
+
+    getPost(id) {
+        let temp = None
+        this.posts.forEach((val, index) => {
+            if (val._id == id) {
+                console.log("inside getPost")
+                console.log(val)
+                temp = val
+            }
+        })
+        return temp
+    }
+
+
 }
 
 

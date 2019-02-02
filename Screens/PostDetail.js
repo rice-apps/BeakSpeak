@@ -15,7 +15,9 @@ import Blank from '../Components/Blank'
 import PostData from '../Components/PostData'
 import Comment from '../Components/Comment'
 import { inject, observer } from 'mobx-react';
+import postStore from "../Store/PostStore";
 
+@observer
 class PostDetailFooter extends Component{
 
     constructor(props){
@@ -64,6 +66,7 @@ class PostDetailFooter extends Component{
     }
 }
 
+@observer
 // Comments container of custom comment components
 class Comments extends Component{
 
@@ -90,6 +93,8 @@ class Comments extends Component{
     }
 }
 
+@inject('store')
+@observer
 export default class PostDetailScreen extends Component{
     
     // initialize with default values -- DO NOT fetch data here
@@ -101,6 +106,16 @@ export default class PostDetailScreen extends Component{
             refresh: false
         }
     }
+
+    componentDidMount = async() => {
+        // this.interval = setInterval(function(){postStore.getPost(this.props.navigation.getParam("post"))}, 10000)
+        // this.interval = setInterval(() => postStore.fetchPosts(), 1000);
+    }
+
+    componentWillUnmount = () => {
+        // clearInterval(this.interval);
+    }
+
 
     _onRefresh = async() => { 
         this.setState((state) => ({refresh: true})) // indicate we are refreshing
@@ -130,9 +145,12 @@ export default class PostDetailScreen extends Component{
 
     // render a post with comments -- use posts component from main as an example for structure
     render = () => {
-        post = this.props.navigation.getParam('post')
+        // post = this.props.navigation.getParam('post')
+        console.log(this.props.navigation.getParam("post"))
+        let post = postStore.getPost(this.props.navigation.getParam("post"))
+        console.log(post);
 
-         // display posts in a list component
+        // display posts in a list component
         let refresh = this.state.refresh
 
         return (
