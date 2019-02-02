@@ -1,9 +1,9 @@
 {
-  "expoServerPort": 19000,
-  "packagerPort": 19004,
-  "packagerPid": 17029,
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
   "devToolsPort": 19003,
-  "expoServerNgrokUrl": "https://cz-n9r.anonymous.beakspeak.exp.direct",
-  "packagerNgrokUrl": "https://packager.cz-n9r.anonymous.beakspeak.exp.direct",
-  "ngrokPid": 17044
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }
