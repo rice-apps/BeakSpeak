@@ -147,7 +147,7 @@ export default class PostDetailScreen extends Component{
     render = () => {
         // post = this.props.navigation.getParam('post')
         console.log(this.props.navigation.getParam("post"))
-        let post = postStore.getPost(this.props.navigation.getParam("post"))
+        let post = this.props.store.getPost(this.props.navigation.getParam("post"))
         console.log(post);
 
         // display posts in a list component

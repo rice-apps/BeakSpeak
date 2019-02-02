@@ -34,15 +34,7 @@ class PostStore {
     }
 
     getPost(id) {
-        let temp = None
-        this.posts.forEach((val, index) => {
-            if (val._id == id) {
-                console.log("inside getPost")
-                console.log(val)
-                temp = val
-            }
-        })
-        return temp
+        return this.posts.find(val => val._id == id)
     }
 
 
