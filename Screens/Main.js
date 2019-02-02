@@ -62,7 +62,8 @@ class Posts extends Component{
     }
 
     componentDidMount = async() => {
-        this.props.store.fetchPosts()
+        this.state.numPostsLoaded = 10
+        this.props.store.fetchNPosts(this.state.numPostsLoaded)
             .then((posts) => this.setState({
                 loaded: true,
                 refresh: false
@@ -75,10 +76,36 @@ class Posts extends Component{
     
     _onRefresh = async() => { 
         this.setState((state) => ({refresh: true})) // indicate we are refreshing
-        this.props.store.fetchPosts()
-            .then((posts) => this.setState((state) => ({refresh: false}))) // refresh data
+        this.state.numPostsLoaded = 10
+        this.props.store.fetchNPosts(this.state.numPostsLoaded)
+            .then((posts) => this.setState({
+                loaded: true,
+                refresh: false
+            })) // retrieve posts from store
     }
 
+    fetchMorePosts = async() => {
+        // console.log(Date.now())
+        // if (Date.now() - this.state.lastFetchTime > 100) {
+        let curtime = Date.now()
+        let i = 0
+        while (Date.now() - curtime < 1000) {
+            i = i + 1
+        }
+        if (this.state.numPostsLoaded < this.props.store.posts.length + 15) {
+            this.state.lastFetchTime = Date.now()
+            console.log("more!")
+            this.state.numPostsLoaded += 10
+            this.props.store.fetchNPosts(this.state.numPostsLoaded)
+                .then((posts) => this.setState({
+                    loaded: true,
+                    refresh: false
+                }))
+
+
+            // }
+        }
+    }
 
     _renderItem = (item) => {
         let post = item.item
@@ -119,6 +146,8 @@ class Posts extends Component{
                                 tintColor = 'skyblue'
                             />
                         }
+                        onEndReached = {this.fetchMorePosts}
+                        onEndReachedThreshold = {0.5}
                         ListEmptyComponent = {<Blank/>}
                         contentContainerStyle = {(posts == undefined || !posts.length) ? { flex: 1, alignItems: 'center' } : {}}
                     />
