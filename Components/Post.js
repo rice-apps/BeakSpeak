@@ -112,7 +112,8 @@ class PostFooter extends PureComponent{
 }
 // main component -- pure component for rendering optimization (view only)
 export default class Post extends Component{
-    render() {     
+    render() {
+        console.log("HELLO")
 
         return(
             <View>

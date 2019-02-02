@@ -62,7 +62,7 @@ class Posts extends Component{
     }
 
     componentDidMount = async() => {
-        this.state.numPostsLoaded = 10
+        this.state.numPostsLoaded = 4
         this.props.store.fetchNPosts(this.state.numPostsLoaded)
             .then((posts) => this.setState({
                 loaded: true,
@@ -76,10 +76,9 @@ class Posts extends Component{
     
     _onRefresh = async() => { 
         this.setState((state) => ({refresh: true})) // indicate we are refreshing
-        this.state.numPostsLoaded = 10
+        this.state.numPostsLoaded = 4
         this.props.store.fetchNPosts(this.state.numPostsLoaded)
             .then((posts) => this.setState({
-                loaded: true,
                 refresh: false
             })) // retrieve posts from store
     }
@@ -98,7 +97,6 @@ class Posts extends Component{
             this.state.numPostsLoaded += 10
             this.props.store.fetchNPosts(this.state.numPostsLoaded)
                 .then((posts) => this.setState({
-                    loaded: true,
                     refresh: false
                 }))
 
