@@ -31,14 +31,14 @@ const PostOptions = {
             multiline: true,
             numberOfLines: 5,
             blurOnSubmit: true,
-            maxLength: 100,
+            maxLength: 1000,
             stylesheet: {
                 ...Form.stylesheet,
                 textbox: {
                     ...Form.stylesheet.textbox,
                     normal: {
                         ...Form.stylesheet.textbox.normal,
-                        height: 150,
+                        height: 100,
                         width: screenWidth * 0.8,
                         textAlignVertical: 'top',
                     }
@@ -47,6 +47,7 @@ const PostOptions = {
         },
         title:{
             placeholder: 'Your clever title here...',
+            maxLength: 150,
             stylesheet: {
                 ...Form.stylesheet,
                 textbox: {
@@ -76,7 +77,7 @@ export class NewPost extends Component{
         if(errors.length === 0){
             let {title, body} = results.value
             this.props.store.addPost(title, body) // store new post in state
-            
+
             this.form.setState({value: null}) // clear form
             
             this.props.closeView() // disable parent modal by changing its state

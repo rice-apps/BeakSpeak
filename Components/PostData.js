@@ -74,6 +74,7 @@ export default class PostData extends Component{
         return(
             <Post
                 title = {this.props.post.title}
+                body = {this.props.post.body}
                 vote = {this.props.post.userVote}
                 score = {this.props.post.score}
                 userReact = {this.props.post.userReact}
