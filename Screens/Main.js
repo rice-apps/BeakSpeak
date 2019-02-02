@@ -69,8 +69,8 @@ class Posts extends Component{
             })) // retrieve posts from store
     }
 
-    postNavigate = (route, post) => {
-        this.props.navigate(route, {post: post})
+    postNavigate = (route, post_id) => {
+        this.props.navigate(route, {id: post_id})
     }
     
     _onRefresh = async() => { 
@@ -84,7 +84,7 @@ class Posts extends Component{
         let post = item.item
 
         return(
-            <TouchableWithoutFeedback onPress = {()=> this.postNavigate('PostDetail', post)}>
+            <TouchableWithoutFeedback onPress = {()=> this.postNavigate('PostDetail', post._id)}>
                 <Card>
                     <PostData 
                         post = {post}

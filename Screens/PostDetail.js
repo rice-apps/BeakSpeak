@@ -90,7 +90,9 @@ class Comments extends Component{
     }
 }
 
-export default class PostDetailScreen extends Component{
+@inject('store')
+@observer
+class PostDetailScreen extends Component{
     
     // initialize with default values -- DO NOT fetch data here
     constructor(props){
@@ -129,8 +131,9 @@ export default class PostDetailScreen extends Component{
     }
 
     // render a post with comments -- use posts component from main as an example for structure
-    render = () => {
-        post = this.props.navigation.getParam('post')
+    render (){
+        id = this.props.navigation.getParam('id')
+        post = this.props.store.getPost(id)
 
          // display posts in a list component
         let refresh = this.state.refresh
@@ -165,7 +168,7 @@ export default class PostDetailScreen extends Component{
     }
 }
 
-
+export default PostDetail = PostDetailScreen
 
 const styles = StyleSheet.create({
     newPostButton: {
