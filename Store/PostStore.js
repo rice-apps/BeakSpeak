@@ -18,6 +18,7 @@ class PostStore {
             this.posts = proto_posts.map(p => PostModel.make(p))
         }
         catch(err) {
+            console.log(err)
             this.posts = []
         }
     }

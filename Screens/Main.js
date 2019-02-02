@@ -96,7 +96,6 @@ class Posts extends Component{
     render () {
         let loaded = this.state.loaded
         let posts = this.props.store.posts
-        console.log(this.props.store)
 
         
         if(!loaded) { // wait for posts to load
