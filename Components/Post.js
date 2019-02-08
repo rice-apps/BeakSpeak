@@ -22,14 +22,13 @@ class PostVotes extends PureComponent {
     }
 
     downvoteScore = () => {
-        this.props.downvoteScore() 
+        this.props.downvoteScore()
     }
 
     render() {
         let vote = this.props.vote
         let upvoteIconColor =  vote == 1 ? "orange" : "black"
         let downvoteIconColor = vote == -1 ?  "blue" : "black"
-
         return(
             <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
                 
@@ -112,8 +111,7 @@ class PostFooter extends PureComponent{
 }
 // main component -- pure component for rendering optimization (view only)
 export default class Post extends Component{
-    render() {     
-
+    render() {
         return(
             <View>
                 <View style={{ flex: 1, flexDirection: 'row' }}>
@@ -126,10 +124,10 @@ export default class Post extends Component{
                     {/* voting component */}
                     <View style = {{ flex: 1}}>
                         <PostVotes
-                            vote = {this.props.userVote}
+                            vote = {this.props.vote}
                             score={this.props.score}
-                           // upvoteScore={upvoteScore}
-                           // downvoteScore={downvoteScore}
+                            upvoteScore={this.props.upvoteScore}
+                            downvoteScore={this.props.downvoteScore}
                         />
                     </View>
                 </View>

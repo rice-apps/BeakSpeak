@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 
 import Post from '../Components/Post'
-import DatabaseService from '../Services/DatabaseService'
 
 // main component - increments post vote counts up and down, returns total vote count
 @observer
@@ -23,50 +22,52 @@ export default class PostData extends Component{
         this.props.post.updateReact(old_react, new_react)
     }
 
-    _undoVote = async() => {
-        this.setState((state) => ({
-            score : state.score - state.votedFor,
-        }))
-    }
+    // _undoVote = async() => {
+    //     this.setState((state) => ({
+    //         score : state.score - state.votedFor,
+    //     }))
+    // }
 
     // increment vote count up by 1
-    upvoteScore = async() => { // CHANGE THIS TO USE STORE METHOD
-
-        post = this.props.post
-
-        vote = 0
-        if (this.state.votedFor != 0){
-            this._undoVote()
+    upvoteScore = () => { // CHANGE THIS TO USE STORE METHOD
+        old_vote = this.props.post.userVote
+        score = this.props.post.score
+        if (old_vote == 1) {
+            new_vote = 0
+            score -= 1
         }
-        if (this.state.votedFor != 1){
-            this.setState((state) => ({
-                score : state.score + 1,
-            }))
-            vote = 1    
+        if (old_vote == 0) {
+            new_vote = 1
+            score += 1
         }
-        this.setState((state) => ({
-            votedFor : vote
-        }), () => DatabaseService.updateVotes(post._id, this.state.votedFor))
+        if (old_vote == -1) {
+            new_vote = 1
+            score += 2
+        }
+        this.props.post.updateVote(new_vote, this.props.post._id)
+        this.props.post.score = score
+
     }
 
-    // increment vote count down by 1 
+    // increment vote count down by 1
     downvoteScore = async() => { // CHANGE THIS TO USE STORE METHOD
+        old_vote = this.props.post.userVote
+        score = this.props.post.score
 
-        post = this.props.post
-
-        vote = 0
-        if (this.state.votedFor != 0){
-            this._undoVote()
+        if (old_vote == 1) {
+            new_vote = -1
+            score -= 2
         }
-        if (this.state.votedFor != -1){
-            this.setState((state) => ({
-                score : state.score - 1,
-            }))
-            vote = -1    
+        if (old_vote == 0) {
+            new_vote = -1
+            score -= 1
         }
-        this.setState((state) => ({
-            votedFor : vote
-        }), () => DatabaseService.updateVotes(post._id, this.state.votedFor))
+        if (old_vote == -1) {
+            new_vote = 0
+            score += 1
+        }
+        this.props.post.updateVote(new_vote, this.props.post._id)
+        this.props.post.score = score
     }
 
     // pass helper methods to Post component

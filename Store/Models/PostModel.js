@@ -44,6 +44,11 @@ export default class PostModel {
         DatabaseService.updateReact(this._id, new_react)
     }
 
+    @action updateVote(new_vote, postid) {
+        this.userVote = new_vote
+        DatabaseService.updateVotes(postid, new_vote)
+    }
+
     @action async update() {
         let proto_post = await DatabaseService.getPost(this._id)
         let post = PostModel.make(proto_post)
