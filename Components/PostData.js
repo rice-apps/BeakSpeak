@@ -22,11 +22,11 @@ export default class PostData extends Component{
         this.props.post.updateReact(old_react, new_react)
     }
 
-    // _undoVote = async() => {
-    //     this.setState((state) => ({
-    //         score : state.score - state.votedFor,
-    //     }))
-    // }
+    _undoVote = async() => {
+        this.setState((state) => ({
+            score : state.score - state.votedFor,
+        }))
+    }
 
     // increment vote count up by 1
     upvoteScore = () => { // CHANGE THIS TO USE STORE METHOD
