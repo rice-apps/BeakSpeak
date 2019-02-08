@@ -4,7 +4,7 @@ import {Card, CardItem} from 'native-base'
 
 // body with comment content
 export class CommentBody extends Component{
-    render = () => {
+    render () {
         return(
             <CardItem>
                 <Text>
@@ -18,7 +18,7 @@ export class CommentBody extends Component{
 // main component
 export default class Comment extends PureComponent{
     
-    render = () => {
+    render () {
         let body = this.props.body
 
         return(

@@ -60,7 +60,7 @@ submitLogin = () => {
 // TODO: implement modal that takes login credentials and uses authservice
 export default class Login extends Component{
 
-    render = () => {
+    render () {
         return(
             <View style = {styles.content}>
             

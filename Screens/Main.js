@@ -26,7 +26,7 @@ import PostData from '../Components/PostData'
 // Comments container of custom comment components
 class Comments extends Component{
 
-    render = () => {
+    render () {
         let comments = this.props.comments
         return(
             <FlatList
@@ -61,7 +61,7 @@ class Posts extends Component{
         }
     }
 
-    componentDidMount = async() => {
+    async componentDidMount() {
         this.props.store.fetchPosts()
             .then((posts) => this.setState({
                 loaded: true,
@@ -148,7 +148,7 @@ class MainFooter extends Component{
         this.setState({modalVisible: false})
     }
 
-    render = () => {
+    render () {
         let isVisible = this.state.modalVisible
         return(
             <View>
@@ -210,7 +210,7 @@ class MainFooter extends Component{
 // main component
 export default class MainScreen extends Component{
     
-    render = () => {
+    render () {
         return(
             <Container style = {{backgroundColor: 'powderblue'}}>
                 <View style = {{flex: 1}}>

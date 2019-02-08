@@ -33,7 +33,7 @@ class PostDetailFooter extends Component{
         }
     }
 
-    render = () => {
+    render () {
 
         return(
             <KeyboardAvoidingView
@@ -68,7 +68,7 @@ class PostDetailFooter extends Component{
 class Comments extends Component{
 
 
-    render = () => {
+    render () {
         let comments = this.props.comments
 
         return(
