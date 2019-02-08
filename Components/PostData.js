@@ -29,7 +29,7 @@ export default class PostData extends Component{
     }
 
     // increment vote count up by 1
-    upvoteScore = () => { // CHANGE THIS TO USE STORE METHOD
+    upvoteScore = () => { 
         old_vote = this.props.post.userVote
         score = this.props.post.score
         if (old_vote == 1) {
@@ -50,7 +50,7 @@ export default class PostData extends Component{
     }
 
     // increment vote count down by 1
-    downvoteScore = async() => { // CHANGE THIS TO USE STORE METHOD
+    downvoteScore = async() => {
         old_vote = this.props.post.userVote
         score = this.props.post.score
 
