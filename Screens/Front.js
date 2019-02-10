@@ -6,10 +6,10 @@ import {
     Text,
     Image,
     Dimensions,
-    AsyncStorage
 } from 'react-native';
 const logo = require('../Assets/Images/logo.png');
 import {WebBrowser} from 'expo'
+import * as Keychain from 'react-native-keychain';
 
 // main component for front page with logo and front button
 export class FrontBody extends Component {
@@ -50,11 +50,7 @@ export default class FrontScreen extends Component {
     constructor(props){
         super(props);
 
-        this.state = {
-            result: null
-        };
-
-        // this.getLoginInfo()
+        this.getLoginInfo()
     }
 
     navigate = (screen) => {
@@ -73,24 +69,23 @@ export default class FrontScreen extends Component {
             let params = await Expo.Linking.parse(result.url).queryParams;
             let token = params.token;
             if (token) {
-                this.props.navigation.navigate('Main')
+                this.props.navigation.navigate('Main');
+                await Keychain.setGenericPassword('token', token);
             }
         }
     };
 
     getLoginInfo = async () => {
-        AsyncStorage.clear();
-        const userToken = await AsyncStorage.getItem('userToken');
-
-        if(userToken == null){
-            this.setState({
-                modalVisible: true
-            })
+        let token = await Keychain.getGenericPassword();
+        if (token) {
+            console.log(token);
+            this.props.navigation.navigate('Main')
         }
         else {
-            this.navigate('Main')
+            console.log(token);
         }
-};
+    };
+
     render = () => {
         const {height: screenHeight} = Dimensions.get('window');
         return (
@@ -101,7 +96,7 @@ export default class FrontScreen extends Component {
             </View>
         );
     }
-}
+};
 
 
 
