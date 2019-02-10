@@ -1,18 +1,15 @@
 import React, {Component} from 'react';
 import {
+    Button,
     StyleSheet, 
     View,
+    Text,
     Image,
     Dimensions,
     AsyncStorage
 } from 'react-native';
-import {Button, Text, Icon} from 'native-base'
-import Modal from 'react-native-modal'
-
-import AuthService from '../Services/AuthService'
-import Login from './Login'
-
-const logo = require('../Assets/Images/logo.png')
+const logo = require('../Assets/Images/logo.png');
+import {WebBrowser} from 'expo'
 
 // main component for front page with logo and front button
 export class FrontBody extends Component {
@@ -38,7 +35,8 @@ export class FrontBody extends Component {
                     {/* fancy app title */}
                     <Text style={[{fontFamily: 'caviar-dreams', fontSize: 30, color: 'white'}]}>
                         BeakSpeak
-                    </Text>                    
+                    </Text>
+                    {this.props.children}
                 </View>
             </View>
 
@@ -49,78 +47,63 @@ export class FrontBody extends Component {
 // main component 
 export default class FrontScreen extends Component {
 
-    renderModal = () => {
-        this.setState({modalVisible: true})
-    }
-
-    hideModal = () => {
-        this.setState({modalVisible: false})
-    }
-
     constructor(props){
-        super(props)
+        super(props);
 
         this.state = {
-            modalVisible: false
-        }
+            result: null
+        };
 
-        this.getLoginInfo()
-    }
-
-    async componentDidMount(){
-        AuthService.login() // testing login requests
+        // this.getLoginInfo()
     }
 
     navigate = (screen) => {
         this.props.navigation.navigate(screen)
-    }
+    };
+
+    handleLogin = async () => {
+        let returnUrl = Expo.Linking.makeUrl();
+        let redirectUrl = 'http://localhost:3000/api/auth/app';
+
+        let result = await WebBrowser.openAuthSessionAsync(
+            'https://idp.rice.edu/idp/profile/cas/login?' +
+            `&service=${redirectUrl}`, returnUrl);
+
+        if (result.type === 'success') {
+            let params = await Expo.Linking.parse(result.url).queryParams;
+            let token = params.token;
+            if (token) {
+                this.props.navigation.navigate('Main')
+            }
+        }
+    };
 
     getLoginInfo = async () => {
-        // const userToken = await AsyncStorage.getItem('userToken')
-        // this.setState({
-        //     modalVisible: true
-        // })
+        AsyncStorage.clear();
+        const userToken = await AsyncStorage.getItem('userToken');
 
-        
-        this.navigate('Main')
-    }
-    
+        if(userToken == null){
+            this.setState({
+                modalVisible: true
+            })
+        }
+        else {
+            this.navigate('Main')
+        }
+};
     render = () => {
         const {height: screenHeight} = Dimensions.get('window');
-        let isVisible = this.state.modalVisible
-        
         return (
-                <View style={[styles.screenTheme, {height: screenHeight}]}>
-                    
-                    {/* login modal */}
-                    <Modal
-                        isVisible = {isVisible}
-                        animationIn = {'slideInUp'}
-                        animationOut = {'zoomOut'}
-                        animationInTiming = {500}
-                        animationOutTiming = {500}
-                        avoidKeyboard
-                    >
-                        <View style={{
-                                        borderRadius: 10, 
-                                        padding: 10, 
-                                        backgroundColor: 'white'
-                                    }}>
-                            <View style={{
-                                            flexDirection: 'row', 
-                                            justifyContent: 'flex-end'
-                                        }}>
-                            </View>
-
-                            {/* new post creation form*/}
-                            <Login closeView = {this.hideModal}/>
-                        </View>
-                    </Modal>
-                    <FrontBody/>
-                </View>
+            <View style={[styles.screenTheme, {height: screenHeight}]}>
+                <FrontBody>
+                    <Button title="Login with NetID" onPress={this.handleLogin} />
+                </FrontBody>
+            </View>
         );
     }
 }
+
+
 
 const styles = StyleSheet.create({
     image: {
@@ -145,4 +128,4 @@ const styles = StyleSheet.create({
         alignItems:'center',
         flexDirection:'row'
     }
-})
+});
