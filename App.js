@@ -33,7 +33,7 @@ export default class App extends Component{
         // begin tracking when the user logs in (not yet implemented)
 
         // refresh app every 60 seconds
-        setInterval(function(){postStore.fetchPosts()}, 10*1000)
+        setInterval(function(){postStore.fetchPosts()}, 60*1000)
     }
 
     render = () => {
