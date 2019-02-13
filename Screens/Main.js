@@ -62,7 +62,7 @@ class Posts extends Component{
     }
 
     componentDidMount = async() => {
-        this.state.numPostsLoaded = 4
+        this.state.numPostsLoaded = 2
         this.props.store.fetchNPosts(this.state.numPostsLoaded)
             .then((posts) => this.setState({
                 loaded: true,
@@ -74,34 +74,30 @@ class Posts extends Component{
         this.props.navigate(route, {post: post})
     }
     
-    _onRefresh = async() => { 
+    _onRefresh = async() => {
         this.setState((state) => ({refresh: true})) // indicate we are refreshing
-        this.state.numPostsLoaded = 4
+        this.state.numPostsLoaded = 2
         this.props.store.fetchNPosts(this.state.numPostsLoaded)
             .then((posts) => this.setState({
                 refresh: false
             })) // retrieve posts from store
+
     }
 
     fetchMorePosts = async() => {
-        // console.log(Date.now())
-        // if (Date.now() - this.state.lastFetchTime > 100) {
         let curtime = Date.now()
         let i = 0
-        while (Date.now() - curtime < 1000) {
+        while (Date.now() - curtime < 200) {
             i = i + 1
         }
         if (this.state.numPostsLoaded < this.props.store.posts.length + 15) {
             this.state.lastFetchTime = Date.now()
             console.log("more!")
-            this.state.numPostsLoaded += 10
+            this.state.numPostsLoaded += 2
             this.props.store.fetchNPosts(this.state.numPostsLoaded)
                 .then((posts) => this.setState({
                     refresh: false
                 }))
-
-
-            // }
         }
     }
 
