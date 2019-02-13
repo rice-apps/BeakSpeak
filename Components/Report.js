@@ -15,7 +15,7 @@ import postStore from '../Store/PostStore';
 const Form = t.form.Form
 
 // template for new post form
-const PostSchema = t.struct({
+const ReportSchema = t.struct({
     title: t.String,
     body: t.maybe(t.String)
 })
@@ -24,10 +24,10 @@ const PostSchema = t.struct({
 let {width: screenWidth} = Dimensions.get('window')
 
 // customizing new post form
-const PostOptions = {
+const ReportOptions = {
     fields: {
         body: {
-            placeholder: 'Your thoughts here...',
+            placeholder: "Tell us more. What's wrong with this post?",
             multiline: true,
             numberOfLines: 5,
             blurOnSubmit: true,
@@ -45,7 +45,7 @@ const PostOptions = {
             }
         },
         title:{
-            placeholder: 'Your clever title here...',
+            placeholder: "Type of violation...(e.g. hate speech, verbal abuse, etc.)",
             stylesheet: {
                 ...Form.stylesheet,
                 textbox: {
@@ -62,11 +62,11 @@ const PostOptions = {
 }
 
 // container component for new post form
-const NewPost = inject('store')(
-class NewPost extends Component{
+const NewReport = inject('store')(
+class NewReport extends Component{
 
     // validate submission, send submission, close parent modal
-    submitPost = async() => {
+    submitReport = async() => {
 
         let results = this.form.validate()
         let errors = results.errors
@@ -74,6 +74,7 @@ class NewPost extends Component{
         if(errors.length === 0){
             let {title, body} = results.value
             this.props.store.addPost(title, body) // store new post in state
+            console.log(title, body)x
             this.form.setState({value: null}) // clear form
             
             this.props.closeView() // disable parent modal by changing its state
@@ -86,8 +87,8 @@ class NewPost extends Component{
             <View style = {styles.content}>
                 {/* new post creation form */}
                 <Form 
-                 type = {PostSchema}
-                 options = {PostOptions}
+                 type = {ReportSchema}
+                 options = {ReportOptions}
                  ref={c => this.form = c}
                 />
                 <View>
@@ -95,10 +96,10 @@ class NewPost extends Component{
                      bordered 
                      info 
                      rounded 
-                     onPress = {()=> this.submitPost()}
+                     onPress = {()=> this.submitReport()}
                     >
                         <Text> 
-                            Create New Post! 
+                            Report this post! 
                         </Text>
                     </Button>
                 </View>
@@ -106,7 +107,7 @@ class NewPost extends Component{
         )
     }
 })
-export {NewPost}
+export {NewReport}
 const styles = StyleSheet.create(
     {
         content: {
