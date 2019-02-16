@@ -6,10 +6,10 @@ import {
     Text,
     Image,
     Dimensions,
+    TouchableHighlight,
 } from 'react-native';
 const logo = require('../Assets/Images/logo.png');
-import {WebBrowser} from 'expo'
-import * as Keychain from 'react-native-keychain';
+import { WebBrowser, SecureStore } from 'expo'
 
 // main component for front page with logo and front button
 export class FrontBody extends Component {
@@ -49,7 +49,9 @@ export default class FrontScreen extends Component {
 
     constructor(props){
         super(props);
-
+        this.state = {
+            loginError: ''
+        };
         this.getLoginInfo()
     }
 
@@ -66,24 +68,30 @@ export default class FrontScreen extends Component {
             `&service=${redirectUrl}`, returnUrl);
 
         if (result.type === 'success') {
+            console.log("successfully logged in");
             let params = await Expo.Linking.parse(result.url).queryParams;
             let token = params.token;
             if (token) {
                 this.props.navigation.navigate('Main');
-                await Keychain.setGenericPassword('token', token);
+                SecureStore.setItemAsync('token', token)
             }
+        }
+
+        else {
+            this.setState((state) => ({
+                loginError: 'Error logging in, please try again.'}))
         }
     };
 
     getLoginInfo = async () => {
-        let token = await Keychain.getGenericPassword();
-        if (token) {
-            console.log(token);
-            this.props.navigation.navigate('Main')
-        }
-        else {
-            console.log(token);
-        }
+        SecureStore.deleteItemAsync('token');
+        SecureStore.getItemAsync('token').then((token) => {
+                if (token) {
+                    this.props.navigation.navigate('Main')
+                }
+            }
+        );
+
     };
 
     render = () => {
@@ -91,7 +99,21 @@ export default class FrontScreen extends Component {
         return (
             <View style={[styles.screenTheme, {height: screenHeight}]}>
                 <FrontBody>
-                    <Button title="Login with NetID" onPress={this.handleLogin} />
+                    <TouchableHighlight
+                        style ={{
+                            height: 40,
+                            width:160,
+                            borderRadius:10,
+                            backgroundColor : "#14141D",
+                            marginTop :50,
+                            marginBottom :20
+                        }}>
+                        <Button color="white"
+                                title="Login with NetID"
+                                onPress={this.handleLogin} />
+                    </TouchableHighlight>
+
+                    <Text>{this.state.loginError}</Text>
                 </FrontBody>
             </View>
         );
