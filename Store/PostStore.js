@@ -5,7 +5,7 @@ import DatabaseService from '../Services/DatabaseService'
 import CommentModel from "./Models/CommentModel";
 
 class PostStore {
-    posts = [];
+    @observable posts = [];
 
     @action addPost = (title, body) => {
         let newPost = new PostModel(title, body);
