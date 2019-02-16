@@ -160,8 +160,11 @@ class PostFooter extends PureComponent{
                                     onPress = {this.hideModal}
                                 />
                             </View>
-                            {/* new post creation form*/}
-                            <NewReport closeView = {this.hideModal}/>
+                            {/* report form*/}
+                            <NewReport 
+                                closeView = {this.hideModal}
+                                id = {this.props.id}
+                            />
                         </View>
                     </Modal>
                     
@@ -192,7 +195,6 @@ class PostFooter extends PureComponent{
 // main component -- pure component for rendering optimization (view only)
 export default class Post extends Component{
     render() {     
-
         return(
             <View>
                 <View style={{ flex: 1, flexDirection: 'row' }}>
@@ -207,8 +209,6 @@ export default class Post extends Component{
                         <PostVotes
                             vote = {this.props.userVote}
                             score={this.props.score}
-                           // upvoteScore={upvoteScore}
-                           // downvoteScore={downvoteScore}
                         />
                     </View>
                 </View>
@@ -216,6 +216,7 @@ export default class Post extends Component{
                 {/* body of post */}
                 <PostBody body={this.props.body} />
                 <PostFooter
+                    id = {this.props.id}
                     userReact = {this.props.userReact}
                     reactCounts = {this.props.reactCounts}
                     updateReact = {this.props.updateReact}

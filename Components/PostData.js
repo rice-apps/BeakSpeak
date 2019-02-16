@@ -78,7 +78,7 @@ const PostData = observer(class PostData extends Component{
                 score = {this.props.post.score}
                 userReact = {this.props.post.userReact}
                 reactCounts = {this.props.post.reactCounts}
-                
+                id = {this.props.post._id}
                 updateReact = {this.updateReact}
                 upvoteScore = {this.upvoteScore}
                 downvoteScore = {this.downvoteScore}

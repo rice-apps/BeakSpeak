@@ -67,6 +67,31 @@ export async function sendNewPost(title, body, id) {
     }
 }
 
+
+export async function sendReport(TypeOfReport, TellUsMore, id) {
+    try{
+        let res = await fetch(apiUrl+'/reports',{
+            method: 'POST',
+            headers: {
+                'x-access-token': token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                type: TypeOfReport,
+                reason: TellUsMore,
+                id: id
+            }, removeNull = (key, value) => {
+                return (value == null) ? '' : value
+            })
+        })
+    console.log("Sent report: ", res)}
+    catch(err){
+        console.log(err)
+    }
+}
+
+
 export async function postComment(id, text) {
     try{
         let res = await fetch(apiUrl+'/posts/'+id+'/comments', {
