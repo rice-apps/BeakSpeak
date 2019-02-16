@@ -2,10 +2,9 @@ import {CONFIG} from "../config";
 import {AsyncStorage} from 'react-native';
 
 const apiUrl = CONFIG.api_url;
-// const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXIiOiJubnExIiwiYXR0cmlidXRlcyI6eyJlZHVQZXJzb25QcmltYXJ5QWZmaWxpYXRpb24iOiJzdHVkZW50In19LCJ1c2VySUQiOiI1YjVmOWE5YWRlNTdiNzQxZmZjM2U2MWUiLCJpYXQiOjE1MzI5OTIxNTR9.cr29eYKLTpaAuqcpk08XtrMt6FZj9S8Yvll3rzEMYus"
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXIiOiJubnExIiwiYXR0cmlidXRlcyI6eyJlZHVQZXJzb25QcmltYXJ5QWZmaWxpYXRpb24iOiJzdHVkZW50In19LCJ1c2VySUQiOiI1YjVmOWE5YWRlNTdiNzQxZmZjM2U2MWUiLCJpYXQiOjE1MzI5OTIxNTR9.cr29eYKLTpaAuqcpk08XtrMt6FZj9S8Yvll3rzEMYus"
 
 export async function getPosts() {
-    let token = await AsyncStorage.getItem('userToken');
     try{
         let res = await fetch(apiUrl+'/posts',{
             method: 'GET',
@@ -13,7 +12,7 @@ export async function getPosts() {
                 'x-access-token': token
             }
         })
-        let posts = await res.json()
+        let posts = await res.json();
         return posts
     }catch(err){
         console.log(err)

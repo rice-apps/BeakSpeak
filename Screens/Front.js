@@ -68,7 +68,6 @@ export default class FrontScreen extends Component {
             `&service=${redirectUrl}`, returnUrl);
 
         if (result.type === 'success') {
-            console.log("successfully logged in");
             let params = await Expo.Linking.parse(result.url).queryParams;
             let token = params.token;
             if (token) {

@@ -69,7 +69,7 @@ class Posts extends Component{
             })) // retrieve posts from store
     }
 
-    postNavigate = (route, post) => {
+    postNavigate = (rouxte, post) => {
         this.props.navigate(route, {post: post})
     }
     
