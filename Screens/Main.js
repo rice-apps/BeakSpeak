@@ -12,6 +12,13 @@ import PostData from '../Components/PostData'
 
 
 // Comments container of custom comment components
+
+/*
+ * Comments are only linked to post in PostModel and database.
+ * Reacts and Votes are linked within PostData.
+ * Even after making PostModel observable, there is nowhere to add an observer to make make isObserved = true.
+**/
+
 @observer
 class Comments extends Component {
 

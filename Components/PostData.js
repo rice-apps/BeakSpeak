@@ -5,6 +5,11 @@ import Post from '../Components/Post'
 import DatabaseService from '../Services/DatabaseService'
 
 // main component - increments post vote counts up and down, returns total vote count
+
+/*
+ * Consider adding CommentData in this Component in order to have a direct update on Main for comments.
+**/
+
 @observer
 export default class PostData extends Component {
 
