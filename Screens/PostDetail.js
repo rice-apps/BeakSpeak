@@ -27,18 +27,19 @@ class PostDetailFooter extends Component {
         };
     }
 
-    onSubmit = async () =>  {
+    onSubmit()  {
         if (this.state.input) {
             // DatabaseService.postComment(this.props.post_id, this.state.input)
             //     .then(res => {
             //         this.props.update(res)
             //     });
-            this.props.store.addComment(this.props.post_id, this.state.input);
+            console.log(this.props.post);
+            this.props.post.addComment(this.state.input);
             this.setState({input: ''});
         }
     };
 
-    render = () => {
+    render () {
 
         return (
             <KeyboardAvoidingView
@@ -76,11 +77,14 @@ class PostDetailFooter extends Component {
 }
 
 // Comments container of custom comment components
+
+@observer
 class Comments extends Component {
 
 
-    render = () => {
-        let comments = this.props.comments
+    render () {
+        console.log("Comments: " + this.props.post.comments);
+        let comments = this.props.post.comments;
 
         return (
             <FlatList
@@ -101,7 +105,6 @@ class Comments extends Component {
     }
 }
 
-@observer
 export default class PostDetailScreen extends Component {
 
     // initialize with default values -- DO NOT fetch data here
@@ -130,7 +133,7 @@ export default class PostDetailScreen extends Component {
                         post={post}
                     />
                 </Card>
-                <Comments comments={post.comments}/>
+                <Comments post = {post}/>
             </View>
         )
     }
@@ -141,7 +144,7 @@ export default class PostDetailScreen extends Component {
     }
 
     // render a post with comments -- use posts component from main as an example for structure
-    render = () => {
+    render() {
         let post = this.props.navigation.getParam('post')
 
         // display posts in a list component
@@ -168,7 +171,7 @@ export default class PostDetailScreen extends Component {
                             />
                         }
                         ListEmptyComponent={<Blank/>}
-                        contentContainerStyle={(post == undefined) ? {
+                        contentContainerStyle={(post === undefined) ? {
                             flex: 1,
                             alignItems: 'center',
                             flexWrap: 'wrap'
@@ -177,7 +180,7 @@ export default class PostDetailScreen extends Component {
                 </View>
 
                 {/* comments field */}
-                <PostDetailFooter post_id={post._id} update={this.update}/>
+                <PostDetailFooter post={post} update={this.update}/>
             </View>
         )
     }

@@ -5,7 +5,7 @@ import Comment from '../Components/Comment'
 
 export class CommentReact extends Component{
 
-    render = () => {
+    render () {
         return(
             <Button onPress={null} title={this.props.react} style={styles.button}/>
         )
@@ -25,7 +25,7 @@ export default class CommentData extends Component {
         console.log(this.state.reactCounts)
     }
 
-    render = () => {
+    render () {
         let comments = this.state.comments
         // let angry = this.state.reactCounts["angry"]
         // let funny = this.state.reactCounts["funny"]

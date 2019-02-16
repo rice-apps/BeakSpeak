@@ -5,7 +5,7 @@ import DatabaseService from '../Services/DatabaseService'
 import CommentModel from "./Models/CommentModel";
 
 class PostStore {
-    @observable posts = [];
+    posts = [];
 
     @action addPost = (title, body) => {
         let newPost = new PostModel(title, body);
@@ -13,18 +13,16 @@ class PostStore {
         DatabaseService.sendNewPost(title, body, newPost._id) // send post to database -- no need to await
     };
 
-    @action addComment = (id, body) => {
-        let newComment = new CommentModel(body);
-        DatabaseService.postComment(id, body, newComment._id);
-    };
-
     @action async fetchPosts() {
+        console.log("Loading Posts.\n");
+
         let proto_posts = await DatabaseService.getPosts();
         try {
-            this.posts = proto_posts.map(p => PostModel.make(p))
+            this.posts = proto_posts.map(p => observable(PostModel.make(p)));
+            console.log(this.posts);
         }
         catch(err) {
-            this.posts = []
+            this.posts = [];
         }
     }
 

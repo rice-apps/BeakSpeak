@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {
-    StyleSheet, 
+    StyleSheet,
     View,
     Image,
     Dimensions,
@@ -21,24 +21,24 @@ export class FrontBody extends Component {
         return (
             <View style={{flex: 1}}>
                 <View style={[{height: 50}]}/>
-                <View style = {{flex: 1, flexDirection: 'row'}}>
+                <View style={{flex: 1, flexDirection: 'row'}}>
                     <View style={{flex: 1}}/>
                     <View style={{flex: 3}}>
 
                         {/* our logo */}
                         <Image
-                            source = {logo}
-                            style = {styles.image}
+                            source={logo}
+                            style={styles.image}
                         />
                     </View>
-                    <View style={{flex:1}}/>
+                    <View style={{flex: 1}}/>
                 </View>
-                <View style={[{flex:1, alignItems:'center'}]}>
+                <View style={[{flex: 1, alignItems: 'center'}]}>
 
                     {/* fancy app title */}
                     <Text style={[{fontFamily: 'caviar-dreams', fontSize: 30, color: 'white'}]}>
                         BeakSpeak
-                    </Text>                    
+                    </Text>
                 </View>
             </View>
 
@@ -57,7 +57,7 @@ export default class FrontScreen extends Component {
         this.setState({modalVisible: false})
     }
 
-    constructor(props){
+    constructor(props) {
         super(props)
 
         this.state = {
@@ -67,7 +67,7 @@ export default class FrontScreen extends Component {
         this.getLoginInfo()
     }
 
-    async componentDidMount(){
+    async componentDidMount() {
         AuthService.login() // testing login requests
     }
 
@@ -81,43 +81,43 @@ export default class FrontScreen extends Component {
         //     modalVisible: true
         // })
 
-        
+
         this.navigate('Main')
     }
-    
+
     render = () => {
         const {height: screenHeight} = Dimensions.get('window');
         let isVisible = this.state.modalVisible
-        
-        return (
-                <View style={[styles.screenTheme, {height: screenHeight}]}>
-                    
-                    {/* login modal */}
-                    <Modal
-                        isVisible = {isVisible}
-                        animationIn = {'slideInUp'}
-                        animationOut = {'zoomOut'}
-                        animationInTiming = {500}
-                        animationOutTiming = {500}
-                        avoidKeyboard
-                    >
-                        <View style={{
-                                        borderRadius: 10, 
-                                        padding: 10, 
-                                        backgroundColor: 'white'
-                                    }}>
-                            <View style={{
-                                            flexDirection: 'row', 
-                                            justifyContent: 'flex-end'
-                                        }}>
-                            </View>
 
-                            {/* new post creation form*/}
-                            <Login closeView = {this.hideModal}/>
+        return (
+            <View style={[styles.screenTheme, {height: screenHeight}]}>
+
+                {/* login modal */}
+                <Modal
+                    isVisible={isVisible}
+                    animationIn={'slideInUp'}
+                    animationOut={'zoomOut'}
+                    animationInTiming={500}
+                    animationOutTiming={500}
+                    avoidKeyboard
+                >
+                    <View style={{
+                        borderRadius: 10,
+                        padding: 10,
+                        backgroundColor: 'white'
+                    }}>
+                        <View style={{
+                            flexDirection: 'row',
+                            justifyContent: 'flex-end'
+                        }}>
                         </View>
-                    </Modal>
-                    <FrontBody/>
-                </View>
+
+                        {/* new post creation form*/}
+                        <Login closeView={this.hideModal}/>
+                    </View>
+                </Modal>
+                <FrontBody/>
+            </View>
         );
     }
 }
@@ -138,11 +138,11 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'red'
     },
-    screenTheme:{
+    screenTheme: {
         flex: 1,
-        backgroundColor:'powderblue',
-        justifyContent:'center',
-        alignItems:'center',
-        flexDirection:'row'
+        backgroundColor: 'powderblue',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row'
     }
 })

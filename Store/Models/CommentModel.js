@@ -8,7 +8,6 @@ export default class CommentModel {
     _id = "";
     @observable userVote = 0;
     @observable score = 0;
-    @observable comments = [];
 
     constructor(body) {
         this.body = body;
@@ -23,8 +22,7 @@ export default class CommentModel {
         return proto_comment
     }
 
-    @action
-    async update() {
+    @action async update() {
         let proto_comment = await DatabaseService.getPost(this._id);
         let post = CommentModel.make(proto_comment);
 

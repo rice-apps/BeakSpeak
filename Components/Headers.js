@@ -9,12 +9,10 @@ import {
     View,
     Text
 } from 'native-base'
-import {
-    TouchableWithoutFeedback
-} from 'react-native'
+import {TouchableWithoutFeedback} from 'react-native'
 
 // header design for drawer navigators
-export class DrawerHeader extends Component{
+export class DrawerHeader extends Component {
 
     toggleMenu = () => {
         this.props.navigation.toggleDrawer()
@@ -23,26 +21,26 @@ export class DrawerHeader extends Component{
     render = () => {
         let title = this.props.title
 
-        return(
-            <View style = {{borderBottomWidth: 2, borderColor: 'white'}}>
-                <Header style = {{backgroundColor: 'powderblue'}}>
+        return (
+            <View style={{borderBottomWidth: 2, borderColor: 'white'}}>
+                <Header style={{backgroundColor: 'powderblue'}}>
                     <Left>
 
                         {/* Menu Button */}
-                        <TouchableWithoutFeedback onPress = {() => this.toggleMenu()}>
-                            <Icon 
-                            name = 'menu'
-                            type = 'MaterialCommunityIcons'
-                            style = {{color: 'white', fontSize: 25}}
+                        <TouchableWithoutFeedback onPress={() => this.toggleMenu()}>
+                            <Icon
+                                name='menu'
+                                type='MaterialCommunityIcons'
+                                style={{color: 'white', fontSize: 25}}
                             />
                         </TouchableWithoutFeedback>
                     </Left>
 
                     {/* Title of Page */}
                     <Body>
-                        <Text style = {{color: 'white', fontSize: 25, fontWeight: 'bold'}}>
-                            {title}
-                        </Text>
+                    <Text style={{color: 'white', fontSize: 25, fontWeight: 'bold'}}>
+                        {title}
+                    </Text>
                     </Body>
                     <Right/>
                 </Header>
@@ -52,35 +50,35 @@ export class DrawerHeader extends Component{
 }
 
 // header design for stack navigators
-export class StackHeader extends Component{
+export class StackHeader extends Component {
 
     back = () => {
         this.props.navigation.goBack()
     }
 
     render = () => {
-        let title =  this.props.title
+        let title = this.props.title
 
-        return(
-            <View style = {{borderBottomWidth: 2, borderColor: 'white'}}>
-                <Header style = {{backgroundColor: 'powderblue'}}>
+        return (
+            <View style={{borderBottomWidth: 2, borderColor: 'white'}}>
+                <Header style={{backgroundColor: 'powderblue'}}>
                     <Left>
 
                         {/* Back Button */}
-                        <TouchableWithoutFeedback onPress = {() => this.back()}>
-                            <Icon 
-                            name = 'chevron-left'
-                            type = 'MaterialCommunityIcons'
-                            style = {{color: 'white', fontSize: 40}}
+                        <TouchableWithoutFeedback onPress={() => this.back()}>
+                            <Icon
+                                name='chevron-left'
+                                type='MaterialCommunityIcons'
+                                style={{color: 'white', fontSize: 40}}
                             />
                         </TouchableWithoutFeedback>
                     </Left>
-                    
+
                     {/* Title of Page */}
                     <Body>
-                        <Text style = {{color: 'white', fontSize: 25, fontWeight: 'bold'}}>
-                            {title}
-                        </Text>
+                    <Text style={{color: 'white', fontSize: 25, fontWeight: 'bold'}}>
+                        {title}
+                    </Text>
                     </Body>
                     <Right/>
                 </Header>

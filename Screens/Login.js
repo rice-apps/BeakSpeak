@@ -58,32 +58,32 @@ submitLogin = () => {
 }
 
 // TODO: implement modal that takes login credentials and uses authservice
-export default class Login extends Component{
+export default class Login extends Component {
 
     render = () => {
-        return(
-            <View style = {styles.content}>
-            
+        return (
+            <View style={styles.content}>
+
                 {/* login form */}
-                <Form 
-                type = {LoginSchema}
-                options = {LoginOptions}
-                ref={c => this.form = c}
+                <Form
+                    type={LoginSchema}
+                    options={LoginOptions}
+                    ref={c => this.form = c}
                 />
                 <View style={{alignSelf: 'center'}}>
-                    <Button 
-                    bordered 
-                    info 
-                    rounded 
-                    onPress = {()=> this.submitLogin()}
+                    <Button
+                        bordered
+                        info
+                        rounded
+                        onPress={() => this.submitLogin()}
                     >
-                        <Text> 
-                            Login! 
+                        <Text>
+                            Login!
                         </Text>
                     </Button>
                 </View>
             </View>
-            
+
         )
     }
 }
