@@ -167,15 +167,22 @@ class PostFooter extends PureComponent{
                     
                     {/* actual footer */}
                     <View>
-                        <Footer>
+                        <Footer
+                            style={{backgroundColor: 'white',
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'flex-end',
+                                borderColor: 'powderblue'}}
+                        >
                             {/* report button */}
-                            <TouchableWithoutFeedback onPress = {this.renderModal} style = {[{flex: 0.33, alignContent: 'flex-start'}, styles.seeBorders]}>
-                                <View style = {[styles.reportButton, styles.seeBorders]}>
+                            <TouchableWithoutFeedback
+                                onPress = {this.renderModal}
+                            >
+                                <View style = {[styles.reportButton]}>
                                         <Icon 
-                                            name = 'plus' 
-                                            fontSize = {30}
+                                            name = 'flag'
                                             type = 'MaterialCommunityIcons'
-                                            style = {{color: 'white'}}
+                                            style = {{color: 'powderblue', fontSize: 25}}
                                         />
                                 </View>
                             </TouchableWithoutFeedback>
@@ -230,15 +237,15 @@ const styles = StyleSheet.create({
     container: {
         flex: 0.5,
         flexDirection: 'row',
-        justifyContent: 'space-evenly'
+        justifyContent: 'space-evenly',
     },
     reportButton: {
-        flex: 0.33,
-        backgroundColor: 'powderblue',
+        backgroundColor: 'white',
         justifyContent: 'center',
         alignItems: 'flex-start',
         borderTopWidth: 1,
-        borderColor: 'white'
+        borderColor: 'white',
+        margin: 15
     },
     button: {
         backgroundColor: "powderblue",
