@@ -84,7 +84,7 @@ class Posts extends Component {
                     <PostData 
                         post = {post}
                     />
-                    <Comments comments = {post.comments}/>
+                    <Comments post = {post}/>
                 </Card>
             </TouchableWithoutFeedback>
         )
@@ -125,7 +125,6 @@ class Posts extends Component {
                 </View>
             )
         }
-
     }
 }
 

@@ -18,6 +18,21 @@ export async function getPosts() {
     }
 }
 
+export async function getNPosts(numPosts) {
+    try{
+        let res = await fetch(apiUrl+'/posts/' + numPosts,{
+            method: 'GET',
+            headers: {
+                'x-access-token': token
+            }
+        })
+        let posts = await res.json()
+        return posts
+    }catch(err){
+        console.log(err)
+    }
+}
+
 
 export async function updateVotes(id, vote) {
     try {
@@ -127,5 +142,6 @@ export default{
     updateReact,
     updateVotes,
     postComment,
-    getPost
+    getPost,
+    getNPosts
 }
