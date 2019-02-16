@@ -1,18 +1,17 @@
 import {CONFIG} from "../config";
 
-const apiUrl = CONFIG.api_url
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXIiOiJubnExIiwiYXR0cmlidXRlcyI6eyJlZHVQZXJzb25QcmltYXJ5QWZmaWxpYXRpb24iOiJzdHVkZW50In19LCJ1c2VySUQiOiI1YjVmOWE5YWRlNTdiNzQxZmZjM2U2MWUiLCJpYXQiOjE1MzI5OTIxNTR9.cr29eYKLTpaAuqcpk08XtrMt6FZj9S8Yvll3rzEMYus"
+const apiUrl = CONFIG.api_url;
+import UserStore from '../Store/UserStore'
 
 export async function getPosts() {
     try{
         let res = await fetch(apiUrl+'/posts',{
             method: 'GET',
             headers: {
-                'x-access-token': token
+                'x-access-token': UserStore.getToken()
             }
-        })
-        let posts = await res.json()
-        return posts
+        });
+        return await res.json()
     }catch(err){
         console.log(err)
     }
@@ -24,7 +23,7 @@ export async function updateVotes(id, vote) {
         let res = await fetch(apiUrl + '/posts/' + id + '/vote', {
             method: 'PUT',
             headers: {
-                'x-access-token': token,
+                'x-access-token': UserStore.getToken(),
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
@@ -32,9 +31,8 @@ export async function updateVotes(id, vote) {
                 removeNull = (key, value) => {
                 return (value == null) ? '' : value
             })
-        })
-        let posts = await res.json()
-        return posts
+        });
+        return await res.json()
     } catch (err) {
         console.log(err)
     }
@@ -46,7 +44,7 @@ export async function sendNewPost(title, body, id) {
         let res = await fetch(apiUrl+'/posts',{
             method: 'POST',
             headers: {
-                'x-access-token': token,
+                'x-access-token': UserStore.getToken(),
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
@@ -57,9 +55,8 @@ export async function sendNewPost(title, body, id) {
             }, removeNull = (key, value) => {
                 return (value == null) ? '' : value
             })
-        })
-        let post = await res.json()
-        return post
+        });
+        return await res.json()
     }catch(err){
         console.log(err)
     }
@@ -70,7 +67,7 @@ export async function postComment(id, text) {
         let res = await fetch(apiUrl+'/posts/'+id+'/comments', {
             method: 'POST',
             headers: {
-                'x-access-token': token,
+                'x-access-token': UserStore.getToken(),
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
@@ -78,8 +75,7 @@ export async function postComment(id, text) {
                 comment: text
             })
         });
-        let post = await res.json();
-        return post
+        return await res.json();
     }catch(err) {
         console.log(err)
     }
@@ -90,11 +86,10 @@ export async function getPost(id) {
         let res = await fetch(apiUrl+'/posts/'+id,{
             method: 'GET',
             headers: {
-                'x-access-token': token
+                'x-access-token': UserStore.getToken()
             }
-        })
-        let posts = await res.json()
-        return posts
+        });
+        return await res.json()
     }catch(err) {
         console.log(err)
     }
@@ -106,7 +101,7 @@ export async function updateReact(postid, reaction) {
         let res = await fetch(apiUrl+"/posts/"+postid+"/reacts", {
             method: 'PUT',
             headers: {
-                'x-access-token': token,
+                'x-access-token': UserStore.getToken(),
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
