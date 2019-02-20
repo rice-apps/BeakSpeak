@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, PureComponent} from 'react'
 import {
     FlatList,
     StyleSheet,
@@ -26,24 +26,37 @@ import PostData from '../Components/PostData'
 // Comments container of custom comment components
 class Comments extends Component{
 
+    componentDidMount() {
+        console.log("comments mount", this.props.post.title)
+        this.mounted = true
+    }
+    componentWillUnmount() {
+        this.mounted = false
+        console.log("comments unmount", this.props.post.title)
+    }
     render () {
-        let comments = this.props.comments
-        return(
-            <FlatList
-             data = {comments}
-             listKey = {(item, index) => item._id}
-             keyExtractor = {(item, index) => item._id}
-             renderItem = {(item) => {
-                let comment = item.item
-                
-                return(
-                    <View style = {{borderTopWidth: 1, borderRadius: 25, borderColor: 'powderblue'}}>
-                        <Comment body = {comment.body}/>
-                    </View>
-                )
-            }}
-            />
-        )
+        if (this.mounted) {
+            let comments = this.props.comments
+            return(
+                <FlatList
+                data = {comments}
+                listKey = {(item, index) => item._id}
+                keyExtractor = {(item, index) => item._id}
+                renderItem = {(item) => {
+                    let comment = item.item
+                    
+                    return(
+                        <View style = {{borderTopWidth: 1, borderRadius: 25, borderColor: 'powderblue'}}>
+                            <Comment body = {comment.body}/>
+                        </View>
+                    )
+                }}
+                />
+            )
+        }
+        else {
+            return (<AppLoading></AppLoading>)
+        }
     }
 }
 
@@ -89,7 +102,7 @@ class Posts extends Component{
                     <PostData 
                         post = {post}
                     />
-                    <Comments comments = {post.comments}/>
+                <Comments comments = {post.comments} post = {post}/>
                 </Card>
             </TouchableWithoutFeedback>
         )
