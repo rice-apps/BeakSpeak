@@ -31,6 +31,7 @@ const PostOptions = {
             multiline: true,
             numberOfLines: 5,
             blurOnSubmit: true,
+            maxLength: 1000,
             stylesheet: {
                 ...Form.stylesheet,
                 textbox: {
@@ -46,6 +47,7 @@ const PostOptions = {
         },
         title:{
             placeholder: 'Your clever title here...',
+            maxLength: 150,
             stylesheet: {
                 ...Form.stylesheet,
                 textbox: {
