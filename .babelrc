@@ -1,3 +1,9 @@
 {
-  "presets": ["react-native"]
+  "presets": ["module:metro-react-native-babel-preset"],
+  "env": {
+    "development": {
+      "presets": ["module:metro-react-native-babel-preset"],
+      "plugins": [["@babel/plugin-proposal-decorators", {"legacy" :  true}], "@babel/transform-react-jsx-source"]
+    }
+  }
 }

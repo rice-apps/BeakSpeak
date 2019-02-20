@@ -42,7 +42,7 @@ export async function updateVotes(id, vote) {
 }
 
 
-export async function sendNewPost(newPost) {
+export async function sendNewPost(title, body, id) {
     try{
         let res = await fetch(apiUrl+'/posts',{
             method: 'POST',
@@ -52,12 +52,15 @@ export async function sendNewPost(newPost) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                title: newPost.title,
-                body: newPost.body
+                title: title,
+                body: body,
+                id: id
             }, removeNull = (key, value) => {
                 return (value == null) ? '' : value
             })
         })
+        let post = await res.json()
+        return post
     }catch(err){
         console.log(err)
     }
@@ -113,9 +116,6 @@ export async function updateReact(postid, reaction) {
             })
 
         })
-        console.log(res)
-        let print = await res.json()
-        console.log(print)
 
     } catch(err) {
         console.log(err)

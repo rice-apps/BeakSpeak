@@ -3,7 +3,7 @@ import {
     FlatList,
     StyleSheet,
     TouchableWithoutFeedback,
-    RefreshControl
+    RefreshControl,
 } from 'react-native'
 import {
     Card,
@@ -14,14 +14,14 @@ import {
 } from 'native-base'
 import Modal from 'react-native-modal'
 import {AppLoading} from 'expo'
+import {observer, inject} from 'mobx-react'
 
-import Post from '../Components/Post'
 import Comment from '../Components/Comment'
 import {NewPost} from '../Components/New'
 import Blank from '../Components/Blank'
 import CommentData from '../Components/CommentData'
-import DatabaseService from '../Services/DatabaseService'
 import PostData from '../Components/PostData'
+
 
 // Comments container of custom comment components
 class Comments extends Component{
@@ -49,53 +49,42 @@ class Comments extends Component{
 
 
 // List of posts
+@inject('store')
+@observer
 class Posts extends Component{
 
     constructor(props){
         super(props)
 
-        this.mounted = false
         this.state = {
-            posts: [],
             loaded: false
         }
     }
 
     componentDidMount = async() => {
-        this.mounted = true
-        let posts = await DatabaseService.getPosts() // retrieve posts from database
-
-        if (this.mounted) { // to avoid memory leak, check if component is mounted before setting state
-            this.setState({
-                posts: posts,
+        this.props.store.fetchPosts()
+            .then((posts) => this.setState({
                 loaded: true,
                 refresh: false
-            })
-        }
+            })) // retrieve posts from store
     }
 
-    componentWillUnmount = () => {
-        this.mounted = false
-    }
-
-    postNavigate = (route, post_id) => {
-        this.props.navigate(route, {id: post_id, refresh: this._onRefresh})
+    postNavigate = (route, post) => {
+        this.props.navigate(route, {post: post})
     }
     
     _onRefresh = async() => { 
         this.setState((state) => ({refresh: true})) // indicate we are refreshing
-        let posts = await DatabaseService.getPosts() // refresh data
-        this.setState((state) => ({ // refresh state -- use function
-            posts: posts,
-            refresh: false
-        }))
+        this.props.store.fetchPosts()
+            .then((posts) => this.setState((state) => ({refresh: false}))) // refresh data
     }
+
 
     _renderItem = (item) => {
         let post = item.item
 
         return(
-            <TouchableWithoutFeedback onPress = {()=> this.postNavigate('PostDetail', post._id)}>
+            <TouchableWithoutFeedback onPress = {()=> this.postNavigate('PostDetail', post)}>
                 <Card>
                     <PostData 
                         post = {post}
@@ -105,9 +94,10 @@ class Posts extends Component{
             </TouchableWithoutFeedback>
         )
     }
-    render = () => {
+    render () {
         let loaded = this.state.loaded
-
+        let posts = this.props.store.posts
+        
         if(!loaded) { // wait for posts to load
             return(
                 <AppLoading/>
@@ -115,26 +105,27 @@ class Posts extends Component{
         }
 
         else{ // display posts in a list component
-            let posts = this.state.posts
             let refresh = this.state.refresh
-            
             return (
-                <FlatList
-                    data = {posts}
-                    renderItem = {(item) => {return this._renderItem(item)}}
-                    keyExtractor = {(item, index) => item._id}
-                    refreshControl = { // controls refreshing
-                        <RefreshControl
-                            refreshing = {refresh}
-                            onRefresh = {this._onRefresh}
-                            tintColor = 'skyblue'
-                        />
-                    }
-                    ListEmptyComponent = {<Blank/>}
-                    contentContainerStyle = {(posts == undefined || !posts.length) ? { flex: 1, alignItems: 'center' } : {}}
-                />
+                <View style={{flex: 1}}>
+                    <FlatList
+                        data = {posts}
+                        renderItem = {(item) => {return this._renderItem(item)}}
+                        keyExtractor = {(item, index) => item._id}
+                        refreshControl = { // controls refreshing
+                            <RefreshControl
+                                refreshing = {refresh}
+                                onRefresh = {this._onRefresh}
+                                tintColor = 'skyblue'
+                            />
+                        }
+                        ListEmptyComponent = {<Blank/>}
+                        contentContainerStyle = {(posts == undefined || !posts.length) ? { flex: 1, alignItems: 'center' } : {}}
+                    />
+                </View>
             )               
         }
+        
     }
 }
 
@@ -159,7 +150,6 @@ class MainFooter extends Component{
 
     render = () => {
         let isVisible = this.state.modalVisible
-
         return(
             <View>
 
@@ -187,7 +177,7 @@ class MainFooter extends Component{
                                 fontSize = {30}
                                 type = 'MaterialCommunityIcons'
                                 style = {{color: 'skyblue'}}
-                                onPress = {() => {this.hideModal()}}
+                                onPress = {this.hideModal}
                             />
                         </View>
 
@@ -200,7 +190,7 @@ class MainFooter extends Component{
                 <Footer>
 
                     {/* new post button */}
-                    <TouchableWithoutFeedback onPress = {() => {this.renderModal()}}>
+                    <TouchableWithoutFeedback onPress = {this.renderModal}>
                         <View style = {styles.newPostButton}>
                                 <Icon 
                                     name = 'plus' 

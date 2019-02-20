@@ -1,5 +1,9 @@
 {
   "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 18248
+  "packagerPort": 19003,
+  "packagerPid": 81442,
+  "devToolsPort": 19002,
+  "expoServerNgrokUrl": "https://yy-i7k.anonymous.beakspeak.exp.direct",
+  "packagerNgrokUrl": "https://packager.yy-i7k.anonymous.beakspeak.exp.direct",
+  "ngrokPid": 81473
 }

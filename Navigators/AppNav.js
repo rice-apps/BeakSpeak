@@ -13,14 +13,13 @@ import { Drawer } from 'native-base';
 
 var {width: screenWidth} = Dimensions.get('window')
 
-
-MainNav = createStackNavigator(
+const MainNav = createStackNavigator(
     {
         Posts: {
             screen: MainScreen,
             navigationOptions: ({ navigation }) => (
                 {
-                    header: <DrawerHeader navigation = {navigation} title = 'Posts'/>
+                        header: <DrawerHeader navigation = {navigation} title = 'Posts'/>
                 }
             )
         }
@@ -30,7 +29,7 @@ MainNav = createStackNavigator(
     }
 )
 
-HomeNav = createDrawerNavigator(
+const HomeNav = createDrawerNavigator(
     {
         Main: {
             screen: MainNav
@@ -57,7 +56,7 @@ export default AppNav = createStackNavigator(
                 {
                     header: <StackHeader navigation = {navigation} title = ''/>,
                 }
-            )         
+            ) 
         },
         Home: {
             screen: HomeNav,
