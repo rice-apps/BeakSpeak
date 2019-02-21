@@ -17,7 +17,7 @@ const logo = require('../Assets/Images/logo.png')
 // main component for front page with logo and front button
 export class FrontBody extends Component {
 
-    render = () => {
+    render () {
         return (
             <View style={{flex: 1}}>
                 <View style={[{height: 50}]}/>
@@ -85,7 +85,7 @@ export default class FrontScreen extends Component {
         this.navigate('Main')
     }
     
-    render = () => {
+    render () {
         const {height: screenHeight} = Dimensions.get('window');
         let isVisible = this.state.modalVisible
         

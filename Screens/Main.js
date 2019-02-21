@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, PureComponent} from 'react'
 import {
     FlatList,
     StyleSheet,
@@ -24,9 +24,10 @@ import PostData from '../Components/PostData'
 
 
 // Comments container of custom comment components
+@observer
 class Comments extends Component{
 
-    render = () => {
+    render() {
         let comments = this.props.comments
         return(
             <FlatList
@@ -61,7 +62,7 @@ class Posts extends Component{
         }
     }
 
-    componentDidMount = async() => {
+    async componentDidMount() {
         this.props.store.fetchPosts()
             .then((posts) => this.setState({
                 loaded: true,
@@ -69,8 +70,8 @@ class Posts extends Component{
             })) // retrieve posts from store
     }
 
-    postNavigate = (route, post) => {
-        this.props.navigate(route, {post: post})
+    postNavigate = (route, post_id) => {
+        this.props.navigate(route, {id: post_id})
     }
     
     _onRefresh = async() => { 
@@ -84,7 +85,7 @@ class Posts extends Component{
         let post = item.item
 
         return(
-            <TouchableWithoutFeedback onPress = {()=> this.postNavigate('PostDetail', post)}>
+            <TouchableWithoutFeedback onPress = {()=> this.postNavigate('PostDetail', post._id)}>
                 <Card>
                     <PostData 
                         post = {post}
@@ -94,6 +95,7 @@ class Posts extends Component{
             </TouchableWithoutFeedback>
         )
     }
+    
     render () {
         let loaded = this.state.loaded
         let posts = this.props.store.posts
@@ -148,7 +150,7 @@ class MainFooter extends Component{
         this.setState({modalVisible: false})
     }
 
-    render = () => {
+    render () {
         let isVisible = this.state.modalVisible
         return(
             <View>
@@ -210,7 +212,7 @@ class MainFooter extends Component{
 // main component
 export default class MainScreen extends Component{
     
-    render = () => {
+    render () {
         return(
             <Container style = {{backgroundColor: 'powderblue'}}>
                 <View style = {{flex: 1}}>
