@@ -24,9 +24,16 @@ import PostData from '../Components/PostData'
 
 
 // Comments container of custom comment components
+@observer
 class Comments extends Component{
 
-    render = () => {
+    componentWillUnmount() {
+        console.log("unmounted comments for ", this.props.post.title)
+    }
+    componentDidMount() {
+        console.log("mounted comments for ", this.props.post.title)
+    }
+    render() {
         let comments = this.props.comments
         return(
             <FlatList
@@ -89,7 +96,7 @@ class Posts extends Component{
                     <PostData 
                         post = {post}
                     />
-                    <Comments comments = {post.comments}/>
+                    <Comments comments = {post.comments} post = {post}/>
                 </Card>
             </TouchableWithoutFeedback>
         )
