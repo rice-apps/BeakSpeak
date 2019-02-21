@@ -27,29 +27,24 @@ import PostData from '../Components/PostData'
 @observer
 class Comments extends Component{
 
-    render () {
-        if (this.mounted) {
-            let comments = this.props.comments
-            return(
-                <FlatList
-                data = {comments}
-                listKey = {(item, index) => item._id}
-                keyExtractor = {(item, index) => item._id}
-                renderItem = {(item) => {
-                    let comment = item.item
-                    
-                    return(
-                        <View style = {{borderTopWidth: 1, borderRadius: 25, borderColor: 'powderblue'}}>
-                            <Comment body = {comment.body}/>
-                        </View>
-                    )
-                }}
-                />
-            )
-        }
-        else {
-            return (<AppLoading></AppLoading>)
-        }
+    render() {
+        let comments = this.props.comments
+        return(
+            <FlatList
+             data = {comments}
+             listKey = {(item, index) => item._id}
+             keyExtractor = {(item, index) => item._id}
+             renderItem = {(item) => {
+                let comment = item.item
+                
+                return(
+                    <View style = {{borderTopWidth: 1, borderRadius: 25, borderColor: 'powderblue'}}>
+                        <Comment body = {comment.body}/>
+                    </View>
+                )
+            }}
+            />
+        )
     }
 }
 
@@ -95,11 +90,12 @@ class Posts extends Component{
                     <PostData 
                         post = {post}
                     />
-                <Comments comments = {post.comments} post = {post}/>
+                    <Comments comments = {post.comments}/>
                 </Card>
             </TouchableWithoutFeedback>
         )
     }
+    
     render () {
         let loaded = this.state.loaded
         let posts = this.props.store.posts
