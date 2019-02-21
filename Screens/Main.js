@@ -24,16 +24,9 @@ import PostData from '../Components/PostData'
 
 
 // Comments container of custom comment components
+@observer
 class Comments extends Component{
 
-    componentDidMount() {
-        console.log("comments mount", this.props.post.title)
-        this.mounted = true
-    }
-    componentWillUnmount() {
-        this.mounted = false
-        console.log("comments unmount", this.props.post.title)
-    }
     render () {
         if (this.mounted) {
             let comments = this.props.comments
