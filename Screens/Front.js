@@ -11,6 +11,9 @@ import {
 const logo = require('../Assets/Images/logo.png');
 import { WebBrowser, SecureStore } from 'expo'
 
+import {CONFIG} from "../config";
+
+
 // main component for front page with logo and front button
 export class FrontBody extends Component {
 
@@ -61,12 +64,11 @@ export default class FrontScreen extends Component {
 
     handleLogin = async () => {
         let returnUrl = Expo.Linking.makeUrl();
-        let redirectUrl = 'http://localhost:3000/api/auth/app';
-
+        let redirectUrl = CONFIG.service_url;
+        
         let result = await WebBrowser.openAuthSessionAsync(
             'https://idp.rice.edu/idp/profile/cas/login?' +
             `&service=${redirectUrl}`, returnUrl);
-
         if (result.type === 'success') {
             let params = await Expo.Linking.parse(result.url).queryParams;
             let token = params.token;

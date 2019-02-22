@@ -2,19 +2,20 @@ import { environment } from './Environments/environment';
 
 export let CONFIG;
 
-ip = "YOUR IP ADDRESS"
+ip = "10.208.178.196"
 if (environment.production) {
+    console.log("here")
     CONFIG = {
-        api_url: 'https://speak.riceapps.org/api',
+        api_url: 'https://beakspeak-backend-232019.appspot.com/api',
         cas_auth_url: 'https://idp.rice.edu/idp/profile/cas/login',
         cas_logout_url: 'https://idp.rice.edu/idp/profile/cas/logout',
-        service_url: 'https://speak.riceapps.org/auth'
+        service_url: 'https://beakspeak-backend-232019.appspot.com/api/auth/app'
     };
 } else {
     CONFIG = {
         api_url: 'http://'+ip+':3000/api',
         cas_auth_url: 'https://idp.rice.edu/idp/profile/cas/login',
         cas_logout_url: 'https://idp.rice.edu/idp/profile/cas/logout',
-        service_url: 'http://localhost:4200/auth'
+        service_url: 'http://'+ip+':3000/api/auth/app'
     };
 }
