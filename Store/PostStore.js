@@ -8,7 +8,7 @@ class PostStore {
 
     @action addPost = (title, body) => {
         let newPost = new PostModel(title, body)
-        this.posts.unshift(newPost)
+        this.posts.push(newPost)
         DatabaseService.sendNewPost(title, body, newPost._id) // send post to database -- no need to await
     }
 
