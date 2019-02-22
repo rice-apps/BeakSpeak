@@ -20,7 +20,7 @@ export class DrawerHeader extends Component{
         this.props.navigation.toggleDrawer()
     }
 
-    render = () => {
+    render () {
         let title = this.props.title
 
         return(
@@ -58,7 +58,7 @@ export class StackHeader extends Component{
         this.props.navigation.goBack()
     }
 
-    render = () => {
+    render () {
         let title =  this.props.title
 
         return(

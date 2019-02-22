@@ -31,6 +31,9 @@ class PostStore {
             }
         })
     }
+    getPost(id) {
+        return this.posts.find(val => val._id == id)
+    }
 }
 
 

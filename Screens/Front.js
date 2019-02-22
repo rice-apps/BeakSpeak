@@ -18,7 +18,7 @@ import {CONFIG} from "../config";
 // main component for front page with logo and front button
 export class FrontBody extends Component {
 
-    render = () => {
+    render () {
         return (
             <View style={{flex: 1}}>
                 <View style={[{height: 50}]}/>
@@ -96,8 +96,11 @@ export default class FrontScreen extends Component {
         );
 
     };
-
-    render = () => {
+        
+        this.navigate('Main')
+    }
+    
+    render () {
         const {height: screenHeight} = Dimensions.get('window');
         return (
             <View style={[styles.screenTheme, {height: screenHeight}]}>
