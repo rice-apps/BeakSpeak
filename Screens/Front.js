@@ -1,18 +1,19 @@
 import React, {Component} from 'react';
 import {
-    StyleSheet, 
+    Button,
+    StyleSheet,
     View,
+    Text,
     Image,
     Dimensions,
-    AsyncStorage
+    TouchableHighlight,
 } from 'react-native';
-import {Button, Text, Icon} from 'native-base'
-import Modal from 'react-native-modal'
+const logo = require('../Assets/Images/logo.png');
+import { WebBrowser, SecureStore } from 'expo'
+import UserStore from '../Store/UserStore'
+import {CONFIG} from "../config";
 
-import AuthService from '../Services/AuthService'
-import Login from './Login'
 
-const logo = require('../Assets/Images/logo.png')
 
 // main component for front page with logo and front button
 export class FrontBody extends Component {
@@ -38,7 +39,8 @@ export class FrontBody extends Component {
                     {/* fancy app title */}
                     <Text style={[{fontFamily: 'caviar-dreams', fontSize: 30, color: 'white'}]}>
                         BeakSpeak
-                    </Text>                    
+                    </Text>
+                    {this.props.children}
                 </View>
             </View>
 
@@ -49,78 +51,82 @@ export class FrontBody extends Component {
 // main component 
 export default class FrontScreen extends Component {
 
-    renderModal = () => {
-        this.setState({modalVisible: true})
-    }
-
-    hideModal = () => {
-        this.setState({modalVisible: false})
-    }
-
     constructor(props){
-        super(props)
-
+        super(props);
         this.state = {
-            modalVisible: false
-        }
-
+            loginError: ''
+        };
         this.getLoginInfo()
-    }
-
-    async componentDidMount(){
-        AuthService.login() // testing login requests
     }
 
     navigate = (screen) => {
         this.props.navigation.navigate(screen)
-    }
+    };
+
+    handleLogin = async () => {
+        let returnUrl = Expo.Linking.makeUrl();
+
+        let result = await WebBrowser.openAuthSessionAsync(
+            CONFIG.cas_auth_url + `?&service=${CONFIG.service_url}`, returnUrl);
+
+        if (result.type === 'success') {
+            let params = await Expo.Linking.parse(result.url).queryParams;
+            let token = params.token;
+            if (token) {
+                SecureStore.setItemAsync('token', token);
+                UserStore.setToken(token);
+                this.props.navigation.navigate('Main');
+
+            }
+        }
+
+        else {
+            this.setState((state) => ({
+                loginError: 'Error logging in, please try again.'}))
+        }
+    };
 
     getLoginInfo = async () => {
-        // const userToken = await AsyncStorage.getItem('userToken')
-        // this.setState({
-        //     modalVisible: true
-        // })
+        SecureStore.getItemAsync('token').then((token) => {
+                if (token) {
+                    UserStore.setToken(token);
+                    this.props.navigation.navigate('Main')
+                }
+            }
+        );
 
+    };
         
         this.navigate('Main')
     }
     
     render () {
         const {height: screenHeight} = Dimensions.get('window');
-        let isVisible = this.state.modalVisible
-        
         return (
-                <View style={[styles.screenTheme, {height: screenHeight}]}>
-                    
-                    {/* login modal */}
-                    <Modal
-                        isVisible = {isVisible}
-                        animationIn = {'slideInUp'}
-                        animationOut = {'zoomOut'}
-                        animationInTiming = {500}
-                        animationOutTiming = {500}
-                        avoidKeyboard
-                    >
-                        <View style={{
-                                        borderRadius: 10, 
-                                        padding: 10, 
-                                        backgroundColor: 'white'
-                                    }}>
-                            <View style={{
-                                            flexDirection: 'row', 
-                                            justifyContent: 'flex-end'
-                                        }}>
-                            </View>
+            <View style={[styles.screenTheme, {height: screenHeight}]}>
+                <FrontBody>
+                    <TouchableHighlight
+                        style ={{
+                            height: 40,
+                            width:160,
+                            borderRadius:10,
+                            backgroundColor : "#14141D",
+                            marginTop :50,
+                            marginBottom :20
+                        }}>
+                        <Button color="white"
+                                title="Login with NetID"
+                                onPress={this.handleLogin} />
+                    </TouchableHighlight>
 
-                            {/* new post creation form*/}
-                            <Login closeView = {this.hideModal}/>
-                        </View>
-                    </Modal>
-                    <FrontBody/>
-                </View>
+                    <Text>{this.state.loginError}</Text>
+                </FrontBody>
+            </View>
         );
     }
-}
+};
+
+
 
 const styles = StyleSheet.create({
     image: {
@@ -145,4 +151,4 @@ const styles = StyleSheet.create({
         alignItems:'center',
         flexDirection:'row'
     }
-})
+});
