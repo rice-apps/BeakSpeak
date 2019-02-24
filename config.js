@@ -2,7 +2,7 @@ import { environment } from './Environments/environment';
 
 export let CONFIG;
 
-ip = "10.0.0.193"
+ip = "YOUR IP ADDRESS"
 if (environment.production) {
     CONFIG = {
         api_url: 'https://beakspeak-backend-232019.appspot.com/api',
