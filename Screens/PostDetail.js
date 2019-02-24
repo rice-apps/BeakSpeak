@@ -106,7 +106,10 @@ class PostDetailScreen extends Component{
 
     _onRefresh = async() => { 
         this.setState((state) => ({refresh: true})) // indicate we are refreshing
-        this.props.navigation.getParam("post").update()
+        id = this.props.navigation.getParam('id')
+        post = this.props.store.getPost(id)
+
+        post.update()
             .then(() => this.setState((state) => ({refresh: false}))) // refresh data
     }
     
