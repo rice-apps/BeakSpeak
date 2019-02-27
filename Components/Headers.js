@@ -10,7 +10,9 @@ import {
     Text
 } from 'native-base'
 import {
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    Platform,
+    StatusBar
 } from 'react-native'
 
 // header design for drawer navigators
@@ -25,7 +27,8 @@ export class DrawerHeader extends Component{
 
         return(
             <View style = {{borderBottomWidth: 2, borderColor: 'white'}}>
-                <Header style = {{backgroundColor: 'powderblue'}}>
+                <Header style = {{backgroundColor: 'powderblue', 
+                                  paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight }}>
                     <Left>
 
                         {/* Menu Button */}
@@ -63,7 +66,7 @@ export class StackHeader extends Component{
 
         return(
             <View style = {{borderBottomWidth: 2, borderColor: 'white'}}>
-                <Header style = {{backgroundColor: 'powderblue'}}>
+                <Header style = {{backgroundColor: 'powderblue', paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight }}>
                     <Left>
 
                         {/* Back Button */}

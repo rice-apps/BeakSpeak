@@ -68,7 +68,7 @@ export async function sendNewPost(title, body, id) {
 }
 
 
-export async function sendReport(TypeOfReport, TellUsMore, id) {
+export async function sendReport(type, reason, id) {
     try{
         let res = await fetch(apiUrl+'/reports',{
             method: 'POST',
@@ -78,15 +78,18 @@ export async function sendReport(TypeOfReport, TellUsMore, id) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                type: TypeOfReport,
-                reason: TellUsMore,
+                type: type,
+                reason: reason,
                 id: id
             }, removeNull = (key, value) => {
                 return (value == null) ? '' : value
             })
         })
-    console.log("Sent report: ", res)}
-    catch(err){
+        if (res.status == 200) {
+            return true
+        } 
+        return false
+    } catch(err){
         console.log(err)
     }
 }
@@ -151,6 +154,7 @@ export async function updateReact(postid, reaction) {
 export default{
     getPosts,
     sendNewPost,
+    sendReport,
     updateReact,
     updateVotes,
     postComment,

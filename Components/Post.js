@@ -136,7 +136,7 @@ class PostFooter extends PureComponent{
                     {/* new post creation modal */}
                     <Modal
                         isVisible = {isVisible}
-                        animationIn = {'slideInUp'}
+                        animationIn = {'zoomIn'}
                         animationOut = {'zoomOut'}
                         animationInTiming = {500}
                         animationOutTiming = {500}

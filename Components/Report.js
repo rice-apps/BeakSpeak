@@ -71,9 +71,11 @@ class NewReport extends Component{
         // check if submission is valid -- there must be a TypeOfViolation!
         if(errors.length === 0){
             let {TypeOfViolation, TellUsMore} = results.value
-            DatabaseService.sendReport(TypeOfViolation, TellUsMore, id) // send report to backend
-            this.form.setState({value: null}) // clear form
-            this.props.closeView() // disable parent modal by changing its state
+            received = await DatabaseService.sendReport(TypeOfViolation, TellUsMore, id) // send report to backend, wait for response
+            if (received) {
+                this.form.setState({value: null}) // clear form
+                this.props.closeView() // disable parent modal by changing its state
+            }
         }
 
     }
