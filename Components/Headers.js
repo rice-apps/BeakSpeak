@@ -26,9 +26,8 @@ export class DrawerHeader extends Component{
         let title = this.props.title
 
         return(
-            <View style = {{borderBottomWidth: 2, borderColor: 'white'}}>
-                <Header style = {{backgroundColor: 'powderblue', 
-                                  paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight }}>
+            <View style = {{borderBottomWidth: 2, borderColor: 'powderblue', paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight}}>
+                <Header style = {{backgroundColor: 'powderblue'}}>
                     <Left>
 
                         {/* Menu Button */}
@@ -65,8 +64,8 @@ export class StackHeader extends Component{
         let title =  this.props.title
 
         return(
-            <View style = {{borderBottomWidth: 2, borderColor: 'white'}}>
-                <Header style = {{backgroundColor: 'powderblue', paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight }}>
+            <View style = {{borderBottomWidth: 2, borderColor: 'powderblue', paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight}}>
+                <Header style = {{backgroundColor: 'powderblue' }}>
                     <Left>
 
                         {/* Back Button */}
