@@ -2,6 +2,7 @@ import { observable, action, transaction, decorate} from "mobx"
 const uuidv4 = require('uuid/v4')
 
 import DatabaseService from '../../Services/DatabaseService'
+import CommentModel from "./CommentModel";
 
 export default class PostModel {
     title = ""
@@ -32,8 +33,7 @@ export default class PostModel {
         proto_post.userVote = newPost.userVote
         proto_post.userReact = newPost.userReact
         proto_post.reactCounts = newPost.reactCounts
-        proto_post.comments = newPost.comments
-
+        proto_post.comments = newPost.comments.map(c => CommentModel.make(c))
         return proto_post
     }
 
@@ -47,6 +47,13 @@ export default class PostModel {
     @action updateVote(new_vote, postid) {
         this.userVote = new_vote
         DatabaseService.updateVotes(postid, new_vote)
+    }
+
+    @action addComment(body) {
+        let new_comment = new CommentModel(body)
+        console.log(new_comment)
+        this.comments.push(new_comment)
+        DatabaseService.postComment(this._id, new_comment)
     }
 
     @action async update() {

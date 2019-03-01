@@ -1,4 +1,4 @@
-import { observable, action, decorate} from "mobx"
+import { observable, action, decorate, computed} from "mobx"
 
 class UserStore {
     @observable token = "";
@@ -15,10 +15,6 @@ class UserStore {
 
 }
 
-decorate(UserStore, {
-    token: observable,
-    setToken: action
-})
 
 let userStore = new UserStore();
 export default userStore

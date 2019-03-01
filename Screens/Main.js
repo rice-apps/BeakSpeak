@@ -29,6 +29,7 @@ class Comments extends Component{
 
     render() {
         let comments = this.props.comments
+        let post_id = this.props.post_id
         return(
             <FlatList
              data = {comments}
@@ -39,7 +40,9 @@ class Comments extends Component{
                 
                 return(
                     <View style = {{borderTopWidth: 1, borderRadius: 25, borderColor: 'powderblue'}}>
-                        <Comment body = {comment.body}/>
+                        <CommentData 
+                         comment = {comment}
+                         post_id = {this.props.post_id}/>
                     </View>
                 )
             }}
@@ -90,7 +93,7 @@ class Posts extends Component{
                     <PostData 
                         post = {post}
                     />
-                    <Comments comments = {post.comments}/>
+                    <Comments comments = {post.comments} post_id = {post._id}/>
                 </Card>
             </TouchableWithoutFeedback>
         )

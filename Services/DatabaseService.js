@@ -40,9 +40,12 @@ export async function sendNewPost(title, body, id) {
     }
 }
 
-export async function postComment(id, text) {
+export async function postComment(postid, comment) {
+    console.log(postid)
+    console.log(comment._id)
+    console.log(comment.body)
     try{
-        let res = await fetch(apiUrl+'/posts/'+id+'/comments', {
+        let res = await fetch(apiUrl+'/posts/'+postid+'/comments', {
             method: 'POST',
             headers: {
                 'x-access-token': UserStore.getToken(),
@@ -50,7 +53,8 @@ export async function postComment(id, text) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                comment: text
+                comment: comment.body,
+                comment_id: comment._id
             })
         });
         return await res.json();
@@ -131,6 +135,7 @@ export async function updateVotesOnComment(commentid, postid, vote) {
                 return (value == null) ? '' : value
             })
         });
+        console.log("in votes on comments")
         return await res.json()
     } catch (err) {
         console.log(err)
