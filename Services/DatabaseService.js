@@ -17,28 +17,6 @@ export async function getPosts() {
     }
 }
 
-
-export async function updateVotes(id, vote) {
-    try {
-        let res = await fetch(apiUrl + '/posts/' + id + '/vote', {
-            method: 'PUT',
-            headers: {
-                'x-access-token': UserStore.getToken(),
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({vote: vote}, 
-                removeNull = (key, value) => {
-                return (value == null) ? '' : value
-            })
-        });
-        return await res.json()
-    } catch (err) {
-        console.log(err)
-    }
-}
-
-
 export async function sendNewPost(title, body, id) {
     try{
         let res = await fetch(apiUrl+'/posts',{
@@ -116,11 +94,54 @@ export async function updateReact(postid, reaction) {
     }
 }
 
+export async function updateVotes(id, vote) {
+    try {
+        let res = await fetch(apiUrl + '/posts/' + id + '/vote', {
+            method: 'PUT',
+            headers: {
+                'x-access-token': UserStore.getToken(),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({vote: vote}, 
+                removeNull = (key, value) => {
+                return (value == null) ? '' : value
+            })
+        });
+        return await res.json()
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+export async function updateVotesOnComment(commentid, postid, vote) {
+    try {
+        let res = await fetch(apiUrl + '/posts/' + postid + '/voteComment', {
+            method: 'PUT',
+            headers: {
+                'x-access-token': UserStore.getToken(),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                vote: vote,
+                comment_id: commentid 
+            }, 
+                removeNull = (key, value) => {
+                return (value == null) ? '' : value
+            })
+        });
+        return await res.json()
+    } catch (err) {
+        console.log(err)
+    }
+}
 export default{
     getPosts,
     sendNewPost,
     updateReact,
     updateVotes,
+    updateVotesOnComment,
     postComment,
     getPost
 }
