@@ -15,7 +15,10 @@ import Blank from '../Components/Blank'
 import PostData from '../Components/PostData'
 import Comment from '../Components/Comment'
 import { inject, observer } from 'mobx-react';
+import CommentData from '../Components/CommentData';
+import { decorate } from 'mobx';
 
+const PostDetailFooter = observer(
 class PostDetailFooter extends Component{
 
     constructor(props){
@@ -27,14 +30,13 @@ class PostDetailFooter extends Component{
 
     onSubmit() {
         if(this.state.input){
-            DatabaseService.postComment(this.props.post_id, this.state.input)
-                .then(res => {this.props.update(res)});
+            this.props.post.addComment(this.state.input)
             this.setState({input: ''})
         }
     }
 
-    render = () => {
-
+    render () {
+        let post = this.post
         return(
             <KeyboardAvoidingView
                     keyboardVerticalOffset = {Header.HEIGHT}
@@ -62,13 +64,14 @@ class PostDetailFooter extends Component{
             </KeyboardAvoidingView>
         )
     }
-}
+})
 
 // Comments container of custom comment components
+const Comments = observer(
 class Comments extends Component{
 
 
-    render = () => {
+    render () {
         let comments = this.props.comments
 
         return(
@@ -81,16 +84,22 @@ class Comments extends Component{
                 
                 return(
                     <Card>
-                        <Comment body = {comment.body}/>
+                        <CommentData 
+                         comment = {comment}
+                         post_id = {this.props.post_id}
+                         showVote = {true} 
+                        />
                     </Card>
                 )
             }}
             />
         )
     }
-}
+})
 
-export default class PostDetailScreen extends Component{
+export default PostDetail = inject('store')(
+observer(
+class PostDetailScreen extends Component{
     
     // initialize with default values -- DO NOT fetch data here
     constructor(props){
@@ -104,7 +113,10 @@ export default class PostDetailScreen extends Component{
 
     _onRefresh = async() => { 
         this.setState((state) => ({refresh: true})) // indicate we are refreshing
-        this.props.navigation.getParam("post").update()
+        id = this.props.navigation.getParam('id')
+        post = this.props.store.getPost(id)
+
+        post.update()
             .then(() => this.setState((state) => ({refresh: false}))) // refresh data
     }
     
@@ -118,7 +130,10 @@ export default class PostDetailScreen extends Component{
                         post = {post}
                     />                
                  </Card>
-                <Comments comments = {post.comments}/>
+                 <Comments 
+                    comments = {post.comments} 
+                    post_id = {post._id}
+                />
             </View>
         )
     }
@@ -129,8 +144,9 @@ export default class PostDetailScreen extends Component{
     }
 
     // render a post with comments -- use posts component from main as an example for structure
-    render = () => {
-        post = this.props.navigation.getParam('post')
+    render (){
+        id = this.props.navigation.getParam('id')
+        post = this.props.store.getPost(id)
 
          // display posts in a list component
         let refresh = this.state.refresh
@@ -159,12 +175,11 @@ export default class PostDetailScreen extends Component{
                 </View>
                 
                 {/* comments field */}
-                <PostDetailFooter post_id={post._id} update={this.update}/>                
+                <PostDetailFooter post = {post}/>                
             </View>               
         )               
     }
-}
-
+}))
 
 
 const styles = StyleSheet.create({

@@ -1,10 +1,13 @@
 import React, {Component, PureComponent} from 'react'
-import {StyleSheet, Text, View} from 'react-native'
-import {Card, CardItem} from 'native-base'
+import {StyleSheet, View} from 'react-native'
+import {Card, CardItem, Title, Button, Text, Icon} from 'native-base'
+
+import DatabaseService from '../Services/DatabaseService'
+import { observable } from 'mobx';
 
 // body with comment content
 export class CommentBody extends Component{
-    render = () => {
+    render () {
         return(
             <CardItem>
                 <Text>
@@ -15,14 +18,75 @@ export class CommentBody extends Component{
     }
 }
 
+// side of comment with vote arrow
+class PostVotes extends PureComponent {
+    upvoteScore = () => {
+        this.props.upvoteScore()
+    }
+
+    downvoteScore = () => {
+        this.props.downvoteScore()
+    }
+
+    render() {
+        let vote = this.props.vote
+        let upvoteIconColor =  vote == 1 ? "orange" : "black"
+        let downvoteIconColor = vote == -1 ?  "blue" : "black"
+        return(
+            <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
+                
+                {/* upvote button */}
+                <Icon
+                    name = 'ios-arrow-up'
+                    fontSize = {30}
+                    type = 'Ionicons'
+                    style = {{color: upvoteIconColor}}
+                    onPress = {() => this.upvoteScore()}
+                />
+
+                {/* score */}                                
+                <Text>
+                    {this.props.score}
+                </Text>
+                
+                {/* downvote button */}                
+                <Icon
+                    name = 'ios-arrow-down'
+                    fontSize = {30}
+                    type = 'Ionicons'
+                    style = {{color: downvoteIconColor}}
+                    onPress = {() => this.downvoteScore()}
+                />
+            </View>
+        )
+    }
+}
+
 // main component
 export default class Comment extends PureComponent{
     
-    render = () => {
+    render () {
         let body = this.props.body
-
         return(
-                <CommentBody body = {body}/>
+                <View>
+                    <View style={{ flex: 1, flexDirection: 'row' }}>
+                        <View style={[{ flex: 7, justifyContent: 'center' }]}>
+                            <CommentBody body = {body}/>
+                        </View>                
+
+                        {/* voting component -- show on detail screen*/}
+                        {this.props.showVote &&
+                        <View style = {{ flex: 1}}>
+                            <PostVotes
+                                vote = {this.props.vote}
+                                score={this.props.score}
+                                upvoteScore={this.props.upvoteScore}
+                                downvoteScore={this.props.downvoteScore}
+                            />
+                        </View>
+                        }
+                    </View>
+                </View>
         )
     }
 }

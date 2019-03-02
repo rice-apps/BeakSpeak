@@ -22,6 +22,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "babel-preset-expo": "^5.0.0",
     "expo": "31.0.0",
     "mobx": "^5.8.0",
     "mobx-react": "^5.4.3",

@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, PureComponent} from 'react'
 import {
     FlatList,
     StyleSheet,
@@ -24,10 +24,11 @@ import PostData from '../Components/PostData'
 
 
 // Comments container of custom comment components
+const Comments = observer(
 class Comments extends Component{
 
-    render = () => {
-        let comments = this.props.comments
+    render() {
+        let comments = this.props.comments.slice(0, 3)
         return(
             <FlatList
              data = {comments}
@@ -38,14 +39,18 @@ class Comments extends Component{
                 
                 return(
                     <View style = {{borderTopWidth: 1, borderRadius: 25, borderColor: 'powderblue'}}>
-                        <Comment body = {comment.body}/>
+                        <CommentData 
+                         comment = {comment}
+                         post_id = {this.props.post_id}
+                         showVote = {false}
+                         />
                     </View>
                 )
             }}
             />
         )
     }
-}
+})
 
 
 // List of posts
@@ -61,7 +66,7 @@ class Posts extends Component{
         }
     }
 
-    componentDidMount = async() => {
+    async componentDidMount() {
         this.props.store.fetchPosts()
             .then((posts) => this.setState({
                 loaded: true,
@@ -69,8 +74,8 @@ class Posts extends Component{
             })) // retrieve posts from store
     }
 
-    postNavigate = (route, post) => {
-        this.props.navigate(route, {post: post})
+    postNavigate = (route, post_id) => {
+        this.props.navigate(route, {id: post_id})
     }
     
     _onRefresh = async() => { 
@@ -83,16 +88,19 @@ class Posts extends Component{
     _renderItem = (item) => {
         let post = item.item
         return(
-            <TouchableWithoutFeedback onPress = {()=> this.postNavigate('PostDetail', post)}>
+            <TouchableWithoutFeedback onPress = {()=> this.postNavigate('PostDetail', post._id)}>
                 <Card>
                     <PostData 
                         post = {post}
                     />
-                    <Comments comments = {post.comments}/>
+                    <Comments 
+                        comments = {post.comments} 
+                        post_id = {post._id}/>
                 </Card>
             </TouchableWithoutFeedback>
         )
     }
+    
     render () {
         let loaded = this.state.loaded
         let posts = this.props.store.posts
@@ -148,7 +156,7 @@ class MainFooter extends Component{
         this.setState({modalVisible: false})
     }
 
-    render = () => {
+    render () {
         let isVisible = this.state.modalVisible
         return(
             <View>
@@ -210,7 +218,7 @@ class MainFooter extends Component{
 // main component
 export default class MainScreen extends Component{
     
-    render = () => {
+    render () {
         return(
             <Container style = {{backgroundColor: 'powderblue'}}>
                 <View style = {{flex: 1}}>

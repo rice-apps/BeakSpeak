@@ -1,7 +1,7 @@
 import {CONFIG} from "../config";
 
-const apiUrl = CONFIG.api_url
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXIiOiJubnExIiwiYXR0cmlidXRlcyI6eyJlZHVQZXJzb25QcmltYXJ5QWZmaWxpYXRpb24iOiJzdHVkZW50In19LCJ1c2VySUQiOiI1YjVmOWE5YWRlNTdiNzQxZmZjM2U2MWUiLCJpYXQiOjE1MzI5OTIxNTR9.cr29eYKLTpaAuqcpk08XtrMt6FZj9S8Yvll3rzEMYus"
+const apiUrl = CONFIG.api_url;
+import UserStore from '../Store/UserStore'
 
 export async function getPosts() {
     console.log("inside get posts")
@@ -9,46 +9,21 @@ export async function getPosts() {
         let res = await fetch(apiUrl+'/posts',{
             method: 'GET',
             headers: {
-                'x-access-token': token
+                'x-access-token': UserStore.getToken()
             }
-        })
-        console.log("inside db")
-        let posts = await res.json()
-        return posts
+        });
+        return await res.json()
     }catch(err){
         console.log(err)
     }
 }
-
-
-export async function updateVotes(id, vote) {
-    try {
-        let res = await fetch(apiUrl + '/posts/' + id + '/vote', {
-            method: 'PUT',
-            headers: {
-                'x-access-token': token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({vote: vote}, 
-                removeNull = (key, value) => {
-                return (value == null) ? '' : value
-            })
-        })
-        let posts = await res.json()
-        return posts
-    } catch (err) {
-        console.log(err)
-    }
-}
-
 
 export async function sendNewPost(title, body, id) {
     try{
         let res = await fetch(apiUrl+'/posts',{
             method: 'POST',
             headers: {
-                'x-access-token': token,
+                'x-access-token': UserStore.getToken(),
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
@@ -59,14 +34,12 @@ export async function sendNewPost(title, body, id) {
             }, removeNull = (key, value) => {
                 return (value == null) ? '' : value
             })
-        })
-        let post = await res.json()
-        return post
+        });
+        return await res.json()
     }catch(err){
         console.log(err)
     }
 }
-
 
 export async function sendReport(type, reason, id) {
     try{
@@ -87,29 +60,28 @@ export async function sendReport(type, reason, id) {
         })
         if (res.status == 200) {
             return true
-        } 
+        }
         return false
     } catch(err){
         console.log(err)
     }
 }
 
-
-export async function postComment(id, text) {
+export async function postComment(postid, comment) {
     try{
-        let res = await fetch(apiUrl+'/posts/'+id+'/comments', {
+        let res = await fetch(apiUrl+'/posts/'+postid+'/comments', {
             method: 'POST',
             headers: {
-                'x-access-token': token,
+                'x-access-token': UserStore.getToken(),
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                comment: text
+                comment: comment.body,
+                comment_id: comment._id
             })
         });
-        let post = await res.json();
-        return post
+        return await res.json();
     }catch(err) {
         console.log(err)
     }
@@ -120,11 +92,10 @@ export async function getPost(id) {
         let res = await fetch(apiUrl+'/posts/'+id,{
             method: 'GET',
             headers: {
-                'x-access-token': token
+                'x-access-token': UserStore.getToken()
             }
-        })
-        let posts = await res.json()
-        return posts
+        });
+        return await res.json()
     }catch(err) {
         console.log(err)
     }
@@ -136,7 +107,7 @@ export async function updateReact(postid, reaction) {
         let res = await fetch(apiUrl+"/posts/"+postid+"/reacts", {
             method: 'PUT',
             headers: {
-                'x-access-token': token,
+                'x-access-token': UserStore.getToken(),
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
@@ -151,12 +122,56 @@ export async function updateReact(postid, reaction) {
     }
 }
 
+export async function updateVotes(id, vote) {
+    try {
+        let res = await fetch(apiUrl + '/posts/' + id + '/vote', {
+            method: 'PUT',
+            headers: {
+                'x-access-token': UserStore.getToken(),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({vote: vote}, 
+                removeNull = (key, value) => {
+                return (value == null) ? '' : value
+            })
+        });
+        return await res.json()
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+export async function updateVotesOnComment(commentid, postid, vote) {
+    try {
+        let res = await fetch(apiUrl + '/posts/' + postid + '/voteComment', {
+            method: 'PUT',
+            headers: {
+                'x-access-token': UserStore.getToken(),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                vote: vote,
+                comment_id: commentid 
+            }, 
+                removeNull = (key, value) => {
+                return (value == null) ? '' : value
+            })
+        });
+        console.log("in votes on comments")
+        return await res.json()
+    } catch (err) {
+        console.log(err)
+    }
+}
 export default{
     getPosts,
     sendNewPost,
     sendReport,
     updateReact,
     updateVotes,
+    updateVotesOnComment,
     postComment,
     getPost
 }
