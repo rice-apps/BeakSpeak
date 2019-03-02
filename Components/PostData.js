@@ -4,8 +4,8 @@ import {observer} from 'mobx-react'
 import Post from '../Components/Post'
 
 // main component - increments post vote counts up and down, returns total vote count
-@observer
-export default class PostData extends Component{
+export default PostData = observer(
+class PostData extends Component{
 
     // initialize with default values
     constructor(props){
@@ -51,6 +51,7 @@ export default class PostData extends Component{
 
     // increment vote count down by 1
     downvoteScore = async() => {
+        
         old_vote = this.props.post.userVote
         score = this.props.post.score
 
@@ -86,4 +87,4 @@ export default class PostData extends Component{
             />     
         )
     }
-}
+})

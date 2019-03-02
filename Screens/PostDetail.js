@@ -16,8 +16,9 @@ import PostData from '../Components/PostData'
 import Comment from '../Components/Comment'
 import { inject, observer } from 'mobx-react';
 import CommentData from '../Components/CommentData';
+import { decorate } from 'mobx';
 
-@observer
+const PostDetailFooter = observer(
 class PostDetailFooter extends Component{
 
     constructor(props){
@@ -63,10 +64,10 @@ class PostDetailFooter extends Component{
             </KeyboardAvoidingView>
         )
     }
-}
+})
 
 // Comments container of custom comment components
-@observer
+const Comments = observer(
 class Comments extends Component{
 
 
@@ -94,10 +95,10 @@ class Comments extends Component{
             />
         )
     }
-}
+})
 
-@inject('store')
-@observer
+export default PostDetail = inject('store')(
+observer(
 class PostDetailScreen extends Component{
     
     // initialize with default values -- DO NOT fetch data here
@@ -178,9 +179,8 @@ class PostDetailScreen extends Component{
             </View>               
         )               
     }
-}
+}))
 
-export default PostDetail = PostDetailScreen
 
 const styles = StyleSheet.create({
     newPostButton: {

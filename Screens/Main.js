@@ -24,7 +24,7 @@ import PostData from '../Components/PostData'
 
 
 // Comments container of custom comment components
-@observer
+const Comments = observer(
 class Comments extends Component{
 
     render() {
@@ -50,12 +50,12 @@ class Comments extends Component{
             />
         )
     }
-}
+})
 
 
 // List of posts
-@inject('store')
-@observer
+const Posts = inject('store')(
+observer(
 class Posts extends Component{
 
     constructor(props){
@@ -135,7 +135,7 @@ class Posts extends Component{
         }
         
     }
-}
+}))
 
 // footer with new post button and new post creation modal
 class MainFooter extends Component{

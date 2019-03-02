@@ -5,8 +5,8 @@ import Comment from '../Components/Comment'
 import { observer } from 'mobx-react';
 
 
-@observer
-export default class CommentData extends Component {
+export default CommentData = observer(
+class CommentData extends Component {
 
     // increment vote count up by 1
 upvoteScore = () => { 
@@ -64,7 +64,7 @@ downvoteScore = async() => {
             />
         )
     }
-}
+})
 
 const styles = StyleSheet.create({
     container: {

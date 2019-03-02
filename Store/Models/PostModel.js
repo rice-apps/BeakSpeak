@@ -51,7 +51,6 @@ export default class PostModel {
 
     @action addComment(body) {
         let new_comment = new CommentModel(body)
-        console.log(new_comment)
         this.comments.push(new_comment)
         DatabaseService.postComment(this._id, new_comment)
     }
