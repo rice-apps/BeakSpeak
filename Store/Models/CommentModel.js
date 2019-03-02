@@ -6,8 +6,8 @@ import DatabaseService from '../../Services/DatabaseService'
 export default class CommentModel {
     body = ""
     _id = ""
-    @observable userVote = 0
-    @observable score = 0
+    userVote = 0
+    score = 0
     
     constructor(body) {
         this.body = body
@@ -24,9 +24,15 @@ export default class CommentModel {
     }
 
 
-    @action updateVote(new_vote, commentid, postid) {
+    updateVote(new_vote, commentid, postid) {
         this.userVote = new_vote
         DatabaseService.updateVotesOnComment(commentid, postid, new_vote)
     }
 
 }
+
+decorate(CommentModel, {
+    userVote: observable,
+    score: observable,
+    updateVote: action
+})

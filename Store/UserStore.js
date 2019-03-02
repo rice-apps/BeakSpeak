@@ -1,20 +1,21 @@
 import { observable, action, decorate, computed} from "mobx"
 
 class UserStore {
-    @observable token = "";
-
-    constructor() {}
+    token = "";
 
     getToken() {
         return this.token;
     }
 
-    @action setToken(token) {
+    setToken(token) {
         this.token = token;
     }
 
 }
 
-
+decorate(UserStore, {
+    token: observable,
+    setToken: action
+})
 let userStore = new UserStore();
 export default userStore
