@@ -28,7 +28,7 @@ import PostData from '../Components/PostData'
 class Comments extends Component{
 
     render() {
-        let comments = this.props.comments
+        let comments = this.props.comments.slice(0, 3)
         let post_id = this.props.post_id
         return(
             <FlatList
@@ -42,7 +42,9 @@ class Comments extends Component{
                     <View style = {{borderTopWidth: 1, borderRadius: 25, borderColor: 'powderblue'}}>
                         <CommentData 
                          comment = {comment}
-                         post_id = {this.props.post_id}/>
+                         post_id = {this.props.post_id}
+                         showVote = {false}
+                         />
                     </View>
                 )
             }}
@@ -93,7 +95,9 @@ class Posts extends Component{
                     <PostData 
                         post = {post}
                     />
-                    <Comments comments = {post.comments} post_id = {post._id}/>
+                    <Comments 
+                        comments = {post.comments} 
+                        post_id = {post._id}/>
                 </Card>
             </TouchableWithoutFeedback>
         )

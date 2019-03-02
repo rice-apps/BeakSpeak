@@ -85,7 +85,9 @@ class Comments extends Component{
                     <Card>
                         <CommentData 
                          comment = {comment}
-                         post_id = {this.props.post_id}/>
+                         post_id = {this.props.post_id}
+                         showVote = {true} 
+                        />
                     </Card>
                 )
             }}
@@ -127,7 +129,10 @@ class PostDetailScreen extends Component{
                         post = {post}
                     />                
                  </Card>
-                 <Comments comments = {post.comments} post_id = {post._id}/>
+                 <Comments 
+                    comments = {post.comments} 
+                    post_id = {post._id}
+                />
             </View>
         )
     }

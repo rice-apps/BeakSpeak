@@ -74,7 +74,8 @@ export default class Comment extends PureComponent{
                             <CommentBody body = {body}/>
                         </View>                
 
-                        {/* voting component */}
+                        {/* voting component -- show on detail screen*/}
+                        {this.props.showVote &&
                         <View style = {{ flex: 1}}>
                             <PostVotes
                                 vote = {this.props.vote}
@@ -83,6 +84,7 @@ export default class Comment extends PureComponent{
                                 downvoteScore={this.props.downvoteScore}
                             />
                         </View>
+                        }
                     </View>
                 </View>
         )
