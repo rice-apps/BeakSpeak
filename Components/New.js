@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {
-    View, 
-    StyleSheet, 
+    View,
+    StyleSheet,
     Dimensions
 } from 'react-native'
 import {Button, Text} from 'native-base'
@@ -31,6 +31,7 @@ const PostOptions = {
             multiline: true,
             numberOfLines: 5,
             blurOnSubmit: true,
+            maxLength: 1000,
             stylesheet: {
                 ...Form.stylesheet,
                 textbox: {
@@ -44,8 +45,9 @@ const PostOptions = {
                 }
             }
         },
-        title:{
+        title: {
             placeholder: 'Your clever title here...',
+            maxLength: 150,
             stylesheet: {
                 ...Form.stylesheet,
                 textbox: {
@@ -62,58 +64,58 @@ const PostOptions = {
 }
 
 // container component for new post form
-@inject('store')
-export class NewPost extends Component{
+export const NewPost = inject('store')(
+class NewPost extends Component{
 
     // validate submission, send submission, close parent modal
-    submitPost = async() => {
+    submitPost = async () => {
 
         let results = this.form.validate()
         let errors = results.errors
 
         // check if submission is valid -- there must be a title!
-        if(errors.length === 0){
+        if (errors.length === 0) {
             let {title, body} = results.value
             this.props.store.addPost(title, body) // store new post in state
-            
+
             this.form.setState({value: null}) // clear form
-            
+
             this.props.closeView() // disable parent modal by changing its state
         }
 
     }
-    
+
     render() {
-        return(
-            <View style = {styles.content}>
+        return (
+            <View style={styles.content}>
                 {/* new post creation form */}
-                <Form 
-                 type = {PostSchema}
-                 options = {PostOptions}
-                 ref={c => this.form = c}
+                <Form
+                    type={PostSchema}
+                    options={PostOptions}
+                    ref={c => this.form = c}
                 />
                 <View>
-                    <Button 
-                     bordered 
-                     info 
-                     rounded 
-                     onPress = {()=> this.submitPost()}
+                    <Button
+                        bordered
+                        info
+                        rounded
+                        onPress={() => this.submitPost()}
                     >
-                        <Text> 
-                            Create New Post! 
+                        <Text>
+                            Create New Post!
                         </Text>
                     </Button>
                 </View>
             </View>
         )
     }
-}
+})
 
 
 const styles = StyleSheet.create(
     {
         content: {
-            alignItems: "center", 
+            alignItems: "center",
             justifyContent: "center",
             backgroundColor: "white",
         }

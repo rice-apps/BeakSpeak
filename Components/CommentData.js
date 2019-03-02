@@ -1,79 +1,84 @@
 import React, {Component} from 'react'
-import {Button, FlatList, StyleSheet} from "react-native"
-import {Card} from 'native-base'
+import {StyleSheet} from "react-native"
 import Comment from '../Components/Comment'
+import {observer} from 'mobx-react';
 
-export class CommentReact extends Component{
 
-    render () {
-        return(
-            <Button onPress={null} title={this.props.react} style={styles.button}/>
-        )
-    }
-}
+export default CommentData = observer(
+    class CommentData extends Component {
 
-export default class CommentData extends Component {
+        // increment vote count up by 1
+        upvoteScore = () => {
+            old_vote = this.props.comment.userVote
+            score = this.props.comment.score
+            if (old_vote === 1) {
+                new_vote = 0
+                score -= 1
+            }
+            if (old_vote === 0) {
+                new_vote = 1
+                score += 1
+            }
+            if (old_vote === -1) {
+                new_vote = 1
+                score += 2
+            }
+            this.props.comment.updateVote(new_vote, this.props.comment._id, this.props.post_id)
+            this.props.comment.score = score
 
-    constructor(props){
-        super(props)
-        console.log(this.props)
-
-        this.state = {
-            comments: this.props.comments,
-            // reactCounts: this.props.reactCounts
         }
-        console.log(this.state.reactCounts)
-    }
 
-    render () {
-        let comments = this.state.comments
-        // let angry = this.state.reactCounts["angry"]
-        // let funny = this.state.reactCounts["funny"]
-        // let love = this.state.reactCounts["love"]
-        // let sad = this.state.reactCounts["sad"]
-        // let wow = this.state.reactCounts["wow"]
+// increment vote count down by 1
+        downvoteScore = async () => {
+            old_vote = this.props.comment.userVote
+            score = this.props.comment.score
 
-        // console.log("angry" + angry)
-        return(
-                <FlatList
-                data = {comments}
-                listKey = {(item, index) => item._id}
-                keyExtractor = {(item, index) => item._id}
-                renderItem = {(item) => {
-                    let comment = item.item
+            if (old_vote == 1) {
+                new_vote = -1
+                score -= 2
+            }
+            if (old_vote == 0) {
+                new_vote = -1
+                score -= 1
+            }
+            if (old_vote == -1) {
+                new_vote = 0
+                score += 1
+            }
+            this.props.comment.updateVote(new_vote, this.props.comment._id, this.props.post_id)
+            this.props.comment.score = score
+        }
 
-                    return(
-                        <Card>
-                        <Comment body = {comment.body}/>
-                    <View style={styles.container}>
-                    <CommentReact react={angry.toString()}/>
-                    <CommentReact react={funny.toString()}/>
-                    <CommentReact react={love.toString()}/>
-                    <CommentReact react={sad.toString()}/>
-                    <CommentReact react={wow.toString()}/>
-                    </View>
-                        </Card>
-                    )
-                }}
+
+        render() {
+            let comment = this.props.comment
+            return (
+                <Comment
+                    comment={comment}
+                    score={comment.score}
+                    body={comment.body}
+                    upvoteScore={this.upvoteScore}
+                    downvoteScore={this.downvoteScore}
+                    showVote={this.props.showVote}
                 />
             )
         }
-}
+    })
 
 const styles = StyleSheet.create({
     container: {
-    flex: 0,
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
+        flex: 0,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
     button: {
-    backgroundColor: "powderblue",
-    width: '15%',
-    height: 15,
-    borderColor: "powderblue",
-    borderWidth: 15,
-    borderRadius: 15
-  },
+        backgroundColor: "powderblue",
+        width: '15%',
+        height: 15,
+        borderColor: "powderblue",
+        borderWidth: 15,
+        borderRadius: 15
+    },
     card: {
         borderColor: "powderblue",
         borderWidth: 5,

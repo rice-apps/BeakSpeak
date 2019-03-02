@@ -1,44 +1,46 @@
 import React, {Component} from 'react';
 import {
+    Button,
     StyleSheet,
     View,
+    Text,
     Image,
     Dimensions,
-    AsyncStorage
+    TouchableHighlight,
 } from 'react-native';
-import {Button, Text, Icon} from 'native-base'
-import Modal from 'react-native-modal'
+const logo = require('../Assets/Images/logo.png');
+import { WebBrowser, SecureStore } from 'expo'
+import UserStore from '../Store/UserStore'
+import {CONFIG} from "../config";
 
-import AuthService from '../Services/AuthService'
-import Login from './Login'
 
-const logo = require('../Assets/Images/logo.png')
 
 // main component for front page with logo and front button
 export class FrontBody extends Component {
 
-    render = () => {
+    render () {
         return (
             <View style={{flex: 1}}>
                 <View style={[{height: 50}]}/>
-                <View style={{flex: 1, flexDirection: 'row'}}>
+                <View style = {{flex: 1, flexDirection: 'row'}}>
                     <View style={{flex: 1}}/>
                     <View style={{flex: 3}}>
 
                         {/* our logo */}
                         <Image
-                            source={logo}
-                            style={styles.image}
+                            source = {logo}
+                            style = {styles.image}
                         />
                     </View>
-                    <View style={{flex: 1}}/>
+                    <View style={{flex:1}}/>
                 </View>
-                <View style={[{flex: 1, alignItems: 'center'}]}>
+                <View style={[{flex:1, alignItems:'center'}]}>
 
                     {/* fancy app title */}
                     <Text style={[{fontFamily: 'caviar-dreams', fontSize: 30, color: 'white'}]}>
                         BeakSpeak
                     </Text>
+                    {this.props.children}
                 </View>
             </View>
 
@@ -49,78 +51,80 @@ export class FrontBody extends Component {
 // main component 
 export default class FrontScreen extends Component {
 
-    renderModal = () => {
-        this.setState({modalVisible: true})
-    }
-
-    hideModal = () => {
-        this.setState({modalVisible: false})
-    }
-
-    constructor(props) {
-        super(props)
-
+    constructor(props){
+        super(props);
         this.state = {
-            modalVisible: false
-        }
-
+            loginError: ''
+        };
         this.getLoginInfo()
-    }
-
-    async componentDidMount() {
-        AuthService.login() // testing login requests
     }
 
     navigate = (screen) => {
         this.props.navigation.navigate(screen)
-    }
+    };
+
+    handleLogin = async () => {
+        let returnUrl = Expo.Linking.makeUrl();
+
+        let result = await WebBrowser.openAuthSessionAsync(
+            CONFIG.cas_auth_url + `?&service=${CONFIG.service_url}`, returnUrl);
+
+        if (result.type === 'success') {
+            let params = await Expo.Linking.parse(result.url).queryParams;
+            let token = params.token;
+            if (token) {
+                SecureStore.setItemAsync('token', token);
+                UserStore.setToken(token);
+                this.props.navigation.navigate('Main');
+
+            }
+        }
+
+        else {
+            this.setState((state) => ({
+                loginError: 'Error logging in, please try again.'}))
+        }
+    };
 
     getLoginInfo = async () => {
-        // const userToken = await AsyncStorage.getItem('userToken')
-        // this.setState({
-        //     modalVisible: true
-        // })
+        SecureStore.getItemAsync('token').then((token) => {
+                if (token) {
+                    UserStore.setToken(token);
+                    this.props.navigation.navigate('Main')
+                }
+            }
+        );
+
+    };
 
 
-        this.navigate('Main')
-    }
-
-    render = () => {
+    render () {
         const {height: screenHeight} = Dimensions.get('window');
-        let isVisible = this.state.modalVisible
-
         return (
             <View style={[styles.screenTheme, {height: screenHeight}]}>
-
-                {/* login modal */}
-                <Modal
-                    isVisible={isVisible}
-                    animationIn={'slideInUp'}
-                    animationOut={'zoomOut'}
-                    animationInTiming={500}
-                    animationOutTiming={500}
-                    avoidKeyboard
-                >
-                    <View style={{
-                        borderRadius: 10,
-                        padding: 10,
-                        backgroundColor: 'white'
-                    }}>
-                        <View style={{
-                            flexDirection: 'row',
-                            justifyContent: 'flex-end'
+                <FrontBody>
+                    <TouchableHighlight
+                        style ={{
+                            height: 40,
+                            width:160,
+                            borderRadius:10,
+                            backgroundColor : "#14141D",
+                            marginTop :50,
+                            marginBottom :20
                         }}>
-                        </View>
+                        <Button color="white"
+                                title="Login with NetID"
+                                onPress={this.handleLogin} />
+                    </TouchableHighlight>
 
-                        {/* new post creation form*/}
-                        <Login closeView={this.hideModal}/>
-                    </View>
-                </Modal>
-                <FrontBody/>
+                    <Text>{this.state.loginError}</Text>
+                </FrontBody>
             </View>
         );
     }
-}
+};
+
+
 
 const styles = StyleSheet.create({
     image: {
@@ -138,11 +142,11 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'red'
     },
-    screenTheme: {
+    screenTheme:{
         flex: 1,
-        backgroundColor: 'powderblue',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'row'
+        backgroundColor:'powderblue',
+        justifyContent:'center',
+        alignItems:'center',
+        flexDirection:'row'
     }
-})
+});

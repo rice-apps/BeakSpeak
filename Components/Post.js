@@ -3,57 +3,59 @@ import {Card, CardItem, Title, Button, Text, Icon} from 'native-base'
 import {StyleSheet, View} from 'react-native'
 
 // body with post content and potentially votes
-class PostBody extends PureComponent{
+class PostBody extends PureComponent {
 
     render() {
-        return(
+        return (
             <CardItem>
-                    <Text>
-                        {this.props.body}
-                    </Text>
+                <Text>
+                    {this.props.body}
+                </Text>
             </CardItem>
         )
     }
 }
 
 class PostVotes extends PureComponent {
+
+
+
     upvoteScore = () => {
         this.props.upvoteScore()
     }
 
     downvoteScore = () => {
-        this.props.downvoteScore() 
+        this.props.downvoteScore()
     }
 
     render() {
         let vote = this.props.vote
         let upvoteIconColor =  vote == 1 ? "orange" : "black"
         let downvoteIconColor = vote == -1 ?  "blue" : "black"
-
-        return(
+        return (
             <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
-                
+
                 {/* upvote button */}
                 <Icon
-                    name = 'ios-arrow-up'
-                    fontSize = {30}
-                    type = 'Ionicons'
-                    style = {{color: upvoteIconColor}}
-                    onPress = {() => this.upvoteScore()}
+                    name='ios-arrow-up'
+                    fontSize={30}
+                    type='Ionicons'
+                    style={{color: upvoteIconColor}}
+                    onPress={() => this.upvoteScore()}
                 />
 
-                {/* score */}                                
+                {/* score */}
                 <Text>
                     {this.props.score}
                 </Text>
-                
-                {/* downvote button */}                
+
+                {/* downvote button */}
                 <Icon
-                    name = 'ios-arrow-down'
-                    fontSize = {30}
-                    type = 'Ionicons'
-                    style = {{color: downvoteIconColor}}
-                    onPress = {() => this.downvoteScore()}
+                    name='ios-arrow-down'
+                    fontSize={30}
+                    type='Ionicons'
+                    style={{color: downvoteIconColor}}
+                    onPress={() => this.downvoteScore()}
                 />
             </View>
         )
@@ -61,20 +63,20 @@ class PostVotes extends PureComponent {
 }
 
 // header with title and potentially avatar and time info
-class PostHeader extends PureComponent{
+class PostHeader extends PureComponent {
 
     render() {
-        return(
+        return (
             <CardItem>
-                <Text style ={styles.titlefont}>
+                <Text style={styles.titlefont}>
                     {this.props.title}
                 </Text>
-            </CardItem>                
+            </CardItem>
         )
     }
 }
 
-class PostFooter extends PureComponent{
+class PostFooter extends PureComponent {
 
     pressReact = (react) => {
         this.props.updateReact(react)
@@ -84,7 +86,7 @@ class PostFooter extends PureComponent{
         let userReact = this.props.userReact
         let reactCounts = this.props.reactCounts
 
-        return(
+        return (
             <View style={styles.container}>
                 <Button onPress={() => this.pressReact("angry")} style={userReact == "angry" ? styles.buttonPress : {}} transparent rounded>
                     <Text adjustsFontSizeToFit={true} style = {{color:(userReact == "angry") ? "white" : "black"}}>
@@ -110,38 +112,38 @@ class PostFooter extends PureComponent{
         )
     }
 }
-// main component -- pure component for rendering optimization (view only)
-export default class Post extends Component{
-    render() {     
 
-        return(
+// main component -- pure component for rendering optimization (view only)
+export default class Post extends Component {
+    render() {
+        return (
             <View>
-                <View style={{ flex: 1, flexDirection: 'row' }}>
+                <View style={{flex: 1, flexDirection: 'row'}}>
 
                     {/* post component decomposed into children components */}
-                    <View style={[{ flex: 7, justifyContent: 'center' }]}>
-                        <PostHeader title={this.props.title} />
+                    <View style={[{flex: 7, justifyContent: 'center'}]}>
+                        <PostHeader title={this.props.title}/>
                     </View>
 
                     {/* voting component */}
-                    <View style = {{ flex: 1}}>
+                    <View style={{flex: 1}}>
                         <PostVotes
-                            vote = {this.props.userVote}
+                            vote={this.props.vote}
                             score={this.props.score}
-                           // upvoteScore={upvoteScore}
-                           // downvoteScore={downvoteScore}
+                            upvoteScore={this.props.upvoteScore}
+                            downvoteScore={this.props.downvoteScore}
                         />
                     </View>
                 </View>
 
                 {/* body of post */}
-                <PostBody body={this.props.body} />
+                <PostBody body={this.props.body}/>
                 <PostFooter
-                    userReact = {this.props.userReact}
-                    reactCounts = {this.props.reactCounts}
-                    updateReact = {this.props.updateReact}
+                    userReact={this.props.userReact}
+                    reactCounts={this.props.reactCounts}
+                    updateReact={this.props.updateReact}
                 />
-    
+
             </View>
         )
     }
@@ -151,7 +153,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 0.5,
         flexDirection: 'row',
-        justifyContent: 'space-evenly'
+        justifyContent: 'space-evenly',
+        paddingBottom: 5
     },
     button: {
         backgroundColor: "powderblue",
@@ -172,7 +175,7 @@ const styles = StyleSheet.create({
         borderWidth: 5,
         borderRadius: 15
     },
-    titlefont:{
+    titlefont: {
         fontWeight: 'bold',
         fontSize: 20
     }

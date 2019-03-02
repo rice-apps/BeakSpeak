@@ -18,7 +18,7 @@ export class DrawerHeader extends Component {
         this.props.navigation.toggleDrawer()
     }
 
-    render = () => {
+    render() {
         let title = this.props.title
 
         return (
@@ -56,8 +56,8 @@ export class StackHeader extends Component {
         this.props.navigation.goBack()
     }
 
-    render = () => {
-        let title = this.props.title
+    render() {
+        let title =  this.props.title
 
         return (
             <View style={{borderBottomWidth: 2, borderColor: 'white'}}>

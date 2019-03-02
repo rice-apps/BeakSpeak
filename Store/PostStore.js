@@ -1,49 +1,52 @@
-import { observable, computed, action, extendObservable, set, transaction} from "mobx"
+import { observable, computed, action, extendObservable, set, transaction, decorate} from "mobx"
 
 import PostModel from './Models/PostModel'
 import DatabaseService from '../Services/DatabaseService'
-import CommentModel from "./Models/CommentModel";
+import CommentStore from './CommentStore'
 
 class PostStore {
-    @observable posts = [];
+    posts = []
 
-    @action addPost = (title, body) => {
-        let newPost = new PostModel(title, body);
-        this.posts.unshift(newPost);
+    addPost = (title, body) => {
+        let newPost = new PostModel(title, body)
+        this.posts.push(newPost)
         DatabaseService.sendNewPost(title, body, newPost._id) // send post to database -- no need to await
-    };
+    }
 
-    @action async fetchPosts() {
-        console.log("Loading Posts.\n");
-
-        let proto_posts = await DatabaseService.getPosts();
+    async fetchPosts() {
+        let proto_posts = await DatabaseService.getPosts()
         try {
-            this.posts = proto_posts.map(p => observable(PostModel.make(p)));
-            console.log(this.posts);
+            this.posts = proto_posts.map(p => PostModel.make(p))
+            CommentStore.fetchComments();
         }
         catch(err) {
-            this.posts = [];
+            this.posts = []
         }
     }
 
-    @action async getPost(id){
+    async fetchPost(id) {
+        let proto_post = await DatabaseService.getPost(id)
+        let post = PostModel.make(proto_post)
         this.posts.forEach((val, index) => {
-            if(val._id === id) {
-                return val;
-            }
-        })
-    }
-
-    @action async fetchPost(id) {
-        let proto_post = await DatabaseService.getPost(id);
-        let post = PostModel.make(proto_post);
-        this.posts.forEach((val, index) => {
-            if (val._id === id) {
+            if (val._id == id) {
                 this.posts[index] = post
             }
         })
     }
+    getPost(id) {
+        return this.posts.find(val => val._id == id)
+    }
 }
 
-let postStore = new PostStore()
+decorate(
+    PostStore,
+    {
+        posts: observable,
+        addPost: action,
+        fetchPosts: action,
+        fetchPost: action
+    }
+)
+
+postStore = new PostStore()
 export default postStore
