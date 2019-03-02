@@ -85,6 +85,7 @@ class PostData extends Component{
                 updateReact = {this.updateReact}
                 upvoteScore = {this.upvoteScore}
                 downvoteScore = {this.downvoteScore}
+                showReport = {!this.props.isMain}
             />     
         )
     }

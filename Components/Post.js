@@ -106,6 +106,7 @@ class PostFooter extends PureComponent{
         let userReact = this.props.userReact
         let reactCounts = this.props.reactCounts
         let isVisible = this.state.modalVisible
+
         return(
             <View>
                 <View style={styles.container}>
@@ -131,66 +132,70 @@ class PostFooter extends PureComponent{
                     </Button>
                 </View>
 
+                {this.props.showReport &&
                 <View>
                     {/* new post creation modal */}
                     <Modal
-                        isVisible = {isVisible}
-                        animationIn = {'zoomIn'}
-                        animationOut = {'zoomOut'}
-                        animationInTiming = {500}
-                        animationOutTiming = {500}
+                        isVisible={isVisible}
+                        animationIn={'zoomIn'}
+                        animationOut={'zoomOut'}
+                        animationInTiming={500}
+                        animationOutTiming={500}
                     >
                         <View style={{
-                                        borderRadius: 10, 
-                                        padding: 10, 
-                                        backgroundColor: 'white'
-                                    }}>
+                            borderRadius: 10,
+                            padding: 10,
+                            backgroundColor: 'white'
+                        }}>
                             <View style={{
-                                            flexDirection: 'row', 
-                                            justifyContent: 'flex-end'
-                                        }}>
+                                flexDirection: 'row',
+                                justifyContent: 'flex-end'
+                            }}>
 
                                 {/* cancel button */}
-                                <Icon 
-                                    name = 'close' 
-                                    fontSize = {30}
-                                    type = 'MaterialCommunityIcons'
-                                    style = {{color: 'skyblue'}}
-                                    onPress = {this.hideModal}
+                                <Icon
+                                    name='close'
+                                    fontSize={30}
+                                    type='MaterialCommunityIcons'
+                                    style={{color: 'skyblue'}}
+                                    onPress={this.hideModal}
                                 />
                             </View>
                             {/* report form*/}
-                            <NewReport 
-                                closeView = {this.hideModal}
-                                id = {this.props.id}
+                            <NewReport
+                                closeView={this.hideModal}
+                                id={this.props.id}
                             />
                         </View>
                     </Modal>
-                    
+
                     {/* actual footer */}
                     <View>
                         <Footer
-                            style={{backgroundColor: 'white',
+                            style={{
+                                backgroundColor: 'white',
                                 flexDirection: 'row',
                                 alignItems: 'center',
                                 justifyContent: 'flex-end',
-                                borderColor: 'powderblue'}}
+                                borderColor: 'powderblue'
+                            }}
                         >
                             {/* report button */}
                             <TouchableWithoutFeedback
-                                onPress = {this.renderModal}
+                                onPress={this.renderModal}
                             >
-                                <View style = {[styles.reportButton]}>
-                                        <Icon 
-                                            name = 'flag'
-                                            type = 'MaterialCommunityIcons'
-                                            style = {{color: 'powderblue', fontSize: 25}}
-                                        />
+                                <View style={[styles.reportButton]}>
+                                    <Icon
+                                        name='flag-variant'
+                                        type='MaterialCommunityIcons'
+                                        style={{color: 'powderblue', fontSize: 25}}
+                                    />
                                 </View>
                             </TouchableWithoutFeedback>
                         </Footer>
                     </View>
                 </View>
+                }
             </View>
         )
     }
@@ -228,6 +233,7 @@ export default class Post extends Component{
                     userReact = {this.props.userReact}
                     reactCounts = {this.props.reactCounts}
                     updateReact = {this.props.updateReact}
+                    showReport = {this.props.showReport}
                 />
     
             </View>

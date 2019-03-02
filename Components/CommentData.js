@@ -60,7 +60,8 @@ downvoteScore = async() => {
                 body = {comment.body}
                 upvoteScore = {this.upvoteScore}
                 downvoteScore = {this.downvoteScore}
-                showVote = {this.props.showVote}
+                showVote = {!this.props.isMain}
+                showReport = {!this.props.isMain}
             />
         )
     }

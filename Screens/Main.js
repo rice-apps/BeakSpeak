@@ -42,7 +42,7 @@ class Comments extends Component{
                         <CommentData 
                          comment = {comment}
                          post_id = {this.props.post_id}
-                         showVote = {false}
+                         isMain = {true}
                          />
                     </View>
                 )
@@ -92,6 +92,7 @@ class Posts extends Component{
                 <Card>
                     <PostData 
                         post = {post}
+                        isMain = {true}
                     />
                     <Comments 
                         comments = {post.comments} 

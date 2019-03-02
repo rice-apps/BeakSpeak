@@ -1,9 +1,11 @@
 import React, {Component, PureComponent} from 'react'
-import {StyleSheet, View} from 'react-native'
-import {Card, CardItem, Title, Button, Text, Icon} from 'native-base'
+import {StyleSheet, TouchableWithoutFeedback, View} from 'react-native'
+import {Card, CardItem, Title, Button, Text, Icon, Footer} from 'native-base'
+import Modal from 'react-native-modal'
 
 import DatabaseService from '../Services/DatabaseService'
 import { observable } from 'mobx';
+import {NewReport} from "./Report";
 
 // body with comment content
 export class CommentBody extends Component{
@@ -62,10 +64,102 @@ class PostVotes extends PureComponent {
     }
 }
 
+class CommentFooter extends PureComponent{
+
+    constructor(props){
+        super(props)
+
+        this.state = {
+            modalVisible: false
+        }
+    }
+
+    renderModal = () => {
+        this.setState({modalVisible: true})
+    }
+
+    hideModal = () => {
+        this.setState({modalVisible: false})
+    }
+
+    render() {
+        let isVisible = this.state.modalVisible
+        return(
+            <View>
+
+                <View>
+                    {/* new report creation modal */}
+                    <Modal
+                        isVisible = {isVisible}
+                        animationIn = {'zoomIn'}
+                        animationOut = {'zoomOut'}
+                        animationInTiming = {500}
+                        animationOutTiming = {500}
+                    >
+                        <View style={{
+                            borderRadius: 10,
+                            padding: 10,
+                            backgroundColor: 'white'
+                        }}>
+                            <View style={{
+                                flexDirection: 'row',
+                                justifyContent: 'flex-end'
+                            }}>
+
+                                {/* cancel button */}
+                                <Icon
+                                    name = 'close'
+                                    fontSize = {30}
+                                    type = 'MaterialCommunityIcons'
+                                    style = {{color: 'skyblue'}}
+                                    onPress = {this.hideModal}
+                                />
+                            </View>
+
+                            {/* report form */}
+                            <NewReport
+                                closeView = {this.hideModal}
+                                id = {this.props.id}
+                            />
+                        </View>
+                    </Modal>
+
+                    {/* actual footer */}
+                    <View>
+                        <Footer
+                            style={{backgroundColor: 'white',
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'flex-end',
+                                height: styles.reportButton.height,
+                                borderColor: 'white'
+                            }}
+                        >
+                            {/* report button */}
+                            <TouchableWithoutFeedback
+                                onPress = {this.renderModal}
+                            >
+                                <View style = {[styles.reportButton]}>
+                                    <Icon
+                                        name = 'flag-variant'
+                                        type = 'MaterialCommunityIcons'
+                                        style = {{color: 'powderblue', fontSize: 25}}
+                                    />
+                                </View>
+                            </TouchableWithoutFeedback>
+                        </Footer>
+                    </View>
+                </View>
+            </View>
+        )
+    }
+}
+
 // main component
 export default class Comment extends PureComponent{
     
     render () {
+        // let isVisible = this.state.modalVisible
         let body = this.props.body
         return(
                 <View>
@@ -85,7 +179,17 @@ export default class Comment extends PureComponent{
                             />
                         </View>
                         }
+
                     </View>
+
+                    {/* report component -- show on detail screen*/}
+                    {this.props.showReport &&
+                    <View>
+                        <CommentFooter
+                            id={this.props.id}
+                        />
+                    </View>
+                    }
                 </View>
         )
     }
@@ -100,5 +204,15 @@ const styles = StyleSheet.create({
     seeBorders: {
         borderWidth: 1,
         borderColor:'red'
+    },
+    reportButton: {
+        backgroundColor: 'white',
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        borderWidth: 1,
+        borderColor: 'white',
+        paddingTop: 2,
+        paddingRight: 15,
+        paddingBottom: 7
     }
 })
