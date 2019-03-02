@@ -1,21 +1,20 @@
-import { observable, action, decorate, computed} from "mobx"
+import { observable, action, decorate } from 'mobx';
 
 class UserStore {
-    token = "";
+  token = '';
 
-    getToken() {
-        return this.token;
-    }
+  getToken() {
+    return this.token;
+  }
 
-    setToken(token) {
-        this.token = token;
-    }
-
+  setToken(token) {
+    this.token = token;
+  }
 }
 
 decorate(UserStore, {
-    token: observable,
-    setToken: action
-})
+  token: observable,
+  setToken: action,
+});
 let userStore = new UserStore();
-export default userStore
+export default userStore;
