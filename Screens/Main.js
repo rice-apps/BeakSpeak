@@ -29,7 +29,6 @@ class Comments extends Component{
 
     render() {
         let comments = this.props.comments.slice(0, 3)
-        let post_id = this.props.post_id
         return(
             <FlatList
              data = {comments}

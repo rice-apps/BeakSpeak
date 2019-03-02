@@ -41,9 +41,6 @@ export async function sendNewPost(title, body, id) {
 }
 
 export async function postComment(postid, comment) {
-    console.log(postid)
-    console.log(comment._id)
-    console.log(comment.body)
     try{
         let res = await fetch(apiUrl+'/posts/'+postid+'/comments', {
             method: 'POST',
