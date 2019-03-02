@@ -64,8 +64,8 @@ const PostOptions = {
 }
 
 // container component for new post form
-@inject('store')
-export class NewPost extends Component{
+export const NewPost = inject('store')(
+class NewPost extends Component{
 
     // validate submission, send submission, close parent modal
     submitPost = async() => {
@@ -109,7 +109,7 @@ export class NewPost extends Component{
             </View>
         )
     }
-}
+})
 
 
 const styles = StyleSheet.create(

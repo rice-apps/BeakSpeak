@@ -7,6 +7,16 @@
       "image": "./Assets/Images/splash_screen.png",
       "backgroundColor": "#b0e0e6"
     },
-    "orientation": "portrait"
+    "orientation": "portrait",
+    "name" : "BeakSpeak",
+    "icon" : "./Assets/Images/logo.png",
+    "version" : "1.0.0",
+    "slug" : "beakspeak",
+    "ios" : {
+      "bundleIdentifier" : "com.riceapps.beakspeak"
+    },
+    "android" : {
+      "package" : "com.riceapps.beakspeak"
+    }
   }
 }

@@ -24,11 +24,11 @@ import PostData from '../Components/PostData'
 
 
 // Comments container of custom comment components
-@observer
+const Comments = observer(
 class Comments extends Component{
 
     render() {
-        let comments = this.props.comments
+        let comments = this.props.comments.slice(0, 3)
         return(
             <FlatList
              data = {comments}
@@ -39,19 +39,23 @@ class Comments extends Component{
                 
                 return(
                     <View style = {{borderTopWidth: 1, borderRadius: 25, borderColor: 'powderblue'}}>
-                        <Comment body = {comment.body}/>
+                        <CommentData 
+                         comment = {comment}
+                         post_id = {this.props.post_id}
+                         showVote = {false}
+                         />
                     </View>
                 )
             }}
             />
         )
     }
-}
+})
 
 
 // List of posts
-@inject('store')
-@observer
+const Posts = inject('store')(
+observer(
 class Posts extends Component{
 
     constructor(props){
@@ -90,7 +94,9 @@ class Posts extends Component{
                     <PostData 
                         post = {post}
                     />
-                    <Comments comments = {post.comments}/>
+                    <Comments 
+                        comments = {post.comments} 
+                        post_id = {post._id}/>
                 </Card>
             </TouchableWithoutFeedback>
         )
@@ -129,7 +135,7 @@ class Posts extends Component{
         }
         
     }
-}
+}))
 
 // footer with new post button and new post creation modal
 class MainFooter extends Component{

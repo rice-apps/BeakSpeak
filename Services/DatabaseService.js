@@ -17,43 +17,6 @@ export async function getPosts() {
     }
 }
 
-export async function getNPosts(numPosts) {
-    try{
-        let res = await fetch(apiUrl+'/posts/' + numPosts,{
-            method: 'GET',
-            headers: {
-                'x-access-token': token
-            }
-        })
-        let posts = await res.json()
-        return posts
-    }catch(err){
-        console.log(err)
-    }
-}
-
-
-export async function updateVotes(id, vote) {
-    try {
-        let res = await fetch(apiUrl + '/posts/' + id + '/vote', {
-            method: 'PUT',
-            headers: {
-                'x-access-token': UserStore.getToken(),
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({vote: vote}, 
-                removeNull = (key, value) => {
-                return (value == null) ? '' : value
-            })
-        });
-        return await res.json()
-    } catch (err) {
-        console.log(err)
-    }
-}
-
-
 export async function sendNewPost(title, body, id) {
     try{
         let res = await fetch(apiUrl+'/posts',{
@@ -77,9 +40,9 @@ export async function sendNewPost(title, body, id) {
     }
 }
 
-export async function postComment(id, text) {
+export async function postComment(postid, comment) {
     try{
-        let res = await fetch(apiUrl+'/posts/'+id+'/comments', {
+        let res = await fetch(apiUrl+'/posts/'+postid+'/comments', {
             method: 'POST',
             headers: {
                 'x-access-token': UserStore.getToken(),
@@ -87,7 +50,8 @@ export async function postComment(id, text) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                comment: text
+                comment: comment.body,
+                comment_id: comment._id
             })
         });
         return await res.json();
@@ -131,12 +95,55 @@ export async function updateReact(postid, reaction) {
     }
 }
 
+export async function updateVotes(id, vote) {
+    try {
+        let res = await fetch(apiUrl + '/posts/' + id + '/vote', {
+            method: 'PUT',
+            headers: {
+                'x-access-token': UserStore.getToken(),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({vote: vote}, 
+                removeNull = (key, value) => {
+                return (value == null) ? '' : value
+            })
+        });
+        return await res.json()
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+export async function updateVotesOnComment(commentid, postid, vote) {
+    try {
+        let res = await fetch(apiUrl + '/posts/' + postid + '/voteComment', {
+            method: 'PUT',
+            headers: {
+                'x-access-token': UserStore.getToken(),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                vote: vote,
+                comment_id: commentid 
+            }, 
+                removeNull = (key, value) => {
+                return (value == null) ? '' : value
+            })
+        });
+        console.log("in votes on comments")
+        return await res.json()
+    } catch (err) {
+        console.log(err)
+    }
+}
 export default{
     getPosts,
     sendNewPost,
     updateReact,
     updateVotes,
+    updateVotesOnComment,
     postComment,
-    getPost,
-    getNPosts
+    getPost
 }
