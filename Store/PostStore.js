@@ -8,7 +8,7 @@ class PostStore {
 
     addPost = (title, body) => {
         let newPost = new PostModel(title, body)
-        this.posts.unshift(newPost)
+        this.posts.splice(0, 0, newPost)
         DatabaseService.sendNewPost(title, body, newPost._id) // send post to database -- no need to await
     }
 
@@ -31,6 +31,9 @@ class PostStore {
                 this.posts[index] = post
             }
         })
+    }
+    getPost(id) {
+        return this.posts.find(val => val._id == id)
     }
 }
 

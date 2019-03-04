@@ -31,6 +31,7 @@ const PostOptions = {
             multiline: true,
             numberOfLines: 5,
             blurOnSubmit: true,
+            maxLength: 1000,
             stylesheet: {
                 ...Form.stylesheet,
                 textbox: {
@@ -46,6 +47,7 @@ const PostOptions = {
         },
         title:{
             placeholder: 'Your clever title here...',
+            maxLength: 150,
             stylesheet: {
                 ...Form.stylesheet,
                 textbox: {
@@ -62,7 +64,7 @@ const PostOptions = {
 }
 
 // container component for new post form
-const NewPost = inject('store')(
+export const NewPost = inject('store')(
 class NewPost extends Component{
 
     // validate submission, send submission, close parent modal
@@ -106,7 +108,7 @@ class NewPost extends Component{
         )
     }
 })
-export {NewPost}
+
 const styles = StyleSheet.create(
     {
         content: {
