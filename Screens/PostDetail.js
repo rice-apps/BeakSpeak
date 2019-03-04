@@ -40,7 +40,8 @@ class PostDetailFooter extends Component{
         return(
             <KeyboardAvoidingView
                     keyboardVerticalOffset = {Header.HEIGHT}
-                    behavior="position">        
+                    behavior="position"
+                    keyboardShouldPersistTaps={true} >        
                 
                 <View style={styles.commentInputContainer}>
                     
