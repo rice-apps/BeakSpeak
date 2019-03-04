@@ -8,7 +8,7 @@ class PostStore {
 
     addPost = (title, body) => {
         let newPost = new PostModel(title, body)
-        this.posts.push(newPost)
+        this.posts.splice(0, 0, newPost)
         DatabaseService.sendNewPost(title, body, newPost._id) // send post to database -- no need to await
     }
 
@@ -18,6 +18,7 @@ class PostStore {
             this.posts = proto_posts.map(p => PostModel.make(p))
         }
         catch(err) {
+            console.log(err)
             this.posts = []
         }
     }

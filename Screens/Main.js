@@ -87,7 +87,6 @@ class Posts extends Component{
 
     _renderItem = (item) => {
         let post = item.item
-
         return(
             <TouchableWithoutFeedback onPress = {()=> this.postNavigate('PostDetail', post._id)}>
                 <Card>
@@ -105,6 +104,7 @@ class Posts extends Component{
     render () {
         let loaded = this.state.loaded
         let posts = this.props.store.posts
+
         
         if(!loaded) { // wait for posts to load
             return(

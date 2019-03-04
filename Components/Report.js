@@ -7,31 +7,29 @@ import {
 import {Button, Text} from 'native-base'
 import t from 'tcomb-form-native'
 import {inject, observer} from 'mobx-react'
-
+import PostStore from "../Store/PostStore"
 import DatabaseService from '../Services/DatabaseService'
-import postStore from '../Store/PostStore';
 
 // form component
 const Form = t.form.Form
 
 // template for new post form
-const PostSchema = t.struct({
-    title: t.String,
-    body: t.maybe(t.String)
+const ReportSchema = t.struct({
+    TypeOfViolation: t.String,
+    TellUsMore: t.maybe(t.String)
 })
 
 // get screen width
 let {width: screenWidth} = Dimensions.get('window')
 
 // customizing new post form
-const PostOptions = {
+const ReportOptions = {
     fields: {
-        body: {
-            placeholder: 'Your thoughts here...',
+        TellUsMore: {
+            placeholder: "What's wrong with this post?",
             multiline: true,
             numberOfLines: 5,
             blurOnSubmit: true,
-            maxLength: 1000,
             stylesheet: {
                 ...Form.stylesheet,
                 textbox: {
@@ -45,9 +43,8 @@ const PostOptions = {
                 }
             }
         },
-        title:{
-            placeholder: 'Your clever title here...',
-            maxLength: 150,
+        TypeOfViolation:{
+            placeholder: "(e.g. hate speech, verbal abuse, etc.)",
             stylesheet: {
                 ...Form.stylesheet,
                 textbox: {
@@ -64,21 +61,21 @@ const PostOptions = {
 }
 
 // container component for new post form
-export const NewPost = inject('store')(
-class NewPost extends Component{
+class NewReport extends Component{
 
     // validate submission, send submission, close parent modal
-    submitPost = async() => {
-
+    submitReport = async() => {
         let results = this.form.validate()
+        let id = this.props.id
         let errors = results.errors
-        // check if submission is valid -- there must be a title!
+        // check if submission is valid -- there must be a TypeOfViolation!
         if(errors.length === 0){
-            let {title, body} = results.value
-            this.props.store.addPost(title, body) // store new post in state
-            this.form.setState({value: null}) // clear form
-            
-            this.props.closeView() // disable parent modal by changing its state
+            let {TypeOfViolation, TellUsMore} = results.value
+            received = await DatabaseService.sendReport(TypeOfViolation, TellUsMore, id) // send report to backend, wait for response
+            if (received) {
+                this.form.setState({value: null}) // clear form
+                this.props.closeView() // disable parent modal by changing its state
+            }
         }
 
     }
@@ -86,10 +83,10 @@ class NewPost extends Component{
     render() {
         return(
             <View style = {styles.content}>
-                {/* new post creation form */}
+                {/* new report form */}
                 <Form 
-                 type = {PostSchema}
-                 options = {PostOptions}
+                 type = {ReportSchema}
+                 options = {ReportOptions}
                  ref={c => this.form = c}
                 />
                 <View>
@@ -97,18 +94,18 @@ class NewPost extends Component{
                      bordered 
                      info 
                      rounded 
-                     onPress = {()=> this.submitPost()}
+                     onPress = {()=> this.submitReport()}
                     >
                         <Text> 
-                            Create New Post! 
+                            Report this post! 
                         </Text>
                     </Button>
                 </View>
             </View>
         )
     }
-})
-
+}
+export {NewReport}
 const styles = StyleSheet.create(
     {
         content: {
