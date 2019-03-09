@@ -55,7 +55,7 @@ downvoteScore = async() => {
         let comment = this.props.comment
         return(
             <Comment
-                vote = {comment.vote}
+                vote = {comment.userVote}
                 score = {comment.score}
                 body = {comment.body}
                 upvoteScore = {this.upvoteScore}
