@@ -37,12 +37,12 @@ class PostVotes extends PureComponent {
                     name = 'ios-arrow-up'
                     fontSize = {30}
                     type = 'Ionicons'
-                    style = {{color: upvoteIconColor}}
+                    style = {{color: upvoteIconColor, paddingTop: 8, paddingRight: 5}}
                     onPress = {() => this.upvoteScore()}
                 />
 
                 {/* score */}                                
-                <Text>
+                <Text style={{ paddingRight: 5}}>
                     {this.props.score}
                 </Text>
                 
@@ -51,7 +51,7 @@ class PostVotes extends PureComponent {
                     name = 'ios-arrow-down'
                     fontSize = {30}
                     type = 'Ionicons'
-                    style = {{color: downvoteIconColor}}
+                    style = {{color: downvoteIconColor, paddingBottom: 5, paddingRight: 5}}
                     onPress = {() => this.downvoteScore()}
                 />
             </View>
@@ -112,6 +112,9 @@ class PostFooter extends PureComponent{
 // main component -- pure component for rendering optimization (view only)
 export default class Post extends Component{
     render() {
+        // console.log("here")
+        // console.log(this.props)
+        console.log(this.props.date)
         return(
             <View>
                 <View style={{ flex: 1, flexDirection: 'row' }}>
