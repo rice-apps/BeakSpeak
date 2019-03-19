@@ -31,8 +31,8 @@ class Comments extends Component{
         let comments = this.props.comments.slice(0, 3)
         return(
             <FlatList
+             removeClippedSubviews = {false}
              data = {comments}
-             listKey = {(item, index) => item._id}
              keyExtractor = {(item, index) => item._id}
              renderItem = {(item) => {
                 let comment = item.item
@@ -117,6 +117,7 @@ class Posts extends Component{
             return (
                 <View style={{flex: 1}}>
                     <FlatList
+                        removeClippedSubviews = {false}
                         data = {posts}
                         renderItem = {(item) => {return this._renderItem(item)}}
                         keyExtractor = {(item, index) => item._id}
