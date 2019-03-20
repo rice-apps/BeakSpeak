@@ -17,6 +17,7 @@
     },
     "android" : {
       "package" : "com.riceapps.beakspeak"
-    }
+    },
+    "scheme": "beakspeak"
   }
 }
