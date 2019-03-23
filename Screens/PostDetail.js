@@ -23,21 +23,23 @@ const PostDetailFooter = observer(
       }
     }
 
-    render() {
-      return (
-        <KeyboardAvoidingView keyboardVerticalOffset={Header.HEIGHT} behavior="position">
-          <View style={styles.commentInputContainer}>
-            {/* takes user comment input */}
-            <Input
-              placeholder="Your comment here..."
-              onChangeText={text => {
-                this.setState({ input: text });
-              }}
-              onSubmitEditing={() => {
-                this.onSubmit();
-              }}
-              value={this.state.input}
-            />
+    render () {
+        let post = this.post
+        return(
+            <KeyboardAvoidingView
+                    keyboardVerticalOffset = {Header.HEIGHT}
+                    behavior="position"
+                    keyboardShouldPersistTaps={true} >
+                
+                <View style={styles.commentInputContainer}>
+                    
+                    {/* takes user comment input */}
+                    <Input
+                        placeholder = 'Your comment here...'
+                        onChangeText = {(text) => {this.setState({input: text})}}
+                        onSubmitEditing = {() => {this.onSubmit()}}
+                        value = {this.state.input}
+                    />
 
             {/* submits comment*/}
             <Button transparent>

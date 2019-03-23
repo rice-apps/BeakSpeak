@@ -73,19 +73,19 @@ export default (PostData = observer(
 
     // pass helper methods to Post component
     render() {
-      return (
-        <Post
-          title={this.props.post.title}
-          vote={this.props.post.userVote}
-          score={this.props.post.score}
-          userReact={this.props.post.userReact}
-          reactCounts={this.props.post.reactCounts}
-          body={this.props.post.body}
-          updateReact={this.updateReact}
-          upvoteScore={this.upvoteScore}
-          downvoteScore={this.downvoteScore}
-        />
-      );
+        return(
+            <Post
+                title = {this.props.post.title}
+                vote = {this.props.post.userVote}
+                score = {this.props.post.score}
+                userReact = {this.props.post.userReact}
+                reactCounts = {this.props.post.reactCounts}
+                id = {this.props.post._id}
+                body = {this.props.post.body}
+                updateReact = {this.updateReact}
+                upvoteScore = {this.upvoteScore}
+                downvoteScore = {this.downvoteScore}
+            />     
+        )
     }
-  }
-));
+})
