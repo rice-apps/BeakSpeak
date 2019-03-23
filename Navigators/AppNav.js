@@ -8,8 +8,8 @@ import PostDetailScreen from '../Screens/PostDetail'
 
 import Blank from '../Components/Blank'
 import Sidebar from '../Components/Sidebar'
+import InfoScreen from '../Screens/Info.js'
 import {DrawerHeader, StackHeader} from '../Components/Headers'
-import { Drawer } from 'native-base';
 
 var {width: screenWidth} = Dimensions.get('window')
 
@@ -38,7 +38,7 @@ const HomeNav = createDrawerNavigator(
             screen: Blank
         },
         Info: {
-            screen: Blank,
+            screen: InfoScreen,
         }
     },
     {

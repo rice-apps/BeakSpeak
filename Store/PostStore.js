@@ -6,10 +6,14 @@ import DatabaseService from '../Services/DatabaseService'
 class PostStore {
     posts = []
 
-    addPost = (title, body) => {
+    // changed this to go through database first
+    addPost = async(title, body) => {
         let newPost = new PostModel(title, body)
-        this.posts.push(newPost)
-        DatabaseService.sendNewPost(title, body, newPost._id) // send post to database -- no need to await
+        newerPost = await DatabaseService.sendNewPost(title, body, newPost._id) 
+        this.posts.unshift(PostModel.make(newerPost))
+//        this.posts.splice(0, 0, PostModel.make(newPost))
+//        newPost = await DatabaseService.sendNewPost(title, body, newPost._id) // send post to database
+//        DatabaseService.sendNewPost(title, body, newPost._id) // send post to database -- no need to await
     }
 
     async fetchPosts() {
@@ -18,6 +22,7 @@ class PostStore {
             this.posts = proto_posts.map(p => PostModel.make(p))
         }
         catch(err) {
+            console.log(err)
             this.posts = []
         }
     }
