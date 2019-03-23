@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {FlatList, RefreshControl, StyleSheet, TouchableWithoutFeedback} from 'react-native'
+import {FlatList, RefreshControl, ScrollView, StyleSheet, TouchableWithoutFeedback} from 'react-native'
 import {Card, Container, Footer, Icon, View} from 'native-base'
 import Modal from 'react-native-modal'
 import {AppLoading} from 'expo'
@@ -155,39 +155,39 @@ class MainFooter extends Component {
             <View>
 
                 {/* new post creation modal */}
-
-                <Modal
-                    isVisible={isVisible}
-                    animationIn={'slideInUp'}
-                    animationOut={'zoomOut'}
-                    animationInTiming={500}
-                    animationOutTiming={500}
-                >
-                    <View style={{
-                        borderRadius: 10,
-                        padding: 10,
-                        backgroundColor: 'white'
-                    }}>
+                <ScrollView keyboardShouldPersistTaps={"never"}>
+                    <Modal
+                        isVisible={isVisible}
+                        animationIn={'slideInUp'}
+                        animationOut={'zoomOut'}
+                        animationInTiming={500}
+                        animationOutTiming={500}
+                    >
                         <View style={{
-                            flexDirection: 'row',
-                            justifyContent: 'flex-end'
+                            borderRadius: 10,
+                            padding: 10,
+                            backgroundColor: 'white'
                         }}>
+                            <View style={{
+                                flexDirection: 'row',
+                                justifyContent: 'flex-end'
+                            }}>
 
-                            {/* cancel button */}
-                            <Icon
-                                name='close'
-                                fontSize={30}
-                                type='MaterialCommunityIcons'
-                                style={{color: 'skyblue'}}
-                                onPress={this.hideModal}
-                            />
+                                {/* cancel button */}
+                                <Icon
+                                    name='close'
+                                    fontSize={30}
+                                    type='MaterialCommunityIcons'
+                                    style={{color: 'skyblue'}}
+                                    onPress={this.hideModal}
+                                />
+                            </View>
+
+                            {/* new post creation form*/}
+                            <NewPost closeView={this.hideModal}/>
                         </View>
-
-                        {/* new post creation form*/}
-                        <NewPost closeView={this.hideModal}/>
-                    </View>
-                </Modal>
-
+                    </Modal>
+                </ScrollView>
 
                 {/* actual footer */}
                 <Footer>
