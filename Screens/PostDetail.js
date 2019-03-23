@@ -173,22 +173,22 @@ export default (PostDetail = inject('store')(
 ));
 
 const styles = StyleSheet.create({
-  newPostButton: {
-    flex: 1,
-    backgroundColor: 'powderblue',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderTopWidth: 1,
-    borderColor: 'white',
-  },
-  commentInputContainer: {
-    backgroundColor: 'white',
-    borderTopWidth: 1,
-    borderColor: '#EEE',
-    flexDirection: 'row',
-  },
-  seeBorders: {
-    borderWidth: 5,
-    borderColor: 'red',
-  },
-});
+    newPostButton: {
+        flex: 1,
+        backgroundColor: 'powderblue',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderTopWidth: 1,
+        borderColor: 'white'
+    },
+    commentInputContainer: {
+        backgroundColor: 'white',
+        borderTopWidth: 1,
+        borderColor: '#EEE',
+        flexDirection: 'row'
+    },
+    seeBorders: {
+        borderWidth: 5,
+        borderColor: 'red'
+    }
+})

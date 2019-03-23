@@ -13,7 +13,8 @@
     "version" : "1.0.0",
     "slug" : "beakspeak",
     "ios" : {
-      "bundleIdentifier" : "com.riceapps.beakspeak"
+      "bundleIdentifier" : "com.riceapps.beakspeak",
+      "icon": "./Assets/Images/logo.png"
     },
     "android" : {
       "package" : "com.riceapps.beakspeak"

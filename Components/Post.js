@@ -259,7 +259,6 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     justifyContent: 'center',
   },
-
   buttonPress: {
     backgroundColor: 'powderblue',
     justifyContent: 'center',
