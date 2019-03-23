@@ -74,7 +74,6 @@ const Comments = observer(
             return (
                 <FlatList
                     data={comments}
-                    listKey={(item, index) => item._id}
                     keyExtractor={(item, index) => item._id}
                     renderItem={(item) => {
                         let comment = item.item;
