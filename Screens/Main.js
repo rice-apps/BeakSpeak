@@ -14,27 +14,23 @@ import PostData from '../Components/PostData';
 const Comments = observer(
   class Comments extends Component {
     render() {
-        let comments = this.props.comments.slice(0, 3)
-        return(
-            <FlatList
-             removeClippedSubviews = {false}
-             data = {comments}
-             keyExtractor = {(item, index) => item._id}
-             renderItem = {(item) => {
-                let comment = item.item
-                
-                return(
-                    <View style = {{borderTopWidth: 1, borderRadius: 25, borderColor: 'powderblue'}}>
-                        <CommentData 
-                         comment = {comment}
-                         post_id = {this.props.post_id}
-                         showVote = {false}
-                         />
-                    </View>
-                )
-            }}
-            />
-        )
+      let comments = this.props.comments.slice(0, 3);
+      return (
+        <FlatList
+          removeClippedSubviews={false}
+          data={comments}
+          keyExtractor={(item, index) => item._id}
+          renderItem={item => {
+            let comment = item.item;
+
+            return (
+              <View style={{ borderTopWidth: 1, borderRadius: 25, borderColor: 'powderblue' }}>
+                <CommentData comment={comment} post_id={this.props.post_id} showVote={false} />
+              </View>
+            );
+          }}
+        />
+      );
     }
   }
 );
@@ -69,55 +65,52 @@ const Posts = inject('store')(
         this.props.store.fetchPosts().then(posts => this.setState(state => ({ refresh: false }))); // refresh data
       };
 
+      _renderItem = item => {
+        let post = item.item;
+        return (
+          <TouchableWithoutFeedback onPress={() => this.postNavigate('PostDetail', post._id)}>
+            <Card>
+              <PostData post={post} />
+              <Comments comments={post.comments} post_id={post._id} />
+            </Card>
+          </TouchableWithoutFeedback>
+        );
+      };
 
-    _renderItem = (item) => {
-        let post = item.item
-        return(
-            <TouchableWithoutFeedback onPress = {()=> this.postNavigate('PostDetail', post._id)}>
-                <Card>
-                    <PostData
-                        post = {post}
-                    />
-                    <Comments
-                        comments = {post.comments}
-                        post_id = {post._id}/>
-                </Card>
-            </TouchableWithoutFeedback>
-        )
-    }
+      render() {
+        let loaded = this.state.loaded;
+        let posts = this.props.store.posts;
 
-    render () {
-        let loaded = this.state.loaded
-        let posts = this.props.store.posts
-
-
-        if(!loaded) { // wait for posts to load
-            return(
-                <AppLoading/>
-            )
-        }
-
-        else{ // display posts in a list component
-            let refresh = this.state.refresh
-            return (
-                <View style={{flex: 1}}>
-                    <FlatList
-                        removeClippedSubviews = {false}
-                        data = {posts}
-                        renderItem = {(item) => {return this._renderItem(item)}}
-                        keyExtractor = {(item, index) => item._id}
-                        refreshControl = { // controls refreshing
-                            <RefreshControl
-                                refreshing = {refresh}
-                                onRefresh = {this._onRefresh}
-                                tintColor = 'skyblue'
-                            />
-                        }
-                        ListEmptyComponent = {<Blank/>}
-                        contentContainerStyle = {(posts == undefined || !posts.length) ? { flex: 1, alignItems: 'center' } : {}}
-                    />
-                </View>
-            )               
+        if (!loaded) {
+          // wait for posts to load
+          return <AppLoading />;
+        } else {
+          // display posts in a list component
+          let refresh = this.state.refresh;
+          return (
+            <View style={{ flex: 1 }}>
+              <FlatList
+                removeClippedSubviews={false}
+                data={posts}
+                renderItem={item => {
+                  return this._renderItem(item);
+                }}
+                keyExtractor={(item, index) => item._id}
+                refreshControl={
+                  // controls refreshing
+                  <RefreshControl
+                    refreshing={refresh}
+                    onRefresh={this._onRefresh}
+                    tintColor="skyblue"
+                  />
+                }
+                ListEmptyComponent={<Blank />}
+                contentContainerStyle={
+                  posts === undefined || !posts.length ? { flex: 1, alignItems: 'center' } : {}
+                }
+              />
+            </View>
+          );
         }
       }
     }

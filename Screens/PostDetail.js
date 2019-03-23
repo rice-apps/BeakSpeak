@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Header } from 'react-navigation';
-import { FlatList, StyleSheet, KeyboardAvoidingView, RefreshControl, Keyboard } from 'react-native';
-import { Card, Icon, View, Input, Button } from 'native-base';
+import { FlatList, Keyboard, KeyboardAvoidingView, RefreshControl, StyleSheet } from 'react-native';
+import { Button, Card, Icon, Input, View } from 'native-base';
 import { inject, observer } from 'mobx-react';
 import Blank from '../Components/Blank';
 import PostData from '../Components/PostData';
@@ -23,23 +23,25 @@ const PostDetailFooter = observer(
       }
     }
 
-    render () {
-        let post = this.post
-        return(
-            <KeyboardAvoidingView
-                    keyboardVerticalOffset = {Header.HEIGHT}
-                    behavior="position"
-                    keyboardShouldPersistTaps={true} >
-                
-                <View style={styles.commentInputContainer}>
-                    
-                    {/* takes user comment input */}
-                    <Input
-                        placeholder = 'Your comment here...'
-                        onChangeText = {(text) => {this.setState({input: text})}}
-                        onSubmitEditing = {() => {this.onSubmit()}}
-                        value = {this.state.input}
-                    />
+    render() {
+      let post = this.post;
+      return (
+        <KeyboardAvoidingView
+          keyboardVerticalOffset={Header.HEIGHT}
+          behavior="position"
+          keyboardShouldPersistTaps>
+          <View style={styles.commentInputContainer}>
+            {/* takes user comment input */}
+            <Input
+              placeholder="Your comment here..."
+              onChangeText={text => {
+                this.setState({ input: text });
+              }}
+              onSubmitEditing={() => {
+                this.onSubmit();
+              }}
+              value={this.state.input}
+            />
 
             {/* submits comment*/}
             <Button transparent>
@@ -68,8 +70,8 @@ const Comments = observer(
       return (
         <FlatList
           data={comments}
-          listKey={(item) => item._id}
-          keyExtractor={(item) => item._id}
+          listKey={item => item._id}
+          keyExtractor={item => item._id}
           renderItem={item => {
             let comment = item.item;
 
@@ -121,8 +123,7 @@ export default (PostDetail = inject('store')(
       };
 
       _handleScroll = newY => {
-        let isUp = newY - this.offset <= 0;
-        return isUp;
+        return newY - this.offset <= 0;
       };
 
       // render a post with comments -- use posts component from main as an example for structure

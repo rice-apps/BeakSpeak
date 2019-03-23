@@ -60,21 +60,19 @@ const PostOptions = {
 export const NewPost = inject('store')(
   class NewPost extends Component {
     // validate submission, send submission, close parent modal
-    submitPost = async() => {
-
-        let results = this.form.validate()
-        let errors = results.errors
-        // check if submission is valid -- there must be a title!
-        if(errors.length === 0){
-            let {title, body} = results.value
-            this.props.store.addPost(title, body) // store new post in state
-            this.form.setState({value: null}) // clear form
-            
-            this.props.closeView() // disable parent modal by changing its state
-        }
+    submitPost = async () => {
+      let results = this.form.validate();
+      let errors = results.errors;
+      // check if submission is valid -- there must be a title!
+      if (errors.length === 0) {
+        let { title, body } = results.value;
+        this.props.store.addPost(title, body); // store new post in state
+        this.form.setState({ value: null }); // clear form
 
         this.props.closeView(); // disable parent modal by changing its state
       }
+
+      this.props.closeView(); // disable parent modal by changing its state
     };
 
     render() {
@@ -90,14 +88,13 @@ export const NewPost = inject('store')(
         </View>
       );
     }
-})
+  }
+);
 
-const styles = StyleSheet.create(
-    {
-        content: {
-            alignItems: "center", 
-            justifyContent: "center",
-            backgroundColor: "white",
-        }
-    }
-)
+const styles = StyleSheet.create({
+  content: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+  },
+});

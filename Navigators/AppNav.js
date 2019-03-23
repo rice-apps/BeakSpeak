@@ -6,10 +6,10 @@ import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
 import MainScreen from '../Screens/Main';
 import PostDetailScreen from '../Screens/PostDetail';
 
-import Blank from '../Components/Blank'
-import Sidebar from '../Components/Sidebar'
-import InfoScreen from '../Screens/Info.js'
-import {DrawerHeader, StackHeader} from '../Components/Headers'
+import Blank from '../Components/Blank';
+import Sidebar from '../Components/Sidebar';
+import InfoScreen from '../Screens/Info.js';
+import { DrawerHeader, StackHeader } from '../Components/Headers';
 
 let { width: screenWidth } = Dimensions.get('window');
 
@@ -28,16 +28,15 @@ const MainNav = createStackNavigator(
 );
 
 const HomeNav = createDrawerNavigator(
-    {
-        Main: {
-            screen: MainNav
-        },    
-        Settings: {
-            screen: Blank
-        },    
-        Info: {
-            screen: InfoScreen,
-        }
+  {
+    Main: {
+      screen: MainNav,
+    },
+    Settings: {
+      screen: Blank,
+    },
+    Info: {
+      screen: InfoScreen,
     },
   },
   {
