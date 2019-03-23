@@ -187,7 +187,6 @@ export default class Info extends Component{
                                 </Text>
                             </View>
                         </View>
-
                 <View style = {{height: 30}}/>
                 </ScrollView>
             </Container>

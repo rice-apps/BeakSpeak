@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {
-    View,
-    StyleSheet,
+    View, 
+    StyleSheet, 
     Dimensions
 } from 'react-native'
 import {Button, Text} from 'native-base'
@@ -79,25 +79,25 @@ class NewReport extends Component{
         }
 
     }
-
+    
     render() {
         return(
             <View style = {styles.content}>
                 {/* new report form */}
-                <Form
-                    type = {ReportSchema}
-                    options = {ReportOptions}
-                    ref={c => this.form = c}
+                <Form 
+                 type = {ReportSchema}
+                 options = {ReportOptions}
+                 ref={c => this.form = c}
                 />
                 <View>
-                    <Button
-                        bordered
-                        info
-                        rounded
-                        onPress = {()=> this.submitReport()}
+                    <Button 
+                     bordered 
+                     info 
+                     rounded 
+                     onPress = {()=> this.submitReport()}
                     >
-                        <Text>
-                            Report this post!
+                        <Text> 
+                            Report this post! 
                         </Text>
                     </Button>
                 </View>
@@ -109,7 +109,7 @@ export {NewReport}
 const styles = StyleSheet.create(
     {
         content: {
-            alignItems: "center",
+            alignItems: "center", 
             justifyContent: "center",
             backgroundColor: "white",
         }

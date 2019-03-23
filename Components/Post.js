@@ -2,7 +2,7 @@ import React, {Component, PureComponent} from 'react'
 import Modal from 'react-native-modal'
 import {NewReport} from '../Components/Report'
 import {Card, CardItem, Title, Button, Text, Icon, Footer} from 'native-base'
-import {
+import {    
     FlatList,
     StyleSheet,
     TouchableWithoutFeedback,
@@ -39,7 +39,7 @@ class PostVotes extends PureComponent {
         let vote = this.props.vote
         let upvoteIconColor =  vote == 1 ? "orange" : "black"
         let downvoteIconColor = vote == -1 ?  "blue" : "black"
-        return (
+        return(
             <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
 
                 {/* upvote button */}
@@ -83,8 +83,8 @@ class PostHeader extends PureComponent {
     }
 }
 
-class PostFooter extends PureComponent {
-
+class PostFooter extends PureComponent{
+    
     constructor(props){
         super(props)
 
@@ -200,9 +200,9 @@ class PostFooter extends PureComponent {
 }
 
 // main component -- pure component for rendering optimization (view only)
-export default class Post extends Component {
-    render() {
-        return (
+export default class Post extends Component{
+    render() {     
+        return(
             <View>
                 <View style={{flex: 1, flexDirection: 'row'}}>
 
@@ -214,7 +214,7 @@ export default class Post extends Component {
                     {/* voting component */}
                     <View style={{flex: 1}}>
                         <PostVotes
-                            vote={this.props.vote}
+                            vote = {this.props.vote}
                             score={this.props.score}
                             upvoteScore={this.props.upvoteScore}
                             downvoteScore={this.props.downvoteScore}
@@ -226,9 +226,9 @@ export default class Post extends Component {
                 <PostBody body={this.props.body}/>
                 <PostFooter
                     id = {this.props.id}
-                    userReact={this.props.userReact}
-                    reactCounts={this.props.reactCounts}
-                    updateReact={this.props.updateReact}
+                    userReact = {this.props.userReact}
+                    reactCounts = {this.props.reactCounts}
+                    updateReact = {this.props.updateReact}
                 />
 
             </View>
