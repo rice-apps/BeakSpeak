@@ -8,7 +8,7 @@ import LoginScreen from '../Screens/Login'
 export default AuthNav = createAppContainer(createSwitchNavigator(
     {
         Login: LoginScreen,
-        Main: AppNav, 
+        Main: AppNav,
         Front: FrontScreen
     },
     {

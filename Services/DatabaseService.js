@@ -4,22 +4,22 @@ const apiUrl = CONFIG.api_url;
 import UserStore from '../Store/UserStore'
 
 export async function getPosts() {
-    try{
-        let res = await fetch(apiUrl+'/posts',{
+    try {
+        let res = await fetch(apiUrl + '/posts', {
             method: 'GET',
             headers: {
                 'x-access-token': UserStore.getToken()
             }
         });
         return await res.json()
-    }catch(err){
+    } catch (err) {
         console.log(err)
     }
 }
 
 export async function sendNewPost(title, body, id) {
-    try{
-        let res = await fetch(apiUrl+'/posts',{
+    try {
+        let res = await fetch(apiUrl + '/posts', {
             method: 'POST',
             headers: {
                 'x-access-token': UserStore.getToken(),
@@ -35,7 +35,7 @@ export async function sendNewPost(title, body, id) {
             })
         });
         return await res.json()
-    }catch(err){
+    } catch (err) {
         console.log(err)
     }
 }
@@ -60,7 +60,7 @@ export async function sendReport(type, reason, id) {
         })
         if (res.status == 200) {
             return true
-        } 
+        }
         return false
     } catch(err){
         console.log(err)
@@ -69,7 +69,7 @@ export async function sendReport(type, reason, id) {
 
 
 export async function postComment(postid, comment) {
-    try{
+    try {
         let res = await fetch(apiUrl+'/posts/'+postid+'/comments', {
             method: 'POST',
             headers: {
@@ -83,21 +83,21 @@ export async function postComment(postid, comment) {
             })
         });
         return await res.json();
-    }catch(err) {
+    } catch (err) {
         console.log(err)
     }
 }
 
 export async function getPost(id) {
-    try{
-        let res = await fetch(apiUrl+'/posts/'+id,{
+    try {
+        let res = await fetch(apiUrl + '/posts/' + id, {
             method: 'GET',
             headers: {
                 'x-access-token': UserStore.getToken()
             }
         });
         return await res.json()
-    }catch(err) {
+    } catch (err) {
         console.log(err)
     }
 }
@@ -105,7 +105,7 @@ export async function getPost(id) {
 // change the react count of a post and the reactions of the user
 export async function updateReact(postid, reaction) {
     try {
-        let res = await fetch(apiUrl+"/posts/"+postid+"/reacts", {
+        let res = await fetch(apiUrl + "/posts/" + postid + "/reacts", {
             method: 'PUT',
             headers: {
                 'x-access-token': UserStore.getToken(),
@@ -118,7 +118,7 @@ export async function updateReact(postid, reaction) {
 
         })
         return await res.json()
-    } catch(err) {
+    } catch (err) {
         console.log(err)
     }
 }
@@ -132,7 +132,7 @@ export async function updateVotes(id, vote) {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({vote: vote}, 
+            body: JSON.stringify({vote: vote},
                 removeNull = (key, value) => {
                 return (value == null) ? '' : value
             })
@@ -154,8 +154,8 @@ export async function updateVotesOnComment(commentid, postid, vote) {
             },
             body: JSON.stringify({
                 vote: vote,
-                comment_id: commentid 
-            }, 
+                comment_id: commentid
+            },
                 removeNull = (key, value) => {
                 return (value == null) ? '' : value
             })
@@ -165,7 +165,7 @@ export async function updateVotesOnComment(commentid, postid, vote) {
         console.log(err)
     }
 }
-export default{
+export default {
     getPosts,
     sendNewPost,
     sendReport,

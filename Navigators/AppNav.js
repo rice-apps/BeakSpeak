@@ -17,9 +17,9 @@ const MainNav = createStackNavigator(
     {
         Posts: {
             screen: MainScreen,
-            navigationOptions: ({ navigation }) => (
+            navigationOptions: ({navigation}) => (
                 {
-                        header: <DrawerHeader navigation = {navigation} title = 'Posts'/>
+                    header: <DrawerHeader navigation={navigation} title='Posts'/>
                 }
             )
         }
@@ -33,10 +33,10 @@ const HomeNav = createDrawerNavigator(
     {
         Main: {
             screen: MainNav
-        },    
+        },
         Settings: {
             screen: Blank
-        },    
+        },
         Info: {
             screen: InfoScreen,
         }
@@ -52,11 +52,11 @@ export default AppNav = createStackNavigator(
     {
         PostDetail: {
             screen: PostDetailScreen,
-            navigationOptions: ({ navigation }) => (
+            navigationOptions: ({navigation}) => (
                 {
-                    header: <StackHeader navigation = {navigation} title = ''/>,
+                    header: <StackHeader navigation={navigation} title=''/>,
                 }
-            ) 
+            )
         },
         Home: {
             screen: HomeNav,
@@ -68,6 +68,6 @@ export default AppNav = createStackNavigator(
         }
     },
     {
-        initialRouteName: 'Home',        
+        initialRouteName: 'Home',
     }
 )

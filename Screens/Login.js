@@ -63,27 +63,27 @@ export default class Login extends Component{
     render () {
         return(
             <View style = {styles.content}>
-            
+
                 {/* login form */}
-                <Form 
+                <Form
                 type = {LoginSchema}
                 options = {LoginOptions}
                 ref={c => this.form = c}
                 />
                 <View style={{alignSelf: 'center'}}>
-                    <Button 
-                    bordered 
-                    info 
-                    rounded 
+                    <Button
+                    bordered
+                    info
+                    rounded
                     onPress = {()=> this.submitLogin()}
                     >
-                        <Text> 
-                            Login! 
+                        <Text>
+                            Login!
                         </Text>
                     </Button>
                 </View>
             </View>
-            
+
         )
     }
 }

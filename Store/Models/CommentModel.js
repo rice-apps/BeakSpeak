@@ -8,7 +8,6 @@ export default class CommentModel {
     _id = ""
     userVote = 0
     score = 0
-    
     constructor(body) {
         this.body = body
         this._id = uuidv4()
@@ -22,7 +21,6 @@ export default class CommentModel {
 
         return proto_com
     }
-
 
     updateVote(new_vote, commentid, postid) {
         this.userVote = new_vote

@@ -6,9 +6,9 @@ import DatabaseService from '../Services/DatabaseService'
 import { observable } from 'mobx';
 
 // body with comment content
-export class CommentBody extends Component{
-    render () {
-        return(
+export class CommentBody extends Component {
+    render() {
+        return (
             <CardItem>
                 <Text>
                     {this.props.body}
@@ -32,30 +32,30 @@ class PostVotes extends PureComponent {
         let vote = this.props.vote
         let upvoteIconColor =  vote == 1 ? "orange" : "black"
         let downvoteIconColor = vote == -1 ?  "blue" : "black"
-        return(
+        return (
             <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
-                
+
                 {/* upvote button */}
                 <Icon
-                    name = 'ios-arrow-up'
-                    fontSize = {30}
-                    type = 'Ionicons'
-                    style = {{color: upvoteIconColor}}
-                    onPress = {() => this.upvoteScore()}
+                    name='ios-arrow-up'
+                    fontSize={30}
+                    type='Ionicons'
+                    style={{color: upvoteIconColor}}
+                    onPress={() => this.upvoteScore()}
                 />
 
-                {/* score */}                                
+                {/* score */}
                 <Text>
                     {this.props.score}
                 </Text>
-                
-                {/* downvote button */}                
+
+                {/* downvote button */}
                 <Icon
-                    name = 'ios-arrow-down'
-                    fontSize = {30}
-                    type = 'Ionicons'
-                    style = {{color: downvoteIconColor}}
-                    onPress = {() => this.downvoteScore()}
+                    name='ios-arrow-down'
+                    fontSize={30}
+                    type='Ionicons'
+                    style={{color: downvoteIconColor}}
+                    onPress={() => this.downvoteScore()}
                 />
             </View>
         )
@@ -63,30 +63,31 @@ class PostVotes extends PureComponent {
 }
 
 // main component
-export default class Comment extends PureComponent{
-    
-    render () {
-        let body = this.props.body
-        return(
-                <View>
-                    <View style={{ flex: 1, flexDirection: 'row' }}>
-                        <View style={[{ flex: 7, justifyContent: 'center' }]}>
-                            <CommentBody body = {body}/>
-                        </View>                
+export default class Comment extends PureComponent {
 
-                        {/* voting component -- show on detail screen*/}
-                        {this.props.showVote &&
-                        <View style = {{ flex: 1}}>
-                            <PostVotes
-                                vote = {this.props.vote}
-                                score={this.props.score}
-                                upvoteScore={this.props.upvoteScore}
-                                downvoteScore={this.props.downvoteScore}
-                            />
-                        </View>
-                        }
+    render() {
+        let body = this.props.body
+        return (
+            <View>
+                <View style={{flex: 1, flexDirection: 'row'}}>
+                    <View style={[{flex: 7, justifyContent: 'center'}]}>
+                        <CommentBody body={body}/>
                     </View>
+
+                    {/* voting component -- show on detail screen*/}
+                    {this.props.showVote &&
+                    <View style={{flex: 1}}>
+                        <PostVotes
+                                vote = {this.props.vote}
+                            score={this.props.score}
+                            upvoteScore={this.props.upvoteScore}
+                            downvoteScore={this.props.downvoteScore}
+                        />
+                    </View>
+                    }
                 </View>
+            </View>
+
         )
     }
 }
@@ -99,6 +100,6 @@ const styles = StyleSheet.create({
     },
     seeBorders: {
         borderWidth: 1,
-        borderColor:'red'
+        borderColor: 'red'
     }
 })

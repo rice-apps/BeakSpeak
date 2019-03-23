@@ -94,10 +94,10 @@ export default class FrontScreen extends Component {
                 }
             }
         );
-    
+
     };
-        
-    
+
+
     render () {
         const {height: screenHeight} = Dimensions.get('window');
         return (

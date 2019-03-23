@@ -10,20 +10,23 @@ import {
     View} from 'react-native'
 
 // body with post content and potentially votes
-class PostBody extends PureComponent{
+class PostBody extends PureComponent {
 
     render() {
-        return(
+        return (
             <CardItem>
-                    <Text>
-                        {this.props.body}
-                    </Text>
+                <Text>
+                    {this.props.body}
+                </Text>
             </CardItem>
         )
     }
 }
 
 class PostVotes extends PureComponent {
+
+
+
     upvoteScore = () => {
         this.props.upvoteScore()
     }
@@ -38,28 +41,28 @@ class PostVotes extends PureComponent {
         let downvoteIconColor = vote == -1 ?  "blue" : "black"
         return(
             <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
-                
+
                 {/* upvote button */}
                 <Icon
-                    name = 'ios-arrow-up'
-                    fontSize = {30}
-                    type = 'Ionicons'
-                    style = {{color: upvoteIconColor}}
-                    onPress = {() => this.upvoteScore()}
+                    name='ios-arrow-up'
+                    fontSize={30}
+                    type='Ionicons'
+                    style={{color: upvoteIconColor}}
+                    onPress={() => this.upvoteScore()}
                 />
 
-                {/* score */}                                
+                {/* score */}
                 <Text>
                     {this.props.score}
                 </Text>
-                
-                {/* downvote button */}                
+
+                {/* downvote button */}
                 <Icon
-                    name = 'ios-arrow-down'
-                    fontSize = {30}
-                    type = 'Ionicons'
-                    style = {{color: downvoteIconColor}}
-                    onPress = {() => this.downvoteScore()}
+                    name='ios-arrow-down'
+                    fontSize={30}
+                    type='Ionicons'
+                    style={{color: downvoteIconColor}}
+                    onPress={() => this.downvoteScore()}
                 />
             </View>
         )
@@ -67,15 +70,15 @@ class PostVotes extends PureComponent {
 }
 
 // header with title and potentially avatar and time info
-class PostHeader extends PureComponent{
+class PostHeader extends PureComponent {
 
     render() {
-        return(
+        return (
             <CardItem>
-                <Text style ={styles.titlefont}>
+                <Text style={styles.titlefont}>
                     {this.props.title}
                 </Text>
-            </CardItem>                
+            </CardItem>
         )
     }
 }
@@ -106,30 +109,30 @@ class PostFooter extends PureComponent{
         let userReact = this.props.userReact
         let reactCounts = this.props.reactCounts
         let isVisible = this.state.modalVisible
-        return(
+        return (
             <View>
-                <View style={styles.container}>
-                    <Button onPress={() => this.pressReact("angry")} style={userReact == "angry" ? styles.buttonPress : {}} transparent rounded>
-                        <Text adjustsFontSizeToFit={true} style = {{color:(userReact == "angry") ? "white" : "black"}}>
-                            😡{reactCounts["angry"].toString()}</Text>
-                    </Button>
-                    <Button onPress={() => this.pressReact("funny")} style={userReact == "funny" ? styles.buttonPress : {}} transparent rounded>
-                        <Text adjustsFontSizeToFit={true} style = {{color:(userReact == "funny") ? "white" : "black"}}>
-                            😂{reactCounts["funny"].toString()}</Text>
-                    </Button>
-                    <Button onPress={() => this.pressReact("love")} style={userReact == "love" ? styles.buttonPress : {}} transparent rounded>
-                        <Text adjustsFontSizeToFit={true} style = {{color:(userReact == "love") ? "white" : "black"}}>
-                            😍{reactCounts["love"].toString()}</Text>
-                    </Button>
-                    <Button onPress={() => this.pressReact("sad")} style={userReact == "sad" ? styles.buttonPress : {}} transparent rounded>
-                        <Text adjustsFontSizeToFit={true} style = {{color:(userReact == "sad") ? "white" : "black"}}>
-                            😭{reactCounts["sad"].toString()}</Text>
-                    </Button>
-                    <Button onPress={() => this.pressReact("wow")} style={userReact == "wow" ? styles.buttonPress : {}} transparent rounded>
-                        <Text adjustsFontSizeToFit={true} style = {{color:(userReact == "wow") ? "white" : "black"}}>
-                            😮{reactCounts["wow"].toString()}</Text>
-                    </Button>
-                </View>
+            <View style={styles.container}>
+                <Button onPress={() => this.pressReact("angry")} style={userReact == "angry" ? styles.buttonPress : {}} transparent rounded>
+                    <Text adjustsFontSizeToFit={true} style = {{color:(userReact == "angry") ? "white" : "black"}}>
+                        😡{reactCounts["angry"].toString()}</Text>
+                </Button>
+                <Button onPress={() => this.pressReact("funny")} style={userReact == "funny" ? styles.buttonPress : {}} transparent rounded>
+                    <Text adjustsFontSizeToFit={true} style = {{color:(userReact == "funny") ? "white" : "black"}}>
+                        😂{reactCounts["funny"].toString()}</Text>
+                </Button>
+                <Button onPress={() => this.pressReact("love")} style={userReact == "love" ? styles.buttonPress : {}} transparent rounded>
+                    <Text adjustsFontSizeToFit={true} style = {{color:(userReact == "love") ? "white" : "black"}}>
+                        😍{reactCounts["love"].toString()}</Text>
+                </Button>
+                <Button onPress={() => this.pressReact("sad")} style={userReact == "sad" ? styles.buttonPress : {}} transparent rounded>
+                    <Text adjustsFontSizeToFit={true} style = {{color:(userReact == "sad") ? "white" : "black"}}>
+                        😭{reactCounts["sad"].toString()}</Text>
+                </Button>
+                <Button onPress={() => this.pressReact("wow")} style={userReact == "wow" ? styles.buttonPress : {}} transparent rounded>
+                    <Text adjustsFontSizeToFit={true} style = {{color:(userReact == "wow") ? "white" : "black"}}>
+                        😮{reactCounts["wow"].toString()}</Text>
+                </Button>
+            </View>
 
                 <View>
                     {/* new post creation modal */}
@@ -141,18 +144,18 @@ class PostFooter extends PureComponent{
                         animationOutTiming = {500}
                     >
                         <View style={{
-                                        borderRadius: 10, 
-                                        padding: 10, 
+                                        borderRadius: 10,
+                                        padding: 10,
                                         backgroundColor: 'white'
                                     }}>
                             <View style={{
-                                            flexDirection: 'row', 
+                                            flexDirection: 'row',
                                             justifyContent: 'flex-end'
                                         }}>
 
                                 {/* cancel button */}
-                                <Icon 
-                                    name = 'close' 
+                                <Icon
+                                    name = 'close'
                                     fontSize = {30}
                                     type = 'MaterialCommunityIcons'
                                     style = {{color: 'skyblue'}}
@@ -160,13 +163,13 @@ class PostFooter extends PureComponent{
                                 />
                             </View>
                             {/* report form*/}
-                            <NewReport 
+                            <NewReport
                                 closeView = {this.hideModal}
                                 id = {this.props.id}
                             />
                         </View>
                     </Modal>
-                    
+
                     {/* actual footer */}
                     <View>
                         <Footer
@@ -181,7 +184,7 @@ class PostFooter extends PureComponent{
                                 onPress = {this.renderModal}
                             >
                                 <View style = {[styles.reportButton]}>
-                                        <Icon 
+                                        <Icon
                                             name = 'flag'
                                             type = 'MaterialCommunityIcons'
                                             style = {{color: 'powderblue', fontSize: 25}}
@@ -196,22 +199,20 @@ class PostFooter extends PureComponent{
     }
 }
 
-
-
 // main component -- pure component for rendering optimization (view only)
 export default class Post extends Component{
     render() {     
         return(
             <View>
-                <View style={{ flex: 1, flexDirection: 'row' }}>
+                <View style={{flex: 1, flexDirection: 'row'}}>
 
                     {/* post component decomposed into children components */}
-                    <View style={[{ flex: 7, justifyContent: 'center' }]}>
-                        <PostHeader title={this.props.title} />
+                    <View style={[{flex: 7, justifyContent: 'center'}]}>
+                        <PostHeader title={this.props.title}/>
                     </View>
 
                     {/* voting component */}
-                    <View style = {{ flex: 1}}>
+                    <View style={{flex: 1}}>
                         <PostVotes
                             vote = {this.props.vote}
                             score={this.props.score}
@@ -222,14 +223,14 @@ export default class Post extends Component{
                 </View>
 
                 {/* body of post */}
-                <PostBody body={this.props.body} />
+                <PostBody body={this.props.body}/>
                 <PostFooter
                     id = {this.props.id}
                     userReact = {this.props.userReact}
                     reactCounts = {this.props.reactCounts}
                     updateReact = {this.props.updateReact}
                 />
-    
+
             </View>
         )
     }
@@ -268,7 +269,7 @@ const styles = StyleSheet.create({
         borderWidth: 5,
         borderRadius: 15
     },
-    titlefont:{
+    titlefont: {
         fontWeight: 'bold',
         fontSize: 20
     },

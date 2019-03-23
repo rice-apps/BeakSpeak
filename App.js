@@ -4,7 +4,7 @@ import {Font, AppLoading} from 'expo'
 import {Provider} from 'mobx-react'
 
 import AuthNav from './Navigators/AuthNav.js'
-import postStore from './Store/PostStore' 
+import postStore from './Store/PostStore'
 
 YellowBox.ignoreWarnings(["Require cycle:"])
 

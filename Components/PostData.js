@@ -8,7 +8,7 @@ export default PostData = observer(
 class PostData extends Component{
 
     // initialize with default values
-    constructor(props){
+    constructor(props) {
         super(props)
 
         this.user_id = '5b5f9a9ade57b741ffc3e61e'
@@ -18,7 +18,7 @@ class PostData extends Component{
     updateReact = (react) => {
         old_react = this.props.post.userReact
         new_react = (old_react == react) ? "none" : react
-        
+
         this.props.post.updateReact(old_react, new_react)
     }
 
@@ -73,7 +73,7 @@ class PostData extends Component{
 
     // pass helper methods to Post component
     render() {
-        return(
+        return (
             <Post
                 title = {this.props.post.title}
                 vote = {this.props.post.userVote}
