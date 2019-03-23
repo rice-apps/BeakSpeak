@@ -129,8 +129,8 @@ class CommentFooter extends PureComponent{
                         <Footer
                             style={{backgroundColor: 'white',
                                 flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'flex-end',
+                                alignItems: 'left',
+                                justifyContent: 'flex-start',
                                 height: styles.reportButton.height,
                                 borderColor: 'white'
                             }}
@@ -143,7 +143,7 @@ class CommentFooter extends PureComponent{
                                     <Icon
                                         name = 'flag-variant'
                                         type = 'MaterialCommunityIcons'
-                                        style = {{color: 'powderblue', fontSize: 25}}
+                                        style = {{color: 'powderblue', fontSize: 23}}
                                     />
                                 </View>
                             </TouchableWithoutFeedback>
@@ -164,6 +164,16 @@ export default class Comment extends PureComponent{
         return(
                 <View>
                     <View style={{ flex: 1, flexDirection: 'row' }}>
+
+                        {/* report component -- show on detail screen*/}
+                        {this.props.showReport &&
+                        <View style = {{ flex: 0.5}}>
+                            <CommentFooter
+                                id={this.props.id}
+                            />
+                        </View>
+                        }
+
                         <View style={[{ flex: 7, justifyContent: 'center' }]}>
                             <CommentBody body = {body}/>
                         </View>                
@@ -182,14 +192,7 @@ export default class Comment extends PureComponent{
 
                     </View>
 
-                    {/* report component -- show on detail screen*/}
-                    {this.props.showReport &&
-                    <View>
-                        <CommentFooter
-                            id={this.props.id}
-                        />
-                    </View>
-                    }
+
                 </View>
         )
     }
@@ -208,11 +211,11 @@ const styles = StyleSheet.create({
     reportButton: {
         backgroundColor: 'white',
         justifyContent: 'center',
-        alignItems: 'flex-start',
+        alignItems: 'flex-end',
         borderWidth: 1,
         borderColor: 'white',
-        paddingTop: 2,
-        paddingRight: 15,
-        paddingBottom: 7
+        paddingTop: 10,
+        paddingLeft: 5,
+        paddingBottom: 5
     }
 })
