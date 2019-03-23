@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
-import {StyleSheet} from "react-native"
+import {Button, FlatList, StyleSheet} from "react-native"
+import {Card} from 'native-base'
 import Comment from '../Components/Comment'
 import {observer} from 'mobx-react';
 
@@ -11,15 +12,15 @@ export default CommentData = observer(
         upvoteScore = () => {
             old_vote = this.props.comment.userVote
             score = this.props.comment.score
-            if (old_vote === 1) {
+    if (old_vote == 1) {
                 new_vote = 0
                 score -= 1
             }
-            if (old_vote === 0) {
+    if (old_vote == 0) {
                 new_vote = 1
                 score += 1
             }
-            if (old_vote === -1) {
+    if (old_vote == -1) {
                 new_vote = 1
                 score += 2
             }
@@ -54,7 +55,7 @@ export default CommentData = observer(
             let comment = this.props.comment
             return (
                 <Comment
-                    comment={comment}
+                vote = {comment.userVote}
                     score={comment.score}
                     body={comment.body}
                     upvoteScore={this.upvoteScore}

@@ -1,11 +1,22 @@
 import React, {Component} from 'react'
+import {AppLoading} from 'expo'
 import {Header} from 'react-navigation'
-import {FlatList, Keyboard, KeyboardAvoidingView, RefreshControl, StyleSheet} from 'react-native'
-import {Button, Card, Icon, Input, View} from 'native-base'
+import {
+    FlatList,
+    StyleSheet,
+    KeyboardAvoidingView,
+    RefreshControl,
+    Keyboard
+}
+from 'react-native'
+import {Card, Container, Footer, Icon, Item, View, Input, Button, Body} from 'native-base'
+import DatabaseService from '../Services/DatabaseService'
 import Blank from '../Components/Blank'
 import PostData from '../Components/PostData'
+import Comment from '../Components/Comment'
 import {inject, observer} from 'mobx-react';
 import CommentData from '../Components/CommentData';
+import { decorate } from 'mobx';
 
 const PostDetailFooter = observer(
     class PostDetailFooter extends Component {
@@ -29,7 +40,8 @@ const PostDetailFooter = observer(
             return (
                 <KeyboardAvoidingView
                     keyboardVerticalOffset={Header.HEIGHT}
-                    behavior="position">
+                    behavior="position"
+                    keyboardShouldPersistTaps={true} >
 
                     <View style={styles.commentInputContainer}>
 

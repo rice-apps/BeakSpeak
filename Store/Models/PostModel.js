@@ -18,6 +18,7 @@ export default class PostModel {
         "sad": 0,
         "wow": 0
     }
+    comments = []
 
     constructor(title, body) {
         this.title = title
@@ -32,6 +33,7 @@ export default class PostModel {
         proto_post.userVote = newPost.userVote
         proto_post.userReact = newPost.userReact
         proto_post.reactCounts = newPost.reactCounts
+        proto_post.comments = newPost.comments.map(c => CommentModel.make(c))
         return proto_post
     }
 

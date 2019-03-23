@@ -9,7 +9,11 @@ import {
     View,
     Text
 } from 'native-base'
-import {TouchableWithoutFeedback} from 'react-native'
+import {
+    TouchableWithoutFeedback,
+    Platform,
+    StatusBar
+} from 'react-native'
 
 // header design for drawer navigators
 export class DrawerHeader extends Component {
@@ -22,7 +26,7 @@ export class DrawerHeader extends Component {
         let title = this.props.title
 
         return (
-            <View style={{borderBottomWidth: 2, borderColor: 'white'}}>
+            <View style = {{borderBottomWidth: 2, borderColor: 'powderblue', paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight}}>
                 <Header style={{backgroundColor: 'powderblue'}}>
                     <Left>
 
@@ -60,7 +64,7 @@ export class StackHeader extends Component {
         let title =  this.props.title
 
         return (
-            <View style={{borderBottomWidth: 2, borderColor: 'white'}}>
+            <View style = {{borderBottomWidth: 2, borderColor: 'powderblue', paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight}}>
                 <Header style={{backgroundColor: 'powderblue'}}>
                     <Left>
 

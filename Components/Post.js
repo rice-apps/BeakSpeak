@@ -1,6 +1,13 @@
 import React, {Component, PureComponent} from 'react'
-import {Card, CardItem, Title, Button, Text, Icon} from 'native-base'
-import {StyleSheet, View} from 'react-native'
+import Modal from 'react-native-modal'
+import {NewReport} from '../Components/Report'
+import {Card, CardItem, Title, Button, Text, Icon, Footer} from 'native-base'
+import {
+    FlatList,
+    StyleSheet,
+    TouchableWithoutFeedback,
+    RefreshControl,
+    View} from 'react-native'
 
 // body with post content and potentially votes
 class PostBody extends PureComponent {
@@ -78,6 +85,22 @@ class PostHeader extends PureComponent {
 
 class PostFooter extends PureComponent {
 
+    constructor(props){
+        super(props)
+
+        this.state = {
+            modalVisible: false
+        }
+    }
+
+    renderModal = () => {
+        this.setState({modalVisible: true})
+    }
+
+    hideModal = () => {
+        this.setState({modalVisible: false})
+    }
+
     pressReact = (react) => {
         this.props.updateReact(react)
     }
@@ -85,8 +108,9 @@ class PostFooter extends PureComponent {
     render() {
         let userReact = this.props.userReact
         let reactCounts = this.props.reactCounts
-
+        let isVisible = this.state.modalVisible
         return (
+            <View>
             <View style={styles.container}>
                 <Button onPress={() => this.pressReact("angry")} style={userReact == "angry" ? styles.buttonPress : {}} transparent rounded>
                     <Text adjustsFontSizeToFit={true} style = {{color:(userReact == "angry") ? "white" : "black"}}>
@@ -108,6 +132,68 @@ class PostFooter extends PureComponent {
                     <Text adjustsFontSizeToFit={true} style = {{color:(userReact == "wow") ? "white" : "black"}}>
                         😮{reactCounts["wow"].toString()}</Text>
                 </Button>
+            </View>
+
+                <View>
+                    {/* new post creation modal */}
+                    <Modal
+                        isVisible = {isVisible}
+                        animationIn = {'zoomIn'}
+                        animationOut = {'zoomOut'}
+                        animationInTiming = {500}
+                        animationOutTiming = {500}
+                    >
+                        <View style={{
+                                        borderRadius: 10,
+                                        padding: 10,
+                                        backgroundColor: 'white'
+                                    }}>
+                            <View style={{
+                                            flexDirection: 'row',
+                                            justifyContent: 'flex-end'
+                                        }}>
+
+                                {/* cancel button */}
+                                <Icon
+                                    name = 'close'
+                                    fontSize = {30}
+                                    type = 'MaterialCommunityIcons'
+                                    style = {{color: 'skyblue'}}
+                                    onPress = {this.hideModal}
+                                />
+                            </View>
+                            {/* report form*/}
+                            <NewReport
+                                closeView = {this.hideModal}
+                                id = {this.props.id}
+                            />
+                        </View>
+                    </Modal>
+
+                    {/* actual footer */}
+                    <View>
+                        <Footer
+                            style={{backgroundColor: 'white',
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'flex-end',
+                                borderColor: 'white'}}
+                        >
+                            {/* report button */}
+                            <TouchableWithoutFeedback
+                                onPress = {this.renderModal}
+                            >
+                                <View style = {[styles.reportButton]}>
+                                        <Icon
+                                            name = 'flag'
+                                            type = 'MaterialCommunityIcons'
+                                            style = {{color: 'powderblue', fontSize: 25}}
+                                        />
+                                </View>
+                            </TouchableWithoutFeedback>
+                        </Footer>
+                    </View>
+                </View>
             </View>
         )
     }
@@ -139,6 +225,7 @@ export default class Post extends Component {
                 {/* body of post */}
                 <PostBody body={this.props.body}/>
                 <PostFooter
+                    id = {this.props.id}
                     userReact={this.props.userReact}
                     reactCounts={this.props.reactCounts}
                     updateReact={this.props.updateReact}
@@ -154,7 +241,14 @@ const styles = StyleSheet.create({
         flex: 0.5,
         flexDirection: 'row',
         justifyContent: 'space-evenly',
-        paddingBottom: 5
+    },
+    reportButton: {
+        backgroundColor: 'white',
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        borderTopWidth: 1,
+        borderColor: 'white',
+        margin: 15
     },
     button: {
         backgroundColor: "powderblue",
@@ -178,5 +272,9 @@ const styles = StyleSheet.create({
     titlefont: {
         fontWeight: 'bold',
         fontSize: 20
+    },
+    seeBorders: {
+        borderWidth: 1,
+        borderColor:'red'
     }
 })

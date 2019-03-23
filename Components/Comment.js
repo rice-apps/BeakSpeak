@@ -1,6 +1,9 @@
 import React, {Component, PureComponent} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {CardItem, Icon, Text} from 'native-base'
+import {Card, CardItem, Title, Button, Text, Icon} from 'native-base'
+
+import DatabaseService from '../Services/DatabaseService'
+import { observable } from 'mobx';
 
 // body with comment content
 export class CommentBody extends Component {
@@ -26,9 +29,9 @@ class PostVotes extends PureComponent {
     }
 
     render() {
-        let vote = this.props.comment.userVote === undefined ? 0 : this.props.comment.userVote
-        let upvoteIconColor = vote === 1 ? "orange" : "black"
-        let downvoteIconColor = vote === -1 ? "blue" : "black"
+        let vote = this.props.vote
+        let upvoteIconColor =  vote == 1 ? "orange" : "black"
+        let downvoteIconColor = vote == -1 ?  "blue" : "black"
         return (
             <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
 
@@ -75,7 +78,7 @@ export default class Comment extends PureComponent {
                     {this.props.showVote &&
                     <View style={{flex: 1}}>
                         <PostVotes
-                            comment={this.props.comment}
+                                vote = {this.props.vote}
                             score={this.props.score}
                             upvoteScore={this.props.upvoteScore}
                             downvoteScore={this.props.downvoteScore}

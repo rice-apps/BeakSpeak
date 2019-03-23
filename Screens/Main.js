@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {FlatList, RefreshControl, StyleSheet, TouchableWithoutFeedback,} from 'react-native'
+import {FlatList, RefreshControl, StyleSheet, TouchableWithoutFeedback} from 'react-native'
 import {Card, Container, Footer, Icon, View} from 'native-base'
 import Modal from 'react-native-modal'
 import {AppLoading} from 'expo'
@@ -18,8 +18,8 @@ const Comments = observer(
             let comments = this.props.comments.slice(0, 3)
             return (
                 <FlatList
+                    removeClippedSubviews={false}
                     data={comments}
-                    listKey={(item, index) => item._id}
                     keyExtractor={(item, index) => item._id}
                     renderItem={(item) => {
                         let comment = item.item
@@ -104,6 +104,7 @@ const Posts = inject('store')(
                     return (
                         <View style={{flex: 1}}>
                             <FlatList
+                                removeClippedSubviews={false}
                                 data={posts}
                                 renderItem={(item) => {
                                     return this._renderItem(item)
@@ -154,6 +155,7 @@ class MainFooter extends Component {
             <View>
 
                 {/* new post creation modal */}
+
                 <Modal
                     isVisible={isVisible}
                     animationIn={'slideInUp'}
@@ -185,6 +187,7 @@ class MainFooter extends Component {
                         <NewPost closeView={this.hideModal}/>
                     </View>
                 </Modal>
+
 
                 {/* actual footer */}
                 <Footer>

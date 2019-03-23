@@ -79,6 +79,7 @@ class PostData extends Component{
                 score={this.props.post.score}
                 userReact={this.props.post.userReact}
                 reactCounts={this.props.post.reactCounts}
+                id = {this.props.post._id}
                 body={this.props.post.body}
                 updateReact={this.updateReact}
                 upvoteScore={this.upvoteScore}

@@ -5,7 +5,6 @@ import {Provider} from 'mobx-react'
 
 import AuthNav from './Navigators/AuthNav.js'
 import postStore from './Store/PostStore'
-import commentStore from './Store/CommentStore'
 
 YellowBox.ignoreWarnings(["Require cycle:"])
 
@@ -42,7 +41,7 @@ export default class App extends Component{
         // wait for assets to load
         if(this.state.assetsLoaded) {
             return(
-                <Provider store = {postStore} comment_store={commentStore}>
+                <Provider store = {postStore}>
                     <AuthNav/>                                    
                 </Provider>
             )
