@@ -21,7 +21,8 @@ import {NewPost} from '../Components/New'
 import Blank from '../Components/Blank'
 import CommentData from '../Components/CommentData'
 import PostData from '../Components/PostData'
-
+import OfflineNotice from '../Components/OfflineNotice'
+import UserStore from '../Store/UserStore'
 
 // Comments container of custom comment components
 const Comments = observer(
@@ -222,6 +223,7 @@ export default class MainScreen extends Component{
     render () {
         return(
             <Container style = {{backgroundColor: 'powderblue'}}>
+                <OfflineNotice/>
                 <View style = {{flex: 1}}>
                     <Posts navigate = {this.props.navigation.navigate}/>
                 </View>

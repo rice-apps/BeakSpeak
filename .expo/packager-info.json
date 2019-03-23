@@ -1,9 +1,9 @@
 {
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
-  "devToolsPort": 19002,
-  "expoServerPort": null
+  "packagerPort": 19011,
+  "packagerPid": 47459,
+  "expoServerNgrokUrl": "https://vb-8vp.anonymous.beakspeak.exp.direct",
+  "packagerNgrokUrl": "https://packager.vb-8vp.anonymous.beakspeak.exp.direct",
+  "ngrokPid": 47474,
+  "devToolsPort": 19008,
+  "expoServerPort": 19000
 }

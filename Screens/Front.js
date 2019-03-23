@@ -56,6 +56,7 @@ export default class FrontScreen extends Component {
         this.state = {
             loginError: ''
         };
+        this.props.navigation.navigate('Main');
         this.getLoginInfo()
     }
 
