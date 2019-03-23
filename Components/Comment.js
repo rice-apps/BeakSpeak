@@ -40,12 +40,12 @@ class PostVotes extends PureComponent {
                     name = 'ios-arrow-up'
                     fontSize = {30}
                     type = 'Ionicons'
-                    style = {{color: upvoteIconColor}}
+                    style = {{color: upvoteIconColor, paddingRight: 10, fontWeight : 'bold', fontSize: 35}}
                     onPress = {() => this.upvoteScore()}
                 />
 
                 {/* score */}                                
-                <Text>
+                <Text style = {{paddingRight: 10}}>
                     {this.props.score}
                 </Text>
                 
@@ -54,7 +54,7 @@ class PostVotes extends PureComponent {
                     name = 'ios-arrow-down'
                     fontSize = {30}
                     type = 'Ionicons'
-                    style = {{color: downvoteIconColor}}
+                    style = {{color: downvoteIconColor, paddingRight: 10, fontWeight : 'bold', fontSize: 35}}
                     onPress = {() => this.downvoteScore()}
                 />
             </View>
