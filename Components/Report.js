@@ -61,7 +61,7 @@ const ReportOptions = {
 }
 
 // container component for new post form
-class NewReport extends Component{
+class NewPostReport extends Component{
 
     // validate submission, send submission, close parent modal
     submitReport = async() => {
@@ -71,7 +71,7 @@ class NewReport extends Component{
         // check if submission is valid -- there must be a TypeOfViolation!
         if(errors.length === 0){
             let {TypeOfViolation, TellUsMore} = results.value
-            received = await DatabaseService.sendReport(TypeOfViolation, TellUsMore, id) // send report to backend, wait for response
+            received = await DatabaseService.sendPostReport(TypeOfViolation, TellUsMore, id) // send report to backend, wait for response
             if (received) {
                 this.form.setState({value: null}) // clear form
                 this.props.closeView() // disable parent modal by changing its state
@@ -105,7 +105,55 @@ class NewReport extends Component{
         )
     }
 }
-export {NewReport}
+
+// container component for new comment report form
+class NewCommentReport extends Component{
+
+    // validate submission, send submission, close parent modal
+    submitReport = async() => {
+        let results = this.form.validate()
+        let id = this.props.id
+        let errors = results.errors
+        // check if submission is valid -- there must be a TypeOfViolation!
+        if(errors.length === 0){
+            let {TypeOfViolation, TellUsMore} = results.value
+            received = await DatabaseService.sendCommentReport(TypeOfViolation, TellUsMore, id) // send report to backend, wait for response
+            if (received) {
+                this.form.setState({value: null}) // clear form
+                this.props.closeView() // disable parent modal by changing its state
+            }
+        }
+
+    }
+
+    render() {
+        return(
+            <View style = {styles.content}>
+                {/* new report form */}
+                <Form
+                    type = {ReportSchema}
+                    options = {ReportOptions}
+                    ref={c => this.form = c}
+                />
+                <View>
+                    <Button
+                        bordered
+                        info
+                        rounded
+                        onPress = {()=> this.submitReport()}
+                    >
+                        <Text>
+                            Report this post!
+                        </Text>
+                    </Button>
+                </View>
+            </View>
+        )
+    }
+}
+
+export {NewPostReport, NewCommentReport}
+
 const styles = StyleSheet.create(
     {
         content: {

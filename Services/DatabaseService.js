@@ -41,12 +41,38 @@ export async function sendNewPost(title, body, id) {
     }
 }
 
-export async function sendReport(type, reason, id) {
+export async function sendPostReport(type, reason, id) {
     try{
-        let res = await fetch(apiUrl+'/reports',{
+        let res = await fetch(apiUrl+'/reports/posts',{
             method: 'POST',
             headers: {
-                'x-access-token': token,
+                'x-access-token': UserStore.getToken(),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                type: type,
+                reason: reason,
+                id: id
+            }, removeNull = (key, value) => {
+                return (value == null) ? '' : value
+            })
+        })
+        if (res.status == 200) {
+            return true
+        }
+        return false
+    } catch(err){
+        console.log(err)
+    }
+}
+
+export async function sendCommentReport(type, reason, id) {
+    try{
+        let res = await fetch(apiUrl+'/reports/comments',{
+            method: 'POST',
+            headers: {
+                'x-access-token': UserStore.getToken(),
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
@@ -168,7 +194,8 @@ export async function updateVotesOnComment(commentid, postid, vote) {
 export default{
     getPosts,
     sendNewPost,
-    sendReport,
+    sendPostReport,
+    sendCommentReport,
     updateReact,
     updateVotes,
     updateVotesOnComment,

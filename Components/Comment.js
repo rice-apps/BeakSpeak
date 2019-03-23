@@ -5,7 +5,7 @@ import Modal from 'react-native-modal'
 
 import DatabaseService from '../Services/DatabaseService'
 import { observable } from 'mobx';
-import {NewReport} from "./Report";
+import {NewCommentReport} from "./Report";
 
 // body with comment content
 export class CommentBody extends Component{
@@ -117,7 +117,7 @@ class CommentFooter extends PureComponent{
                             </View>
 
                             {/* report form */}
-                            <NewReport
+                            <NewCommentReport
                                 closeView = {this.hideModal}
                                 id = {this.props.id}
                             />

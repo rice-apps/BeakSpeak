@@ -1,6 +1,6 @@
 import React, {Component, PureComponent} from 'react'
 import Modal from 'react-native-modal'
-import {NewReport} from '../Components/Report'
+import {NewPostReport} from '../Components/Report'
 import {Card, CardItem, Title, Button, Text, Icon, Footer} from 'native-base'
 import {    
     FlatList,
@@ -134,7 +134,7 @@ class PostFooter extends PureComponent{
 
                 {this.props.showReport &&
                 <View>
-                    {/* new post creation modal */}
+                    {/* new report creation modal */}
                     <Modal
                         isVisible={isVisible}
                         animationIn={'zoomIn'}
@@ -162,7 +162,7 @@ class PostFooter extends PureComponent{
                                 />
                             </View>
                             {/* report form*/}
-                            <NewReport
+                            <NewPostReport
                                 closeView={this.hideModal}
                                 id={this.props.id}
                             />
