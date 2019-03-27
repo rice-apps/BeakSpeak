@@ -140,6 +140,8 @@ class Posts extends Component{
 }))
 
 // footer with new post button and new post creation modal
+const MainFooter = inject('store')(
+    observer(
 class MainFooter extends Component{
 
     constructor(props){
@@ -160,6 +162,7 @@ class MainFooter extends Component{
 
     render () {
         let isVisible = this.state.modalVisible
+        if (UserStore.isConnected) {
         return(
             <View>
 
@@ -202,8 +205,9 @@ class MainFooter extends Component{
                     {/* new post button */}
                     <TouchableWithoutFeedback onPress = {this.renderModal}>
                         <View style = {styles.newPostButton}>
-                                <Icon 
-                                    name = 'plus' 
+                                <Icon
+                                    isVisible = {false}
+                                    name = 'plus'
                                     fontSize = {30}
                                     type = 'MaterialCommunityIcons'
                                     style = {{color: 'white'}}
@@ -212,9 +216,28 @@ class MainFooter extends Component{
                     </TouchableWithoutFeedback>
                 </Footer>
             </View>
-        )
+        );
+        }
+        else {
+            return (
+                <View>
+                    <Footer>
+                        <View style = {styles.newPostButton}>
+                            <Icon
+                                isVisible = {false}
+                                name = 'alert-circle-outline'
+                                fontSize = {30}
+                                type = 'MaterialCommunityIcons'
+                                style = {{color: 'grey'}}
+                            />
+                        </View>
+                    </Footer>
+                </View>
+            );
+        }
     }
-}
+}))
+
 
 
 // main component
