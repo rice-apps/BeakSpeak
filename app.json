@@ -14,10 +14,11 @@
     "slug" : "beakspeak",
     "ios" : {
       "bundleIdentifier" : "com.riceapps.beakspeak",
-      "icon": "./Assets/Images/logo.png"
+      "icon": "./Assets/Images/logo_no_alpha.png"
     },
     "android" : {
-      "package" : "com.riceapps.beakspeak"
+      "package" : "com.riceapps.beakspeak",
+      "versionCode": 2
     },
     "scheme": "beakspeak"
   }
