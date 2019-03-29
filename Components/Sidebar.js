@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Alert, View, StyleSheet } from 'react-native';
 import { Icon } from 'native-base';
-import { SecureStore } from 'expo';
+import { SecureStore, WebBrowser } from "expo";
+import { CONFIG } from "../config";
 
 export default class Sidebar extends Component {
   navigate = route => {
@@ -44,6 +45,11 @@ export default class Sidebar extends Component {
                 text: 'Yes',
                 onPress: () => {
                   SecureStore.deleteItemAsync('token');
+                  let returnUrl = Expo.Linking.makeUrl();
+                  WebBrowser.openAuthSessionAsync(
+                    CONFIG.cas_logout_url + `?service=${returnUrl}`,
+                    returnUrl);
+                  WebBrowser.dismissBrowser();
                   this.navigate('Front');
                 },
               },

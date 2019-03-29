@@ -57,9 +57,11 @@ export default class FrontScreen extends Component {
     let returnUrl = Expo.Linking.makeUrl();
 
     let result = await WebBrowser.openAuthSessionAsync(
-      CONFIG.cas_auth_url + `?&service=${CONFIG.service_url}`,
+      CONFIG.cas_auth_url +
+      `?service=${CONFIG.service_url}` + `?return=${returnUrl}`,
       returnUrl
     );
+    console.log(result);
 
     if (result.type === 'success') {
       let params = await Expo.Linking.parse(result.url).queryParams;
