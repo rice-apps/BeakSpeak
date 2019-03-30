@@ -1,4 +1,4 @@
-import { observable, action, decorate, computed} from "mobx"
+import { observable, action, decorate } from 'mobx';
 
 class UserStore {
     token = ""
@@ -8,16 +8,16 @@ class UserStore {
         return this.token;
     }
 
-    setToken(token) {
-        this.token = token;
-    }
-
     getConnected() {
         return this.isConnected;
     }
 
     setConnected(connected) {
         this.isConnected = connected;
+    }
+
+    setToken(token) {
+        this.token = token;
     }
 }
 
@@ -27,5 +27,6 @@ decorate(UserStore, {
     isConnected: observable,
     setConnected: action
 })
+
 let userStore = new UserStore();
-export default userStore
+export default userStore;

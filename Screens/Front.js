@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
-    Button,
-    StyleSheet,
-    View,
-    Text,
-    Image,
-    Dimensions,
-    TouchableHighlight,
+  Button,
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  Dimensions,
+  TouchableHighlight,
 } from 'react-native';
 import { WebBrowser, SecureStore } from 'expo'
 import {inject} from 'mobx-react'
@@ -18,35 +18,28 @@ import {CONFIG} from "../config";
 
 // main component for front page with logo and front button
 export class FrontBody extends Component {
-
-    render () {
-        return (
-            <View style={{flex: 1}}>
-                <View style={[{height: 50}]}/>
-                <View style = {{flex: 1, flexDirection: 'row'}}>
-                    <View style={{flex: 1}}/>
-                    <View style={{flex: 3}}>
-
-                        {/* our logo */}
-                        <Image
-                            source = {logo}
-                            style = {styles.image}
-                        />
-                    </View>
-                    <View style={{flex:1}}/>
-                </View>
-                <View style={[{flex:1, alignItems:'center'}]}>
-
-                    {/* fancy app title */}
-                    <Text style={[{fontFamily: 'caviar-dreams', fontSize: 30, color: 'white'}]}>
-                        BeakSpeak
-                    </Text>
-                    {this.props.children}
-                </View>
-            </View>
-
-        )
-    }
+  render() {
+    return (
+      <View style={{ flex: 1 }}>
+        <View style={[{ height: 50 }]} />
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <View style={{ flex: 1 }} />
+          <View style={{ flex: 3 }}>
+            {/* our logo */}
+            <Image source={logo} style={styles.image} />
+          </View>
+          <View style={{ flex: 1 }} />
+        </View>
+        <View style={[{ flex: 1, alignItems: 'center' }]}>
+          {/* fancy app title */}
+          <Text style={[{ fontFamily: 'caviar-dreams', fontSize: 30, color: 'white' }]}>
+            BeakSpeak
+          </Text>
+          {this.props.children}
+        </View>
+      </View>
+    );
+  }
 }
 
 // main component 
@@ -129,26 +122,26 @@ const FrontScreen = inject('userStore')(class FrontScreen extends Component {
 export default FrontScreen;
 
 const styles = StyleSheet.create({
-    image: {
-        flex: 1,
-        height: undefined,
-        width: undefined,
-        resizeMode: 'contain'
-    },
-    clearbutton: {
-        backgroundColor: 'transparent',
-        borderColor: 'lightblue',
-        borderWidth: 3
-    },
-    seeBorders: {
-        borderWidth: 1,
-        borderColor: 'red'
-    },
-    screenTheme:{
-        flex: 1,
-        backgroundColor:'powderblue',
-        justifyContent:'center',
-        alignItems:'center',
-        flexDirection:'row'
-    }
+  image: {
+    flex: 1,
+    height: undefined,
+    width: undefined,
+    resizeMode: 'contain',
+  },
+  clearbutton: {
+    backgroundColor: 'transparent',
+    borderColor: 'lightblue',
+    borderWidth: 3,
+  },
+  seeBorders: {
+    borderWidth: 1,
+    borderColor: 'red',
+  },
+  screenTheme: {
+    flex: 1,
+    backgroundColor: 'powderblue',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
 });
