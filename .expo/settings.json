@@ -1,13 +1,7 @@
 {
   "hostType": "lan",
   "lanType": "ip",
-<<<<<<< HEAD
-  "dev": false,
-  "minify": true,
-  "urlRandomness": "vb-8vp"
-=======
   "dev": true,
   "minify": false,
-  "urlRandomness": "wc-piv"
->>>>>>> master
+  "urlRandomness": "dw-fds"
 }

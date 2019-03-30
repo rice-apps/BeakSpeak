@@ -32,7 +32,7 @@ export default class App extends Component{
         this.setState({assetsLoaded: true})
 
         // refresh app every 60 seconds
-        setInterval(function(){postStore.fetchPosts()}, 60*1000)
+        setInterval(function(){if (userStore.isConnected) postStore.fetchPosts()}, 60*1000)
     }
 
     render = () => {
@@ -52,4 +52,3 @@ export default class App extends Component{
         }
     }
   };
-}

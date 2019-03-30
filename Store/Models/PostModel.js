@@ -57,15 +57,16 @@ export default class PostModel {
 
   async update() {
     let proto_post = await DatabaseService.getPost(this._id);
-    let post = PostModel.make(proto_post);
-
-    transaction(() => {
-      this.votes = post.votes;
-      this.score = post.score;
-      this.reactCounts = post.reactCounts;
-      this.reacts = post.reacts;
-      this.comments = post.comments;
-    });
+    if (proto_post) {
+      let post = PostModel.make(proto_post);
+      transaction(() => {
+        this.votes = post.votes;
+        this.score = post.score;
+        this.reactCounts = post.reactCounts;
+        this.reacts = post.reacts;
+        this.comments = post.comments;
+      });  
+    }
   }
 }
 
