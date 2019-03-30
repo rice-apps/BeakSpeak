@@ -1,7 +1,6 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Component } from 'react';
 import { View, Text, NetInfo, Dimensions, StyleSheet } from 'react-native';
 import {observer, inject} from 'mobx-react'
-import UserStore from '../Store/UserStore'
 
 const { width } = Dimensions.get('window');
 
@@ -14,9 +13,9 @@ function MiniOfflineSign() {
 }
 
 const OfflineNotice = inject('store')(
-    observer(
-        class OfflineNotice extends PureComponent {
-            isConnected = UserStore.isConnected;
+    inject('userStore')(observer(
+        class OfflineNotice extends Component {
+            isConnected = this.props.userStore.isConnected;
 
             componentDidMount() {
                 NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
@@ -27,20 +26,20 @@ const OfflineNotice = inject('store')(
             }
 
             handleConnectivityChange = isConnected => {
-                UserStore.setConnected(isConnected);
+                this.props.userStore.setConnected(isConnected);
             };
 
             render() {
-                if (!UserStore.isConnected) {
+                if (!this.props.userStore.isConnected) {
                     return (
-                        <View style = {{flex: 0.05}}>
-                        <MiniOfflineSign />
+                        <View style = {{flex: 0.10}}>
+                            <MiniOfflineSign />
                         </View>
                     );
                 }
                 return null;
             }
-        }))
+        })))
 
 const styles = StyleSheet.create({
     offlineContainer: {

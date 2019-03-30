@@ -3,8 +3,9 @@ import {YellowBox} from 'react-native'
 import {Font, AppLoading} from 'expo'
 import {Provider} from 'mobx-react'
 
-import AuthNav from './Navigators/AuthNav.js'
+import AuthNav from './Navigators/AuthNav'
 import postStore from './Store/PostStore' 
+import userStore from './Store/UserStore'
 
 YellowBox.ignoreWarnings(["Require cycle:"])
 
@@ -30,8 +31,6 @@ export default class App extends Component{
 
         this.setState({assetsLoaded: true})
 
-        // begin tracking when the user logs in (not yet implemented)
-
         // refresh app every 60 seconds
         setInterval(function(){postStore.fetchPosts()}, 60*1000)
     }
@@ -41,7 +40,7 @@ export default class App extends Component{
         // wait for assets to load
         if(this.state.assetsLoaded) {
             return(
-                <Provider store = {postStore}>
+                <Provider store = {postStore} userStore = {userStore}>
                     <AuthNav/>                                    
                 </Provider>
             )

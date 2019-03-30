@@ -8,9 +8,10 @@ import {
     Dimensions,
     TouchableHighlight,
 } from 'react-native';
-const logo = require('../Assets/Images/logo.png');
 import { WebBrowser, SecureStore } from 'expo'
-import UserStore from '../Store/UserStore'
+import {inject} from 'mobx-react'
+
+const logo = require('../Assets/Images/logo.png');
 import {CONFIG} from "../config";
 
 
@@ -49,14 +50,14 @@ export class FrontBody extends Component {
 }
 
 // main component 
-export default class FrontScreen extends Component {
+const FrontScreen = inject('userStore')(class FrontScreen extends Component {
 
     constructor(props){
         super(props);
         this.state = {
             loginError: ''
         };
-        this.props.navigation.navigate('Main');
+        //this.props.navigation.navigate('Main');
         this.getLoginInfo()
     }
 
@@ -75,7 +76,7 @@ export default class FrontScreen extends Component {
             let token = params.token;
             if (token) {
                 SecureStore.setItemAsync('token', token);
-                UserStore.setToken(token);
+                this.props.userStore.setToken(token);
                 this.props.navigation.navigate('Main');
 
             }
@@ -90,7 +91,7 @@ export default class FrontScreen extends Component {
     getLoginInfo = async () => {
         SecureStore.getItemAsync('token').then((token) => {
                 if (token) {
-                    UserStore.setToken(token);
+                    this.props.userStore.setToken(token);
                     this.props.navigation.navigate('Main')
                 }
             }
@@ -123,9 +124,9 @@ export default class FrontScreen extends Component {
             </View>
         );
     }
-};
+});
 
-
+export default FrontScreen;
 
 const styles = StyleSheet.create({
     image: {

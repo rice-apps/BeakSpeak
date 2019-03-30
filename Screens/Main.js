@@ -16,13 +16,11 @@ import Modal from 'react-native-modal'
 import {AppLoading} from 'expo'
 import {observer, inject} from 'mobx-react'
 
-import Comment from '../Components/Comment'
 import {NewPost} from '../Components/New'
 import Blank from '../Components/Blank'
 import CommentData from '../Components/CommentData'
 import PostData from '../Components/PostData'
 import OfflineNotice from '../Components/OfflineNotice'
-import UserStore from '../Store/UserStore'
 
 // Comments container of custom comment components
 const Comments = observer(
@@ -56,7 +54,7 @@ class Comments extends Component{
 
 // List of posts
 const Posts = inject('store')(
-observer(
+inject('userStore')(observer(
 class Posts extends Component{
 
     constructor(props){
@@ -137,11 +135,11 @@ class Posts extends Component{
         }
         
     }
-}))
+})))
 
 // footer with new post button and new post creation modal
 const MainFooter = inject('store')(
-    observer(
+    inject('userStore')(observer(
 class MainFooter extends Component{
 
     constructor(props){
@@ -162,7 +160,7 @@ class MainFooter extends Component{
 
     render () {
         let isVisible = this.state.modalVisible
-        if (UserStore.isConnected) {
+        if (this.props.userStore.isConnected) {
         return(
             <View>
 
@@ -236,7 +234,7 @@ class MainFooter extends Component{
             );
         }
     }
-}))
+})))
 
 
 
