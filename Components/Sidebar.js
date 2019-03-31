@@ -21,13 +21,6 @@ export default class Sidebar extends Component {
           onPress={() => this.navigate('Main')}
         />
         <Icon
-          name="settings"
-          fontSize={30}
-          type="MaterialCommunityIcons"
-          style={{ color: 'white' }}
-          onPress={() => this.navigate('Settings')}
-        />
-        <Icon
           name="information"
           fontSize={30}
           type="MaterialCommunityIcons"
@@ -46,12 +39,10 @@ export default class Sidebar extends Component {
                 onPress: () => {
                   SecureStore.deleteItemAsync('token');
                   let returnUrl = Expo.Linking.makeUrl();
-                  WebBrowser.openAuthSessionAsync(
-                    CONFIG.cas_logout_url + `?service=${returnUrl}`,
-                    returnUrl);
-                  WebBrowser.dismissBrowser();
-                  this.navigate('Front');
-                },
+                  WebBrowser.openAuthSessionAsync
+                  (CONFIG.cas_logout_url, returnUrl).then(result =>                   this.navigate('Front')
+                  )
+                }
               },
               {
                 text: 'Cancel',
@@ -77,3 +68,13 @@ const styles = StyleSheet.create({
     borderColor: 'red',
   },
 });
+
+//  not needed settings yet
+/*<Icon
+  name="settings"
+  fontSize={30}
+  type="MaterialCommunityIcons"
+  style={{ color: 'white' }}
+  onPress={() => this.navigate('Settings')}
+/>
+*/
