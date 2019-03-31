@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Alert, View, StyleSheet } from 'react-native';
 import { Icon } from 'native-base';
-import { SecureStore } from 'expo';
+import { SecureStore, WebBrowser } from "expo";
+import { CONFIG } from "../config";
 
 export default class Sidebar extends Component {
   navigate = route => {
@@ -18,13 +19,6 @@ export default class Sidebar extends Component {
           type="MaterialCommunityIcons"
           style={{ color: 'white' }}
           onPress={() => this.navigate('Main')}
-        />
-        <Icon
-          name="settings"
-          fontSize={30}
-          type="MaterialCommunityIcons"
-          style={{ color: 'white' }}
-          onPress={() => this.navigate('Settings')}
         />
         <Icon
           name="information"
@@ -44,8 +38,11 @@ export default class Sidebar extends Component {
                 text: 'Yes',
                 onPress: () => {
                   SecureStore.deleteItemAsync('token');
-                  this.navigate('Front');
-                },
+                  let returnUrl = Expo.Linking.makeUrl();
+                  WebBrowser.openAuthSessionAsync
+                  (CONFIG.cas_logout_url, returnUrl).then(result =>                   this.navigate('Front')
+                  )
+                }
               },
               {
                 text: 'Cancel',
@@ -71,3 +68,13 @@ const styles = StyleSheet.create({
     borderColor: 'red',
   },
 });
+
+//  not needed settings yet
+/*<Icon
+  name="settings"
+  fontSize={30}
+  type="MaterialCommunityIcons"
+  style={{ color: 'white' }}
+  onPress={() => this.navigate('Settings')}
+/>
+*/

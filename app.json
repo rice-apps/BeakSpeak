@@ -20,6 +20,9 @@
       "package" : "com.riceapps.beakspeak",
       "versionCode": 2
     },
+    "updates": {
+      "enabled": true
+    },
     "scheme": "beakspeak"
   }
 }
