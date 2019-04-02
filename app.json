@@ -18,7 +18,8 @@
     },
     "android" : {
       "package" : "com.riceapps.beakspeak",
-      "versionCode": 2
+      "versionCode": 4,
+      "permissions": []
     },
     "updates": {
       "enabled": true
