@@ -79,8 +79,7 @@ Returns:
 ```
 getPosts()
 ```
-Returns:
-<br> All posts in the database, in the same format as above. 
+Returns all posts in the database, in the same format as above. 
 <br> Prints an error if the request fails. 
 
 ```
@@ -108,7 +107,7 @@ postComment(postid, comment)
 ```
 Posts a comment under a post. <br> 
 `postid` specifies which post the comment goes under. <br> 
-`comment` is a comment object and should include the `id` and `body` of the comment to create.
+`comment` is a comment object. It should include the `id` and `body` of the comment to create.
 
 Returns:
 <br> The posted comment.
@@ -123,7 +122,6 @@ Updates the reacts on a post. <br>
 
 Prints an error if the request fails.
  
-
 ```
 updateVotes(id, vote)
 ```
@@ -140,8 +138,6 @@ Updates the vote for a user on a comment. <br>
 `commentid` specifies which comment the vote is on. <br>
 `postid` specifies which post the vote is on. <br>
 `vote` is the new vote. 1 represents an upvote, and -1 represents a downvote. 
-
-Returns:
 
 Prints an error if the request fails. 
 
