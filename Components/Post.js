@@ -193,7 +193,7 @@ class PostFooter extends PureComponent {
                             <TouchableWithoutFeedback onPress={this.renderModal}>
                                 <View style={[styles.reportButton]}>
                                     <Icon
-                                        name="flag"
+                                        name="flag-variant"
                                         type="MaterialCommunityIcons"
                                         style={{ color: 'powderblue', fontSize: 25 }}
                                     />
