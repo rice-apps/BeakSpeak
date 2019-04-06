@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 32448,
+  "expoServerNgrokUrl": "https://dw-fds.rice-apps.beakspeak.exp.direct",
+  "packagerNgrokUrl": "https://packager.dw-fds.rice-apps.beakspeak.exp.direct",
+  "ngrokPid": 32565
 }
