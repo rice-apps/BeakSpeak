@@ -10,6 +10,7 @@ import Blank from '../Components/Blank'
 import CommentData from '../Components/CommentData'
 import PostData from '../Components/PostData'
 import OfflineNotice from '../Components/OfflineNotice'
+import TestingLink from '../Components/TestingLink'
 
 // Comments container of custom comment components
 const Comments = observer(
@@ -235,6 +236,7 @@ export default class MainScreen extends Component{
     render () {
         return(
             <Container style = {{backgroundColor: 'powderblue'}}>
+                <TestingLink/>
                 <OfflineNotice/>
                 <View style = {{flex: 1}}>
                     <Posts navigate = {this.props.navigation.navigate}/>

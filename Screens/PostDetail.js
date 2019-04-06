@@ -25,7 +25,6 @@ const PostDetailFooter = observer(
         }
 
         render() {
-            let post = this.post
             return (
                 <KeyboardAvoidingView
                     keyboardVerticalOffset={Header.HEIGHT}
@@ -41,9 +40,6 @@ const PostDetailFooter = observer(
                                 this.setState({input: text})
                             }}
                             multiline={true}
-                            // onSubmitEditing={() => {
-                            //     // this.onSubmit()
-                            // }}
                             value={this.state.input}
                         />
 
