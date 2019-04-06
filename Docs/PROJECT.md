@@ -1,7 +1,7 @@
 # BeakSpeak Technical Document
 
 ### Team Lead - Noushin Quazi
-### Developers - <ADD YOUR NAME>
+### Developers - Thera Fu, 
 
 
 # Goal
@@ -27,6 +27,131 @@ Stack
 # Project Structure
 
 ## Components
+### PostDetail
+
+The PostDetail component is the major component of the post detail page, it takes
+an post id as a parameter when users click on one of the posts from main post page,
+fetchs the post and renders it along with a few utilities for user input, such as
+comment, vote, report, etc.
+
+*Methods*
+
+```
+_onRefresh()
+```
+Called when users drag down to refresh the page, this method indicates the refresh status
+and re-fetches the psot and comment data from store. 
+
+Returns:
+    void
+    
+*Methods*
+
+```
+_renderItem()
+```
+
+A helper function for the FlatList posts display, renders an individual post item
+in appropriate format.
+
+Returns:
+    void
+    
+*Methods*
+
+```
+_handleScroll()
+```
+
+A helper function for the FlatList scrolling action, used to help determine conditions
+for dismiss keyboard. 
+
+Returns:
+    void
+
+#### PostDetailFooter   
+
+This object includes a string as input field, and submits an input string as 
+user comment when user presses submit.
+
+*Methods*
+
+```
+onSubmit()
+```
+
+Submits the string in input field as user comment.
+
+Returns:
+    void
+    
+#### Comments   
+
+This object renders and displays an list of comments belonging to the post.
+
+### PostData
+
+PostData is a component for displaying individual posts, as a so called "smart" component, 
+it works together with the Post component to provide the complete functionality of
+a post. This component is mainly responsible for handling user votes and reacts, while
+the Post component merely formats and displays data passed from thsi component.  
+
+*Methods*
+
+```
+updateReact()
+```
+
+Increment react count up by 1
+
+Returns:
+    void
+    
+
+```
+upvoteScore()
+```
+
+Increment vote count up by 1
+
+Returns:
+    void
+    
+
+```
+downvoteScore()
+```
+
+Decrement vote count down by 1
+
+Returns:
+    void
+
+### Post
+
+A pure component for displaying individual posts as well as all related components and functions.
+
+#### PostFooter   
+
+A sub-component for Post responsible for displaying current reacts of the post, 
+while the actual user react function is handled by PostData component.
+
+#### PostHeader   
+
+A sub-component for Post responsible for displaying title of the post.
+
+
+#### PostVotes   
+
+A sub-component for Post responsible for displaying current votes of the post and voting buttons, 
+the actual voting function is handled by PostData component.
+
+#### PostBody   
+
+A sub-component for Post responsible for displaying body of the post.
+
+
+
 
 ### Template <PUT NAME OF COMPONENT HERE>
 

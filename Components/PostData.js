@@ -49,7 +49,7 @@ export default (PostData = observer(
       this.props.post.score = score;
     };
 
-    // increment vote count down by 1
+    // decrement vote count down by 1
     downvoteScore = async () => {
       let old_vote = this.props.post.userVote;
       let score = this.props.post.score;
