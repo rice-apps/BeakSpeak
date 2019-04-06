@@ -13,10 +13,17 @@
     "version" : "1.0.0",
     "slug" : "beakspeak",
     "ios" : {
-      "bundleIdentifier" : "com.riceapps.beakspeak"
+      "bundleIdentifier" : "com.riceapps.beakspeak",
+      "icon": "./Assets/Images/logo_no_alpha.png"
     },
     "android" : {
-      "package" : "com.riceapps.beakspeak"
-    }
+      "package" : "com.riceapps.beakspeak",
+      "versionCode": 4,
+      "permissions": []
+    },
+    "updates": {
+      "enabled": true
+    },
+    "scheme": "beakspeak"
   }
 }

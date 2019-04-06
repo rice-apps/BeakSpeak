@@ -1,43 +1,46 @@
-import {CONFIG} from "../config";
+import { CONFIG } from '../config';
+import UserStore from '../Store/UserStore';
 
 const apiUrl = CONFIG.api_url;
-import UserStore from '../Store/UserStore'
 
 export async function getPosts() {
-    console.log("inside get posts")
-    try{
-        let res = await fetch(apiUrl+'/posts',{
+    try {
+        let res = await fetch(apiUrl + '/posts', {
             method: 'GET',
             headers: {
-                'x-access-token': UserStore.getToken()
-            }
+                'x-access-token': UserStore.getToken(),
+            },
         });
-        return await res.json()
-    }catch(err){
-        console.log(err)
+        return await res.json();
+    } catch (err) {
+        console.log(err);
     }
 }
 
 export async function sendNewPost(title, body, id) {
-    try{
-        let res = await fetch(apiUrl+'/posts',{
+    try {
+        let res = await fetch(apiUrl + '/posts', {
             method: 'POST',
             headers: {
                 'x-access-token': UserStore.getToken(),
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                title: title,
-                body: body,
-                id: id
-            }, removeNull = (key, value) => {
-                return (value == null) ? '' : value
-            })
+            body: JSON.stringify(
+                {
+                    title,
+                    body,
+                    id,
+                },
+                // Remove null callback
+                (key, value) => {
+                    return value == null ? '' : value;
+                }
+            ),
         });
-        return await res.json()
-    }catch(err){
-        console.log(err)
+        return await res.json();
+    } catch (err) {
+        console.log(err);
     }
 }
 
@@ -55,13 +58,13 @@ export async function sendPostReport(type, reason, id) {
                 reason: reason,
                 id: id
             }, removeNull = (key, value) => {
-                return (value == null) ? '' : value
+                return (value == null) ? '' : value;
             })
         })
         if (res.status == 200) {
-            return true
+            return true;
         }
-        return false
+        return false;
     } catch(err){
         console.log(err)
     }
@@ -94,8 +97,8 @@ export async function sendCommentReport(type, reason, id) {
 }
 
 export async function postComment(postid, comment) {
-    try{
-        let res = await fetch(apiUrl+'/posts/'+postid+'/comments', {
+    try {
+        let res = await fetch(apiUrl + '/posts/' + postid + '/comments', {
             method: 'POST',
             headers: {
                 'x-access-token': UserStore.getToken(),
@@ -108,43 +111,57 @@ export async function postComment(postid, comment) {
             })
         });
         return await res.json();
-    }catch(err) {
-        console.log(err)
+    } catch(err) {
+        console.log(err);
     }
 }
 
 export async function getPost(id) {
-    try{
-        let res = await fetch(apiUrl+'/posts/'+id,{
+    try {
+        let res = await fetch(apiUrl + '/posts/' + id, {
             method: 'GET',
             headers: {
-                'x-access-token': UserStore.getToken()
-            }
+                'x-access-token': UserStore.getToken(),
+            },
         });
-        return await res.json()
-    }catch(err) {
-        console.log(err)
+        return await res.json();
+    } catch (err) {
+        console.log(err);
     }
 }
 
 // change the react count of a post and the reactions of the user
 export async function updateReact(postid, reaction) {
     try {
-        let res = await fetch(apiUrl+"/posts/"+postid+"/reacts", {
+        await fetch(apiUrl + '/posts/' + postid + '/reacts', {
             method: 'PUT',
             headers: {
                 'x-access-token': UserStore.getToken(),
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                react: reaction
-            })
-
-        })
-
-    } catch(err) {
-        console.log(err)
+                react: reaction,
+            }),
+        });
+    } catch (err) {
+        console.log(err);
+    }
+    try {
+        let res = await fetch(apiUrl + '/posts/' + postid + '/reacts', {
+            method: 'PUT',
+            headers: {
+                'x-access-token': UserStore.getToken(),
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                react: reaction,
+            }),
+        });
+        return await res.json();
+    } catch (err) {
+        console.log(err);
     }
 }
 
@@ -154,17 +171,20 @@ export async function updateVotes(id, vote) {
             method: 'PUT',
             headers: {
                 'x-access-token': UserStore.getToken(),
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify({vote: vote}, 
-                removeNull = (key, value) => {
-                return (value == null) ? '' : value
-            })
+            body: JSON.stringify(
+                { vote },
+                // Remove null callback
+                (key, value) => {
+                    return value == null ? '' : value;
+                }
+            ),
         });
-        return await res.json()
+        return await res.json();
     } catch (err) {
-        console.log(err)
+        console.log(err);
     }
 }
 
@@ -178,12 +198,12 @@ export async function updateVotesOnComment(commentid, postid, vote) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                vote: vote,
-                comment_id: commentid 
-            }, 
+                    vote: vote,
+                    comment_id: commentid
+                },
                 removeNull = (key, value) => {
-                return (value == null) ? '' : value
-            })
+                    return (value == null) ? '' : value
+                })
         });
         console.log("in votes on comments")
         return await res.json()

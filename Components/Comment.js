@@ -3,64 +3,57 @@ import {StyleSheet, TouchableWithoutFeedback, View} from 'react-native'
 import {Card, CardItem, Title, Button, Text, Icon, Footer} from 'native-base'
 import Modal from 'react-native-modal'
 
-import DatabaseService from '../Services/DatabaseService'
-import { observable } from 'mobx';
 import {NewCommentReport} from "./Report";
 
 // body with comment content
-export class CommentBody extends Component{
-    render () {
-        return(
+export class CommentBody extends Component {
+    render() {
+        return (
             <CardItem>
-                <Text>
-                    {this.props.body}
-                </Text>
+                <Text>{this.props.body}</Text>
             </CardItem>
-        )
+        );
     }
 }
 
 // side of comment with vote arrow
 class PostVotes extends PureComponent {
     upvoteScore = () => {
-        this.props.upvoteScore()
-    }
+        this.props.upvoteScore();
+    };
 
     downvoteScore = () => {
-        this.props.downvoteScore()
-    }
+        this.props.downvoteScore();
+    };
 
     render() {
-        let vote = this.props.vote
-        let upvoteIconColor =  vote == 1 ? "orange" : "black"
-        let downvoteIconColor = vote == -1 ?  "blue" : "black"
-        return(
-            <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
-                
+        let vote = this.props.vote;
+        let upvoteIconColor = vote === 1 ? 'orange' : 'black';
+        let downvoteIconColor = vote === -1 ? 'blue' : 'black';
+        return (
+            <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center' }}>
                 {/* upvote button */}
                 <Icon
-                    name = 'ios-arrow-up'
-                    fontSize = {30}
-                    type = 'Ionicons'
-                    style = {{color: upvoteIconColor}}
-                    onPress = {() => this.upvoteScore()}
+                    name="ios-arrow-up"
+                    fontSize={30}
+                    type="Ionicons"
+                    style={{ color: upvoteIconColor }}
+                    onPress={() => this.upvoteScore()}
                 />
 
-                {/* score */}                                
-                <Text>
-                    {this.props.score}
-                </Text>
-                
-                {/* downvote button */}                
+                {/* score */}
+                <Text>{this.props.score}</Text>
+
+                {/* downvote button */}
                 <Icon
-                    name = 'ios-arrow-down'
-                    fontSize = {30}
-                    type = 'Ionicons'
-                    style = {{color: downvoteIconColor}}
-                    onPress = {() => this.downvoteScore()}
+                    name="ios-arrow-down"
+                    fontSize={30}
+                    type="Ionicons"
+                    style={{ color: downvoteIconColor }}
+                    onPress={() => this.downvoteScore()}
                 />
             </View>
-        )
+        );
     }
 }
 
@@ -157,43 +150,43 @@ class CommentFooter extends PureComponent{
 
 // main component
 export default class Comment extends PureComponent{
-    
+
     render () {
         // let isVisible = this.state.modalVisible
         let body = this.props.body
         return(
-                <View>
-                    <View style={{ flex: 1, flexDirection: 'row' }}>
+            <View>
+                <View style={{ flex: 1, flexDirection: 'row' }}>
 
-                        {/* report component -- show on detail screen*/}
-                        {this.props.showReport &&
-                        <View style = {{ flex: 0.5}}>
-                            <CommentFooter
-                                id={this.props.id}
-                            />
-                        </View>
-                        }
+                    {/* report component -- show on detail screen*/}
+                    {this.props.showReport &&
+                    <View style = {{ flex: 0.5}}>
+                        <CommentFooter
+                            id={this.props.id}
+                        />
+                    </View>
+                    }
 
-                        <View style={[{ flex: 7, justifyContent: 'center' }]}>
-                            <CommentBody body = {body}/>
-                        </View>                
-
-                        {/* voting component -- show on detail screen*/}
-                        {this.props.showVote &&
-                        <View style = {{ flex: 1}}>
-                            <PostVotes
-                                vote = {this.props.vote}
-                                score={this.props.score}
-                                upvoteScore={this.props.upvoteScore}
-                                downvoteScore={this.props.downvoteScore}
-                            />
-                        </View>
-                        }
-
+                    <View style={[{ flex: 7, justifyContent: 'center' }]}>
+                        <CommentBody body = {body}/>
                     </View>
 
+                    {/* voting component -- show on detail screen*/}
+                    {this.props.showVote &&
+                    <View style = {{ flex: 1}}>
+                        <PostVotes
+                            vote = {this.props.vote}
+                            score={this.props.score}
+                            upvoteScore={this.props.upvoteScore}
+                            downvoteScore={this.props.downvoteScore}
+                        />
+                    </View>
+                    }
 
                 </View>
+
+
+            </View>
         )
     }
 }

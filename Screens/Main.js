@@ -1,61 +1,49 @@
-import React, {Component, PureComponent} from 'react'
-import {
-    FlatList,
-    StyleSheet,
-    TouchableWithoutFeedback,
-    RefreshControl,
-} from 'react-native'
-import {
-    Card,
-    Container,
-    Footer,
-    Icon,
-    View
-} from 'native-base'
+import React, {Component} from 'react'
+import {FlatList, RefreshControl, ScrollView, StyleSheet, TouchableWithoutFeedback} from 'react-native'
+import {Card, Container, Footer, Icon, View} from 'native-base'
 import Modal from 'react-native-modal'
 import {AppLoading} from 'expo'
-import {observer, inject} from 'mobx-react'
+import {inject, observer} from 'mobx-react'
 
-import Comment from '../Components/Comment'
 import {NewPost} from '../Components/New'
 import Blank from '../Components/Blank'
 import CommentData from '../Components/CommentData'
 import PostData from '../Components/PostData'
-
+import OfflineNotice from '../Components/OfflineNotice'
 
 // Comments container of custom comment components
 const Comments = observer(
-class Comments extends Component{
+    class Comments extends Component {
 
-    render() {
-        let comments = this.props.comments.slice(0, 3)
-        return(
-            <FlatList
-             data = {comments}
-             listKey = {(item, index) => item._id}
-             keyExtractor = {(item, index) => item._id}
-             renderItem = {(item) => {
-                let comment = item.item
-                
-                return(
-                    <View style = {{borderTopWidth: 1, borderRadius: 25, borderColor: 'powderblue'}}>
-                        <CommentData 
-                         comment = {comment}
-                         post_id = {this.props.post_id}
-                         isMain = {true}
-                         />
-                    </View>
-                )
-            }}
-            />
-        )
-    }
-})
+        render() {
+            let comments = this.props.comments.slice(0, 3)
+            return (
+                <FlatList
+                    removeClippedSubviews={false}
+                    data={comments}
+                    keyExtractor={(item, index) => item._id}
+                    renderItem={(item) => {
+                        let comment = item.item
+
+                        return (
+                            <View style={{borderTopWidth: 1, borderRadius: 25, borderColor: 'powderblue'}}>
+                                <CommentData
+                                    comment={comment}
+                                    post_id={this.props.post_id}
+                                    showVote={false}
+                                />
+                            </View>
+                        )
+                    }}
+                />
+            )
+        }
+    })
 
 
 // List of posts
 const Posts = inject('store')(
-observer(
+inject('userStore')(observer(
 class Posts extends Component{
 
     constructor(props){
@@ -118,6 +106,7 @@ class Posts extends Component{
             return (
                 <View style={{flex: 1}}>
                     <FlatList
+                        removeClippedSubviews = {false}
                         data = {posts}
                         renderItem = {(item) => {return this._renderItem(item)}}
                         keyExtractor = {(item, index) => item._id}
@@ -136,12 +125,14 @@ class Posts extends Component{
         }
         
     }
-}))
+})))
 
 // footer with new post button and new post creation modal
+const MainFooter = inject('store')(
+    inject('userStore')(observer(
 class MainFooter extends Component{
 
-    constructor(props){
+    constructor(props) {
         super(props)
 
         this.state = {
@@ -157,43 +148,46 @@ class MainFooter extends Component{
         this.setState({modalVisible: false})
     }
 
-    render () {
+    render() {
         let isVisible = this.state.modalVisible
+        if (this.props.userStore.isConnected) {
         return(
             <View>
 
                 {/* new post creation modal */}
-                <Modal
-                    isVisible = {isVisible}
-                    animationIn = {'slideInUp'}
-                    animationOut = {'zoomOut'}
-                    animationInTiming = {500}
-                    animationOutTiming = {500}
-                >
-                    <View style={{
-                                    borderRadius: 10, 
-                                    padding: 10, 
-                                    backgroundColor: 'white'
-                                }}>
+                <ScrollView keyboardShouldPersistTaps={"never"}>
+                    <Modal
+                        isVisible={isVisible}
+                        animationIn={'slideInUp'}
+                        animationOut={'zoomOut'}
+                        animationInTiming={500}
+                        animationOutTiming={500}
+                    >
                         <View style={{
-                                        flexDirection: 'row', 
-                                        justifyContent: 'flex-end'
-                                    }}>
+                            borderRadius: 10,
+                            padding: 10,
+                            backgroundColor: 'white'
+                        }}>
+                            <View style={{
+                                flexDirection: 'row',
+                                justifyContent: 'flex-end'
+                            }}>
 
-                            {/* cancel button */}
-                            <Icon 
-                                name = 'close' 
-                                fontSize = {30}
-                                type = 'MaterialCommunityIcons'
-                                style = {{color: 'skyblue'}}
-                                onPress = {this.hideModal}
-                            />
+                                {/* cancel button */}
+                                <Icon
+                                    name='close'
+                                    fontSize={30}
+                                    type='MaterialCommunityIcons'
+                                    style={{color: 'skyblue'}}
+                                    onPress={this.hideModal}
+                                />
+                            </View>
+
+                            {/* new post creation form*/}
+                            <NewPost closeView={this.hideModal}/>
                         </View>
-
-                        {/* new post creation form*/}
-                        <NewPost closeView = {this.hideModal}/>
-                    </View>
-                </Modal>
+                    </Modal>
+                </ScrollView>
 
                 {/* actual footer */}
                 <Footer>
@@ -201,8 +195,9 @@ class MainFooter extends Component{
                     {/* new post button */}
                     <TouchableWithoutFeedback onPress = {this.renderModal}>
                         <View style = {styles.newPostButton}>
-                                <Icon 
-                                    name = 'plus' 
+                                <Icon
+                                    isVisible = {false}
+                                    name = 'plus'
                                     fontSize = {30}
                                     type = 'MaterialCommunityIcons'
                                     style = {{color: 'white'}}
@@ -211,9 +206,28 @@ class MainFooter extends Component{
                     </TouchableWithoutFeedback>
                 </Footer>
             </View>
-        )
+        );
+        }
+        else {
+            return (
+                <View>
+                    <Footer>
+                        <View style = {styles.newPostButton}>
+                            <Icon
+                                isVisible = {false}
+                                name = 'alert-circle-outline'
+                                fontSize = {30}
+                                type = 'MaterialCommunityIcons'
+                                style = {{color: 'grey'}}
+                            />
+                        </View>
+                    </Footer>
+                </View>
+            );
+        }
     }
-}
+})))
+
 
 
 // main component
@@ -222,6 +236,7 @@ export default class MainScreen extends Component{
     render () {
         return(
             <Container style = {{backgroundColor: 'powderblue'}}>
+                <OfflineNotice/>
                 <View style = {{flex: 1}}>
                     <Posts navigate = {this.props.navigation.navigate}/>
                 </View>
@@ -242,6 +257,6 @@ const styles = StyleSheet.create({
     },
     seeBorders: {
         borderWidth: 1,
-        borderColor:'red'
+        borderColor: 'red'
     }
 })
