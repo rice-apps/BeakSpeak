@@ -29,7 +29,7 @@ class PostData extends Component{
     }
 
     // increment vote count up by 1
-    upvoteScore = () => {
+    upvoteScore = () => { 
         old_vote = this.props.post.userVote
         score = this.props.post.score
         if (old_vote == 1) {
@@ -50,7 +50,8 @@ class PostData extends Component{
     }
 
     // increment vote count down by 1
-    downvoteScore = async () => {
+    downvoteScore = async() => {
+        
         old_vote = this.props.post.userVote
         score = this.props.post.score
 
@@ -74,17 +75,17 @@ class PostData extends Component{
     render() {
         return (
             <Post
-                title={this.props.post.title}
-                vote={this.props.post.userVote}
-                score={this.props.post.score}
-                userReact={this.props.post.userReact}
-                reactCounts={this.props.post.reactCounts}
+                title = {this.props.post.title}
+                vote = {this.props.post.userVote}
+                score = {this.props.post.score}
+                userReact = {this.props.post.userReact}
+                reactCounts = {this.props.post.reactCounts}
                 id = {this.props.post._id}
-                body={this.props.post.body}
-                updateReact={this.updateReact}
-                upvoteScore={this.upvoteScore}
-                downvoteScore={this.downvoteScore}
-            />
+                body = {this.props.post.body}
+                updateReact = {this.updateReact}
+                upvoteScore = {this.upvoteScore}
+                downvoteScore = {this.downvoteScore}
+            />     
         )
     }
 })

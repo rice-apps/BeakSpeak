@@ -9,7 +9,7 @@ class PostStore {
     // changed this to go through database first
     addPost = async(title, body) => {
         let newPost = new PostModel(title, body)
-        newerPost = await DatabaseService.sendNewPost(title, body, newPost._id)
+        newerPost = await DatabaseService.sendNewPost(title, body, newPost._id) 
         this.posts.unshift(PostModel.make(newerPost))
 //        this.posts.splice(0, 0, PostModel.make(newPost))
 //        newPost = await DatabaseService.sendNewPost(title, body, newPost._id) // send post to database
