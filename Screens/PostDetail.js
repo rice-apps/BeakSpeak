@@ -6,6 +6,7 @@ import Blank from '../Components/Blank'
 import PostData from '../Components/PostData'
 import {inject, observer} from 'mobx-react';
 import CommentData from '../Components/CommentData';
+import * as Mobx from "mobx";
 
 const PostDetailFooter = observer(
     class PostDetailFooter extends Component {
@@ -69,12 +70,11 @@ const Comments = observer(
 
 
         render() {
-            let comments = this.props.comments
+            let comments = Mobx.toJS(this.props.comments)
 
             return (
                 <FlatList
                     data={comments}
-                    listKey={(item, index) => item._id}
                     keyExtractor={(item, index) => item._id}
                     renderItem={(item) => {
                         let comment = item.item;
