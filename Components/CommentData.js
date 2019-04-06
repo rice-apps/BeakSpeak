@@ -55,6 +55,7 @@ downvoteScore = async() => {
         let comment = this.props.comment
         return(
             <Comment
+                id = {this.props.comment._id}
                 vote = {comment.vote}
                 score = {comment.score}
                 body = {comment.body}
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
   },
     button: {
     backgroundColor: "powderblue",
-    width: '15%',
+    width: '15',
     height: 15,
     borderColor: "powderblue",
     borderWidth: 15,
