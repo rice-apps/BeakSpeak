@@ -11,6 +11,7 @@ import CommentData from '../Components/CommentData'
 import PostData from '../Components/PostData'
 import OfflineNotice from '../Components/OfflineNotice'
 import * as Mobx from "mobx";
+import TestingLink from '../Components/TestingLink'
 
 // Comments container of custom comment components
 const Comments = observer(
@@ -92,8 +93,8 @@ class Posts extends Component{
 
     render () {
         let loaded = this.state.loaded
-        let posts = Mobx.toJS(this.props.store.posts);
-
+        //let posts = Mobx.toJS(this.props.store.posts);
+        let posts = this.props.store.posts
 
         if(!loaded) { // wait for posts to load
             return(
@@ -232,10 +233,11 @@ class MainFooter extends Component{
 
 // main component
 export default class MainScreen extends Component{
-
+    
     render () {
         return(
             <Container style = {{backgroundColor: 'powderblue'}}>
+                <TestingLink/>
                 <OfflineNotice/>
                 <View style = {{flex: 1}}>
                     <Posts navigate = {this.props.navigation.navigate}/>
