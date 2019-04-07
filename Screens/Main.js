@@ -10,13 +10,15 @@ import Blank from '../Components/Blank'
 import CommentData from '../Components/CommentData'
 import PostData from '../Components/PostData'
 import OfflineNotice from '../Components/OfflineNotice'
+import * as Mobx from "mobx";
+import TestingLink from '../Components/TestingLink'
 
 // Comments container of custom comment components
 const Comments = observer(
     class Comments extends Component {
 
         render() {
-            let comments = this.props.comments.slice(0, 3)
+            let comments = Mobx.toJS(this.props.comments.slice(0, 3));
             return (
                 <FlatList
                     removeClippedSubviews={false}
@@ -65,8 +67,8 @@ class Posts extends Component{
     postNavigate = (route, post_id) => {
         this.props.navigate(route, {id: post_id})
     }
-    
-    _onRefresh = async() => { 
+
+    _onRefresh = async() => {
         this.setState((state) => ({refresh: true})) // indicate we are refreshing
         this.props.store.fetchPosts()
             .then((posts) => this.setState((state) => ({refresh: false}))) // refresh data
@@ -78,22 +80,22 @@ class Posts extends Component{
         return(
             <TouchableWithoutFeedback onPress = {()=> this.postNavigate('PostDetail', post._id)}>
                 <Card>
-                    <PostData 
+                    <PostData
                         post = {post}
                     />
-                    <Comments 
-                        comments = {post.comments} 
+                    <Comments
+                        comments = {post.comments}
                         post_id = {post._id}/>
                 </Card>
             </TouchableWithoutFeedback>
         )
     }
-    
+
     render () {
         let loaded = this.state.loaded
+        //let posts = Mobx.toJS(this.props.store.posts);
         let posts = this.props.store.posts
 
-        
         if(!loaded) { // wait for posts to load
             return(
                 <AppLoading/>
@@ -120,9 +122,9 @@ class Posts extends Component{
                         contentContainerStyle = {(posts == undefined || !posts.length) ? { flex: 1, alignItems: 'center' } : {}}
                     />
                 </View>
-            )               
+            )
         }
-        
+
     }
 })))
 
@@ -235,6 +237,7 @@ export default class MainScreen extends Component{
     render () {
         return(
             <Container style = {{backgroundColor: 'powderblue'}}>
+                <TestingLink/>
                 <OfflineNotice/>
                 <View style = {{flex: 1}}>
                     <Posts navigate = {this.props.navigation.navigate}/>
