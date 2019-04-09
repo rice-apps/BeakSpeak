@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {FlatList, RefreshControl, ScrollView, StyleSheet, TouchableWithoutFeedback} from 'react-native'
+import {FlatList, RefreshControl, ScrollView, StyleSheet, TouchableWithoutFeedback, Text} from 'react-native'
 import {Card, Container, Footer, Icon, View} from 'native-base'
 import Modal from 'react-native-modal'
 import {AppLoading} from 'expo'
@@ -19,6 +19,7 @@ const Comments = observer(
         render() {
             let comments = this.props.comments.slice(0, 3)
             return (
+                <View>
                 <FlatList
                     removeClippedSubviews={false}
                     data={comments}
@@ -37,11 +38,23 @@ const Comments = observer(
                         )
                     }}
                 />
+                {this.props.comments.length > 3 && 
+                    <Icon
+                        name = "ellipsis1"
+                        type = "AntDesign"
+                        fontSize = {20}
+                        style={{color: 'powderblue', alignSelf: 'center'}}
+                    />
+                }    
+                </View>
             )
         }
     })
 
-
+/*
+<Text style={{color: 'powderblue', fontSize : 10, fontWeight: 'bold', alignSelf:
+'center'}}>view more comments</Text>
+*/
 // List of posts
 const Posts = inject('store')(
 inject('userStore')(observer(

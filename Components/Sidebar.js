@@ -32,9 +32,9 @@ export default class Sidebar extends Component {
     return (
       // each icon represents a page accessible from the menu
       <View style={styles.container}>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <TouchableOpacity
             onPress={() => this.navigate('Main')}
+            style={{flexDirection: 'row', alignItems: 'center'}}
           >
             <Icon
               name="note-text"
@@ -42,12 +42,11 @@ export default class Sidebar extends Component {
               type="MaterialCommunityIcons"
               style={{ color: 'white' }}
             />
+            <Text style={{color: "white", fontSize: 25}}> Feed </Text>
           </TouchableOpacity>
-          <Text style={{color: "white", fontSize: 25}}> Feed </Text>
-        </View>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <TouchableOpacity
             onPress={() => this.navigate('Info')}
+            style={{flexDirection: 'row', alignItems: 'center'}}
           >
             <Icon
               name="information"
@@ -55,21 +54,20 @@ export default class Sidebar extends Component {
               type="MaterialCommunityIcons"
               style={{ color: 'white' }}
             />
+            <Text style={{color: "white", fontSize: 25}}> Info </Text>
           </TouchableOpacity>
-          <Text style={{color: "white", fontSize: 25}}> Info </Text>
-        </View>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <TouchableOpacity>
-          <Icon
-            name="logout"
-            fontSize={30}
-            type="MaterialCommunityIcons"
-            style={{ color: 'white' }}
-            onPress={this.logout}
-          />
-        </TouchableOpacity>
-        <Text style={{color: "white", fontSize: 25}}> Logout </Text>
-        </View>
+          <TouchableOpacity
+            style={{flexDirection: 'row', alignItems: 'center'}}
+          >
+            <Icon
+              name="logout"
+              fontSize={30}
+              type="MaterialCommunityIcons"
+              style={{ color: 'white' }}
+              onPress={this.logout}
+            />
+            <Text style={{color: "white", fontSize: 25}}> Logout </Text>
+          </TouchableOpacity>
       </View>
     );
   }
