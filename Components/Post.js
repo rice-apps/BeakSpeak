@@ -1,7 +1,7 @@
 import React, { Component, PureComponent } from 'react';
 import Modal from 'react-native-modal';
 import { CardItem, Button, Text, Icon, Footer } from 'native-base';
-import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback, View , TouchableOpacity} from 'react-native';
 import { NewReport } from '../Components/Report';
 
 // body with post content and potentially votes
@@ -31,25 +31,35 @@ class PostVotes extends PureComponent {
     return (
       <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center' }}>
         {/* upvote button */}
-        <Icon
-          name="ios-arrow-up"
-          fontSize={30}
-          type="Ionicons"
-          style={{ color: upvoteIconColor }}
+        <TouchableOpacity 
+          hitSlop={{top: 20, left: 20, bottom: 20, right: 20}}
           onPress={() => this.upvoteScore()}
-        />
+        >
+          <Icon
+            name="ios-arrow-up"
+            fontSize={30}
+            type="Ionicons"
+            style={{ color: upvoteIconColor }}
+          />
+        
+        </TouchableOpacity>
 
         {/* score */}
         <Text>{this.props.score}</Text>
 
         {/* downvote button */}
-        <Icon
-          name="ios-arrow-down"
-          fontSize={30}
-          type="Ionicons"
-          style={{ color: downvoteIconColor }}
+        <TouchableOpacity
+          hitSlop={{top: 20, left: 20, bottom: 20, right: 20}}
           onPress={() => this.downvoteScore()}
-        />
+        >
+          <Icon
+            name="ios-arrow-down"
+            fontSize={30}
+            type="Ionicons"
+            style={{ color: downvoteIconColor }}
+          />
+        </TouchableOpacity>
+        
       </View>
     );
   }
