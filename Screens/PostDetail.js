@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Header} from 'react-navigation'
-import {FlatList, Keyboard, KeyboardAvoidingView, RefreshControl, StyleSheet} from 'react-native'
+import {FlatList, Keyboard, KeyboardAvoidingView, RefreshControl, StyleSheet, Platform, StatusBar} from 'react-native'
 import {Button, Card, Icon, Input, View} from 'native-base'
 import {inject, observer} from 'mobx-react';
 import * as Mobx from "mobx";
@@ -9,6 +9,8 @@ import Blank from '../Components/Blank'
 import PostData from '../Components/PostData'
 import CommentData from '../Components/CommentData';
 import CommentModel from '../Store/Models/CommentModel'
+
+const platformDiff = (Platform.OS === 'ios') ? 0 : StatusBar.currentHeight
 
 const PostDetailFooter = observer(
     class PostDetailFooter extends Component {
@@ -30,7 +32,7 @@ const PostDetailFooter = observer(
         render() {
             return (
                 <KeyboardAvoidingView
-                    keyboardVerticalOffset={Header.HEIGHT}
+                    keyboardVerticalOffset={Header.HEIGHT + platformDiff}
                     behavior="position"
                     keyboardShouldPersistTaps={false}>
 

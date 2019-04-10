@@ -3,7 +3,7 @@ import {FlatList, RefreshControl, ScrollView, StyleSheet, TouchableWithoutFeedba
 import {Card, Container, Footer, Icon, View} from 'native-base'
 import Modal from 'react-native-modal'
 import {AppLoading} from 'expo'
-import {inject, observer} from 'mobx-react'
+import {inject, observer, Provider} from 'mobx-react'
 
 import {NewPost} from '../Components/New'
 import Blank from '../Components/Blank'

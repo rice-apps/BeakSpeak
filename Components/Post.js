@@ -215,6 +215,7 @@ class PostFooter extends PureComponent {
 // main component -- pure component for rendering optimization (view only)
 export default class Post extends Component {
   render() {
+   
     return (
       <View>
         <View style={{ flex: 1, flexDirection: 'row' }}>

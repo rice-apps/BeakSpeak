@@ -58,13 +58,13 @@ export default class Sidebar extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={{flexDirection: 'row', alignItems: 'center'}}
+            onPress={this.logout}
           >
             <Icon
               name="logout"
               fontSize={30}
               type="MaterialCommunityIcons"
               style={{ color: 'white' }}
-              onPress={this.logout}
             />
             <Text style={{color: "white", fontSize: 25}}> Logout </Text>
           </TouchableOpacity>
