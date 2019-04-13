@@ -28,6 +28,36 @@ Stack
 
 ## Components
 
+### Comment
+
+High level description
+
+*Methods*
+
+```
+method name (arguments)
+```
+
+method description (Use <br><br/> to wrap newlines)
+
+Returns:
+    description
+    
+### CommentData
+
+High level description
+
+*Methods*
+
+```
+method name (arguments)
+```
+
+method description (Use <br><br/> to wrap newlines)
+
+Returns:
+    description
+
 ### Template <PUT NAME OF COMPONENT HERE>
 
 High level description

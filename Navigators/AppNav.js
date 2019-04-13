@@ -42,7 +42,7 @@ const HomeNav = createDrawerNavigator(
   {
     initialRouteName: 'Main',
     contentComponent: Sidebar,
-    drawerWidth: screenWidth * 0.2,
+    drawerWidth: screenWidth * 0.4,
   }
 );
 
