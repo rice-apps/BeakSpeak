@@ -30,7 +30,7 @@ class PostVotes extends PureComponent {
     return (
       <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center' }}>
         {/* upvote button */}
-        <TouchableOpacity 
+        <TouchableOpacity
           hitSlop={{top: 20, left: 10, bottom: 20, right: 20}}
           onPress={() => this.upvoteScore()}
         >
@@ -45,7 +45,7 @@ class PostVotes extends PureComponent {
         <Text>{this.props.score}</Text>
 
         {/* downvote button */}
-        <TouchableOpacity 
+        <TouchableOpacity
           hitSlop={{top: 20, left: 10, bottom: 20, right: 20}}
           onPress={() => this.downvoteScore()}
         >
@@ -61,6 +61,17 @@ class PostVotes extends PureComponent {
   }
 }
 
+class CommentVoteScoreOnly extends PureComponent {
+    render() {
+        return (
+            <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                <Text>{this.props.score}</Text>
+            </View>
+        );
+    }
+}
+
+
 // main component
 export default class Comment extends PureComponent {
   render() {
@@ -71,6 +82,14 @@ export default class Comment extends PureComponent {
           <View style={[{ flex: 7, justifyContent: 'center' }]}>
             <CommentBody body={body} />
           </View>
+            {this.props.showVoteScoreOnly && (
+                <View style={{ flex: 1 }}>
+                    <CommentVoteScoreOnly
+                        vote={this.props.vote}
+                        score={this.props.score}
+                    />
+                </View>
+            )}
 
           {/* voting component -- show on detail screen*/}
           {this.props.showVote && (
@@ -83,6 +102,7 @@ export default class Comment extends PureComponent {
               />
             </View>
           )}
+
         </View>
       </View>
     );

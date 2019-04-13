@@ -58,6 +58,7 @@ export default (CommentData = observer(
           upvoteScore={this.upvoteScore}
           downvoteScore={this.downvoteScore}
           showVote={this.props.showVote}
+          showVoteScoreOnly={this.props.showVoteScoreOnly}
         />
       );
     }
