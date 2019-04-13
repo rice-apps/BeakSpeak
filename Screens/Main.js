@@ -4,13 +4,14 @@ import {Card, Container, Footer, Icon, View} from 'native-base'
 import Modal from 'react-native-modal'
 import {AppLoading} from 'expo'
 import {inject, observer, Provider} from 'mobx-react'
+import * as Mobx from "mobx";
 
 import {NewPost} from '../Components/New'
+import CommentModel from '../Store/Models/CommentModel'
 import Blank from '../Components/Blank'
 import CommentData from '../Components/CommentData'
 import PostData from '../Components/PostData'
 import OfflineNotice from '../Components/OfflineNotice'
-import * as Mobx from "mobx";
 import TestingLink from '../Components/TestingLink'
 
 // Comments container of custom comment components

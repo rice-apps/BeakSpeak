@@ -73,7 +73,6 @@ const FrontScreen = inject('userStore')(class FrontScreen extends Component {
                 SecureStore.setItemAsync('token', token);
                 this.props.userStore.setToken(token);
                 this.props.navigation.navigate('Main');
-
             }
         }
 

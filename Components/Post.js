@@ -187,13 +187,13 @@ class PostFooter extends PureComponent {
           {/* actual footer */}
           <View>
             <Footer
-              style={{
+              style={[{
                 backgroundColor: 'white',
                 flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'flex-end',
-                borderColor: 'white',
-              }}>
+                borderColor: 'transparent',
+              }]}>
               {/* report button */}
               <TouchableWithoutFeedback onPress={this.renderModal}>
                 <View style={[styles.reportButton]}>
