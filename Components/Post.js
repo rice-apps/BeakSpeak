@@ -1,5 +1,6 @@
 import React, { Component, PureComponent } from 'react';
 import Modal from 'react-native-modal';
+// import {Text} from 'react-native';
 import { CardItem, Button, Text, Icon, Footer } from 'native-base';
 import { StyleSheet, TouchableWithoutFeedback, View , TouchableOpacity} from 'react-native';
 import { NewReport } from '../Components/Report';
@@ -8,9 +9,14 @@ import { NewReport } from '../Components/Report';
 class PostBody extends PureComponent {
   render() {
     return (
-      <CardItem>
-        <Text>{this.props.body}</Text>
-      </CardItem>
+      <View>
+        <CardItem>
+          <Text>{this.props.body}</Text>
+        </CardItem>
+        <CardItem>
+          <Text style ={{fontStyle: 'italic', color: 'lightgray'}}>{new Date(this.props.date).toLocaleString()}</Text>
+        </CardItem>
+      </View>
     );
   }
 }
@@ -236,7 +242,7 @@ export default class Post extends Component {
         </View>
 
         {/* body of post */}
-        <PostBody body={this.props.body} />
+        <PostBody body={this.props.body} date={this.props.date}/>
         <PostFooter
           id={this.props.id}
           userReact={this.props.userReact}

@@ -82,6 +82,7 @@ export default (PostData = observer(
           reactCounts={this.props.post.reactCounts}
           id={this.props.post._id}
           body={this.props.post.body}
+          date={this.props.post.date}
           updateReact={this.updateReact}
           upvoteScore={this.upvoteScore}
           downvoteScore={this.downvoteScore}

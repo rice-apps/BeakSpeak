@@ -8,6 +8,7 @@ export default class PostModel {
   title = '';
   body = '';
   _id = '';
+  date = '';
   userVote = 0;
   score = 0;
   userReact = 'none';
@@ -29,6 +30,7 @@ export default class PostModel {
   static make(newPost) {
     let proto_post = new PostModel(newPost.title, newPost.body);
     proto_post._id = newPost._id;
+    proto_post.date = newPost.date;
     proto_post.score = newPost.score;
     proto_post.userVote = newPost.userVote;
     proto_post.userReact = newPost.userReact;
@@ -73,6 +75,7 @@ export default class PostModel {
 decorate(PostModel, {
   userVote: observable,
   userReact: observable,
+  date: observable,
   score: observable,
   reactCounts: observable,
   comments: observable,
