@@ -60,7 +60,6 @@ const FrontScreen = inject('userStore')(class FrontScreen extends Component {
 
     handleLogin = async () => {
         let returnUrl = Expo.Linking.makeUrl();
-
         let result = await WebBrowser.openAuthSessionAsync(
           CONFIG.cas_auth_url +
           `?service=${CONFIG.service_url}` + `?return=${returnUrl}`,
