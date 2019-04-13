@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Header, Left, Right, Body, Icon, View, Text } from 'native-base';
-import { TouchableWithoutFeedback, Platform, StatusBar } from 'react-native';
+import { TouchableOpacity, Platform, StatusBar, TouchableWithoutFeedback } from 'react-native';
 
 // header design for drawer navigators
 export class DrawerHeader extends Component {
@@ -21,13 +21,16 @@ export class DrawerHeader extends Component {
         <Header style={{ backgroundColor: 'powderblue' }}>
           <Left>
             {/* Menu Button */}
-            <TouchableWithoutFeedback onPress={() => this.toggleMenu()}>
+            <TouchableOpacity 
+              hitSlop={{top: 20, left: 20, bottom: 20, right: 60}}
+              onPress={() => this.toggleMenu()}
+            >
               <Icon
                 name="menu"
                 type="MaterialCommunityIcons"
                 style={{ color: 'white', fontSize: 25 }}
               />
-            </TouchableWithoutFeedback>
+            </TouchableOpacity>
           </Left>
 
           {/* Title of Page */}

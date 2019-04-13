@@ -1,5 +1,5 @@
 import React, {Component, PureComponent} from 'react'
-import {StyleSheet, TouchableWithoutFeedback, View} from 'react-native'
+import {StyleSheet, TouchableOpacity, View} from 'react-native'
 import {Card, CardItem, Title, Button, Text, Icon, Footer} from 'native-base'
 import Modal from 'react-native-modal'
 
@@ -20,39 +20,46 @@ export class CommentBody extends Component {
 class CommentVotes extends PureComponent {
     upvoteScore = () => {
         this.props.upvoteScore();
-    };
-
-    downvoteScore = () => {
+      };
+    
+      downvoteScore = () => {
         this.props.downvoteScore();
-    };
-
-    render() {
+      };
+    
+      render() {
         let vote = this.props.vote;
         let upvoteIconColor = vote === 1 ? 'orange' : 'black';
         let downvoteIconColor = vote === -1 ? 'blue' : 'black';
         return (
-            <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center' }}>
-                {/* upvote button */}
-                <Icon
-                    name="ios-arrow-up"
-                    fontSize={30}
-                    type="Ionicons"
-                    style={{ color: upvoteIconColor }}
-                    onPress={() => this.upvoteScore()}
-                />
-
-                {/* score */}
-                <Text>{this.props.score}</Text>
-
-                {/* downvote button */}
-                <Icon
-                    name="ios-arrow-down"
-                    fontSize={30}
-                    type="Ionicons"
-                    style={{ color: downvoteIconColor }}
-                    onPress={() => this.downvoteScore()}
-                />
-            </View>
+          <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center' }}>
+            {/* upvote button */}
+            <TouchableOpacity 
+              hitSlop={{top: 20, left: 10, bottom: 20, right: 20}}
+              onPress={() => this.upvoteScore()}
+            >
+            <Icon
+              name="ios-arrow-up"
+              fontSize={30}
+              type="Ionicons"
+              style={{ color: upvoteIconColor }}
+            />
+            </TouchableOpacity>
+            {/* score */}
+            <Text>{this.props.score}</Text>
+    
+            {/* downvote button */}
+            <TouchableOpacity 
+              hitSlop={{top: 20, left: 10, bottom: 20, right: 20}}
+              onPress={() => this.downvoteScore()}
+            >
+            <Icon
+              name="ios-arrow-down"
+              fontSize={30}
+              type="Ionicons"
+              style={{ color: downvoteIconColor }}
+            />
+            </TouchableOpacity>
+          </View>
         );
     }
 }

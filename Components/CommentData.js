@@ -53,7 +53,7 @@ export default (CommentData = observer(
             return(
                 <Comment
                     id = {this.props.comment._id}
-                    vote = {comment.vote}
+                    vote = {comment.userVote}
                     score = {comment.score}
                     body = {comment.body}
                     upvoteScore = {this.upvoteScore}

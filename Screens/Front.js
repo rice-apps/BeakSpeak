@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import {
-  Button,
   StyleSheet,
   View,
   Text,
   Image,
   Dimensions,
-  TouchableHighlight,
+  TouchableOpacity,
 } from 'react-native';
+import {Button} from 'native-base'
 import { WebBrowser, SecureStore } from 'expo'
 import {inject} from 'mobx-react'
 
@@ -73,7 +73,6 @@ const FrontScreen = inject('userStore')(class FrontScreen extends Component {
                 SecureStore.setItemAsync('token', token);
                 this.props.userStore.setToken(token);
                 this.props.navigation.navigate('Main');
-
             }
         }
 
@@ -100,20 +99,21 @@ const FrontScreen = inject('userStore')(class FrontScreen extends Component {
         return (
             <View style={[styles.screenTheme, {height: screenHeight}]}>
                 <FrontBody>
-                    <TouchableHighlight
+                    <TouchableOpacity
                         style ={{
                             height: 40,
                             width:160,
                             borderRadius:10,
                             backgroundColor : "#14141D",
                             marginTop :50,
-                            marginBottom :20
-                        }}>
-                        <Button color="white"
-                                title="Login with NetID"
-                                onPress={this.handleLogin} />
-                    </TouchableHighlight>
-
+                            marginBottom :20,
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}
+                        onPress={this.handleLogin} 
+                        >
+                        <Text style = {{color: "white", fontSize: 20, fontFamily: 'caviar-dreams'}}>Login</Text>
+                    </TouchableOpacity>
                     <Text>{this.state.loginError}</Text>
                 </FrontBody>
             </View>

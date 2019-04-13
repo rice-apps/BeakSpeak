@@ -205,7 +205,6 @@ export async function updateVotesOnComment(commentid, postid, vote) {
                     return (value == null) ? '' : value
                 })
         });
-        console.log("in votes on comments")
         return await res.json()
     } catch (err) {
         console.log(err)

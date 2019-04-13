@@ -1,13 +1,12 @@
 import React, {Component, PureComponent} from 'react';
 import Modal from 'react-native-modal';
 import {NewPostReport} from '../Components/Report';
-import {Card, CardItem, Title, Button, Text, Icon, Footer} from 'native-base';
+import {CardItem, Button, Text, Icon, Footer} from 'native-base';
 import {    
-    FlatList,
+    View,
     StyleSheet,
-    TouchableWithoutFeedback,
-    RefreshControl,
-    View} from 'react-native';
+    TouchableOpacity
+} from 'react-native';
 
 // body with post content and potentially votes
 class PostBody extends PureComponent {
@@ -29,35 +28,45 @@ class PostVotes extends PureComponent {
         this.props.downvoteScore();
     };
 
-    render() {
-        let vote = this.props.vote;
-        let upvoteIconColor = vote === 1 ? 'orange' : 'black';
-        let downvoteIconColor = vote === -1 ? 'blue' : 'black';
-        return (
-            <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center' }}>
-                {/* upvote button */}
-                <Icon
-                    name="ios-arrow-up"
-                    fontSize={30}
-                    type="Ionicons"
-                    style={{ color: upvoteIconColor }}
-                    onPress={() => this.upvoteScore()}
-                />
+  render() {
+    let vote = this.props.vote;
+    let upvoteIconColor = vote === 1 ? 'orange' : 'black';
+    let downvoteIconColor = vote === -1 ? 'blue' : 'black';
+    return (
+      <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center' }}>
+        {/* upvote button */}
+        <TouchableOpacity 
+          hitSlop={{top: 20, left: 20, bottom: 20, right: 20}}
+          onPress={() => this.upvoteScore()}
+        >
+          <Icon
+            name="ios-arrow-up"
+            fontSize={30}
+            type="Ionicons"
+            style={{ color: upvoteIconColor }}
+          />
+        
+        </TouchableOpacity>
 
                 {/* score */}
                 <Text>{this.props.score}</Text>
 
-                {/* downvote button */}
-                <Icon
-                    name="ios-arrow-down"
-                    fontSize={30}
-                    type="Ionicons"
-                    style={{ color: downvoteIconColor }}
-                    onPress={() => this.downvoteScore()}
-                />
-            </View>
-        );
-    }
+        {/* downvote button */}
+        <TouchableOpacity
+          hitSlop={{top: 20, left: 20, bottom: 20, right: 20}}
+          onPress={() => this.downvoteScore()}
+        >
+          <Icon
+            name="ios-arrow-down"
+            fontSize={30}
+            type="Ionicons"
+            style={{ color: downvoteIconColor }}
+          />
+        </TouchableOpacity>
+        
+      </View>
+    );
+  }
 }
 
 // header with title and potentially avatar and time info
@@ -207,11 +216,12 @@ class PostFooter extends PureComponent {
 }
 
 // main component -- pure component for rendering optimization (view only)
-export default class Post extends Component{
-    render() {
-        return(
-            <View>
-                <View style={{ flex: 1, flexDirection: 'row' }}>
+export default class Post extends Component {
+  render() {
+   
+    return (
+      <View>
+        <View style={{ flex: 1, flexDirection: 'row' }}>
           {/* post component decomposed into children components */}
           <View style={[{ flex: 7, justifyContent: 'center' }]}>
             <PostHeader title={this.props.title} />
