@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 27448,
-  "expoServerNgrokUrl": "https://dw-fds.anonymous.beakspeak.exp.direct",
-  "packagerNgrokUrl": "https://packager.dw-fds.anonymous.beakspeak.exp.direct",
-  "ngrokPid": 27469
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }
