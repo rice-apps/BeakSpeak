@@ -19,6 +19,7 @@ export default class PostModel {
     wow: 0,
   };
   comments = [];
+  sent = false;
 
   constructor(title, body) {
     this.title = title;
@@ -34,6 +35,7 @@ export default class PostModel {
     proto_post.userReact = newPost.userReact;
     proto_post.reactCounts = newPost.reactCounts;
     proto_post.comments = newPost.comments.map(c => CommentModel.make(c));
+    proto_post.sent = newPost.sent;
     return proto_post;
   }
 
@@ -49,6 +51,9 @@ export default class PostModel {
     DatabaseService.updateVotes(postid, new_vote);
   }
 
+  updateSent(new_sent, postid) {
+    this.sent = new_sent;
+  }
   addComment(body) {
     let new_comment = new CommentModel(body);
     this.comments.push(new_comment);
@@ -65,6 +70,7 @@ export default class PostModel {
         this.reactCounts = post.reactCounts;
         this.reacts = post.reacts;
         this.comments = post.comments;
+        this.sent = post.sent;
       });  
     }
   }
@@ -80,4 +86,5 @@ decorate(PostModel, {
   updateVote: action,
   addComment: action,
   update: action,
+    sent: observable
 });

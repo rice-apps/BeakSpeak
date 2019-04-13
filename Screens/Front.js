@@ -50,7 +50,7 @@ const FrontScreen = inject('userStore')(class FrontScreen extends Component {
         this.state = {
             loginError: ''
         };
-        //this.props.navigation.navigate('Main');
+        this.props.navigation.navigate('Main');
         this.getLoginInfo()
     }
 

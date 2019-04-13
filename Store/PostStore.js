@@ -4,22 +4,30 @@ import PostModel from './Models/PostModel';
 import DatabaseService from '../Services/DatabaseService';
 
 class PostStore {
+  unsentPosts = [];
   posts = [];
-
   // changed this to go through database first
   addPost = async (title, body) => {
     let newPost = new PostModel(title, body);
+
     let newerPost = await DatabaseService.sendNewPost(title, body, newPost._id);
-    this.posts.unshift(PostModel.make(newerPost));
+
+      if (newerPost == undefined) {
+          this.unsentPosts.push(newPost);
+      }
+
+    this.posts.unshift(PostModel.make(newerPost == undefined ? newPost : newerPost));
     //        this.posts.splice(0, 0, PostModel.make(newPost))
     //        newPost = await DatabaseService.sendNewPost(title, body, newPost._id) // send post to database
     //        DatabaseService.sendNewPost(title, body, newPost._id) // send post to database -- no need to await
   };
 
   async fetchPosts() {
+    // console.log(this.unsentPosts)
     let proto_posts = await DatabaseService.getPosts();
     try {
       this.posts = proto_posts.map(p => PostModel.make(p));
+      this.unsentPosts.map(p => this.posts.unshift(p));
     } catch (err) {
       console.log(err);
       this.posts = [];
@@ -37,6 +45,14 @@ class PostStore {
   }
   getPost(id) {
     return this.posts.find(val => val._id === id);
+  }
+
+  setSent(id, sent) {
+      this.unsentPosts.forEach((val, index) => {
+          if (val._id === id) {
+              this.unsentPosts.splice(index, 1);
+          }
+      });
   }
 }
 

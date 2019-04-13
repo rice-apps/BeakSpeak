@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { observer } from 'mobx-react';
-
+import { observer, inject } from 'mobx-react';
+import DatabaseService from '../Services/DatabaseService';
 import Post from '../Components/Post';
 
 // main component - increments post vote counts up and down, returns total vote count
 let PostData;
-export default (PostData = observer(
+export default PostData = inject('store')(
+    observer(
   class PostData extends Component {
     // initialize with default values
     constructor(props) {
@@ -28,6 +29,13 @@ export default (PostData = observer(
       }));
     };
 
+    updateSent = async() => {
+        let resentPost = await DatabaseService.sendNewPost(this.props.post.title, this.props.post.body, this.props.post._id);
+        console.log(resentPost)
+        this.props.store.setSent(this.props.post._id, true);
+        this.props.post.updateSent(true, this.props.post._id);
+
+    }
     // increment vote count up by 1
     upvoteScore = () => {
       let old_vote = this.props.post.userVote;
@@ -85,6 +93,8 @@ export default (PostData = observer(
           updateReact={this.updateReact}
           upvoteScore={this.upvoteScore}
           downvoteScore={this.downvoteScore}
+          updateSent={this.updateSent}
+          sent={this.props.post.sent}
         />
       );
     }

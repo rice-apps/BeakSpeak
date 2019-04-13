@@ -65,11 +65,13 @@ class Posts extends Component{
     postNavigate = (route, post_id) => {
         this.props.navigate(route, {id: post_id})
     }
-    
-    _onRefresh = async() => { 
-        this.setState((state) => ({refresh: true})) // indicate we are refreshing
-        this.props.store.fetchPosts()
-            .then((posts) => this.setState((state) => ({refresh: false}))) // refresh data
+
+    _onRefresh = async() => {
+        if (this.props.userStore.getConnected()) {
+            this.setState((state) => ({refresh: true})) // indicate we are refreshing
+            this.props.store.fetchPosts()
+                .then((posts) => this.setState((state) => ({refresh: false}))) // refresh data
+        }
     }
 
 
@@ -149,7 +151,7 @@ class MainFooter extends Component{
 
     render() {
         let isVisible = this.state.modalVisible
-        if (this.props.userStore.isConnected) {
+        if (true) {
         return(
             <View>
 

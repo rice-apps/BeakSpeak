@@ -38,6 +38,7 @@ export async function sendNewPost(title, body, id) {
         }
       ),
     });
+    console.log(await res.json())
     return await res.json();
   } catch (err) {
     console.log(err);
