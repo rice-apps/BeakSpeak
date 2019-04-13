@@ -41,8 +41,10 @@ There is boolean logic implemented so that the report icon only shows for
 comments on the post detail screen and not on the main screen. There are 
 different reports for posts and comments, which is reflected in the database.
 
-*Methods*
+report-controller.js in the backend contains methods that post a report,
+get reports, and review a report (on the admin side).
 
+*Methods: Backend*
 ```
 method name (arguments)
 ```
@@ -56,10 +58,10 @@ Returns:
 
 This parser takes the first names from  CSV and queries the names for count information using census data. It allows results to be saved as JSON.
 
-*Methods*
+*Methods: Frontend*
 
 ```
-fetch_firstnames_data(firstnames_list, start, end)
+submitReport = async() => {};
 ```
 
 Iterates over `firstnames_list` and queries each name against prefetched census data. 
