@@ -63,7 +63,7 @@ Returns:
 
 ### DatabaseService
 
-Includes all functions that handle the interactions between front end and the database. 
+Includes all functions that handle the interaction between front-end and the database. 
 
 *Methods*
 
@@ -120,7 +120,7 @@ Updates the reacts on a post. <br>
 `postid` specifies which post the react is on. <br>
 `reaction` is the new react to the post. It should be one of 'angry', 'funny', 'love', 'sad', and 'wow'.
 
-Prints an error if the request fails.
+Returns the result if successfully received. Prints an error if the request fails.
  
 ```
 updateVotes(id, vote)
@@ -129,7 +129,7 @@ Updates the vote for a user on a post, when the user votes for the first time, o
 `id` specifies which post the vote is on. <br>
 `vote` is the new vote. 1 represents an upvote, and -1 represents a downvote. 
 
-Prints an error if the request fails. 
+Returns the result if successfully received. Prints an error if the request fails. 
 
 ```
 updateVotesOnComment(commentid, postid, vote)
@@ -139,5 +139,5 @@ Updates the vote for a user on a comment. <br>
 `postid` specifies which post the vote is on. <br>
 `vote` is the new vote. 1 represents an upvote, and -1 represents a downvote. 
 
-Prints an error if the request fails. 
+Returns the result if successfully received. Prints an error if the request fails. 
 
