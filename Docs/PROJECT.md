@@ -41,27 +41,52 @@ There is boolean logic implemented so that the report icon only shows for
 comments on the post detail screen and not on the main screen. There are 
 different reports for posts and comments, which is reflected in the database.
 
-report-controller.js in the backend contains methods that post a report,
-get reports, and review a report (on the admin side).
+In the backend, the files relating to reports are post-report.js, comment-report.js, 
+and report-controller.js. report.js defines the general structure of what type of 
+information will be stored. report-controller.js contains methods that create a 
+post/comment report and allow admins to get all reports and review a report.
+
+In the frontend, Components/Report.js defines the fundamental structure
+of reports. The creation of the report through a report form is based on the 
+creation of a new post on the main screen. There are two different types of
+reports: post reports and comment reports, as defined by two different classes.
+Each class contains a submitReport and render function.
 
 *Methods: Backend*
 ```
-method name (arguments)
+router.post('/posts', function (req, res) {...})
 ```
 
-method description (Use <br><br/> to wrap newlines)
+Creates a post report by searching for the relevant post based on the post
+ID and creating a new PostReport as defined by post-report.js.
+    
+```
+router.post('/comments', function (req, res) {...})
+```
 
-Returns:
-    description
+Creates a comment report by searching for the relevant comment based on the
+comment ID and creating a new CommentReport as defined by comment-report.js.
 
-### Example Object    
+```
+router.get('/', function (req, res) {...})
+```
 
-This parser takes the first names from  CSV and queries the names for count information using census data. It allows results to be saved as JSON.
+Theoretically allows users granted admin access to get all reports.
+Will likely need to be updated for PostReport and CommentReport
+(currently just Report).
+
+```
+router.put('/', function (req, res) {...})
+```
+
+Theoretically allows users granted admin access to review reports.
+Will likely need to be updated for PostReport and CommentReport
+(currently just Report).
 
 *Methods: Frontend*
 
 ```
-submitReport = async() => {};
+submitReport = async() => {...};
 ```
 
 Iterates over `firstnames_list` and queries each name against prefetched census data. 
