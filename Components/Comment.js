@@ -1,5 +1,5 @@
 import React, { Component, PureComponent } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { CardItem, Text, Icon } from 'native-base';
 
 // body with comment content
@@ -30,25 +30,32 @@ class PostVotes extends PureComponent {
     return (
       <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center' }}>
         {/* upvote button */}
+        <TouchableOpacity 
+          hitSlop={{top: 20, left: 10, bottom: 20, right: 20}}
+          onPress={() => this.upvoteScore()}
+        >
         <Icon
           name="ios-arrow-up"
           fontSize={30}
           type="Ionicons"
           style={{ color: upvoteIconColor }}
-          onPress={() => this.upvoteScore()}
         />
-
+        </TouchableOpacity>
         {/* score */}
         <Text>{this.props.score}</Text>
 
         {/* downvote button */}
+        <TouchableOpacity 
+          hitSlop={{top: 20, left: 10, bottom: 20, right: 20}}
+          onPress={() => this.downvoteScore()}
+        >
         <Icon
           name="ios-arrow-down"
           fontSize={30}
           type="Ionicons"
           style={{ color: downvoteIconColor }}
-          onPress={() => this.downvoteScore()}
         />
+        </TouchableOpacity>
       </View>
     );
   }
