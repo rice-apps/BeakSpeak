@@ -58,7 +58,7 @@ export default PostData = inject('store')(
     };
 
     // increment vote count down by 1
-    downvoteScore = async () => {
+    downvoteScore = () => {
       let old_vote = this.props.post.userVote;
       let score = this.props.post.score;
       let new_vote;

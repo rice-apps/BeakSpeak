@@ -28,11 +28,10 @@ export default (CommentData = observer(
     };
 
     // increment vote count down by 1
-    downvoteScore = async () => {
+    downvoteScore = () => {
       let old_vote = this.props.comment.userVote;
       let score = this.props.comment.score;
       let new_vote;
-
       if (old_vote === 1) {
         new_vote = -1;
         score -= 2;
@@ -53,7 +52,7 @@ export default (CommentData = observer(
       let comment = this.props.comment;
       return (
         <Comment
-          vote={comment.vote}
+          vote={comment.userVote}
           score={comment.score}
           body={comment.body}
           upvoteScore={this.upvoteScore}

@@ -1,23 +1,26 @@
 import React, {Component} from 'react'
-import {FlatList, RefreshControl, ScrollView, StyleSheet, TouchableWithoutFeedback} from 'react-native'
+import {FlatList, RefreshControl, ScrollView, StyleSheet, TouchableWithoutFeedback, Text} from 'react-native'
 import {Card, Container, Footer, Icon, View} from 'native-base'
 import Modal from 'react-native-modal'
 import {AppLoading} from 'expo'
-import {inject, observer} from 'mobx-react'
+import {inject, observer, Provider} from 'mobx-react'
 
 import {NewPost} from '../Components/New'
 import Blank from '../Components/Blank'
 import CommentData from '../Components/CommentData'
 import PostData from '../Components/PostData'
 import OfflineNotice from '../Components/OfflineNotice'
+import * as Mobx from "mobx";
+import TestingLink from '../Components/TestingLink'
 
 // Comments container of custom comment components
 const Comments = observer(
     class Comments extends Component {
 
         render() {
-            let comments = this.props.comments.slice(0, 3)
+            let comments = this.props.comments.slice(0, 3);
             return (
+                <View>
                 <FlatList
                     removeClippedSubviews={false}
                     data={comments}
@@ -36,11 +39,23 @@ const Comments = observer(
                         )
                     }}
                 />
+                {this.props.comments.length > 3 && 
+                    <Icon
+                        name = "ellipsis1"
+                        type = "AntDesign"
+                        fontSize = {20}
+                        style={{color: 'powderblue', alignSelf: 'center'}}
+                    />
+                }    
+                </View>
             )
         }
     })
 
-
+/*
+<Text style={{color: 'powderblue', fontSize : 10, fontWeight: 'bold', alignSelf:
+'center'}}>view more comments</Text>
+*/
 // List of posts
 const Posts = inject('store')(
 inject('userStore')(observer(
@@ -67,12 +82,12 @@ class Posts extends Component{
     }
 
     _onRefresh = async() => {
+
         if (this.props.userStore.getConnected()) {
             this.setState((state) => ({refresh: true})) // indicate we are refreshing
             this.props.store.fetchPosts()
                 .then((posts) => this.setState((state) => ({refresh: false}))) // refresh data
         }
-    }
 
 
     _renderItem = (item) => {
@@ -80,22 +95,22 @@ class Posts extends Component{
         return(
             <TouchableWithoutFeedback onPress = {()=> this.postNavigate('PostDetail', post._id)}>
                 <Card>
-                    <PostData 
+                    <PostData
                         post = {post}
                     />
-                    <Comments 
-                        comments = {post.comments} 
+                    <Comments
+                        comments = {post.comments}
                         post_id = {post._id}/>
                 </Card>
             </TouchableWithoutFeedback>
         )
     }
-    
+
     render () {
         let loaded = this.state.loaded
+        //let posts = Mobx.toJS(this.props.store.posts);
         let posts = this.props.store.posts
 
-        
         if(!loaded) { // wait for posts to load
             return(
                 <AppLoading/>
@@ -122,9 +137,9 @@ class Posts extends Component{
                         contentContainerStyle = {(posts == undefined || !posts.length) ? { flex: 1, alignItems: 'center' } : {}}
                     />
                 </View>
-            )               
+            )
         }
-        
+
     }
 })))
 
@@ -163,6 +178,7 @@ class MainFooter extends Component{
                         animationOut={'zoomOut'}
                         animationInTiming={500}
                         animationOutTiming={500}
+                        avoidKeyboard={true}
                     >
                         <View style={{
                             borderRadius: 10,
@@ -237,6 +253,7 @@ export default class MainScreen extends Component{
     render () {
         return(
             <Container style = {{backgroundColor: 'powderblue'}}>
+                <TestingLink/>
                 <OfflineNotice/>
                 <View style = {{flex: 1}}>
                     <Posts navigate = {this.props.navigation.navigate}/>

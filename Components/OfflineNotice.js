@@ -32,7 +32,7 @@ const OfflineNotice = inject('store')(
             render() {
                 if (!this.props.userStore.isConnected) {
                     return (
-                        <View style = {{flex: 0.10}}>
+                        <View style = {{flex: 0.05}}>
                             <MiniOfflineSign />
                         </View>
                     );
@@ -44,7 +44,7 @@ const OfflineNotice = inject('store')(
 const styles = StyleSheet.create({
     offlineContainer: {
         backgroundColor: '#b52424',
-        height: 30,
+        height: 25,
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row',

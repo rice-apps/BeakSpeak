@@ -1,11 +1,16 @@
 import React, {Component} from 'react'
 import {Header} from 'react-navigation'
-import {FlatList, Keyboard, KeyboardAvoidingView, RefreshControl, StyleSheet} from 'react-native'
+import {FlatList, Keyboard, KeyboardAvoidingView, RefreshControl, StyleSheet, Platform, StatusBar} from 'react-native'
 import {Button, Card, Icon, Input, View} from 'native-base'
+import {inject, observer} from 'mobx-react';
+import * as Mobx from "mobx";
+
 import Blank from '../Components/Blank'
 import PostData from '../Components/PostData'
-import {inject, observer} from 'mobx-react';
 import CommentData from '../Components/CommentData';
+import CommentModel from '../Store/Models/CommentModel'
+
+const platformDiff = (Platform.OS === 'ios') ? 0 : StatusBar.currentHeight
 
 const PostDetailFooter = observer(
     class PostDetailFooter extends Component {
@@ -25,10 +30,9 @@ const PostDetailFooter = observer(
         }
 
         render() {
-            let post = this.post
             return (
                 <KeyboardAvoidingView
-                    keyboardVerticalOffset={Header.HEIGHT}
+                    keyboardVerticalOffset={Header.HEIGHT + platformDiff}
                     behavior="position"
                     keyboardShouldPersistTaps={false}>
 
@@ -41,20 +45,19 @@ const PostDetailFooter = observer(
                                 this.setState({input: text})
                             }}
                             multiline={true}
-                            // onSubmitEditing={() => {
-                            //     // this.onSubmit()
-                            // }}
                             value={this.state.input}
                         />
 
                         {/* submits comment*/}
-                        <Button transparent>
+                        <Button
+                        transparent
+                        onPress={() => {
+                            this.onSubmit()
+                        }}>
                             <Icon name='telegram'
                                   type='MaterialCommunityIcons'
                                   style={{color: 'powderblue'}}
-                                  onPress={() => {
-                                      this.onSubmit()
-                                  }}
+                                  
                             />
                         </Button>
                     </View>
@@ -69,7 +72,7 @@ const Comments = observer(
 
 
         render() {
-            let comments = this.props.comments
+            let comments = Mobx.toJS(this.props.comments)
 
             return (
                 <FlatList
@@ -81,7 +84,7 @@ const Comments = observer(
                         return (
                             <Card>
                                 <CommentData
-                                    comment={comment}
+                                    comment={CommentModel.make(comment)}
                                     post_id={this.props.post_id}
                                     showVote={true}
                                 />
