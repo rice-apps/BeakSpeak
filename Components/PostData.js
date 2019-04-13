@@ -5,7 +5,7 @@ import Post from '../Components/Post';
 
 // main component - increments post vote counts up and down, returns total vote count
 let PostData;
-export default PostData = inject('store')(
+export default PostData = inject('store')(inject('userStore')(
     observer(
   class PostData extends Component {
     // initialize with default values
@@ -30,11 +30,11 @@ export default PostData = inject('store')(
     };
 
     updateSent = async() => {
-        let resentPost = await DatabaseService.sendNewPost(this.props.post.title, this.props.post.body, this.props.post._id);
-        console.log(resentPost)
-        this.props.store.setSent(this.props.post._id, true);
-        this.props.post.updateSent(true, this.props.post._id);
-
+        if (this.props.userStore.getConnected()) {
+            let resentPost = await DatabaseService.sendNewPost(this.props.post.title, this.props.post.body, this.props.post._id);
+            this.props.store.setSent(this.props.post._id, true);
+            this.props.post.updateSent(true, this.props.post._id);
+        }
     }
     // increment vote count up by 1
     upvoteScore = () => {
@@ -99,4 +99,4 @@ export default PostData = inject('store')(
       );
     }
   }
-));
+)));

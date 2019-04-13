@@ -88,7 +88,7 @@ class Posts extends Component{
             this.props.store.fetchPosts()
                 .then((posts) => this.setState((state) => ({refresh: false}))) // refresh data
         }
-
+    }
 
     _renderItem = (item) => {
         let post = item.item
