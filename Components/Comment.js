@@ -17,7 +17,7 @@ export class CommentBody extends Component {
 }
 
 // side of comment with vote arrow
-class PostVotes extends PureComponent {
+class CommentVotes extends PureComponent {
     upvoteScore = () => {
         this.props.upvoteScore();
     };
@@ -129,17 +129,12 @@ class CommentFooter extends PureComponent{
                             }}
                         >
                             {/* report button */}
-                            <TouchableWithoutFeedback
+                            <Icon
+                                name = 'flag-variant'
+                                type = 'MaterialCommunityIcons'
+                                style = {{color: 'powderblue', fontSize: 23}}
                                 onPress = {this.renderModal}
-                            >
-                                <View style = {[styles.reportButton]}>
-                                    <Icon
-                                        name = 'flag-variant'
-                                        type = 'MaterialCommunityIcons'
-                                        style = {{color: 'powderblue', fontSize: 23}}
-                                    />
-                                </View>
-                            </TouchableWithoutFeedback>
+                                />
                         </Footer>
                     </View>
                 </View>
@@ -174,7 +169,7 @@ export default class Comment extends PureComponent{
                     {/* voting component -- show on detail screen*/}
                     {this.props.showVote &&
                     <View style = {{ flex: 1}}>
-                        <PostVotes
+                        <CommentVotes
                             vote = {this.props.vote}
                             score={this.props.score}
                             upvoteScore={this.props.upvoteScore}

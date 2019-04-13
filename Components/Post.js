@@ -140,14 +140,15 @@ class PostFooter extends PureComponent {
                         style={userReact === 'wow' ? styles.buttonPress : {}}
                         transparent
                         rounded>
-                        <Text adjustsFontSizeToFit style={{ color: userReact === 'wow' ? 'white' : 'black' }}>
+                        <Text adjustsFontSizeToFit style={{ color: userReact 
+                            === 'wow' ? 'white' : 'black' }}>
                             😮{reactCounts['wow'].toString()}
                         </Text>
                     </Button>
                 </View>
 
                 <View>
-                    {/* new post creation modal */}
+                    {/* new report creation modal */}
                     <Modal
                         isVisible={isVisible}
                         animationIn={'zoomIn'}
@@ -182,23 +183,21 @@ class PostFooter extends PureComponent {
                     {/* actual footer */}
                     <View>
                         <Footer
-                            style={{
+                            style={[{
                                 backgroundColor: 'white',
                                 flexDirection: 'row',
                                 alignItems: 'center',
                                 justifyContent: 'flex-end',
                                 borderColor: 'white',
-                            }}>
+                            }]}
+                            >
                             {/* report button */}
-                            <TouchableWithoutFeedback onPress={this.renderModal}>
-                                <View style={[styles.reportButton]}>
-                                    <Icon
-                                        name="flag-variant"
-                                        type="MaterialCommunityIcons"
-                                        style={{ color: 'powderblue', fontSize: 25 }}
-                                    />
-                                </View>
-                            </TouchableWithoutFeedback>
+                            {this.props.showReport && <Icon
+                                name="flag-variant"
+                                type="MaterialCommunityIcons"
+                                style={{ color: 'powderblue', fontSize: 25 }}
+                                onPress={this.renderModal}
+                            />}
                         </Footer>
                     </View>
                 </View>

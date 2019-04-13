@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 11229,
-  "expoServerNgrokUrl": "https://qh-md2.anonymous.beakspeak.exp.direct",
-  "packagerNgrokUrl": "https://packager.qh-md2.anonymous.beakspeak.exp.direct",
-  "ngrokPid": 11244
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }
