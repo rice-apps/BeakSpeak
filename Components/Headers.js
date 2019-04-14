@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { Header, Left, Right, Body, Icon, View, Text } from 'native-base';
-import { TouchableWithoutFeedback, Platform, StatusBar } from 'react-native';
+import { TouchableWithoutFeedback, Platform, StatusBar, Picker } from 'react-native';
+import UserStore from '../Store/UserStore';
+import { inject, observer } from 'mobx-react';
 
 // header design for drawer navigators
-export class DrawerHeader extends Component {
+export 
+const DrawerHeader = inject('store')(
+  inject('userStore')(observer(
+class DrawerHeader extends Component {
   toggleMenu = () => {
     this.props.navigation.toggleDrawer();
   };
@@ -34,12 +39,25 @@ export class DrawerHeader extends Component {
           <Body>
             <Text style={{ color: 'white', fontSize: 25, fontWeight: 'bold' }}>{title}</Text>
           </Body>
+
+          {/* Sorting Dropdown*/}
+          <Picker
+            selectedValue = {UserStore.sortScheme}
+            style = {{height: 50, width: 150}}
+            onValueChange={(itemValue, itemIndex) =>
+              UserStore.setSortScheme(itemValue)}
+            mode = 'dropdown'
+            >
+            <Picker.Item label="Trending" value="hot" />
+            <Picker.Item label="New" value="new" />
+            <Picker.item label="Best" value="top" />
+          </Picker>
           <Right />
         </Header>
       </View>
     );
   }
-}
+})))
 
 // header design for stack navigators
 export class StackHeader extends Component {
