@@ -125,16 +125,15 @@ class CommentFooter extends PureComponent{
                     </Modal>
 
                     {/* actual footer */}
-                    <View>
-                        <Footer
-                            style={{backgroundColor: 'white',
-                                flexDirection: 'row',
-                                alignItems: 'left',
-                                justifyContent: 'flex-start',
-                                height: styles.reportButton.height,
-                                borderColor: 'white'
-                            }}
-                        >
+                    <View
+                        style = {{
+                            backgroundColor: 'white',
+                            flexDirection: 'row',
+                            justifyContent: 'flex-start',
+                            height: styles.reportButton.height,
+                            borderColor: 'white'
+                        }}
+                    >
                             {/* report button */}
                             <Icon
                                 name = 'flag-variant'
@@ -142,7 +141,6 @@ class CommentFooter extends PureComponent{
                                 style = {{color: 'powderblue', fontSize: 23}}
                                 onPress = {this.renderModal}
                                 />
-                        </Footer>
                     </View>
                 </View>
             </View>
