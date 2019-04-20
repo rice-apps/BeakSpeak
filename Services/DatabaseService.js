@@ -1,18 +1,15 @@
 import { CONFIG } from '../config';
 import UserStore from '../Store/UserStore';
-
 const apiUrl = CONFIG.api_url;
-var sortScheme = UserStore.sortScheme
 
-export async function getPosts(sortScheme) {
+export async function getPosts() {
   try {
-    let res = await fetch(apiUrl + '/posts/' + 'hot', {
+    let res = await fetch(apiUrl + '/posts/hot', {
       method: 'GET',
       headers: {
         'x-access-token': UserStore.getToken(),
       },
     });
-    console.log(sortScheme);
     return await res.json();
   } catch (err) {
     console.log(err);
