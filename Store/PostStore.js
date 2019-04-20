@@ -2,6 +2,8 @@ import { observable, action, decorate } from 'mobx';
 
 import PostModel from './Models/PostModel';
 import DatabaseService from '../Services/DatabaseService';
+import Loader from '../Components/Loader'
+import userStore from '../Store/UserStore.js'
 
 class PostStore {
   posts = [];
@@ -17,9 +19,11 @@ class PostStore {
   };
 
   async fetchPosts() {
+    userStore.setLoading(true)
     let proto_posts = await DatabaseService.getPosts();
     try {
       this.posts = proto_posts.map(p => PostModel.make(p));
+      userStore.setLoading(false)
     } catch (err) {
       console.log(err);
       this.posts = [];

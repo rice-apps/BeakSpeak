@@ -4,7 +4,7 @@ const apiUrl = CONFIG.api_url;
 
 export async function getPosts() {
   try {
-    let res = await fetch(apiUrl + '/posts/hot', {
+    let res = await fetch(apiUrl + '/posts/' + UserStore.sortScheme, {
       method: 'GET',
       headers: {
         'x-access-token': UserStore.getToken(),

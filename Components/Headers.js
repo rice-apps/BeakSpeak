@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Header, Left, Right, Body, Icon, View, Text } from 'native-base';
 import { TouchableWithoutFeedback, Platform, StatusBar, Picker } from 'react-native';
 import { inject, observer } from 'mobx-react';
+import Loader from '../Components/Loader.js'
+import userStore from '../Store/UserStore.js'
 
 // header design for drawer navigators
 export const DrawerHeader = inject('store')(inject('userStore')(observer(
@@ -20,6 +22,8 @@ class DrawerHeader extends Component {
           borderColor: 'powderblue',
           paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight,
         }}>
+        <Loader
+          loading = {userStore.isLoading} />
         <Header style={{ backgroundColor: 'powderblue' }}>
           <Left>
             {/* Menu Button */}
@@ -40,10 +44,19 @@ class DrawerHeader extends Component {
           {/* Sorting Dropdown*/}
           <Picker
             selectedValue = {this.props.userStore.sortScheme}
-            style = {{height: 50, width: 150}}
+            style = {{
+              height: 50,
+              width: 127,
+              marginTop: 5,
+              alignItems: 'center'
+            }}
             onValueChange={(itemValue, itemIndex) =>
-              {this.props.userStore.setSortScheme(itemValue);
-              this.props.store.fetchPosts()}}
+              {
+                this.props.userStore.setSortScheme(itemValue);
+                this.props.userStore.set
+                this.props.store.fetchPosts();
+
+              }}
             mode = 'dropdown'
             >
             <Picker.Item label="Trending" value="hot" />
