@@ -27,6 +27,20 @@ const MainNav = createStackNavigator(
   }
 );
 
+const InfoNav = createStackNavigator(
+    {
+        Info: {
+            screen: InfoScreen,
+            navigationOptions: ({ navigation }) => ({
+                header: <DrawerHeader navigation={navigation} title="Info" />,
+            }),
+        },
+    },
+    {
+        initialRouteName: 'Info',
+    }
+);
+
 const HomeNav = createDrawerNavigator(
   {
     Main: {
@@ -36,7 +50,7 @@ const HomeNav = createDrawerNavigator(
       screen: Blank,
     },
     Info: {
-      screen: InfoScreen,
+      screen: InfoNav,
     },
   },
   {
