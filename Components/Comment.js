@@ -65,7 +65,7 @@ class CommentVoteScoreOnly extends PureComponent {
     render() {
         return (
             <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                <Text>{this.props.score}</Text>
+                <Text style={{fontWeight: 'bold'}}>{this.props.score}</Text>
             </View>
         );
     }
