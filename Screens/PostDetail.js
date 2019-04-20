@@ -10,7 +10,7 @@ import PostData from '../Components/PostData'
 import CommentData from '../Components/CommentData';
 import CommentModel from '../Store/Models/CommentModel'
 
-const platformDiff = (Platform.OS === 'ios') ? 0 : StatusBar.currentHeight
+const platformDiff = (Platform.OS === 'ios') ? StatusBar.currentHeight : StatusBar.currentHeight
 
 const PostDetailFooter = observer(
     class PostDetailFooter extends Component {
@@ -32,8 +32,9 @@ const PostDetailFooter = observer(
         render() {
             return (
                 <KeyboardAvoidingView
-                    keyboardVerticalOffset={Header.HEIGHT + platformDiff}
-                    behavior="position"
+                    keyboardVerticalOffset={Platform.select({ios: Header.HEIGHT, android: Header.HEIGHT + StatusBar.currentHeight})}
+//                    keyboardVerticalOffset={Header.HEIGHT + platformDiff}
+                    behavior= {(Platform.OS === 'ios')? "padding" : "position"}
                     keyboardShouldPersistTaps={false}>
 
                     <View style={styles.commentInputContainer}>
@@ -72,19 +73,18 @@ const Comments = observer(
 
 
         render() {
-            let comments = Mobx.toJS(this.props.comments)
+            let comments = this.props.comments
 
             return (
                 <FlatList
-                    data={comments}
+                    data={comments.slice()}
                     keyExtractor={(item, index) => item._id}
                     renderItem={(item) => {
                         let comment = item.item;
-
                         return (
                             <Card>
                                 <CommentData
-                                    comment={CommentModel.make(comment)}
+                                    comment={comment}
                                     post_id={this.props.post_id}
                                     showVote={true}
                                 />
