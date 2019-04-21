@@ -72,7 +72,6 @@ export const NewPost = inject('store')(
             // check if submission is valid -- there must be a title!
             if (errors.length === 0) {
                 let {title, body} = results.value
-                console.log(title.length)
                 this.props.store.addPost(title, body) // store new post in state
 
                 this.form.setState({value: null}) // clear form
