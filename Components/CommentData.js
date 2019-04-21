@@ -48,22 +48,23 @@ export default (CommentData = observer(
             this.props.comment.score = score;
         };
 
-        render () {
-            let comment = this.props.comment
-            return(
-                <Comment
-                    id = {this.props.comment._id}
-                    vote = {comment.userVote}
-                    score = {comment.score}
-                    body = {comment.body}
-                    upvoteScore = {this.upvoteScore}
-                    downvoteScore = {this.downvoteScore}
-                    showVote = {!this.props.isMain}
-                    showReport = {!this.props.isMain}
-                />
-            );
-        }
+    render() {
+      let comment = this.props.comment;
+      return (
+        <Comment
+          id = {this.props.comment._id}
+          vote={comment.userVote}
+          score={comment.score}
+          body={comment.body}
+          upvoteScore={this.upvoteScore}
+          downvoteScore={this.downvoteScore}
+          showVote={this.props.showVote}
+          showVoteScoreOnly={this.props.showVoteScoreOnly}
+          showReport = {!this.props.isMain}
+        />
+      );
     }
+}
 ));
 
 const styles = StyleSheet.create({

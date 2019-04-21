@@ -87,6 +87,7 @@ const Comments = observer(
                                     comment={comment}
                                     post_id={this.props.post_id}
                                     showVote={true}
+                                    showVoteScoreOnly={false}
                                 />
                             </Card>
                         )

@@ -34,6 +34,8 @@ const Comments = observer(
                                 <CommentData
                                     comment={comment}
                                     post_id={this.props.post_id}
+                                    showVote={false}
+                                    showVoteScoreOnly={true}
                                     isMain = {true}
                                 />
                             </View>

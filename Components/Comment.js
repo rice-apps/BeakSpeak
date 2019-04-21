@@ -148,48 +148,57 @@ class CommentFooter extends PureComponent{
     }
 }
 
-// main component
-export default class Comment extends PureComponent{
-
-    render () {
-        // let isVisible = this.state.modalVisible
-        let body = this.props.body
-        return(
-            <View>
-                <View style={{ flex: 1, flexDirection: 'row' }}>
-
-                    {/* report component -- show on detail screen*/}
-                    {this.props.showReport &&
-                    <View style = {{ flex: 0.5}}>
-                        <CommentFooter
-                            id={this.props.id}
-                        />
-                    </View>
-                    }
-
-                    <View style={[{ flex: 7, justifyContent: 'center' }]}>
-                        <CommentBody body = {body}/>
-                    </View>
-
-                    {/* voting component -- show on detail screen*/}
-                    {this.props.showVote &&
-                    <View style = {{ flex: 1}}>
-                        <CommentVotes
-                            vote = {this.props.vote}
-                            score={this.props.score}
-                            upvoteScore={this.props.upvoteScore}
-                            downvoteScore={this.props.downvoteScore}
-                        />
-                    </View>
-                    }
-
-                </View>
-
-
+class CommentVoteScoreOnly extends PureComponent {
+    render() {
+        return (
+            <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                <Text style={{fontWeight: 'bold'}}>{this.props.score}</Text>
             </View>
-        )
+        );
     }
 }
+
+
+// main component
+export default class Comment extends PureComponent {
+  render() {
+    let body = this.props.body;
+    return (
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+              {/* report component -- show on detail screen*/}
+              {this.props.showReport &&
+              <View style = {{ flex: 0.5}}>
+                  <CommentFooter
+                      id={this.props.id}
+                  />
+              </View>}
+
+          <View style={[{ flex: 7, justifyContent: 'center' }]}>
+            <CommentBody body={body} />
+          </View>
+            {this.props.showVoteScoreOnly && (
+                <View style={{ flex: 1 }}>
+                    <CommentVoteScoreOnly
+                        vote={this.props.vote}
+                        score={this.props.score}
+                    />
+                </View>
+            )}
+            {/* voting component -- show on detail screen*/}
+            {this.props.showVote &&
+            <View style = {{ flex: 1}}>
+                  <CommentVotes
+                      vote = {this.props.vote}
+                      score={this.props.score}
+                      upvoteScore={this.props.upvoteScore}
+                      downvoteScore={this.props.downvoteScore}
+                  />
+              </View>}
+        </View>
+    )
+  }
+}
+
 
 const styles = StyleSheet.create({
     card: {
