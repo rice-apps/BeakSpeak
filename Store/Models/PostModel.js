@@ -21,11 +21,11 @@ export default class PostModel {
   };
   comments = [];
 
-  constructor(title, body) {
-    this.title = title;
-    this.body = body;
-    this._id = uuidv4();
-  }
+    constructor(title, body) {
+        this.title = title;
+        this.body = body;
+        this._id = uuidv4();
+    }
 
   static make(newPost) {
     let proto_post = new PostModel(newPost.title, newPost.body);
@@ -39,37 +39,37 @@ export default class PostModel {
     return proto_post;
   }
 
-  updateReact(old_react, new_react) {
-    this.userReact = new_react;
-    this.reactCounts[old_react] -= 1;
-    this.reactCounts[new_react] += 1;
-    DatabaseService.updateReact(this._id, new_react);
-  }
-
-  updateVote(new_vote, postid) {
-    this.userVote = new_vote;
-    DatabaseService.updateVotes(postid, new_vote);
-  }
-
-  addComment(body) {
-    let new_comment = new CommentModel(body);
-    this.comments.push(new_comment);
-    DatabaseService.postComment(this._id, new_comment);
-  }
-
-  async update() {
-    let proto_post = await DatabaseService.getPost(this._id);
-    if (proto_post) {
-      let post = PostModel.make(proto_post);
-      transaction(() => {
-        this.votes = post.votes;
-        this.score = post.score;
-        this.reactCounts = post.reactCounts;
-        this.reacts = post.reacts;
-        this.comments = post.comments;
-      });  
+    updateReact(old_react, new_react) {
+        this.userReact = new_react;
+        this.reactCounts[old_react] -= 1;
+        this.reactCounts[new_react] += 1;
+        DatabaseService.updateReact(this._id, new_react);
     }
-  }
+
+    updateVote(new_vote, postid) {
+        this.userVote = new_vote;
+        DatabaseService.updateVotes(postid, new_vote);
+    }
+
+    addComment(body) {
+        let new_comment = new CommentModel(body);
+        this.comments.push(new_comment);
+        DatabaseService.postComment(this._id, new_comment);
+    }
+
+    async update() {
+        let proto_post = await DatabaseService.getPost(this._id);
+        if (proto_post) {
+            let post = PostModel.make(proto_post);
+            transaction(() => {
+                this.votes = post.votes;
+                this.score = post.score;
+                this.reactCounts = post.reactCounts;
+                this.reacts = post.reacts;
+                this.comments = post.comments;
+            });
+        }
+    }
 }
 
 decorate(PostModel, {

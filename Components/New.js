@@ -7,9 +7,13 @@ import {inject} from 'mobx-react'
 // form component
 const Form = t.form.Form
 
+const Title = t.refinement(t.String, s => s.length < 150)
+Title.getValidationErrorMessage = (value, path, context) => {
+    return "must be less than 150 characters and not empty"
+}
 // template for new post form
 const PostSchema = t.struct({
-    title: t.String,
+    title: Title,
     body: t.maybe(t.String)
 })
 
@@ -40,7 +44,6 @@ const PostOptions = {
         },
         title: {
             placeholder: 'Your clever title here...',
-            maxLength: 150,
             stylesheet: {
                 ...Form.stylesheet,
                 textbox: {
