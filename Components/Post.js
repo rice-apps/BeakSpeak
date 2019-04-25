@@ -246,7 +246,7 @@ export default class Post extends Component {
         </View>
 
         {/* body of post */}
-        <PostBody body={this.props.body} date={this.props.date}/>
+        <PostBody body={this.props.body} />
         <PostFooter
             id = {this.props.id}
             userReact = {this.props.userReact}
