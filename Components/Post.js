@@ -12,9 +12,16 @@ import {
 class PostBody extends PureComponent {
     render() {
         return (
-            <CardItem>
-                <Text>{this.props.body}</Text>
-            </CardItem>
+            <View>
+                <CardItem>
+                    <Text>{this.props.body}</Text>
+                </CardItem>
+                <CardItem>
+                    <Text style = {{color: 'gray'}}>
+                        {new Date(this.props.date).toLocaleString()}
+                    </Text>
+                </CardItem>
+            </View>
         );
     }
 }

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Header} from 'react-navigation'
-import {FlatList, Keyboard, KeyboardAvoidingView, RefreshControl, StyleSheet, Platform, StatusBar} from 'react-native'
+import {FlatList, Keyboard, KeyboardAvoidingView, RefreshControl, StyleSheet, Platform, StatusBar, Text} from 'react-native'
 import {Button, Card, Icon, Input, View} from 'native-base'
 import {inject, observer} from 'mobx-react';
 import * as Mobx from "mobx";
@@ -17,6 +17,7 @@ const PostDetailFooter = observer(
 
         constructor(props) {
             super(props);
+            this.maxLen = 200
             this.state = {
                 input: ''
             };
@@ -29,11 +30,17 @@ const PostDetailFooter = observer(
             }
         }
 
+        getColor = () => {
+            if (this.state.input.length >= this.maxLen) {
+                return 'red'
+            }
+            return 'gray'
+        }
+
         render() {
             return (
                 <KeyboardAvoidingView
                     keyboardVerticalOffset={Platform.select({ios: Header.HEIGHT, android: Header.HEIGHT + StatusBar.currentHeight})}
-//                    keyboardVerticalOffset={Header.HEIGHT + platformDiff}
                     behavior= {(Platform.OS === 'ios')? "padding" : "position"}
                     keyboardShouldPersistTaps={false}>
 
@@ -46,17 +53,21 @@ const PostDetailFooter = observer(
                                 this.setState({input: text})
                             }}
                             multiline={true}
-                            maxLength = {1000}
+                            maxLength = {this.maxLen}
                             value={this.state.input}
                         />
-
+                        <Text
+                            style = {{color: this.getColor()}}
+                        >
+                            {this.maxLen - this.state.input.length}
+                        </Text>    
                         {/* submits comment*/}
                         <Button
-                        transparent
-                        onPress={() => {
-                            this.onSubmit()
-                        }}>
-                            <Icon name='telegram'
+                            transparent
+                            onPress={() => {
+                                this.onSubmit()
+                            }}>
+                                <Icon name='telegram'
                                   type='MaterialCommunityIcons'
                                   style={{color: 'powderblue'}}
                                   
@@ -202,7 +213,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderTopWidth: 1,
         borderColor: '#EEE',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        alignItems: 'center'
     },
     seeBorders: {
         borderWidth: 5,
