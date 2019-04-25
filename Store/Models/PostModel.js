@@ -5,21 +5,20 @@ import CommentModel from './CommentModel';
 const uuidv4 = require('uuid/v4');
 
 export default class PostModel {
-  title = '';
-  body = '';
-  _id = '';
-  date = '';
-  userVote = 0;
-  score = 0;
-  userReact = 'none';
-  reactCounts = {
-    angry: 0,
-    funny: 0,
-    love: 0,
-    sad: 0,
-    wow: 0,
-  };
-  comments = [];
+    title = '';
+    body = '';
+    _id = '';
+    userVote = 0;
+    score = 0;
+    userReact = 'none';
+    reactCounts = {
+        angry: 0,
+        funny: 0,
+        love: 0,
+        sad: 0,
+        wow: 0,
+    };
+    comments = [];
 
     constructor(title, body) {
         this.title = title;
@@ -27,17 +26,16 @@ export default class PostModel {
         this._id = uuidv4();
     }
 
-  static make(newPost) {
-    let proto_post = new PostModel(newPost.title, newPost.body);
-    proto_post._id = newPost._id;
-    proto_post.date = newPost.date;
-    proto_post.score = newPost.score;
-    proto_post.userVote = newPost.userVote;
-    proto_post.userReact = newPost.userReact;
-    proto_post.reactCounts = newPost.reactCounts;
-    proto_post.comments = newPost.comments.map(c => CommentModel.make(c));
-    return proto_post;
-  }
+    static make(newPost) {
+        let proto_post = new PostModel(newPost.title, newPost.body);
+        proto_post._id = newPost._id;
+        proto_post.score = newPost.score;
+        proto_post.userVote = newPost.userVote;
+        proto_post.userReact = newPost.userReact;
+        proto_post.reactCounts = newPost.reactCounts;
+        proto_post.comments = newPost.comments.map(c => CommentModel.make(c));
+        return proto_post;
+    }
 
     updateReact(old_react, new_react) {
         this.userReact = new_react;
@@ -73,14 +71,13 @@ export default class PostModel {
 }
 
 decorate(PostModel, {
-  userVote: observable,
-  userReact: observable,
-  date: observable,
-  score: observable,
-  reactCounts: observable,
-  comments: observable,
-  updateReact: action,
-  updateVote: action,
-  addComment: action,
-  update: action,
+    userVote: observable,
+    userReact: observable,
+    score: observable,
+    reactCounts: observable,
+    comments: observable,
+    updateReact: action,
+    updateVote: action,
+    addComment: action,
+    update: action,
 });

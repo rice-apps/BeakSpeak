@@ -12,15 +12,9 @@ import {
 class PostBody extends PureComponent {
     render() {
         return (
-            <View>
-                <CardItem>
-                    <Text>{this.props.body}</Text>
-                </CardItem>
-                <CardItem>
-                    <Text style ={{fontStyle: 'italic', color: 'lightgray'}}>       {new Date(this.props.date).toLocaleString()}
-                    </Text>
-                </CardItem>
-            </View>
+            <CardItem>
+                <Text>{this.props.body}</Text>
+            </CardItem>
         );
     }
 }
@@ -245,7 +239,7 @@ export default class Post extends Component {
         </View>
 
         {/* body of post */}
-        <PostBody body={this.props.body} date={this.props.date}/>
+        <PostBody body={this.props.body} />
         <PostFooter
             id = {this.props.id}
             userReact = {this.props.userReact}
