@@ -11,9 +11,7 @@ class PostStore {
     let newPost = new PostModel(title, body);
     let newerPost = await DatabaseService.sendNewPost(title, body, newPost._id);
     this.posts.unshift(PostModel.make(newerPost));
-    //        this.posts.splice(0, 0, PostModel.make(newPost))
-    //        newPost = await DatabaseService.sendNewPost(title, body, newPost._id) // send post to database
-    //        DatabaseService.sendNewPost(title, body, newPost._id) // send post to database -- no need to await
+
   };
 
   async fetchPosts() {

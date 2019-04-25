@@ -17,7 +17,8 @@ class PostBody extends PureComponent {
                     <Text>{this.props.body}</Text>
                 </CardItem>
                 <CardItem>
-                    <Text style ={{fontStyle: 'italic', color: 'lightgray'}}>       {new Date(this.props.date).toLocaleString()}
+                    <Text style = {{color: 'gray'}}>
+                        {new Date(this.props.date).toLocaleString()}
                     </Text>
                 </CardItem>
             </View>
