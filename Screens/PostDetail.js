@@ -46,6 +46,7 @@ const PostDetailFooter = observer(
                                 this.setState({input: text})
                             }}
                             multiline={true}
+                            maxLength = {1000}
                             value={this.state.input}
                         />
 
