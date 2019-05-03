@@ -30,8 +30,9 @@ class UserStore {
     }
 
     setSortScheme(sortScheme) {
-        this.sortScheme = sortScheme
+        this.sortScheme = sortScheme.toLowerCase()
     }
+
     getLoading() {
         return this.getLoading;
     }

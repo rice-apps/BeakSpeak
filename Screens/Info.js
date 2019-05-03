@@ -9,7 +9,7 @@ import {
 } from 'native-base'
 // import styles, { IMAGE_HEIGHT, IMAGE_HEIGHT_SMALL} from 'styles';
 
-const logo = require('../Assets/Images/logo.png')
+const logo = require('../Assets/Images/logo.svg')
 
 
 // main component
