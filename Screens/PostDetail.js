@@ -1,6 +1,15 @@
 import React, {Component} from 'react'
 import {Header} from 'react-navigation'
-import {FlatList, Keyboard, KeyboardAvoidingView, RefreshControl, StyleSheet, Platform, StatusBar, Text} from 'react-native'
+import {
+  FlatList, 
+  Keyboard, 
+  KeyboardAvoidingView, 
+  RefreshControl, 
+  StyleSheet, 
+  Platform, 
+  StatusBar, 
+  Text
+} from 'react-native'
 import {Button, Card, Icon, Input, View} from 'native-base'
 import {inject, observer} from 'mobx-react';
 import * as Mobx from "mobx";
@@ -12,6 +21,7 @@ import CommentModel from '../Store/Models/CommentModel'
 
 const platformDiff = (Platform.OS === 'ios') ? StatusBar.currentHeight : StatusBar.currentHeight
 
+// Footer component for writing and submitting comments.
 const PostDetailFooter = observer(
     class PostDetailFooter extends Component {
 
@@ -25,7 +35,7 @@ const PostDetailFooter = observer(
 
         onSubmit() {
             if (this.state.input) {
-                this.props.post.addComment(this.state.input)
+                this.props.post.addComment(this.state.input);
                 this.setState({input: ''})
             }
         }
@@ -77,15 +87,13 @@ const PostDetailFooter = observer(
                 </KeyboardAvoidingView>
             )
         }
-    })
+    });
 
-// Comments container of custom comment components
+// Comments container of custom comment components.
 const Comments = observer(
     class Comments extends Component {
-
-
         render() {
-            let comments = this.props.comments
+            let comments = this.props.comments;
 
             return (
                 <FlatList
@@ -107,33 +115,36 @@ const Comments = observer(
                 />
             )
         }
-    })
+    });
 
+// Post detail page component.
 export default PostDetail = inject('store')(
     observer(
         class PostDetailScreen extends Component {
 
             // initialize with default values -- DO NOT fetch data here
             constructor(props) {
-                super(props)
-                this.offset = 0
+                super(props);
+                this.offset = 0;
 
                 this.state = {
                     refresh: false
                 }
             }
 
+            // Handle refresh, update posts.
             _onRefresh = async () => {
-                this.setState((state) => ({refresh: true})) // indicate we are refreshing
-                id = this.props.navigation.getParam('id')
-                post = this.props.store.getPost(id)
+                this.setState((state) => ({refresh: true})); // indicate we are refreshing
+                let id = this.props.navigation.getParam('id');
+                let post = this.props.store.getPost(id);
 
                 post.update()
                     .then(() => this.setState((state) => ({refresh: false}))) // refresh data
-            }
+            };
 
+            // Render post item.
             _renderItem = (item) => {
-                let post = item.item
+                let post = item.item;
 
                 return (
                     <View style={{flex: 1}}>
@@ -148,20 +159,19 @@ export default PostDetail = inject('store')(
                         />
                     </View>
                 )
-            }
+            };
 
             _handleScroll = newY => {
-                isUp = newY - this.offset <= 0
-                return isUp
-            }
+              return newY - this.offset <= 0
+            };
 
             // render a post with comments -- use posts component from main as an example for structure
             render() {
-                id = this.props.navigation.getParam('id')
-                post = this.props.store.getPost(id)
+                let id = this.props.navigation.getParam('id');
+                let post = this.props.store.getPost(id);
 
                 // display posts in a list component
-                let refresh = this.state.refresh
+                let refresh = this.state.refresh;
 
                 return (
                     <View style={{flex: 1, backgroundColor: 'lightskyblue'}}>
@@ -184,7 +194,7 @@ export default PostDetail = inject('store')(
                                     />
                                 }
                                 ListEmptyComponent={<Blank/>}
-                                contentContainerStyle={(post == undefined) ? {
+                                contentContainerStyle={(post === undefined) ? {
                                     flex: 1,
                                     alignItems: 'center',
                                     flexWrap: 'wrap'
@@ -220,4 +230,4 @@ const styles = StyleSheet.create({
         borderWidth: 5,
         borderColor: 'red'
     }
-})
+});
