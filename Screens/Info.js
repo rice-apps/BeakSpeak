@@ -1,28 +1,59 @@
 import React, {Component} from 'react'
-import {StyleSheet, ScrollView, Image, Animated} from 'react-native'
 import {
-    Card,
+    StyleSheet, 
+    ScrollView, 
+    Image, 
+    Linking
+} from 'react-native'
+import {
     Container,
-    Icon,
     View,
     Text
 } from 'native-base'
-// import styles, { IMAGE_HEIGHT, IMAGE_HEIGHT_SMALL} from 'styles';
 
 const logo = require('../Assets/Images/logo.png')
-
+const feedback_url = "https://bit.ly/2WBFyqM" 
 
 // main component
 export default class Info extends Component{
 
     render = () => {
         return(
-            <Container style = {{backgroundColor: 'powderblue'}}>
+            <Container style = {{backgroundColor: 'lightskyblue'}}>
                 <ScrollView>
-                    <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+
+                    {/* our logo */}
+                    <View style={{
+                        flexDirection: 'row', 
+                        justifyContent: 'center', 
+                        padding: 10
+                    }}>
                         <Image source={logo} style={styles.image}/>
                     </View>
 
+                    {/* feedback */}
+                    <Text style = {styles.titleFont}>Feedback</Text>
+                    <View
+                        style={{
+                            borderBottomColor: 'white',
+                            borderBottomWidth: 0.5, margin: 10
+                        }}
+                    />
+                    <Text style = { {color: 'white', margin: 15, alignSelf: 'center'} }>
+                        Please give feedback at this link: 
+                    </Text>
+                    <Text 
+                        style={[
+                            styles.offlineText, 
+                            {alignSelf: 'center'}
+                        ]}
+                        onPress = {() => Linking.openURL(feedback_url)}    
+                        > 
+                        {feedback_url}
+                    </Text>
+                    <View style = {{height: 20}}/>
+
+                    {/* user policy*/}
                     <Text style = {styles.titleFont}>User Policy</Text>
                     <View
                         style={{
@@ -128,7 +159,8 @@ export default class Info extends Component{
                     </View>
 
                     <View style = {{height: 20}}/>
-
+                    
+                    {/* credits */}
                     <Text style = {styles.titleFont}>Acknowledgements</Text>
                     <View
                         style={{
@@ -206,5 +238,9 @@ const styles = StyleSheet.create({
     },
     bulletText: {
         flex: 1,
+    },
+    offlineText: { 
+        color: '#fff',
+        textDecorationLine: 'underline' 
     }
 })

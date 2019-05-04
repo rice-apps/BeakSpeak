@@ -69,7 +69,7 @@ const PostDetailFooter = observer(
                             }}>
                                 <Icon name='telegram'
                                   type='MaterialCommunityIcons'
-                                  style={{color: 'powderblue'}}
+                                  style={{color: 'lightskyblue'}}
                                   
                             />
                         </Button>
@@ -164,7 +164,7 @@ export default PostDetail = inject('store')(
                 let refresh = this.state.refresh
 
                 return (
-                    <View style={{flex: 1, backgroundColor: 'powderblue'}}>
+                    <View style={{flex: 1, backgroundColor: 'lightskyblue'}}>
                         <View style={{flex: 1}}>
 
                             {/*Scrolling list of comments + post*/}
@@ -203,7 +203,7 @@ export default PostDetail = inject('store')(
 const styles = StyleSheet.create({
     newPostButton: {
         flex: 1,
-        backgroundColor: 'powderblue',
+        backgroundColor: 'lightskyblue',
         justifyContent: 'center',
         alignItems: 'center',
         borderTopWidth: 1,

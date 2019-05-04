@@ -50,7 +50,6 @@ const FrontScreen = inject('userStore')(class FrontScreen extends Component {
         this.state = {
             loginError: ''
         };
-        //this.props.navigation.navigate('Main');
         this.getLoginInfo()
     }
 
@@ -140,7 +139,7 @@ const styles = StyleSheet.create({
   },
   screenTheme: {
     flex: 1,
-    backgroundColor: 'powderblue',
+    backgroundColor: 'lightskyblue',
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',

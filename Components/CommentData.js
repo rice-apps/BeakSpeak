@@ -66,24 +66,3 @@ export default (CommentData = observer(
     }
 }
 ));
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 0,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    button: {
-        backgroundColor: "powderblue",
-        width: '15',
-        height: 15,
-        borderColor: 'powderblue',
-        borderWidth: 15,
-        borderRadius: 15,
-    },
-    card: {
-        borderColor: 'powderblue',
-        borderWidth: 5,
-        borderRadius: 15,
-    },
-});

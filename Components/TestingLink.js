@@ -3,12 +3,11 @@ import {StyleSheet, Text, View, Linking, Dimensions} from 'react-native'
 
 const { width } = Dimensions.get('window');
 
+/* Beta-testing component to collect feedback easily -- migrate to info page */
 export default class TestingLink extends Component {
 
   constructor(props) {
       super(props)
-//      Linking.openURL(url).catch((err) => console.error('An error occurred',
-//      err));
     this.url = "https://bit.ly/2WBFyqM" 
 
   }  

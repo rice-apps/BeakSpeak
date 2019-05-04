@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-evenly',
     alignItems: 'flex-start',
-    backgroundColor: 'powderblue',
+    backgroundColor: 'lightskyblue',
     padding: 5
   },
   seeBorders: {

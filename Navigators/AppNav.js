@@ -18,7 +18,7 @@ const MainNav = createStackNavigator(
     Posts: {
       screen: MainScreen,
       navigationOptions: ({ navigation }) => ({
-        header: <DrawerHeader navigation={navigation} title="Posts" />,
+        header: <DrawerHeader isMain={true} navigation={navigation} title="Posts" />,
       }),
     },
   },
@@ -32,7 +32,7 @@ const InfoNav = createStackNavigator(
         Info: {
             screen: InfoScreen,
             navigationOptions: ({ navigation }) => ({
-                header: <DrawerHeader navigation={navigation} title="Info" />,
+                header: <DrawerHeader isMain={false} navigation={navigation} title="Info" />,
             }),
         },
     },

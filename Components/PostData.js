@@ -77,6 +77,7 @@ export default (PostData = observer(
               <Post
                   title={this.props.post.title}
                   vote={this.props.post.userVote}
+                  date = {this.props.post.date}
                   score={this.props.post.score}
                   userReact={this.props.post.userReact}
                   reactCounts={this.props.post.reactCounts}

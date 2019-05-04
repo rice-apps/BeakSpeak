@@ -4,10 +4,8 @@ import {Card, Container, Footer, Icon, View} from 'native-base'
 import Modal from 'react-native-modal'
 import {AppLoading} from 'expo'
 import {inject, observer, Provider} from 'mobx-react'
-import * as Mobx from "mobx";
 
 import {NewPost} from '../Components/New'
-import CommentModel from '../Store/Models/CommentModel'
 import Blank from '../Components/Blank'
 import CommentData from '../Components/CommentData'
 import PostData from '../Components/PostData'
@@ -30,7 +28,7 @@ const Comments = observer(
                         let comment = item.item
 
                         return (
-                            <View style={{borderTopWidth: 1, borderRadius: 25, borderColor: 'powderblue'}}>
+                            <View style={{borderTopWidth: 1, borderRadius: 25, borderColor: 'lightskyblue'}}>
                                 <CommentData
                                     comment={comment}
                                     post_id={this.props.post_id}
@@ -47,7 +45,7 @@ const Comments = observer(
                         name = "ellipsis1"
                         type = "AntDesign"
                         fontSize = {20}
-                        style={{color: 'powderblue', alignSelf: 'center'}}
+                        style={{color: 'lightskyblue', alignSelf: 'center'}}
                     />
                 }    
                 </View>
@@ -56,7 +54,7 @@ const Comments = observer(
     })
 
 /*
-<Text style={{color: 'powderblue', fontSize : 10, fontWeight: 'bold', alignSelf:
+<Text style={{color: 'lightskyblue', fontSize : 10, fontWeight: 'bold', alignSelf:
 'center'}}>view more comments</Text>
 */
 // List of posts
@@ -177,9 +175,9 @@ class MainFooter extends Component{
                     <Modal
                         isVisible={isVisible}
                         animationIn={'slideInUp'}
-                        animationOut={'zoomOut'}
-                        animationInTiming={500}
-                        animationOutTiming={500}
+//                        animationOut={'zoomOut'}
+//                        animationInTiming={500}
+ //                       animationOutTiming={500}
                         avoidKeyboard={true}
                     >
                         <View style={{
@@ -250,12 +248,11 @@ class MainFooter extends Component{
 
 
 // main component
-export default class MainScreen extends Component{
+const MainScreen =  inject('userStore')(observer(class MainScreen extends Component{
     
     render () {
         return(
-            <Container style = {{backgroundColor: 'powderblue'}}>
-                <TestingLink/>
+            <Container style = {{backgroundColor: 'lightskyblue'}}>
                 <OfflineNotice/>
                 <View style = {{flex: 1}}>
                     <Posts navigate = {this.props.navigation.navigate}/>
@@ -264,12 +261,14 @@ export default class MainScreen extends Component{
             </Container>
         )
     }
-}
+}))
+
+export default MainScreen;
 
 const styles = StyleSheet.create({
     newPostButton: {
         flex: 1,
-        backgroundColor: 'powderblue',
+        backgroundColor: 'lightskyblue',
         justifyContent: 'center',
         alignItems: 'center',
         borderTopWidth: 1,

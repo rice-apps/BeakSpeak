@@ -138,7 +138,7 @@ class CommentFooter extends PureComponent{
                             <Icon
                                 name = 'flag-variant'
                                 type = 'MaterialCommunityIcons'
-                                style = {{color: 'powderblue', fontSize: 23}}
+                                style = {{color: 'lightskyblue', fontSize: 23}}
                                 onPress = {this.renderModal}
                                 />
                     </View>
@@ -202,7 +202,7 @@ export default class Comment extends PureComponent {
 
 const styles = StyleSheet.create({
     card: {
-        borderColor: "powderblue",
+        borderColor: "lightskyblue",
         borderWidth: 5,
         borderRadius: 15
     },

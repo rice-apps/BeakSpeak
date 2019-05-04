@@ -2,6 +2,7 @@ import { observable, action, transaction, decorate } from 'mobx';
 
 import DatabaseService from '../../Services/DatabaseService';
 import CommentModel from './CommentModel';
+import userStore from '../UserStore'
 const uuidv4 = require('uuid/v4');
 
 export default class PostModel {
@@ -10,6 +11,7 @@ export default class PostModel {
     _id = '';
     userVote = 0;
     score = 0;
+    date = '';
     userReact = 'none';
     reactCounts = {
         angry: 0,
@@ -29,6 +31,7 @@ export default class PostModel {
     static make(newPost) {
         let proto_post = new PostModel(newPost.title, newPost.body);
         proto_post._id = newPost._id;
+        proto_post.date = newPost.date
         proto_post.score = newPost.score;
         proto_post.userVote = newPost.userVote;
         proto_post.userReact = newPost.userReact;
@@ -40,19 +43,19 @@ export default class PostModel {
     updateReact(old_react, new_react) {
         this.userReact = new_react;
         this.reactCounts[old_react] -= 1;
-        this.reactCounts[new_react] += 1;
-        DatabaseService.updateReact(this._id, new_react);
+        this.reactCounts[new_react] += 1;    
+        DatabaseService.updateReact(this._id, new_react)
     }
 
     updateVote(new_vote, postid) {
         this.userVote = new_vote;
-        DatabaseService.updateVotes(postid, new_vote);
+        DatabaseService.updateVotes(postid, new_vote)
     }
 
     addComment(body) {
-        let new_comment = new CommentModel(body);
-        this.comments.push(new_comment);
-        DatabaseService.postComment(this._id, new_comment);
+        newComment = new CommentModel(body)
+        this.comments.push(newComment)
+        DatabaseService.sendNewComment(this._id, body, uuidv4())
     }
 
     async update() {

@@ -1,20 +1,19 @@
 import { CONFIG } from '../config';
 import UserStore from '../Store/UserStore';
-
 const apiUrl = CONFIG.api_url;
 
 export async function getPosts() {
-    try {
-        let res = await fetch(apiUrl + '/posts', {
-            method: 'GET',
-            headers: {
-                'x-access-token': UserStore.getToken(),
-            },
-        });
-        return await res.json();
-    } catch (err) {
-        console.log(err);
-    }
+  try {
+    let res = await fetch(apiUrl + '/posts/' + UserStore.sortScheme, {
+      method: 'GET',
+      headers: {
+        'x-access-token': UserStore.getToken(),
+      },
+    });
+    return await res.json();
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 export async function sendNewPost(title, body, id) {
@@ -23,14 +22,14 @@ export async function sendNewPost(title, body, id) {
             method: 'POST',
             headers: {
                 'x-access-token': UserStore.getToken(),
-                Accept: 'application/json',
+                'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(
                 {
-                    title,
-                    body,
-                    id,
+                    title: title,
+                    body: body,
+                    id: id,
                 },
                 // Remove null callback
                 (key, value) => {
@@ -96,9 +95,9 @@ export async function sendCommentReport(type, reason, id) {
     }
 }
 
-export async function postComment(postid, comment) {
+export async function sendNewComment(post_id, body, comment_id) {
     try {
-        let res = await fetch(apiUrl + '/posts/' + postid + '/comments', {
+        let res = await fetch(apiUrl + '/posts/' + post_id + '/comments', {
             method: 'POST',
             headers: {
                 'x-access-token': UserStore.getToken(),
@@ -106,8 +105,8 @@ export async function postComment(postid, comment) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                comment: comment.body,
-                comment_id: comment._id
+                comment: body,
+                comment_id: comment_id
             })
         });
         return await res.json();
@@ -131,47 +130,32 @@ export async function getPost(id) {
 }
 
 // change the react count of a post and the reactions of the user
-export async function updateReact(postid, reaction) {
+export async function updateReact(post_id, reaction) {
     try {
-        await fetch(apiUrl + '/posts/' + postid + '/reacts', {
+        let res = await fetch(apiUrl + '/posts/' + post_id + '/reacts', {
             method: 'PUT',
             headers: {
                 'x-access-token': UserStore.getToken(),
-                Accept: 'application/json',
+                'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 react: reaction,
             }),
         });
-    } catch (err) {
-        console.log(err);
-    }
-    try {
-        let res = await fetch(apiUrl + '/posts/' + postid + '/reacts', {
-            method: 'PUT',
-            headers: {
-                'x-access-token': UserStore.getToken(),
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                react: reaction,
-            }),
-        });
-        return await res.json();
+        return await res.json()
     } catch (err) {
         console.log(err);
     }
 }
 
-export async function updateVotes(id, vote) {
+export async function updateVotes(post_id, vote) {
     try {
-        let res = await fetch(apiUrl + '/posts/' + id + '/vote', {
+        let res = await fetch(apiUrl + '/posts/' + post_id + '/vote', {
             method: 'PUT',
             headers: {
                 'x-access-token': UserStore.getToken(),
-                Accept: 'application/json',
+                'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(
@@ -218,6 +202,6 @@ export default{
     updateReact,
     updateVotes,
     updateVotesOnComment,
-    postComment,
+    sendNewComment,
     getPost
 }

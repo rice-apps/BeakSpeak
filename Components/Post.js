@@ -211,7 +211,7 @@ class PostFooter extends PureComponent {
                             {this.props.showReport && <Icon
                                 name="flag-variant"
                                 type="MaterialCommunityIcons"
-                                style={{ color: 'powderblue', fontSize: 25 }}
+                                style={{ color: 'lightskyblue', fontSize: 25 }}
                                 onPress={this.renderModal}
                             />}
                         </Footer>
@@ -246,7 +246,7 @@ export default class Post extends Component {
         </View>
 
         {/* body of post */}
-        <PostBody body={this.props.body} />
+        <PostBody body={this.props.body} date = {this.props.date}/>
         <PostFooter
             id = {this.props.id}
             userReact = {this.props.userReact}
@@ -276,7 +276,7 @@ const styles = StyleSheet.create({
         paddingBottom: 5
     },
     button: {
-        backgroundColor: 'powderblue',
+        backgroundColor: 'lightskyblue',
         height: 35,
         width: 70,
         borderWidth: 0.5,
@@ -284,12 +284,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     buttonPress: {
-        backgroundColor: 'powderblue',
+        backgroundColor: 'lightskyblue',
         justifyContent: 'center',
         flexWrap: 'wrap'
     },
     card: {
-        borderColor: 'powderblue',
+        borderColor: 'lightskyblue',
         borderWidth: 5,
         borderRadius: 15
     },
