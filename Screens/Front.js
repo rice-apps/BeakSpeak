@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
 import {
-  Button,
   StyleSheet,
   View,
   Text,
   Image,
   Dimensions,
-  TouchableHighlight,
+  TouchableOpacity,
 } from 'react-native';
-import { WebBrowser, SecureStore } from 'expo';
-import UserStore from '../Store/UserStore';
-import { CONFIG } from '../config';
+import {Button} from 'native-base'
+import { WebBrowser, SecureStore } from 'expo'
+import {inject} from 'mobx-react'
+
 const logo = require('../Assets/Images/logo.png');
+import {CONFIG} from "../config";
+
+
 
 // main component for front page with logo and front button
 export class FrontBody extends Component {
@@ -39,76 +42,84 @@ export class FrontBody extends Component {
   }
 }
 
-// main component
-export default class FrontScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loginError: '',
-    };
-//    this.props.navigation.navigate('Main');
-    this.getLoginInfo();
-  }
+// main component 
+const FrontScreen = inject('userStore')(class FrontScreen extends Component {
 
-  navigate = screen => {
-    this.props.navigation.navigate(screen);
-  };
-
-  handleLogin = async () => {
-    let returnUrl = Expo.Linking.makeUrl();
-
-    let result = await WebBrowser.openAuthSessionAsync(
-      CONFIG.cas_auth_url + `?&service=${CONFIG.service_url}`,
-      returnUrl
-    );
-
-    if (result.type === 'success') {
-      let params = await Expo.Linking.parse(result.url).queryParams;
-      let token = params.token;
-      if (token) {
-        SecureStore.setItemAsync('token', token);
-        UserStore.setToken(token);
-        this.props.navigation.navigate('Main');
-      }
-    } else {
-      this.setState(state => ({
-        loginError: 'Error logging in, please try again.',
-      }));
+    constructor(props){
+        super(props);
+        this.state = {
+            loginError: ''
+        };
+        this.getLoginInfo()
     }
-  };
 
-  getLoginInfo = async () => {
-    SecureStore.getItemAsync('token').then(token => {
-      if (token) {
-        UserStore.setToken(token);
-        this.props.navigation.navigate('Main');
-      }
-    });
-  };
+    navigate = (screen) => {
+        this.props.navigation.navigate(screen)
+    };
 
-  render() {
-    const { height: screenHeight } = Dimensions.get('window');
-    return (
-      <View style={[styles.screenTheme, { height: screenHeight }]}>
-        <FrontBody>
-          <TouchableHighlight
-            style={{
-              height: 40,
-              width: 160,
-              borderRadius: 10,
-              backgroundColor: '#14141D',
-              marginTop: 50,
-              marginBottom: 20,
-            }}>
-            <Button color="white" title="Login with NetID" onPress={this.handleLogin} />
-          </TouchableHighlight>
+    handleLogin = async () => {
+        let returnUrl = Expo.Linking.makeUrl();
+        let result = await WebBrowser.openAuthSessionAsync(
+          CONFIG.cas_auth_url +
+          `?service=${CONFIG.service_url}` + `?return=${returnUrl}`,
+          returnUrl
+        );
+        if (result.type === 'success') {
+            let params = await Expo.Linking.parse(result.url).queryParams;
+            let token = params.token;
+            if (token) {
+                SecureStore.setItemAsync('token', token);
+                this.props.userStore.setToken(token);
+                this.props.navigation.navigate('Main');
+            }
+        }
 
-          <Text>{this.state.loginError}</Text>
-        </FrontBody>
-      </View>
-    );
-  }
-}
+        else {
+            this.setState((state) => ({
+                loginError: 'Error logging in, please try again.'}))
+        }
+    };
+
+    getLoginInfo = async () => {
+        SecureStore.getItemAsync('token').then((token) => {
+                if (token) {
+                    this.props.userStore.setToken(token);
+                    this.props.navigation.navigate('Main')
+                }
+            }
+        );
+    
+    };
+        
+    
+    render () {
+        const {height: screenHeight} = Dimensions.get('window');
+        return (
+            <View style={[styles.screenTheme, {height: screenHeight}]}>
+                <FrontBody>
+                    <TouchableOpacity
+                        style ={{
+                            height: 40,
+                            width:160,
+                            borderRadius:10,
+                            backgroundColor : "#14141D",
+                            marginTop :50,
+                            marginBottom :20,
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}
+                        onPress={this.handleLogin} 
+                        >
+                        <Text style = {{color: "white", fontSize: 20, fontFamily: 'caviar-dreams'}}>Login</Text>
+                    </TouchableOpacity>
+                    <Text>{this.state.loginError}</Text>
+                </FrontBody>
+            </View>
+        );
+    }
+});
+
+export default FrontScreen;
 
 const styles = StyleSheet.create({
   image: {
@@ -128,7 +139,7 @@ const styles = StyleSheet.create({
   },
   screenTheme: {
     flex: 1,
-    backgroundColor: 'powderblue',
+    backgroundColor: 'lightskyblue',
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',

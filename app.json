@@ -5,20 +5,21 @@
     "sdkVersion": "31.0.0",
     "splash": {
       "image": "./Assets/Images/splash_screen.png",
-      "backgroundColor": "#b0e0e6"
+      "backgroundColor": "#87cefa"
     },
     "orientation": "portrait",
     "name" : "BeakSpeak",
     "icon" : "./Assets/Images/logo.png",
-    "version" : "1.0.0",
+    "version" : "2.0.0",
     "slug" : "beakspeak",
     "ios" : {
       "bundleIdentifier" : "com.riceapps.beakspeak",
-      "icon": "./Assets/Images/logo_no_alpha.png"
+      "icon": "./Assets/Images/logo_no_alpha.png",
+      "buildNumber": "2"
     },
     "android" : {
       "package" : "com.riceapps.beakspeak",
-      "versionCode": 4,
+      "versionCode": 5,
       "permissions": []
     },
     "updates": {

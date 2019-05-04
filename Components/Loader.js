@@ -5,28 +5,27 @@ import {
     Modal, 
     ActivityIndicator
 } from 'react-native';
+import {observer} from 'mobx-react'
 
-const Loader = props => {
-    const {
-        loading, 
-        ...attributes
-    } = props;
-
-    return (
-        <Modal
-            onRequestClose = {() => {this.hideModal}}
-            transparent = {true}
-            animationType={'none'}
-            visible={loading}>
-            <View style={styles.modalBackground}>
-                <View style={styles.activityIndicatorWrapper}>
-                    <ActivityIndicator
-                        animating={loading} />
+const Loader = observer(class Loader extends Component {
+    render() {
+        console.log(this.props.loading)
+        return (
+            <Modal
+                onRequestClose = {() => {this.hideModal}}
+                transparent = {true}
+                animationType={'none'}
+                visible={this.props.loading}>
+                <View style={styles.modalBackground}>
+                    <View style={styles.activityIndicatorWrapper}>
+                        <ActivityIndicator
+                            animating={this.props.loading} />
+                    </View>
                 </View>
-            </View>
-        </Modal>
-    )
-}
+            </Modal>
+        )
+    }
+})
 
 const styles = StyleSheet.create({
     modalBackground: {

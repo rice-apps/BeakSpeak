@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { Header, Left, Right, Body, Icon, View, Text } from 'native-base';
-import { TouchableWithoutFeedback, Platform, StatusBar, Picke0r, StyleSheet } from 'react-native';
+import { TouchableWithoutFeedback, TouchableOpacity, Platform, StatusBar, StyleSheet } from 'react-native';
 import { inject, observer } from 'mobx-react';
 import DropdownMenu from 'react-native-dropdown-menu';
-
-import Loader from '../Components/Loader.js'
-import userStore from '../Store/UserStore.js'
 
 // header design for drawer navigators
 export const DrawerHeader = inject('store')(inject('userStore')(observer(
@@ -14,36 +11,37 @@ class DrawerHeader extends Component {
   constructor(props) {
     super(props)
     this.data = [["Hot", "New", "Top"]]
-
   }
   toggleMenu = () => {
     this.props.navigation.toggleDrawer();
   };
 
-  handleSchemeChange = (scheme) => {
+  handleSchemeChange = function(scheme){
     this.props.userStore.setSortScheme(scheme)
     this.props.store.fetchPosts()
   }
+
   render() {
     let title = this.props.title;
     return (
       <View
         style={{
-          borderColor: 'powderblue',
+          borderColor: 'lightskyblue',
           paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight,
         }}>
-        <Loader
-          loading = {userStore.isLoading} />
-        <Header style={{ backgroundColor: 'powderblue', height: 70 }}>
+        <Header style={{ backgroundColor: 'lightskyblue', height: 70 }}>
           <Left>
             {/* Menu Button */}
-            <TouchableWithoutFeedback onPress={() => this.toggleMenu()}>
+            <TouchableOpacity 
+              hitSlop={{top: 20, left: 20, bottom: 20, right: 60}}
+              onPress={() => this.toggleMenu()}
+            >
               <Icon
                 name="menu"
                 type="MaterialCommunityIcons"
                 style={{ color: 'white', fontSize: 25 }}
               />
-            </TouchableWithoutFeedback>
+            </TouchableOpacity>
           </Left>
 
           {/* Title of Page */}
@@ -51,15 +49,16 @@ class DrawerHeader extends Component {
             <Text style={{ color: 'white', fontSize: 25, fontWeight: 'bold' }}>{title}</Text>
           </Body>
 
-          {/* Sorting Dropdown*/}
-          <DropdownMenu
-            bgColor={'powderblue'}
-            activityTintColor={'green'}
-            tintColor={'darkblue'}
-            handler={(selection, row) => this.handleSchemeChange(this.data[selection][row])}
-            data={this.data}
-          />
-          
+          <Right>
+              {/* Sorting Dropdown*/}
+              {this.props.isMain &&<DropdownMenu
+                bgColor={'lightskyblue'}
+                activityTintColor={'green'}
+                tintColor={'darkblue'}
+                handler={(selection, row) => this.handleSchemeChange(this.data[selection][row])}
+                data={this.data}
+              />}
+          </Right>
         </Header>
       </View>
     );
@@ -102,10 +101,10 @@ export class StackHeader extends Component {
       <View
         style={{
           borderBottomWidth: 2,
-          borderColor: 'powderblue',
+          borderColor: 'lightskyblue',
           paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight,
         }}>
-        <Header style={{ backgroundColor: 'powderblue' }}>
+        <Header style={{ backgroundColor: 'lightskyblue' }}>
           <Left>
             {/* Back Button */}
             <TouchableWithoutFeedback onPress={() => this.back()}>
@@ -143,7 +142,7 @@ const styles = StyleSheet.create({
     margin: 15,
   },
   button: {
-    backgroundColor: 'powderblue',
+    backgroundColor: 'lightskyblue',
     height: 35,
     width: 70,
     borderWidth: 0.5,
@@ -151,12 +150,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   buttonPress: {
-    backgroundColor: 'powderblue',
+    backgroundColor: 'lightskyblue',
     justifyContent: 'center',
     flexWrap: 'wrap',
   },
   card: {
-    borderColor: 'powderblue',
+    borderColor: 'lightskyblue',
     borderWidth: 5,
     borderRadius: 15,
   },
