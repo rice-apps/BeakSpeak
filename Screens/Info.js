@@ -142,7 +142,7 @@ export default class Info extends Component{
 
                         <View style={ styles.bulletText }>
                             <Text style = { styles.textColor }>
-                                SPAM - Do not spam the main screen. BeakSpeak in its current form allows a user only a maximum of 10 posts per 30 minute window.
+                                SPAM - Do not spam the main screen. BeakSpeak in its current form allows a user only a maximum of 10 posts per 30 minute window. For comments, it's 50.
                             </Text>
                         </View>
                     </View>
