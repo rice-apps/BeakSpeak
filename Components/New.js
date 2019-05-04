@@ -7,10 +7,19 @@ import {inject} from 'mobx-react'
 // form component
 const Form = t.form.Form
 
+const Title = t.refinement(t.String, s => s.length < 150)
+Title.getValidationErrorMessage = (value, path, context) => {
+    return "must be less than 150 characters and not empty"
+}
+
+const Body = t.refinement(t.String, s => s.length < 1000)
+Body.getValidationErrorMessage = (value, path, context) => {
+    return "must be less than 1000 characters"
+}
 // template for new post form
 const PostSchema = t.struct({
-    title: t.String,
-    body: t.maybe(t.String)
+    title: Title,
+    body: t.maybe(Body)
 })
 
 // get screen width
@@ -24,7 +33,6 @@ const PostOptions = {
             multiline: true,
             numberOfLines: 5,
             // blurOnSubmit: true,
-            maxLength: 1000,
             stylesheet: {
                 ...Form.stylesheet,
                 textbox: {
@@ -40,7 +48,6 @@ const PostOptions = {
         },
         title: {
             placeholder: 'Your clever title here...',
-            maxLength: 150,
             stylesheet: {
                 ...Form.stylesheet,
                 textbox: {

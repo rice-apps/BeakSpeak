@@ -18,13 +18,27 @@ const MainNav = createStackNavigator(
     Posts: {
       screen: MainScreen,
       navigationOptions: ({ navigation }) => ({
-        header: <DrawerHeader navigation={navigation} title="Posts" />,
+        header: <DrawerHeader isMain={true} navigation={navigation} title="Posts" />,
       }),
     },
   },
   {
     initialRouteName: 'Posts',
   }
+);
+
+const InfoNav = createStackNavigator(
+    {
+        Info: {
+            screen: InfoScreen,
+            navigationOptions: ({ navigation }) => ({
+                header: <DrawerHeader isMain={false} navigation={navigation} title="Info" />,
+            }),
+        },
+    },
+    {
+        initialRouteName: 'Info',
+    }
 );
 
 const HomeNav = createDrawerNavigator(
@@ -36,13 +50,13 @@ const HomeNav = createDrawerNavigator(
       screen: Blank,
     },
     Info: {
-      screen: InfoScreen,
+      screen: InfoNav,
     },
   },
   {
     initialRouteName: 'Main',
     contentComponent: Sidebar,
-    drawerWidth: screenWidth * 0.2,
+    drawerWidth: screenWidth * 0.4,
   }
 );
 

@@ -2,21 +2,34 @@ import { observable, action, decorate } from 'mobx';
 
 import PostModel from './Models/PostModel';
 import DatabaseService from '../Services/DatabaseService';
+const uuidv4 = require('uuid/v4');
+import userStore from '../Store/UserStore'
 
 class PostStore {
   posts = [];
 
   // changed this to go through database first
   addPost = async (title, body) => {
+    /*
     let newPost = new PostModel(title, body);
     let newerPost = await DatabaseService.sendNewPost(title, body, newPost._id);
     this.posts.unshift(PostModel.make(newerPost));
-    //        this.posts.splice(0, 0, PostModel.make(newPost))
-    //        newPost = await DatabaseService.sendNewPost(title, body, newPost._id) // send post to database
-    //        DatabaseService.sendNewPost(title, body, newPost._id) // send post to database -- no need to await
+    */
+
+    // Loading logic
+    userStore.isLoading = true
+    DatabaseService.sendNewPost(title, body, uuidv4())
+      .then(newPost => {
+        this.posts.unshift(PostModel.make(newPost))
+        userStore.isLoading = false
+      })
+      .catch(console.log)
+
   };
 
   async fetchPosts() {
+
+    /*
     let proto_posts = await DatabaseService.getPosts();
     try {
       this.posts = proto_posts.map(p => PostModel.make(p));
@@ -24,9 +37,23 @@ class PostStore {
       console.log(err);
       this.posts = [];
     }
+    */
+
+    // Loading logic
+    userStore.isLoading = true
+    DatabaseService.getPosts()
+      .then(posts => {
+        this.posts = posts.map(p => PostModel.make(p))
+        userStore.isLoading = false  
+    })
+      .catch(err => {
+        console.log(err)
+        this.posts = []
+      })
   }
 
   async fetchPost(id) {
+    /*
     let proto_post = await DatabaseService.getPost(id);
     let post = PostModel.make(proto_post);
     this.posts.forEach((val, index) => {
@@ -34,7 +61,24 @@ class PostStore {
         this.posts[index] = post;
       }
     });
+    */
+
+    // Loading logic
+    userStore.isLoading = true
+    DatabaseService.getPost(id)
+      .then(post => {
+        this.posts.forEach((val, index) => {
+          if (val._id === post._id) {
+            this.posts[index] = post;
+            userStore.isLoading = false  
+          }
+        });
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
+
   getPost(id) {
     return this.posts.find(val => val._id === id);
   }

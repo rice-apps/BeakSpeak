@@ -1,17 +1,25 @@
-import React, { Component } from "react";
-import { Header } from "react-navigation";
+import React, {Component} from 'react'
+import {Header} from 'react-navigation'
 import {
-  FlatList,
-  Keyboard,
-  KeyboardAvoidingView,
-  RefreshControl,
-  StyleSheet
-} from "react-native";
-import { Button, Card, Icon, Input, View } from "native-base";
-import Blank from "../Components/Blank";
-import PostData from "../Components/PostData";
-import { inject, observer } from "mobx-react";
-import CommentData from "../Components/CommentData";
+  FlatList, 
+  Keyboard, 
+  KeyboardAvoidingView, 
+  RefreshControl, 
+  StyleSheet, 
+  Platform, 
+  StatusBar, 
+  Text
+} from 'react-native'
+import {Button, Card, Icon, Input, View} from 'native-base'
+import {inject, observer} from 'mobx-react';
+import * as Mobx from "mobx";
+
+import Blank from '../Components/Blank'
+import PostData from '../Components/PostData'
+import CommentData from '../Components/CommentData';
+import CommentModel from '../Store/Models/CommentModel'
+
+const platformDiff = (Platform.OS === 'ios') ? StatusBar.currentHeight : StatusBar.currentHeight
 
 // Footer component for writing and submitting comments.
 const PostDetailFooter = observer(
@@ -19,6 +27,7 @@ const PostDetailFooter = observer(
 
         constructor(props) {
             super(props);
+            this.maxLen = 200
             this.state = {
                 input: ''
             };
@@ -31,12 +40,18 @@ const PostDetailFooter = observer(
             }
         }
 
+        getColor = () => {
+            if (this.state.input.length >= this.maxLen) {
+                return 'red'
+            }
+            return 'gray'
+        }
+
         render() {
-            let post = this.post;
             return (
                 <KeyboardAvoidingView
-                    keyboardVerticalOffset={Header.HEIGHT}
-                    behavior="position"
+                    keyboardVerticalOffset={Platform.select({ios: Header.HEIGHT, android: Header.HEIGHT + StatusBar.currentHeight})}
+                    behavior= {(Platform.OS === 'ios')? "padding" : "position"}
                     keyboardShouldPersistTaps={false}>
 
                     <View style={styles.commentInputContainer}>
@@ -48,20 +63,24 @@ const PostDetailFooter = observer(
                                 this.setState({input: text})
                             }}
                             multiline={true}
-                            // onSubmitEditing={() => {
-                            //     // this.onSubmit()
-                            // }}
+                            maxLength = {this.maxLen}
                             value={this.state.input}
                         />
-
+                        <Text
+                            style = {{color: this.getColor()}}
+                        >
+                            {this.maxLen - this.state.input.length}
+                        </Text>    
                         {/* submits comment*/}
-                        <Button transparent>
-                            <Icon name='telegram'
+                        <Button
+                            transparent
+                            onPress={() => {
+                                this.onSubmit()
+                            }}>
+                                <Icon name='telegram'
                                   type='MaterialCommunityIcons'
-                                  style={{color: 'powderblue'}}
-                                  onPress={() => {
-                                      this.onSubmit()
-                                  }}
+                                  style={{color: 'lightskyblue'}}
+                                  
                             />
                         </Button>
                     </View>
@@ -73,24 +92,22 @@ const PostDetailFooter = observer(
 // Comments container of custom comment components.
 const Comments = observer(
     class Comments extends Component {
-
-
         render() {
             let comments = this.props.comments;
 
             return (
                 <FlatList
-                    data={comments}
+                    data={comments.slice()}
                     keyExtractor={(item, index) => item._id}
                     renderItem={(item) => {
                         let comment = item.item;
-
                         return (
                             <Card>
                                 <CommentData
                                     comment={comment}
                                     post_id={this.props.post_id}
                                     showVote={true}
+                                    showVoteScoreOnly={false}
                                 />
                             </Card>
                         )
@@ -157,7 +174,7 @@ export default PostDetail = inject('store')(
                 let refresh = this.state.refresh;
 
                 return (
-                    <View style={{flex: 1, backgroundColor: 'powderblue'}}>
+                    <View style={{flex: 1, backgroundColor: 'lightskyblue'}}>
                         <View style={{flex: 1}}>
 
                             {/*Scrolling list of comments + post*/}
@@ -196,7 +213,7 @@ export default PostDetail = inject('store')(
 const styles = StyleSheet.create({
     newPostButton: {
         flex: 1,
-        backgroundColor: 'powderblue',
+        backgroundColor: 'lightskyblue',
         justifyContent: 'center',
         alignItems: 'center',
         borderTopWidth: 1,
@@ -206,7 +223,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderTopWidth: 1,
         borderColor: '#EEE',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        alignItems: 'center'
     },
     seeBorders: {
         borderWidth: 5,
