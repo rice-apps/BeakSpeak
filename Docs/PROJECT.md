@@ -78,12 +78,11 @@ flag in the database.
 
 #### Security protocols
 Periodically, the salt and secret will need to be changed for security purposes.
-When that happens, current users may experience difficulties because the new
-salt will create a different hashed username from what is in the database. To
-streamline the transition, it is recommended to force users to re-login. After
-they have logged in, check if the user exists; if yes, check if their current
-hashed username is the old one according to the old salt. If also yes, then
-update the username to consist of the new salt.
+After updating both in the config, you will have to iterate over each user in
+the database, decrypt the netid, apply the salt, and update the hashed username.
+To streamline the transition, it is recommended to force users to re-login. We
+have implemented in the main screen a periodic check to verify the user token.
+If the token is invalid, then the app will force a re-login. 
 
 The values for the salts and secrets, including the new and old, must never be made public.
 THIS INCLUDES COMMITTING TO GITHUB. The secrecy entails only sharing the salt

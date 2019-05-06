@@ -10,7 +10,7 @@ import Blank from '../Components/Blank'
 import CommentData from '../Components/CommentData'
 import PostData from '../Components/PostData'
 import OfflineNotice from '../Components/OfflineNotice'
-import TestingLink from '../Components/TestingLink'
+import {CONFIG} from '../config.js'
 
 // Comments container of custom comment components
 const Comments = observer(
@@ -248,8 +248,24 @@ class MainFooter extends Component{
 
 
 // main component
-const MainScreen =  inject('userStore')(observer(class MainScreen extends Component{
-    
+const MainScreen =  inject('store')(inject('userStore')(class MainScreen extends Component{
+    constructor(props) {
+        super(props)
+
+        // check credentials are valid every so often
+        setInterval(() => {        
+            if (this.props.userStore.isConnected) {
+                this.props.userStore.checkCredentials(this.props.navigation)
+            }
+        } , CONFIG.check_creds_secs * 1000)       
+
+        // refresh app every X seconds
+        setInterval(() => {        
+            if (this.props.userStore.isConnected) {
+                this.props.store.fetchPosts()
+            }
+        } , CONFIG.refresh_posts_secs * 1000)        
+    }
     render () {
         return(
             <Container style = {{backgroundColor: 'lightskyblue'}}>

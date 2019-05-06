@@ -1,10 +1,13 @@
 import { observable, action, decorate } from 'mobx';
 import {NetInfo} from 'react-native'
+import {SecureStore} from 'expo'
 
+import {CONFIG} from '../config.js'
+apiUrl = CONFIG.api_url
 class UserStore {
-    token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXIiOiJubnExIiwiYXR0cmlidXRlcyI6eyJlZHVQZXJzb25QcmltYXJ5QWZmaWxpYXRpb24iOiJzdHVkZW50In19LCJ1c2VySUQiOiI1YjVmOWE5YWRlNTdiNzQxZmZjM2U2MWUiLCJpYXQiOjE1MzI5OTIxNTR9.cr29eYKLTpaAuqcpk08XtrMt6FZj9S8Yvll3rzEMYus";
     sortScheme = "hot"
     isConnected = true
+    returnUrl = Expo.Linking.makeUrl();
 
     constructor() {
         NetInfo.isConnected.fetch().then(conn => this.isConnected = conn)
@@ -33,6 +36,23 @@ class UserStore {
         this.sortScheme = sortScheme.toLowerCase()
     }
 
+    /* Validates the token by making a get request */
+    async checkCredentials(navigation) {
+        try {
+            let res = await fetch(apiUrl + '/posts/' + this.sortScheme, {
+              method: 'GET',
+              headers: {
+                'x-access-token': this.token,
+              },
+            });
+            if (res.status == 401) {
+                SecureStore.deleteItemAsync('token');
+                navigation.navigate('Front')      
+            }
+          } catch (err) {
+            console.log(err);
+          }        
+    }
 }
 
 decorate(UserStore, {
