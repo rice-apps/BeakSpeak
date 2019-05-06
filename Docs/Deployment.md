@@ -1,9 +1,9 @@
 # Deployment to Playstore (Android) and Appstore (iOS)
 
 ## Playstore
-+ 1. Create a Google Play Developer account ($25 one time fee)
+1. Create a Google Play Developer account ($25 one time fee)
     + Use Rice-Apps team gmail
-+ 2. Build an apk file of your project
+2. Build an apk file of your project
     + Vanilla React Native
         + Use `keytool` and configure gradle
         + https://facebook.github.io/react-native/docs/signed-apk-android
@@ -15,7 +15,7 @@
             + For future production builds, upload this information to expo.
               Expo will store keystore information by default on its servers
               *but just in case make sure to upload keystore information when asked* 
-+ 3. On the Google Play Developer console, navigate to `All applications` and hit
+3. On the Google Play Developer console, navigate to `All applications` and hit
      `Create new application`
     + Required Screenshots
         + You will need a high-res square png of the app icon. Check out size
@@ -28,7 +28,7 @@
           https://app-privacy-policy-generator.firebaseapp.com/
         + Host it on a google site or rice-apps github.io
         + Add it to `Store listing`
-+ 4. Upload apk
+4. Upload apk
     + Navigate to `App releases` on the sidebar
     + Choose a track and click `Manage` or `Edit release`
         + Internal testing is convenient for first-time upload
@@ -36,7 +36,7 @@
     + Upload apk and edit release notes
     + Hit `Review`
     + Add testers OR configure an opt-in url   
-+ 5. Wait for review results
+5. Wait for review results
     + Takes 2 business days.
 
 ### Caveats
@@ -52,10 +52,10 @@
             + Avoid uploading a new apk each update
 
 ## Appstore
-+ 1. Create an apple developer account ($99/year)
+1. Create an apple developer account ($99/year)
     + Rice-Apps developer account credentials can be found in the team drive OR
       ask the president
-+ 2. Build an ipa file of your project
+2. Build an ipa file of your project
     + Expo + React Native
         + Run `exp build:ios` in project directory
         + Provide apple developer credentials
@@ -68,16 +68,16 @@
               *but just in case make sure to upload keystore information when
               asked* 
     + Vanilla React Native (PLEASE CONTRIBUTE)
-+ 3. *Requires Mac* On Xcode, upload your ipa
+3. *Requires Mac* On Xcode, upload your ipa
      + hit the `Xcode` tab => `Open Developer Tool` =>
      `Application Loader`
      + Click `Choose` and select your ipa
      + Wait while it verifies the build
-+ 4. View build on App Store Connect
+4. View build on App Store Connect
     + Log onto appstoreconnect.apple.com
     + Navigate to `My Apps` and click on your app
-+ 5. Wait for app to finish processing (1-2 business days)
-+ 6. Submit app for review
+5. Wait for app to finish processing (1-2 business days)
+6. Submit app for review
     + Testflight
         + Select build under `iOS` tab
         + Fill out information in the `Test Information` tab
@@ -128,4 +128,18 @@ therefore be handled carefully.
     + These changes occur on the deployed backend on GCP
     + Log into a cloud shell and manually edit the production settings in the
       config
-    
+
+### Updating apps
++ Expo + React Native
+    + If OTA updates are enabled, then solely running `expo publish` in the
+      terminal will update apps on android and ios
+      + Caveat: changing certain assets like splash screen and app icon require
+        a new build
+    + If OTA is not configured, submit a new build each time for update
++ Vanilla React Native (PLEASE CONTRIBUTE)
+
+### Updating backend on GCP
++ Log into cloud shell
++ `cd` into appropriate repo
++ Pull changes
++ Run `gcloud app deploy`
