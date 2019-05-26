@@ -1,8 +1,16 @@
+
+
+/**
+ * File for all things that involve handling new things (content, users)
+ */
 import React, {Component} from 'react';
-import {Dimensions, StyleSheet, View} from 'react-native'
+import {Dimensions, StyleSheet, View, ScrollView, AsyncStorage} from 'react-native'
+import Modal from 'react-native-modal'
 import {Button, Text} from 'native-base'
 import t from 'tcomb-form-native'
 import {inject} from 'mobx-react'
+import {SecureStore} from 'expo'
+import UserPolicy from '../Components/UserPolicy'
 
 // form component
 const Form = t.form.Form
@@ -109,7 +117,51 @@ export const NewPost = inject('store')(
                 </View>
             )
         }
-    })
+    }
+)
+
+export const NewUserModal = inject('userStore')(class NewUserModal extends Component {
+    
+    handleAccept = () => {
+        let token = this.props.token
+        SecureStore.setItemAsync('token', token);
+        AsyncStorage.setItem("acceptedTerms", "true")
+        this.props.userStore.setToken(token);    
+        this.props.navigation.navigate("Main")
+    }
+    render() {
+        return (
+            <Modal
+                isVisible={this.props.isVisible}
+                animationIn={'slideInUp'}
+    //                        animationOut={'zoomOut'}
+    //                        animationInTiming={500}
+    //                       animationOutTiming={500}
+                avoidKeyboard={true}
+                >
+
+                    {/* new user agreement form*/}
+                    <View style={styles.content}>
+                        <ScrollView>
+                            <UserPolicy/>
+                        </ScrollView>
+                        <View>
+                            <Button
+                                bordered
+                                info
+                                rounded
+                                onPress={this.handleAccept}
+                            >
+                                <Text>
+                                    I agree!
+                                </Text>
+                            </Button>
+                        </View>
+                    </View>
+                    </Modal>
+        )
+    }
+})
 
 
 const styles = StyleSheet.create(

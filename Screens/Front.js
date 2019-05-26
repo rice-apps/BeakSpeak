@@ -6,12 +6,14 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  AsyncStorage
 } from 'react-native';
 import {Button} from 'native-base'
 import { WebBrowser, SecureStore } from 'expo'
 import {inject} from 'mobx-react'
 
 const logo = require('../Assets/Images/logo.png');
+import {NewUserModal} from '../Components/New'
 import {CONFIG} from "../config";
 
 
@@ -48,8 +50,10 @@ const FrontScreen = inject('userStore')(class FrontScreen extends Component {
     constructor(props){
         super(props);
         this.state = {
-            loginError: ''
+            loginError: '',
+            newUser: false
         };
+        this.newUserToken = ""
         this.getLoginInfo()
     }
 
@@ -67,10 +71,21 @@ const FrontScreen = inject('userStore')(class FrontScreen extends Component {
         if (result.type === 'success') {
             let params = await Expo.Linking.parse(result.url).queryParams;
             let token = params.token;
+
+            // Successful auth
             if (token) {
-                SecureStore.setItemAsync('token', token);
-                this.props.userStore.setToken(token);
-                this.props.navigation.navigate('Main');
+                let acceptedTerms = await AsyncStorage.getItem("acceptedTerms") 
+                
+                // All users must accept terms               
+                if (params.isNew == "false" && acceptedTerms == "true") { 
+                    SecureStore.setItemAsync('token', token);
+                    this.props.userStore.setToken(token);    
+                    this.props.navigation.navigate('Main');
+                }
+                else {
+                    this.newUserToken = token
+                    this.setState({newUser: true})
+                }
             }
         }
 
@@ -81,14 +96,22 @@ const FrontScreen = inject('userStore')(class FrontScreen extends Component {
     };
 
     getLoginInfo = async () => {
+        let acceptedTerms = await AsyncStorage.getItem("acceptedTerms") 
         SecureStore.getItemAsync('token').then((token) => {
                 if (token) {
-                    this.props.userStore.setToken(token);
-                    this.props.navigation.navigate('Main')
+
+                    // All users must accept terms
+                    if (acceptedTerms == null) {
+                        this.newUserToken = token
+                        this.setState({newUser: true})    
+                    }
+                    else {
+                        this.props.userStore.setToken(token);
+                        this.navigate('Main')    
+                    }
                 }
             }
         );
-    
     };
         
     
@@ -96,6 +119,11 @@ const FrontScreen = inject('userStore')(class FrontScreen extends Component {
         const {height: screenHeight} = Dimensions.get('window');
         return (
             <View style={[styles.screenTheme, {height: screenHeight}]}>
+                <NewUserModal 
+                    navigation = {this.props.navigation}
+                    isVisible = {this.state.newUser}
+                    token = {this.newUserToken}
+                />
                 <FrontBody>
                     <TouchableOpacity
                         style ={{

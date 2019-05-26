@@ -83,7 +83,7 @@ export default class Info extends Component{
 
                         <View style={ styles.bulletText }>
                             <Text style = { styles.textColor }>
-                                Offensive Language -  Posting offensive text or pictures is not allowed. You are not to post anything deemed illegal or contains illegal content or information. You agree to be solely responsible for knowing what is legal and as it pertains to Rice’s policies. It is illegal to access, distribute or facilitate the distribution of obscene, pornographic indecent, hateful or otherwise offensive materials.
+                                Pornographic content - It is illegal to access, distribute or facilitate the distribution of obscene, pornographic, indecent, hateful or otherwise offensive materials.
                             </Text>
                         </View>
                     </View>
@@ -152,7 +152,9 @@ export default class Info extends Component{
                         <Text style = { styles.boldText }>
                             **In addition to all policies mentioned above, Rice University policies are applicable. To review Rice cyber policies, please refer to https://oit.rice.edu/ **
                         </Text>
-                        <Text/>
+                        <Text style = { styles.boldText }>
+                            You agree to be solely responsible for knowing what is legal and as it pertains to Rice’s policies.
+                        </Text>                        
                         <Text style = { styles.boldText} >
                             We reserve the right to remove any post at any time.
                         </Text>

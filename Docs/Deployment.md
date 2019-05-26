@@ -109,7 +109,9 @@
         + Submit for review
             + Carefully fill out the last portion -- otherwise you will have to
               submit a new build!
-
+7. Future uploads
+    + Expo + React Native
+        + Make sure to increment the `buildNumber` under the `ios` portion of `app.json` 
 
 
 ## Updates and Maintenance

@@ -12,6 +12,7 @@ class DrawerHeader extends Component {
     super(props)
     this.data = [["Hot", "New", "Top"]]
   }
+  
   toggleMenu = () => {
     this.props.navigation.toggleDrawer();
   };
@@ -50,8 +51,8 @@ class DrawerHeader extends Component {
           </Body>
 
           <Right>
-              {/* Sorting Dropdown*/}
-              {this.props.isMain &&<DropdownMenu
+              {/* Sorting Dropdown -- only displayed on main screen*/}
+              {this.props.isMain && <DropdownMenu
                 bgColor={'lightskyblue'}
                 activityTintColor={'green'}
                 tintColor={'darkblue'}
