@@ -15,7 +15,7 @@
     "ios" : {
       "bundleIdentifier" : "com.riceapps.beakspeak",
       "icon": "./Assets/Images/logo_no_alpha.png",
-      "buildNumber": "2"
+      "buildNumber": "3"
     },
     "android" : {
       "package" : "com.riceapps.beakspeak",

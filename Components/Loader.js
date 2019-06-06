@@ -9,7 +9,6 @@ import {observer} from 'mobx-react'
 
 const Loader = observer(class Loader extends Component {
     render() {
-        console.log(this.props.loading)
         return (
             <Modal
                 onRequestClose = {() => {this.hideModal}}

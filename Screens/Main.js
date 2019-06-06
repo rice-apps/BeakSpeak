@@ -3,13 +3,14 @@ import {FlatList, RefreshControl, ScrollView, StyleSheet, TouchableWithoutFeedba
 import {Card, Container, Footer, Icon, View} from 'native-base'
 import Modal from 'react-native-modal'
 import {AppLoading} from 'expo'
-import {inject, observer, Provider} from 'mobx-react'
+import {inject, observer} from 'mobx-react'
 
 import {NewPost} from '../Components/New'
 import Blank from '../Components/Blank'
 import CommentData from '../Components/CommentData'
 import PostData from '../Components/PostData'
 import OfflineNotice from '../Components/OfflineNotice'
+import Loader from '../Components/Loader'
 import {CONFIG} from '../config.js'
 
 // Comments container of custom comment components
@@ -64,18 +65,13 @@ class Posts extends Component{
 
     constructor(props){
         super(props)
-
         this.state = {
-            loaded: false
+            refresh: false
         }
     }
 
     async componentDidMount() {
         this.props.store.fetchPosts()
-            .then((posts) => this.setState({
-                loaded: true,
-                refresh: false
-            })) // retrieve posts from store
     }
 
     postNavigate = (route, post_id) => {
@@ -84,7 +80,7 @@ class Posts extends Component{
 
     _onRefresh = async() => {
         this.setState((state) => ({refresh: true})) // indicate we are refreshing
-        this.props.store.fetchPosts()
+        this.props.store.fetchPosts(refresh=true)
             .then((posts) => this.setState((state) => ({refresh: false}))) // refresh data
     }
 
@@ -107,13 +103,15 @@ class Posts extends Component{
     }
 
     render () {
-        let loaded = this.state.loaded
-        //let posts = Mobx.toJS(this.props.store.posts);
+        let loaded = !this.props.store.loading
         let posts = this.props.store.posts
 
         if(!loaded) { // wait for posts to load
             return(
-                <AppLoading/>
+                <View>
+                    <Loader loading = {!loaded}/>
+                    <AppLoading/>
+                </View>
             )
         }
 
@@ -122,7 +120,6 @@ class Posts extends Component{
             return (
                 <View style={{flex: 1}}>
                     <FlatList
-                        removeClippedSubviews = {false}
                         data = {posts}
                         renderItem = {(item) => {return this._renderItem(item)}}
                         keyExtractor = {(item, index) => item._id}
@@ -262,7 +259,7 @@ const MainScreen =  inject('store')(inject('userStore')(class MainScreen extends
         // refresh app every X seconds
         setInterval(() => {        
             if (this.props.userStore.isConnected) {
-                this.props.store.fetchPosts()
+                this.props.store.fetchPosts(refresh=true)
             }
         } , CONFIG.refresh_posts_secs * 1000)        
     }

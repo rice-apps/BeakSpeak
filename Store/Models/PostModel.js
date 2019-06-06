@@ -2,7 +2,6 @@ import { observable, action, transaction, decorate } from 'mobx';
 
 import DatabaseService from '../../Services/DatabaseService';
 import CommentModel from './CommentModel';
-import userStore from '../UserStore'
 const uuidv4 = require('uuid/v4');
 
 export default class PostModel {

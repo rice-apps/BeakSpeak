@@ -101,7 +101,7 @@ content or of the content they have saved.
       that this goal will provide
 + Queries will be sophisticated frontend work
     + Will require knowledge of Mobx and how the frontend services work
-+ First task to onboard devs
++ Onboarding new devs
     + Can always do an example app that incorporates React Native, Mobx,
         ExpressJS, and MongoDB
         + Will take up a long time
@@ -109,7 +109,8 @@ content or of the content they have saved.
         + Generate and display a random icon for each user
         + Create a screen that only shows the user's posts and comments
     + Migrate to the backend
-        + Explanation of this complex system will not stick
+        + Explanation of this complex system will not stick, so consider
+          building a small project
         + Example app - grades database
             + Devs create their own student and grade schemas and collections
             + Devs create a simple express app that connects to the database

@@ -197,7 +197,9 @@ export default class Info extends Component{
                         </View>
                     </View>
 
-                    <View style = {{height: 30}}/>
+                    <Text style = {[styles.titleFont, {fontSize: 15}]}>Brought to you by 
+                    Rice-Apps</Text>
+
                 </ScrollView>
             </Container>
         )
@@ -212,7 +214,6 @@ const styles = StyleSheet.create({
         resizeMode: 'contain'
     },
     titleFont: {
-        //fontFamily: 'caviar-dreams',
         fontSize: 25,
         fontWeight: 'bold',
         color: 'white',

@@ -8,6 +8,7 @@ import postStore from './Store/PostStore'
 import userStore from './Store/UserStore'
 
 YellowBox.ignoreWarnings(["Require cycle:"])
+YellowBox.ignoreWarnings(['Setting a timer']);
 
 export default class App extends Component{
     constructor(props){

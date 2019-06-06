@@ -1,4 +1,4 @@
-# Deployment to Playstore (Android) and Appstore (iOS)
+# Deployment
 
 ## Playstore
 1. Create a Google Play Developer account ($25 one time fee)
@@ -46,10 +46,6 @@
         + Every new apk must increment `versionCode` and `versionName` in `android/app/build.gradle` 
     + Expo + React Native
         + Every new apk must increment `versionCode` in `app.json` under the `android` field
-        + Automatic Updates
-            + Add the following field: `"updates":{"enabled": true}` to `app.json` to configure OTA updates
-            + Every time you run `exp publish` standalone apps that have been deployed will download the build hosted by expo
-            + Avoid uploading a new apk each update
 
 ## Appstore
 1. Create an apple developer account ($99/year)
@@ -109,12 +105,21 @@
         + Submit for review
             + Carefully fill out the last portion -- otherwise you will have to
               submit a new build!
-7. Future uploads
-    + Expo + React Native
-        + Make sure to increment the `buildNumber` under the `ios` portion of `app.json` 
+
+### Caveats
+
++ Expo + React Native
+    + Make sure to increment the `buildNumber` under the `ios` portion of `app.json` 
 
 
 ## Updates and Maintenance
+
+### Updating Frontend
++ Automatic Updates
+    + Add the following field: `"updates":{"enabled": true}` to `app.json` to configure OTA updates
+    + Every time you run `exp publish`, users that have downloaded the app will download the build hosted by expo
+    + Helps avoid the hassle of uploading a new apk each update
+
 ### Secrets and Salts
 To ensure security, confidential information such as netids are hashed and
 *salted* before they are stored in the database. Tokens that are returned by CAS
@@ -125,6 +130,7 @@ therefore be handled carefully.
     + An easy way to prevent accidentally committing your config is to perform
       the following command before saving any changes to the config:
       ```git update-index --assume-unchanged config.js```
+    + Whatever changes happen afterwards are saved locally and not tracked by git
 + Secrets and salts should be changed on a yearly basis
     + Secrets and salts only need to be cryptographically secure random strings
     + These changes occur on the deployed backend on GCP
@@ -133,7 +139,7 @@ therefore be handled carefully.
 
 ### Updating apps
 + Expo + React Native
-    + If OTA updates are enabled, then solely running `expo publish` in the
+    + If OTA updates are enabled, then solely running `exp publish` in the
       terminal will update apps on android and ios
       + Caveat: changing certain assets like splash screen and app icon require
         a new build
