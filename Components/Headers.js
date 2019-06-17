@@ -24,12 +24,18 @@ class SortMenu extends Component {
         onSelect = {this.handleSchemeChange}
         defaultIndex = {0}
         defaultValue = {"Hot"}
-        renderSeparator={() => <View /> }
+        renderSeparator = {() => <View /> }
+
         style = {{
-          padding: 20
-        }} 
+          paddingRight: 20
+        }}
+
         dropdownStyle = {{
           height: 35 * this.data.length
+        }}
+
+        textStyle = {{
+          paddingLeft: 50 // make hitting button easier
         }}
         showsVerticalScrollIndicator = {false}
       />
