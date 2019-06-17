@@ -2,25 +2,47 @@ import React, { Component } from 'react';
 import { Header, Left, Right, Body, Icon, View, Text } from 'native-base';
 import { TouchableWithoutFeedback, TouchableOpacity, Platform, StatusBar, StyleSheet } from 'react-native';
 import { inject, observer } from 'mobx-react';
-import DropdownMenu from 'react-native-dropdown-menu';
+import ModalDropdown from 'react-native-modal-dropdown';
 
-// header design for drawer navigators
-export const DrawerHeader = inject('store')(inject('userStore')(observer(
-class DrawerHeader extends Component {
+const SortMenu = inject('store')(inject('userStore')(observer(
+class SortMenu extends Component {
 
   constructor(props) {
     super(props)
-    this.data = [["Hot", "New", "Top"]]
+    this.data = ["Hot", "New", "Top"]
   }
+
+  handleSchemeChange = (idx) => {
+    this.props.userStore.setSortScheme(this.data[idx])
+    this.props.store.fetchPosts()
+  }
+
+  render() {
+    return(
+      <ModalDropdown
+        options = {this.data}
+        onSelect = {this.handleSchemeChange}
+        defaultIndex = {0}
+        defaultValue = {"Hot"}
+        renderSeparator={() => <View /> }
+        style = {{
+          padding: 20
+        }} 
+        dropdownStyle = {{
+          height: 35 * this.data.length
+        }}
+        showsVerticalScrollIndicator = {false}
+      />
+    )
+  }
+})))
+// header design for drawer navigators
+export const DrawerHeader = inject('store')(inject('userStore')(observer(
+class DrawerHeader extends Component {
   
   toggleMenu = () => {
     this.props.navigation.toggleDrawer();
   };
-
-  handleSchemeChange = function(scheme){
-    this.props.userStore.setSortScheme(scheme)
-    this.props.store.fetchPosts()
-  }
 
   render() {
     let title = this.props.title;
@@ -52,13 +74,7 @@ class DrawerHeader extends Component {
 
           <Right>
               {/* Sorting Dropdown -- only displayed on main screen*/}
-              {this.props.isMain && <DropdownMenu
-                bgColor={'lightskyblue'}
-                activityTintColor={'green'}
-                tintColor={'darkblue'}
-                handler={(selection, row) => this.handleSchemeChange(this.data[selection][row])}
-                data={this.data}
-              />}
+              {this.props.isMain && <SortMenu/>}
           </Right>
         </Header>
       </View>
